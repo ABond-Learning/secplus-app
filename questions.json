@@ -8856,7 +8856,7 @@
             "opts": [
               "Hire 50 additional security analysts immediately",
               "Implement SOAR to automate all security operations without any analysts",
-              "Engage an MSSP (Managed Security Service Provider) for 24/7 alert monitoring and initial triage, freeing the internal team to focus on incident response, policy, and strategic security work that requires organisational context. Simultaneously implement SOAR to automate repetitive response tasks, reducing the manual workload the MSSP and internal team handle",
+              "Engage an MSSP (Managed Security Service Provider) for 24/7 alert monitoring and initial triage, freeing the internal team to focus on incident response, policy, and strategic security work that requires organizational context. Simultaneously implement SOAR to automate repetitive response tasks, reducing the manual workload the MSSP and internal team handle",
               "Replace all 15 security tools with a single platform"
             ],
             "a": 2,
@@ -12568,7 +12568,7 @@
             "q": "An Acceptable Use Policy (AUP) must be:",
             "opts": [
               "Kept confidential from employees",
-              "Communicated to and signed by all employees — establishing permitted and prohibited uses of organisational technology",
+              "Communicated to and signed by all employees — establishing permitted and prohibited uses of organizational technology",
               "Written only for IT staff",
               "Updated daily"
             ],
@@ -12592,7 +12592,7 @@
             "q": "A new CISO joins a company and finds there is a detailed technical hardening guide for Windows servers, a firewall ruleset document, and a patch management schedule — but no overarching security policy signed by executive leadership. Technically, the controls are reasonable. What is missing and why does it matter?",
             "opts": [
               "Nothing is missing — the technical documents are sufficient",
-              "A formal security policy signed by executive leadership is missing. Without it: there is no statement of management intent and commitment (making security discretionary rather than mandatory), no legal basis for disciplinary action if employees violate security requirements, no foundation for the standards and procedures to derive their authority from, and auditors and regulators will flag the absence as a governance failure. Technical controls without policy backing are unanchored — they can be bypassed or ignored without consequence because there is no documented organisational requirement to follow them",
+              "A formal security policy signed by executive leadership is missing. Without it: there is no statement of management intent and commitment (making security discretionary rather than mandatory), no legal basis for disciplinary action if employees violate security requirements, no foundation for the standards and procedures to derive their authority from, and auditors and regulators will flag the absence as a governance failure. Technical controls without policy backing are unanchored — they can be bypassed or ignored without consequence because there is no documented organizational requirement to follow them",
               "The CISO should write an acceptable use policy first — that is the most critical missing document",
               "The technical documents constitute the policy — formalizing it would be redundant"
             ],
@@ -12619,7 +12619,7 @@
               "OT systems cannot be secured — this is an unavoidable risk"
             ],
             "a": 1,
-            "exp": "Policy scope and organisational coverage: security policy that covers only IT leaves other technology environments (OT, IoT, embedded systems) ungoverned. The ransomware lateral movement from IT to OT is a direct consequence of this governance gap — no policy meant no controls, no ownership, and no incident response procedures. Modern security governance must address the full technology estate, with OT-specific adaptations for availability-priority environments."
+            "exp": "Policy scope and organizational coverage: security policy that covers only IT leaves other technology environments (OT, IoT, embedded systems) ungoverned. The ransomware lateral movement from IT to OT is a direct consequence of this governance gap — no policy meant no controls, no ownership, and no incident response procedures. Modern security governance must address the full technology estate, with OT-specific adaptations for availability-priority environments."
           }
         ]
       },
@@ -12673,7 +12673,7 @@
           {
             "q": "PCI DSS and HIPAA are examples of:",
             "opts": [
-              "Internal organisational standards",
+              "Internal organizational standards",
               "External standards imposed by regulation — organizations in scope must comply or face penalties",
               "Optional best practice frameworks",
               "Security policies"
@@ -14328,7 +14328,7 @@
             "q": "Security awareness training should be completed by:",
             "opts": [
               "Only IT and security staff",
-              "All employees AND contractors and vendors who have access to organisational systems — everyone is a potential attack vector",
+              "All employees AND contractors and vendors who have access to organizational systems — everyone is a potential attack vector",
               "Only executives and managers",
               "Only staff who handle sensitive data"
             ],

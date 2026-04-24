@@ -25,7 +25,10 @@
 //
 // AMBIGUOUS CASES — see FLAG_ONLY rules at bottom. These are not auto-fixed.
 
-const ISE_SUFFIX = "(e|ed|es|ing|ation|ations|er|ers)";
+// Suffix family for -ise verbs and their derived nouns/adjectives.
+// "ational"/"ationally" cover the adjective forms (organisational, etc.) —
+// added after audit found 6 missed 'organisational' hits.
+const ISE_SUFFIX = "(e|ed|es|ing|ation|ations|ational|ationally|er|ers)";
 
 // Build an -ise rule for a stem (e.g. "authori" matches authorise/d/s/ing/ation/ations/er/ers).
 // No leading \b — that lets us catch prefixed forms (unauthorised, unsanitised,
