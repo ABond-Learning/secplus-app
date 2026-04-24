@@ -10,7 +10,7 @@ Last updated: 2026-04-24
 Task | State | Notes
 --- | --- | ---
 1a — Foundations + spelling pass | **complete, deployed** | All phases shipped. Live bundle verified clean.
-1b — Content generation | not started | Awaiting user go-ahead.
+1b — Content generation | **in progress** — Domain 1 scenarios complete (25/25). Next: Domain 5.
 2 — Mode consolidation | not started | Touches localStorage migration; see SCHEMA.md.
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
@@ -44,23 +44,35 @@ Task | State | Notes
 
 Both bugs were caught by external-source verification (live bundle grep), not just local validator runs. Live-bundle audits are worth doing after any future spelling-rule changes.
 
-## Task 1b — Content generation (next)
+## Task 1b — Content generation (in progress)
 
 Order: Domain 1 scenarios → Domain 5 → Domain 4 → Domain 2 BEST/MOST rewrites.
-Each batch: count + 3-5 sample questions + validator-clean confirmation, then user review.
+Each batch: count + all questions + validator-clean confirmation, then user review.
 
-- [ ] ~25 Domain 1 scenarios (currently zero).
-- [ ] ~80 Domain 5 items (50 MC + 30 scenarios), 2 batches of ~40.
+- [x] **25 Domain 1 scenarios (complete, committed `add6534`)**. 3 batches of 8/8/9, each user-reviewed before moving on. Distribution: 1.1 × 6, 1.2 × 6, 1.3 × 5, 1.4 × 8. Per-video breakdown: 1.1.1 × 6; 1.2.1-3 × 1 each, 1.2.5-7 × 1 each; 1.3.1 × 3, 1.3.2 × 2; 1.4.1-8 × 1 each. All citations verified against MESSER_VIDEOS.md. Validator remained at pre-batch baseline (722 issues, 0 errors, 12 warns) through all three batches. See "Domain 1 deferrals" below.
+- [ ] ~80 Domain 5 items (50 MC + 30 scenarios), 2 batches of ~40. **NEXT**.
 - [ ] ~65 Domain 4 items (40 MC + 25 scenarios), 2 batches.
 - [ ] 40 Domain 2 BEST/MOST rewrites (target: tighten recall-style stems into "BEST/MOST" framing per CLAUDE.md Quality Rule 6).
 - [ ] Final domain-weight audit vs CLAUDE.md targets (1: 12% / 2: 22% / 3: 18% / 4: 28% / 5: 20%).
-- [ ] Commit + Pages deploy.
+- [ ] Commit + Pages deploy per domain.
 
 All new content must:
-- Include `messerVideo` and `subObjective` fields (validator enforces — error severity for new items).
+- Include `messerVideo` (exact per MESSER_VIDEOS.md) and `subObjective` fields (validator enforces — error severity for new items).
 - Have `exp` ≥40 chars with reasoning.
 - Use American English (validator catches anything the spelling pass would have).
 - Pass the validator before commit.
+
+### Domain 1 deferrals
+
+- **§1.2.4 Gap Analysis — 0 scenarios (intentional)**. The video covers a narrow, definition-heavy topic already well served by 4 existing MCs. Scenario framing would be largely redundant with those MCs. The 6-scenario target for Domain 1.2 was met without it (CIA, Non-repudiation, AAA, Zero Trust, Physical Security, Deception and Disruption). If later review indicates Gap Analysis under-tests on practice exams, add 1-2 scenarios then — leave it alone for now.
+
+### Domain 1 batch applier scripts (retained for reproducibility)
+
+- `scripts/add-domain1-batch1.mjs` — 8 scenarios (1.1 × 2, 1.2 × 3, 1.3 × 2, 1.4 × 1)
+- `scripts/add-domain1-batch2.mjs` — 8 scenarios (1.1 × 2, 1.2 × 3, 1.3 × 1, 1.4 × 2)
+- `scripts/add-domain1-batch3.mjs` — 9 scenarios (1.1 × 2, 1.3 × 2, 1.4 × 5)
+
+All three are idempotent (skip on stem-prefix match). Safe to re-run during future audits.
 
 ## Task 2 — Mode consolidation (later)
 
