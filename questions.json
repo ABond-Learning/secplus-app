@@ -9829,12 +9829,11 @@
             "q": "A security team is performing a code review and finds the following in a Python Flask application: 'query = \"SELECT * FROM users WHERE id = \" + user_id' where user_id comes from a URL parameter. They also find the application displays full Python stack traces in the browser on errors, and the debug mode is set to True in production. Rank these three findings by severity.",
             "opts": [
               "Stack traces are most severe, debug mode is medium, SQL concatenation is low",
-              "All three are equal severity",
               "SQL injection via string concatenation is critical (allows database extraction or destruction); debug mode in production is high (enables the Werkzeug debugger which allows arbitrary code execution via the browser); verbose stack traces are medium (information disclosure revealing code structure, file paths, and library versions). Fix order: disable debug mode immediately (active RCE risk), fix SQL injection (use parameterised queries), then suppress error details in production responses",
               "Debug mode is most severe since it enables the REPL",
               "Stack traces are most severe since they reveal the entire codebase"
             ],
-            "a": 2,
+            "a": 1,
             "exp": "Severity ranking for web app findings: debug mode with Werkzeug in production is a critical RCE risk — the interactive debugger allows arbitrary Python execution from the browser. SQL injection is critical but requires the specific vulnerable endpoint to be reached. Stack traces are information disclosure (serious but not directly exploitable). The exam expects students to reason about relative severity and impact, not just identify vulnerability classes."
           }
         ]
