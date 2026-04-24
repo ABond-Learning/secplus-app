@@ -212,6 +212,86 @@
             "a": 1,
             "exp": "Directive controls instruct personnel on required behavior through policy."
           }
+        ],
+        "scenarios": [
+          {
+            "q": "A financial services firm is deploying new security tools after a recent breach. Leadership asks for a control that will STOP unauthorized database connections, not just notify staff after the fact. Which of the following BEST addresses this requirement?",
+            "opts": [
+              "A SIEM rule that alerts on anomalous database logins",
+              "Database activity monitoring with nightly exception reports",
+              "A network firewall rule that blocks the application subnet from reaching the database except via the API tier",
+              "A monthly access review of database service accounts"
+            ],
+            "a": 2,
+            "exp": "Leadership wants a control that prevents the activity before it happens — that is a preventive control. A firewall rule that blocks the forbidden network path prevents the connection itself. SIEM alerting and DAM reports are detective (they notice the activity after it starts), and access reviews are administrative/detective. Only the firewall rule stops the connection.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          },
+          {
+            "q": "A retailer's payment-processing terminals run an embedded OS that the vendor will not patch for six more months, even though a critical vulnerability was just disclosed. The terminals cannot be taken offline during the holiday season. Which control type BEST describes isolating those terminals on a dedicated VLAN with strict egress filtering until the patch arrives?",
+            "opts": [
+              "Preventive control",
+              "Detective control",
+              "Compensating control",
+              "Corrective control"
+            ],
+            "a": 2,
+            "exp": "A compensating control is an alternative safeguard used when the primary control (here, patching) cannot be applied. Isolating the vulnerable terminals on a restricted VLAN mitigates risk until the vendor patches. Preventive describes the patch itself once available; corrective is what you apply after an incident; detective only observes. CompTIA uses 'compensating' specifically for this stop-gap scenario.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          },
+          {
+            "q": "After a successful phishing campaign went undetected for several weeks, a company's audit team asks for a control whose PRIMARY purpose is to discover similar incidents sooner next time. Which implementation BEST fits that request?",
+            "opts": [
+              "A spam filter at the email gateway that quarantines suspected phishing messages before delivery",
+              "Quarterly user awareness training delivered to all staff on identifying phishing attempts",
+              "A SIEM use case that correlates suspicious inbox-rule creation with anomalous sign-in locations and alerts the SOC",
+              "A written security policy that prohibits clicking links in unsolicited external email"
+            ],
+            "a": 2,
+            "exp": "The audit team explicitly wants to discover similar events sooner — that is the definition of a detective control. A SIEM correlation rule that surfaces suspicious mailbox activity is detective. The spam filter is preventive (it blocks the message before delivery); awareness training is preventive/administrative (it reduces the chance of clicks); a written policy is directive. Only the SIEM rule is designed to detect incidents already underway.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          },
+          {
+            "q": "A newly hired security analyst is asked to classify the organization's controls by category for an upcoming audit. Which of the following is BEST described as a managerial control rather than a technical, operational, or physical control?",
+            "opts": [
+              "A Group Policy setting that enforces a 15-minute screen lock on all workstations",
+              "A written acceptable use policy reviewed and signed annually by all employees",
+              "A firewall rule set that blocks outbound traffic to known command-and-control IP addresses",
+              "A security guard who patrols the data center perimeter during overnight hours"
+            ],
+            "a": 1,
+            "exp": "Managerial (administrative) controls are documented decisions — policies, standards, procedures, risk management artifacts. A signed acceptable use policy is the classic example. The Group Policy screen-lock and the firewall rule are technical controls (enforced by technology). The perimeter guard is a physical control. Only the AUP belongs in the managerial category.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          },
+          {
+            "q": "A ransomware incident encrypted several user file shares before the SOC contained it. The immediate priority is to return the affected shares to service with minimal data loss. Which action is BEST described as a corrective control in this situation?",
+            "opts": [
+              "An intrusion detection system alert that originally notified the SOC of the ransomware activity",
+              "Restoring the encrypted shares from last night's verified immutable backup onto a rebuilt file server",
+              "The mandatory annual security awareness training attended by all staff earlier in the quarter",
+              "The firewall rule that blocks outbound SMB traffic from user workstation subnets"
+            ],
+            "a": 1,
+            "exp": "A corrective control acts after an incident to restore normal operation or reduce damage. Restoring encrypted shares from a verified backup is a textbook corrective action. The IDS alert is detective — it identified the incident but did not correct it. The awareness training and outbound SMB firewall rule are both preventive. Only the restore actively reverses damage that has already occurred.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          },
+          {
+            "q": "A facilities manager asks the security team to recommend a low-cost addition to the parking lot and building perimeter that will discourage casual trespassers without relying on active monitoring or physically blocking access. Which recommendation BEST describes a deterrent control?",
+            "opts": [
+              "Motion-activated floodlights paired with clearly visible signage stating the area is under video surveillance",
+              "A biometric palm reader on the employee entrance door that is the only sanctioned way to enter the building",
+              "A line of concrete bollards installed along the frontage to block unauthorized vehicles from approaching the entrance",
+              "An SOC analyst assigned to watch the parking-lot camera feeds continuously on a 24/7 rotation"
+            ],
+            "a": 0,
+            "exp": "Deterrent controls discourage bad behavior by signaling consequences, rather than physically blocking, detecting, or responding. Floodlights and visible surveillance signage are classic deterrents — they make a would-be trespasser choose a softer target without ever touching the attacker. A biometric door lock is preventive (it actually stops entry). Concrete bollards are physical/preventive. A 24/7 camera analyst is detective. Only the signage + lighting combination is primarily a deterrent.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          }
         ]
       }
     ]
@@ -372,6 +452,21 @@
             "a": 1,
             "exp": "Hashing verifies data hasn't changed — any modification produces a different hash, protecting integrity."
           }
+        ],
+        "scenarios": [
+          {
+            "q": "An energy utility's control engineers notice that a field device is reporting sensor readings that drift several seconds out of sync with reality. Attackers appear to be altering the values in transit between the device and the SCADA server. Which pillar of the CIA triad is MOST directly under attack?",
+            "opts": [
+              "Confidentiality of the sensor readings in transit",
+              "Integrity of the sensor readings in transit",
+              "Availability of the sensor readings at the SCADA server",
+              "Non-repudiation of the field device's submissions"
+            ],
+            "a": 1,
+            "exp": "Tampering with sensor readings in transit violates integrity — the receiving system trusts data that no longer reflects what the device actually sent. Confidentiality is about secrecy (reading data), availability is about reachability (data arriving at all), and non-repudiation is about proving who sent a message (and is not a CIA pillar). Integrity is the most direct answer here.",
+            "messerVideo": "1.2 - The CIA Triad",
+            "subObjective": "1.2"
+          }
         ]
       },
       {
@@ -510,6 +605,21 @@
             ],
             "a": 1,
             "exp": "S/MIME applies digital signatures to emails — binding the sender's identity to the message cryptographically."
+          }
+        ],
+        "scenarios": [
+          {
+            "q": "A purchasing manager claims they never approved a $40,000 wire transfer, even though the workflow shows their account signed off. The security team must determine whether the approval can be definitively tied to the manager and not just anyone with their password. Which control provides the STRONGEST non-repudiation?",
+            "opts": [
+              "Username and password audit logging in the application",
+              "Time-stamped server logs forwarded to a central SIEM",
+              "A digital signature applied with the manager's private key stored on a hardware token",
+              "A scanned image of the manager's handwritten signature attached to the approval PDF"
+            ],
+            "a": 2,
+            "exp": "Non-repudiation requires cryptographic evidence that only the private key holder could have produced. A hardware-token-backed digital signature binds the action to the physical device, not just the account — passwords alone can be stolen. Server logs and audit trails are evidence but can be undermined by credential theft; scanned handwritten signatures are trivially copyable and provide no cryptographic binding.",
+            "messerVideo": "1.2 - Non-repudiation",
+            "subObjective": "1.2"
           }
         ]
       },
@@ -672,6 +782,21 @@
             ],
             "a": 1,
             "exp": "PIN and password are both knowledge factors — using two of the same factor type is NOT MFA."
+          }
+        ],
+        "scenarios": [
+          {
+            "q": "A helpdesk technician successfully logs into a ticketing platform with their corporate SSO credentials, but when they try to reassign a ticket to the system administrator group, the platform returns 'access denied.' Which stage of AAA is blocking the action?",
+            "opts": [
+              "Authentication, because the credentials were invalid",
+              "Authorization, because the user's role lacks the required permission",
+              "Accounting, because the action was not logged successfully",
+              "Identification, because the username could not be resolved"
+            ],
+            "a": 1,
+            "exp": "Logging in succeeded, so authentication passed. What failed is authorization — the stage that checks whether the authenticated identity is permitted to perform the requested action. Accounting is the audit/logging step and does not block actions; identification (resolving the username) is part of the authentication stage, not a separate block on action.",
+            "messerVideo": "1.2 - Authentication, Authorization, and Accounting",
+            "subObjective": "1.2"
           }
         ]
       },
@@ -880,6 +1005,21 @@
             "a": 1,
             "exp": "Zero Trust continuously evaluates device health, user behavior, and context — not just at initial authentication."
           }
+        ],
+        "scenarios": [
+          {
+            "q": "A company is moving away from a legacy 'castle-and-moat' VPN model in which authenticated users gain broad access to the internal network. The security team is implementing a zero trust architecture. Which change BEST reflects a zero trust principle?",
+            "opts": [
+              "Expanding the VPN concentrator capacity so more remote users can authenticate simultaneously at peak times",
+              "Requiring per-application access decisions that evaluate identity, device posture, and request context on every request",
+              "Extending the internal VLAN reach into every branch office so users have the same flat network experience everywhere",
+              "Reducing the number of firewall rules by trusting all traffic that originates inside the corporate WAN"
+            ],
+            "a": 1,
+            "exp": "Zero trust replaces implicit network-location trust with explicit per-request verification of identity, device posture, and context. Making access decisions at each request, per application, is the core zero trust pattern. Expanding VPN capacity perpetuates the old implicit-trust model; extending a flat VLAN and trusting internal WAN traffic move in the opposite direction by enlarging the trust zone.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
+          }
         ]
       },
       {
@@ -997,6 +1137,21 @@
             "a": 2,
             "exp": "Lighting deters intruders and improves camera footage — primarily a deterrent control."
           }
+        ],
+        "scenarios": [
+          {
+            "q": "A regional office stores backup tapes for the primary data center. Management requires three things: only authorized staff may enter the tape vault, unauthorized entries must generate an alert, and the organization must be able to identify who entered after the fact. Which combination of physical controls BEST satisfies all three requirements?",
+            "opts": [
+              "A single pin-pad entry using a shared numeric code that is rotated quarterly among staff",
+              "A badged card reader plus an interior motion sensor alarm, with card-reader logs retained for 90 days",
+              "A padlock and key, with the key held by the facilities manager and signed out as needed",
+              "A visitor sign-in sheet at the lobby desk that all visitors complete before proceeding to the vault"
+            ],
+            "a": 1,
+            "exp": "The requirements demand authentication (who), alerting (detection), and attribution (records). A badged card reader authenticates individuals and logs entries for attribution; an interior motion sensor alarms on unauthorized entry. A shared pin-pad code defeats attribution because everyone uses the same code. A padlock has no detection or individual logging. A lobby sign-in sheet neither protects the vault nor reliably attributes entries. Only option B satisfies all three needs.",
+            "messerVideo": "1.2 - Physical Security",
+            "subObjective": "1.2"
+          }
         ]
       },
       {
@@ -1109,6 +1264,21 @@
             ],
             "a": 1,
             "exp": "Internal honeytokens detect lateral movement — an attacker accessing them reveals they are inside."
+          }
+        ],
+        "scenarios": [
+          {
+            "q": "An SOC lead wants earlier warning when attackers who have already bypassed the perimeter begin exploring the internal network. Budget is tight and there is no room for large new infrastructure. Which deception technique BEST fits these constraints while producing a high-confidence alert?",
+            "opts": [
+              "Deploying a full-scale honeynet that mirrors the production environment for attackers to explore",
+              "Seeding the environment with honeytokens — plausible but unused credentials, files, and API keys that alert when accessed",
+              "Adding an additional next-generation firewall in front of existing NGFWs for deeper defense in depth",
+              "Publishing the company's internal IP ranges to an external threat feed to mislead attackers during reconnaissance"
+            ],
+            "a": 1,
+            "exp": "Honeytokens are deliberately planted bait artifacts — unused credentials, fake API keys, decoy files — that generate high-confidence alerts because no legitimate user has any reason to touch them. They are extremely low cost to deploy. A full honeynet provides richer data but exceeds the stated budget and infrastructure constraints. Adding another firewall is defense in depth, not deception. Publishing internal IP ranges externally is neither standard practice nor helpful.",
+            "messerVideo": "1.2 - Deception and Disruption",
+            "subObjective": "1.2"
           }
         ]
       }
@@ -1251,6 +1421,47 @@
             "a": 1,
             "exp": "Unauthorized changes bypass review processes and can introduce vulnerabilities, outages, or compliance violations."
           }
+        ],
+        "scenarios": [
+          {
+            "q": "A web application team needs to deploy a security patch within two hours to address an actively exploited zero-day. Which change management path BEST fits this situation while still preserving governance?",
+            "opts": [
+              "Standard change with full CAB review scheduled for next week",
+              "Emergency change with post-implementation CAB review",
+              "Skip change management entirely because it is a security issue",
+              "Normal change with the usual 48-hour stakeholder notification period"
+            ],
+            "a": 1,
+            "exp": "Emergency changes are a recognized category specifically for urgent fixes that cannot wait for the normal CAB cadence. They still require governance, but the CAB review happens after implementation rather than before. Skipping change management abandons oversight, and standard or normal changes follow a slower pre-approval cadence that cannot meet a two-hour window.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
+          },
+          {
+            "q": "A proposed change will replace the authentication provider used by the company's core financial application. The change advisory board meets tomorrow. Which group is MOST critical to include in the impact analysis for this change?",
+            "opts": [
+              "The HR department alone, because authentication ultimately affects employee access",
+              "The finance team that owns the application, the identity team that owns the auth provider, and the owners of any downstream systems integrated via SSO",
+              "The facilities team alone, because physical access decisions are related to authentication",
+              "The desktop support team alone, because they will field any user help tickets that result from the change"
+            ],
+            "a": 1,
+            "exp": "Change impact analysis must cover the application owner, the platform owner of the component being changed, and downstream integrations that could break. The finance application owners, identity team, and SSO-integrated system teams together represent all three categories. Any single team by itself — HR, facilities, or desktop support — misses critical stakeholder scope, and narrow stakeholder scoping is one of the most common causes of botched changes.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
+          },
+          {
+            "q": "A mid-sized organization's change advisory board keeps rejecting proposed changes because they arrive without documented test results from a staging environment. One team pushes back, arguing that their change is 'too small to bother testing.' Which response BEST aligns with sound change management practice?",
+            "opts": [
+              "Accept the team's assessment because small changes statistically rarely cause production problems",
+              "Require documented test results regardless of change size, because the CAB cannot assess risk without evidence that the change actually worked in a non-production environment",
+              "Carve out a standing exemption so changes the team self-classifies as small can bypass the CAB entirely",
+              "Move the change straight to production so its outcome can be observed in the real environment and rolled back if needed"
+            ],
+            "a": 1,
+            "exp": "Test results are a required input to the CAB's risk decision — without them, the board is guessing. 'Too small to test' is exactly the category of change that tends to cause outages because risk is assumed away rather than evaluated. Accepting the team's claim, carving out a self-classified bypass, or skipping straight to production all remove the evidence that the change process depends on. Requiring documented test results for every change preserves the governance contract.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
+          }
         ]
       },
       {
@@ -1367,6 +1578,34 @@
             ],
             "a": 1,
             "exp": "Immutable infrastructure replaces systems rather than patching them in place — eliminating configuration drift."
+          }
+        ],
+        "scenarios": [
+          {
+            "q": "A database administrator is about to apply a complex schema migration to a production system during the approved maintenance window. Which element is MOST critical to include in the technical change plan before work begins?",
+            "opts": [
+              "A color-coded Gantt chart of all recent database changes this quarter",
+              "A documented backout plan with rollback steps that have been tested in a non-production environment",
+              "A post-implementation screenshot of the updated schema for audit records",
+              "A list of all developers who have accessed the database in the past 90 days"
+            ],
+            "a": 1,
+            "exp": "A tested rollback plan is the single most critical technical artifact for a complex change — without it, a failed migration can leave production in an unrecoverable state. Gantt charts and developer access lists are supporting governance artifacts, not recovery tools. Post-implementation screenshots document what happened but do not help if the change must be reversed mid-window.",
+            "messerVideo": "1.3 - Technical Change Management",
+            "subObjective": "1.3"
+          },
+          {
+            "q": "A DevOps team needs to update a shared TLS cipher configuration across 200 web servers. They propose applying the change through their version-controlled configuration management system, with every change tracked as a reviewed pull request. Which statement BEST describes the advantage of this approach over ad-hoc changes made directly on each server?",
+            "opts": [
+              "It eliminates the need for a documented backout plan, because version control itself can always roll a change back cleanly",
+              "It provides an auditable history of configuration changes, consistent application across every server, and a reviewable diff before the change is applied",
+              "It removes the need for a change advisory board review, because the changes are delivered through automation rather than by hand",
+              "It allows the team to bypass the organization's normal maintenance window requirements, because automated changes are low risk"
+            ],
+            "a": 1,
+            "exp": "Version-controlled configuration management delivers three concrete properties for technical change management: an auditable change history (who changed what, when), consistent application across all servers (no snowflake hosts), and a reviewable diff before the change merges. It does not replace a tested backout plan, CAB review, or maintenance windows — those governance and recovery requirements remain regardless of the delivery mechanism. Option B captures the real advantages without overstating them.",
+            "messerVideo": "1.3 - Technical Change Management",
+            "subObjective": "1.3"
           }
         ]
       }
@@ -1525,6 +1764,21 @@
             "a": 2,
             "exp": "RSA is asymmetric (public/private key pair). AES, 3DES, and ChaCha20 are all symmetric algorithms."
           }
+        ],
+        "scenarios": [
+          {
+            "q": "A browser shows a certificate warning when users visit a new internal web portal, even though the certificate was issued by the company's internal CA and is not expired. The CA's root certificate has not yet been distributed to user devices. What is the MOST likely cause of the warning?",
+            "opts": [
+              "The server certificate has expired and needs to be reissued",
+              "The browser does not trust the issuing CA because its root certificate is not in the device's trust store",
+              "The certificate was issued with the wrong common name for the portal hostname",
+              "The web server is negotiating a weak cipher suite that the browser rejects"
+            ],
+            "a": 1,
+            "exp": "PKI trust flows from the client's local root store. An internal CA's root certificate must be pushed to each device (via GPO, MDM, or manual install) before browsers will trust the certificates it issues — otherwise every chain terminates in an unknown root and the browser warns. Expiry, wrong common name, and weak ciphers all produce more specific error messages than the generic untrusted-issuer warning described here.",
+            "messerVideo": "1.4 - Public Key Infrastructure",
+            "subObjective": "1.4"
+          }
         ]
       },
       {
@@ -1653,6 +1907,21 @@
             "a": 1,
             "exp": "TLS (Transport Layer Security) replaced SSL and is the standard for encrypting web traffic — HTTPS uses TLS."
           }
+        ],
+        "scenarios": [
+          {
+            "q": "A compliance auditor reviews a database holding patient records. The database resides on an encrypted volume, but the auditor flags a concern about data protection during backup replication to an offsite site over the public Internet. Which protection MOST directly addresses the auditor's concern?",
+            "opts": [
+              "Increasing the complexity and rotation frequency of the database administrator's password",
+              "Enabling TLS for the replication connection so that data is encrypted in transit between the primary and the offsite site",
+              "Rotating the volume-level encryption key on the primary database server every month",
+              "Adding row-level access controls inside the database so only specific roles can read patient records"
+            ],
+            "a": 1,
+            "exp": "The auditor's concern is specifically about replication traffic traversing the public Internet — that is a data-in-transit problem, not a data-at-rest problem. The encrypted volume and any at-rest key rotation protect the disk where the data lives, not the wire between sites. Row-level access controls enforce authorization, not confidentiality on the network. TLS on the replication connection encrypts the data as it moves between sites, which is exactly what the auditor flagged.",
+            "messerVideo": "1.4 - Encrypting Data",
+            "subObjective": "1.4"
+          }
         ]
       },
       {
@@ -1747,6 +2016,21 @@
             "a": 2,
             "exp": "DHE = Diffie-Hellman Ephemeral. 'Ephemeral' means a new key pair is generated for each session — enabling PFS."
           }
+        ],
+        "scenarios": [
+          {
+            "q": "Two systems need to establish a shared symmetric session key to encrypt a large data transfer. Their only communication path is the public Internet and they have never pre-shared any secret. Which cryptographic technique BEST solves this key establishment problem?",
+            "opts": [
+              "Agreeing in advance that both endpoints will use the same symmetric algorithm, such as AES-256 in GCM mode",
+              "An ephemeral Diffie-Hellman (or ECDHE) key exchange, which lets each side compute the same shared secret without ever transmitting it over the wire",
+              "Each side independently hashing a fixed shared password with SHA-256 and using the resulting digest as the session key",
+              "The sender encrypting a randomly chosen session key with a pre-shared password and emailing it to the recipient before the transfer begins"
+            ],
+            "a": 1,
+            "exp": "Diffie-Hellman (and its elliptic-curve variant ECDHE) lets two parties derive the same shared secret over a public channel without ever transmitting the secret — which is exactly the situation described. Agreeing on an algorithm like AES-256 is not a key exchange. Hashing a shared password assumes a pre-shared secret, which the scenario explicitly rules out. Emailing a password-wrapped key also assumes a pre-shared password and exposes the key to anyone who intercepts the email and guesses that password.",
+            "messerVideo": "1.4 - Key Exchange",
+            "subObjective": "1.4"
+          }
         ]
       },
       {
@@ -1840,6 +2124,21 @@
             ],
             "a": 2,
             "exp": "HSMs are the gold standard for enterprise key protection — tamper-resistant, high-performance, with strict access controls."
+          }
+        ],
+        "scenarios": [
+          {
+            "q": "A financial company must store the root signing key for its internal certificate authority in such a way that the key can still be used for signing operations but cannot be extracted, even by a privileged administrator with full access to the host server. Which technology BEST meets this requirement?",
+            "opts": [
+              "A software-encrypted key file on the CA server, protected by a strong administrative passphrase that only trusted staff know",
+              "A hardware security module (HSM) that stores the key in tamper-resistant hardware and exposes only signing operations to the CA, never the key material itself",
+              "A TPM-sealed key file tied to the boot state of the CA server, so the key is only accessible when the expected boot environment is measured",
+              "A Windows DPAPI-protected blob stored in the CA service account's user profile, automatically unlocked when the service logs on"
+            ],
+            "a": 1,
+            "exp": "A hardware security module stores cryptographic keys in tamper-resistant hardware and exposes only operations (sign, encrypt, decrypt), not the key material — privileged administrators of the host cannot extract the key. Software-encrypted key files and DPAPI blobs are ultimately only as strong as the administrator account that protects them. A TPM-sealed file provides strong platform binding but is designed for boot-state attestation, not non-extractable custody of a CA root key that must survive hardware refresh and remain usable by the CA.",
+            "messerVideo": "1.4 - Encryption Technologies",
+            "subObjective": "1.4"
           }
         ]
       },
@@ -1938,6 +2237,21 @@
             ],
             "a": 1,
             "exp": "Encryption makes the message unreadable. Steganography hides the fact that a message exists at all."
+          }
+        ],
+        "scenarios": [
+          {
+            "q": "A developer needs to share a production database snapshot with an offshore analytics vendor so the vendor can tune query performance. Real customer names and Social Security numbers cannot leave the production environment, but the column structure and realistic-looking data distributions must be preserved so that query plans behave the same way as in production. Which technique BEST fits this need?",
+            "opts": [
+              "Full-disk encryption applied to the exported snapshot file before it is handed off to the vendor",
+              "Data masking that replaces sensitive fields with realistic but fictional values while preserving the column schema, data types, and distributions",
+              "Hashing every sensitive field with SHA-256 before export so that the original values are irreversible on the vendor side",
+              "Compressing and password-protecting the snapshot archive with a strong passphrase shared out of band with the vendor"
+            ],
+            "a": 1,
+            "exp": "Data masking replaces sensitive values with realistic-but-fictional substitutes while preserving column types, formats, and distributions — the vendor sees data that behaves like production for query-plan purposes without exposing any real customer. Encryption and password-protected archives only hide data in transit or at rest; once decrypted, the real PII is visible again. Hashing destroys distributions and is still vulnerable to dictionary attacks on low-entropy fields like Social Security numbers.",
+            "messerVideo": "1.4 - Obfuscation",
+            "subObjective": "1.4"
           }
         ]
       },
@@ -2071,6 +2385,21 @@
             "a": 1,
             "exp": "Digital signing: hash the message → encrypt the hash with your private key. Verification: decrypt with public key → compare hashes."
           }
+        ],
+        "scenarios": [
+          {
+            "q": "A software vendor publishes an installer along with a SHA-256 hash posted on the same download page. A customer wants assurance not only that the installer has not been altered in transit, but also that it actually came from the vendor and not from an attacker who compromised the download page. Which additional artifact BEST provides that assurance?",
+            "opts": [
+              "A second SHA-256 hash of the installer posted to a different section of the same vendor website",
+              "A digital signature on the installer that can be verified against the vendor's public certificate obtained from a trusted source",
+              "A larger hash algorithm such as SHA-512 used in place of SHA-256 for the published hash value",
+              "A password-protected ZIP archive wrapping the installer, with the password emailed separately to registered customers"
+            ],
+            "a": 1,
+            "exp": "A hash alone proves integrity only if the hash source itself is trustworthy — if the attacker can modify the installer on the page, they can replace the posted hash too. A digital signature binds the file to the signer's private key, and verifying it against a public certificate obtained from a trusted source (CA chain or pre-installed trust store) establishes both integrity and authenticity. A stronger hash algorithm has the same provenance weakness; a password-protected ZIP does not prove the signer's identity.",
+            "messerVideo": "1.4 - Hashing and Digital Signatures",
+            "subObjective": "1.4"
+          }
         ]
       },
       {
@@ -2153,6 +2482,21 @@
             ],
             "a": 1,
             "exp": "Blockchain's cryptographic chaining provides strong integrity — records cannot be altered undetected."
+          }
+        ],
+        "scenarios": [
+          {
+            "q": "A consortium of shipping suppliers wants a shared ledger that records each parcel's custody transfers between companies. Any participant must be able to read the full ledger, no single participant should be able to retroactively alter past entries without detection, and there is no central authority to control the system. Which technology BEST fits these requirements?",
+            "opts": [
+              "A shared SQL database hosted in the data center of the largest consortium member, with read-write accounts issued to the other members",
+              "A distributed blockchain ledger in which each block is cryptographically chained to the previous block and replicated across participating nodes",
+              "A centralized document management system where every supplier is granted read-write access to a single shared folder of custody records",
+              "A shared SFTP folder where each supplier uploads a digitally signed CSV of its custody transfers at the end of each business day"
+            ],
+            "a": 1,
+            "exp": "A distributed blockchain ledger provides all three properties the scenario explicitly requires: tamper evidence (each block is hashed and chained to the previous one, so altering a past entry invalidates every subsequent hash), shared readability across all participants, and no single controlling authority. A central SQL database or document system concentrates trust in one participant. A shared SFTP folder of signed CSVs provides integrity per file but allows silent rewrites of history and does not produce a single consortium-visible ordered ledger.",
+            "messerVideo": "1.4 - Blockchain Technology",
+            "subObjective": "1.4"
           }
         ]
       },
@@ -2317,6 +2661,21 @@
             ],
             "a": 1,
             "exp": "OCSP stapling has the server provide the pre-fetched OCSP response during the handshake — no extra round trip for the client."
+          }
+        ],
+        "scenarios": [
+          {
+            "q": "A private key for a production web server's TLS certificate was accidentally committed to a public code repository and briefly indexed by a search engine. The team has already removed the file and reissued a new certificate bound to a new key pair. Which action is MOST important to complete to protect users who may still encounter the old certificate in caches or from attackers replaying it?",
+            "opts": [
+              "Rotate the server's administrative SSH key pair used by the operations team to log into the host",
+              "Submit the compromised certificate to the issuing CA for revocation and ensure the revocation is published through both CRL and OCSP",
+              "Rename the old certificate and key files on the server's file system so that Apache or nginx cannot accidentally load them again",
+              "Send an email to all customers asking them to clear their browser caches and restart their devices before visiting the site again"
+            ],
+            "a": 1,
+            "exp": "Once a private key has been exposed publicly, the compromised certificate must be revoked through the issuing CA so that clients performing CRL or OCSP checks see the certificate as invalid — otherwise an attacker holding the leaked key can still impersonate the server to clients that trust the cert. Rotating SSH keys addresses an unrelated credential. Renaming files on the server does not reach any external client. Asking customers to clear caches is neither reliable nor scalable and is not a certificate lifecycle control.",
+            "messerVideo": "1.4 - Certificates",
+            "subObjective": "1.4"
           }
         ]
       }
