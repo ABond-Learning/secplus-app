@@ -10,8 +10,8 @@ Last updated: 2026-04-25
 Task | State | Notes
 --- | --- | ---
 1a — Foundations + spelling pass | **complete, deployed** | All phases shipped. Live bundle verified clean.
-1.5 — Cross-device sync via private Gist | **complete, deployed** | Backup polish + sync engine + sync UI all live. Real-device sync verified across two browser profiles 2026-04-25.
-1b — Content generation | **in progress** — Domain 1 scenarios complete (25/25). **Resuming with Domain 5 next.**
+1.5 — Cross-device sync via private Gist | **complete, deployed, verified on 3 devices** | Backup polish + sync engine + sync UI all live. Real-device sync verified across 3 of Aiden's devices post-deploy (joining-device guard holds; bidirectional sync works).
+1b — Content generation | **in progress** — Domain 1 scenarios (25/25) and Domain 5 Batches 1-3 (61/78 items) committed. **Batch 4 drafted but unreviewed** — see `scripts/add-domain5-batch4.mjs`.
 2 — Mode consolidation | not started | Touches localStorage migration; see SCHEMA.md. Will need a `schemaVersion` bump in the sync engine if payload shape changes.
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
@@ -51,7 +51,11 @@ Order: Domain 1 scenarios → Domain 5 → Domain 4 → Domain 2 BEST/MOST rewri
 Each batch: count + all questions + validator-clean confirmation, then user review.
 
 - [x] **25 Domain 1 scenarios (complete, committed `add6534`)**. 3 batches of 8/8/9, each user-reviewed before moving on. Distribution: 1.1 × 6, 1.2 × 6, 1.3 × 5, 1.4 × 8. Per-video breakdown: 1.1.1 × 6; 1.2.1-3 × 1 each, 1.2.5-7 × 1 each; 1.3.1 × 3, 1.3.2 × 2; 1.4.1-8 × 1 each. All citations verified against MESSER_VIDEOS.md. Validator remained at pre-batch baseline (722 issues, 0 errors, 12 warns) through all three batches. See "Domain 1 deferrals" below.
-- [ ] ~80 Domain 5 items (50 MC + 30 scenarios), 2 batches of ~40. **NEXT**.
+- [x] **Domain 5 Batches 1-3 committed (61 items)**. Rebalanced target +60 MC / +18 scenarios (correcting Domain 5's high scenario ratio) split into 4 mixed batches.
+  - `77a5206` — Batch 1: 14 MC + 6 scen across §5.1 + §5.2.
+  - `062781c` — Batch 2: 17 MC + 4 scen across §5.3 + §5.4.
+  - `3f40fc1` — Batch 3: 12 MC + 8 scen across §5.5 + §5.6.
+- [ ] **Domain 5 Batch 4 — drafted but unreviewed**. 17 MCs (the fill batch — no scenarios since target hit at 60/60 after Batch 3). Ready to apply via `scripts/add-domain5-batch4.mjs` once Aiden reviews. Items: §5.1 × 6 + §5.2 × 7 + §5.5 × 2 + §5.6 × 2.
 - [ ] ~65 Domain 4 items (40 MC + 25 scenarios), 2 batches.
 - [ ] 40 Domain 2 BEST/MOST rewrites (target: tighten recall-style stems into "BEST/MOST" framing per CLAUDE.md Quality Rule 6).
 - [ ] Final domain-weight audit vs CLAUDE.md targets (1: 12% / 2: 22% / 3: 18% / 4: 28% / 5: 20%).
@@ -73,7 +77,14 @@ All new content must:
 - `scripts/add-domain1-batch2.mjs` — 8 scenarios (1.1 × 2, 1.2 × 3, 1.3 × 1, 1.4 × 2)
 - `scripts/add-domain1-batch3.mjs` — 9 scenarios (1.1 × 2, 1.3 × 2, 1.4 × 5)
 
-All three are idempotent (skip on stem-prefix match). Safe to re-run during future audits.
+### Domain 5 batch applier scripts
+
+- `scripts/add-domain5-batch1.mjs` — 14 MC + 6 scen across §5.1.1–§5.1.5 and §5.2.1–§5.2.4 (committed `77a5206`).
+- `scripts/add-domain5-batch2.mjs` — 17 MC + 4 scen across §5.3.1, §5.3.2, §5.4.1, §5.4.2 (committed `062781c`).
+- `scripts/add-domain5-batch3.mjs` — 12 MC + 8 scen across §5.5.1, §5.5.2, §5.6.1, §5.6.2 (committed `3f40fc1`).
+- `scripts/add-domain5-batch4.mjs` — **drafted, untracked, awaiting Aiden's review.** 17 MCs to close the +60 MC target. Per-video: 5.1.1 ×1, 5.1.2 ×1, 5.1.3 ×1, 5.1.4 ×2, 5.1.5 ×1, 5.2.1 ×2, 5.2.2 ×2, 5.2.3 ×2, 5.2.4 ×1, 5.5.1 ×1, 5.5.2 ×1, 5.6.1 ×1, 5.6.2 ×1. Topics include guidelines-vs-procedures, defense-in-depth recognition, regulation-to-data-type mapping, data classification levels, inherent-vs-residual risk (scenario-applied), risk appetite vs tolerance, KRIs leading vs lagging, MTBF vs MTTR, SOC 1/2/3 audience matching, SAST/DAST/IAST, phishing repeat-offender metric, JIT training trigger pattern. Validator was 0 errors when last applied dry-run.
+
+All Domain 5 scripts are idempotent (skip on stem-prefix match). Safe to re-run.
 
 ## Task 1.5 — Cross-device sync via private GitHub Gist (complete, deployed)
 
