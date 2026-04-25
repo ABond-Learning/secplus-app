@@ -10,8 +10,8 @@ Last updated: 2026-04-25
 Task | State | Notes
 --- | --- | ---
 1a — Foundations + spelling pass | **complete, deployed** | All phases shipped. Live bundle verified clean.
-1b — Content generation | **in progress** — Domain 1 scenarios complete (25/25). Next: Domain 5.
-1.5 — Cross-device sync via private Gist | **planned, awaiting approval to start 1.5a** | 3 sub-batches: backup polish → sync engine → sync UI. Inserted ahead of Task 2 so progress sync exists before mode-consolidation localStorage migration.
+1.5 — Cross-device sync via private Gist | **complete, deployed** | Backup polish + sync engine + sync UI all live. Real-device sync verified across two browser profiles 2026-04-25.
+1b — Content generation | **in progress** — Domain 1 scenarios complete (25/25). **Resuming with Domain 5 next.**
 2 — Mode consolidation | not started | Touches localStorage migration; see SCHEMA.md. Will need a `schemaVersion` bump in the sync engine if payload shape changes.
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
@@ -75,7 +75,31 @@ All new content must:
 
 All three are idempotent (skip on stem-prefix match). Safe to re-run during future audits.
 
-## Task 1.5 — Cross-device sync via private GitHub Gist (planned)
+## Task 1.5 — Cross-device sync via private GitHub Gist (complete, deployed)
+
+**Shipped 2026-04-25** across three commits with per-batch user review and real-device verification:
+
+- `39012e7` — 1.5a: prominent header Backup button, `secplus-backup-YYYY-MM-DD.json` filename, `secplus-last-backup-at` stamp, weekly reminder banner.
+- `4ddddd4` — 1.5b: sync engine (`src/sync/sync-engine.js`, ~590 LOC), 34 tests including 5 two-engine integration scenarios. **Includes the joining-device guard**, added in response to a real-device bug (2026-04-25): on a second device's first `setConfig`, the React app's first-mount DEFAULT_STORE write was being stamped with "now" and silently overwriting the cloud. Guard detects "first sync + local has tracked keys + remote has tracked keys" and adopts cloud state without pushing.
+- `a05b762` — 1.5c: Sync settings UI (`src/sync/SyncSettings.jsx`), header status pill, footer link, reload-after-setConfig, force pull/push with confirmation dialogs.
+
+Real-device verification: two-browser-profile round-trip + joining-device test passed under the deployed UI. Aiden will do additional real-device testing on phone(s) outside-session; bugs found there will be follow-up commits.
+
+### Engine summary (canonical reference: `src/sync/sync-engine.js` and SCHEMA.md "Cross-device sync")
+
+- `TRACKED_PREFIXES = ["mc-", "scen-", "match-", "secplus-"]`
+- `LOCAL_ONLY` (deny-list, overrides allow-list):
+  - prefix `"secplus-sync-"` — PAT, Gist ID, sync metadata
+  - exact `"secplus-last-backup-at"` — per-device backup timestamp
+  - exact `"secplus-backup-banner-snooze-until"` — per-device snooze
+- Gist payload `schemaVersion: 1` — bump only if payload shape changes (Task 2's mode consolidation does NOT necessarily trigger one).
+- Per-key latest-timestamp-wins merge with local-wins tie-break.
+- 5 s debounce, 2 s scanner, ETag pulls, retry backoff `5s → 15s → 60s → 300s → 600s`, 401/403/404 → permanent stop.
+- Joining-device guard: first `setConfig` with both local and remote populated → adopt remote, do not push.
+- DevTools handle: `window.__secplusSync` exposes the full API.
+
+### Original design (kept for reference)
+
 
 Goal: keep SM-2 progress, watched-video state, and other app data in step
 across the user's three devices, using a per-user PAT against a single
