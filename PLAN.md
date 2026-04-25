@@ -3,7 +3,7 @@
 Single source of truth for in-flight work. Update as state changes.
 See CLAUDE.md for the underlying 3-task plan and quality rules.
 
-Last updated: 2026-04-24
+Last updated: 2026-04-25
 
 ## Status snapshot
 
@@ -11,7 +11,8 @@ Task | State | Notes
 --- | --- | ---
 1a — Foundations + spelling pass | **complete, deployed** | All phases shipped. Live bundle verified clean.
 1b — Content generation | **in progress** — Domain 1 scenarios complete (25/25). Next: Domain 5.
-2 — Mode consolidation | not started | Touches localStorage migration; see SCHEMA.md.
+1.5 — Cross-device sync via private Gist | **planned, awaiting approval to start 1.5a** | 3 sub-batches: backup polish → sync engine → sync UI. Inserted ahead of Task 2 so progress sync exists before mode-consolidation localStorage migration.
+2 — Mode consolidation | not started | Touches localStorage migration; see SCHEMA.md. Will need a `schemaVersion` bump in the sync engine if payload shape changes.
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
 ## Task 1a — completed
@@ -73,6 +74,120 @@ All new content must:
 - `scripts/add-domain1-batch3.mjs` — 9 scenarios (1.1 × 2, 1.3 × 2, 1.4 × 5)
 
 All three are idempotent (skip on stem-prefix match). Safe to re-run during future audits.
+
+## Task 1.5 — Cross-device sync via private GitHub Gist (planned)
+
+Goal: keep SM-2 progress, watched-video state, and other app data in step
+across the user's three devices, using a per-user PAT against a single
+private Gist as the backing store. Inserted ahead of Task 2 so progress
+already syncs before Task 2's localStorage migration runs.
+
+### Agreed design constraints (from session opening)
+
+- No encryption of Gist contents.
+- No password gating on the sync setup screen.
+- Each device authenticates with the user's own PAT.
+- Latest-timestamp-wins conflict resolution at **per-key** granularity, not whole-blob.
+- Manual PAT entry — no QR pairing.
+- Silent retry on failure; degraded banner only after >60 min without success.
+- **Push policy** (revised 2026-04-25): commit and push after each sub-batch passes review, so the live Pages site is always current. Real-device testing happens at 1.5c against the deployed site; bugs found there go in a follow-up commit. Safety preserved by: `npm run build` clean before any commit, two-browser-profile sync test passes locally before 1.5b commit, sync hidden behind Settings → Advanced (opt-in, so non-PAT users see no functional change).
+
+### Pre-flight — synced keyspace decision
+
+`SCHEMA.md` notes that SM-2 keys are `mc-{videoId}-{qi}`, `scen-…`, `match-…`
+(no `secplus-` prefix). The umbrella state is `secplus-v4`. The engine
+therefore syncs a fixed **prefix list** rather than the literal `secplus-`
+prefix:
+
+- `TRACKED_PREFIXES = ["mc-", "scen-", "match-", "secplus-"]`
+- `LOCAL_ONLY` (deny-list — overrides tracked list):
+  - prefix `"secplus-sync-"` — PAT, Gist ID, sync metadata
+  - exact `"secplus-last-backup-at"` — per-device backup timestamp (added in 1.5a)
+  - exact `"secplus-backup-banner-snooze-until"` — per-device snooze (added in 1.5a)
+  - The engine treats `LOCAL_ONLY` as a list of `{prefix?: string, exact?: string}` entries.
+
+This avoids touching existing user progress during 1.5. (Alternative: rename
+SM-2 keys to `secplus-mc-` etc. — rejected because it requires a
+SCHEMA_VERSION bump and a per-device migration with no functional benefit.)
+
+### Gist payload schema (versioned)
+
+```jsonc
+{
+  "schemaVersion": 1,
+  "deviceId": "<random-uuid>",       // stamped at first push
+  "lastWriteAt": "2026-04-25T...",
+  "entries": {
+    "mc-1.1.1-0": { "value": "<original JSON-string>", "ts": "ISO" }
+  }
+}
+```
+
+`value` is the verbatim string the React app already wrote to localStorage,
+so the engine stays value-agnostic. Bumping `schemaVersion` is required only
+if the payload shape itself changes — Task 2's mode consolidation does not
+necessarily trigger one (new keys appear, but the shape holds).
+
+### Sub-batch 1.5a — Backup polish (~half-day)
+
+Useful regardless of sync; benefits the user even if sync is never enabled.
+
+- [ ] Prominent **Backup** button on main menu (not buried in Settings).
+- [ ] Export filename: `secplus-backup-YYYY-MM-DD.json`.
+- [ ] Stamp `secplus-last-backup-at` on every successful export.
+- [ ] Banner if no backup in ≥7 days: "Last backup was N days ago — back up now?" Dismissable for 7 more days.
+- [ ] Existing import path untouched.
+
+Files: `src/secplus-quiz.jsx`. `npm run build` clean. Checkpoint before 1.5b: diff summary + UI walkthrough; user clicks backup once.
+
+### Sub-batch 1.5b — Sync engine (no UI; ~1 day)
+
+New module. Built and tested in isolation before any UI hooks it up.
+
+Public API (from `src/sync/sync-engine.js`):
+
+```js
+initSync(); getStatus(); triggerPush(); setConfig({pat, gistId});
+clearConfig(); createGist(); subscribe(cb);
+```
+
+Mechanics:
+
+- Per-key `localTs` kept in `secplus-sync-meta` (local-only).
+- Scanner every 2 s diffs current localStorage values vs last snapshot; changed keys get `localTs = now`.
+- **On load**: pull → merge per-key latest-ts wins → write remote winners back to localStorage → push merged.
+- **On change**: 5 s debounced PATCH `https://api.github.com/gists/{gistId}` with `{ files: { "secplus-sync.json": { content } } }`.
+- **Retry**: 5 → 15 → 60 → 300 → 600 s ceiling. Silent.
+- **Health**: `degraded` if no success in 60 min. Surfaced by 1.5c.
+- **Errors**: 401/403/404 → stop retrying, set `lastError`, wait for config change.
+- ETag caching on GET.
+
+Tests:
+
+- Pure-function merge unit tests (Vitest if present, otherwise `node --test`).
+- Manual: two browser profiles, same PAT + Gist. Edit in A → check B. Simultaneous edits → newer wins.
+
+Files: `src/sync/sync-engine.js`, `src/sync/__tests__/sync-engine.test.js`. No UI. Engine dormant until 1.5c provides config (or until devtools call `window.__secplusSync.setConfig(...)`). Checkpoint before 1.5c: walk through merge, show test output, manual devtools validation on one device.
+
+### Sub-batch 1.5c — Sync UI (~half-day)
+
+- Footer entry: **Settings → Advanced → Sync**.
+- Form: PAT (`type="password"` with show/hide), Gist ID (+ **Create new private Gist** button), Enable/Disable toggle, **Test connection** button.
+- Main-menu status indicator:
+  - Green + "Synced HH:MM" (success <60 min ago)
+  - Yellow + "Sync degraded" (success >60 min)
+  - Red + error (401/403/404)
+  - Hidden when disabled.
+- **Sync now** manual flush.
+
+Files: `src/secplus-quiz.jsx` (and possibly `src/sync/SyncSettings.jsx`). Checkpoint: enable on ≥2 real devices, confirm round-trip. Only then commit and push.
+
+### Risks / open questions
+
+- **PAT in plaintext localStorage**: acceptable per stated constraints. Surface to the user one more time in the 1.5c UI ("This token is stored unencrypted on this device").
+- **Gist file size cap (1 MB)**: well under for the personal namespace.
+- **Rate limits**: 5000 req/hr per PAT. Debounce keeps us at single digits/hr.
+- **Task 2 interaction**: when mode consolidation rewrites localStorage, the engine sees new/missing keys; no `schemaVersion` bump needed unless the payload shape itself changes.
 
 ## Task 2 — Mode consolidation (later)
 

@@ -189,6 +189,14 @@ async function saveStore(s) {
   return { windowOk, localOk, error: lastError };
 }
 
+// ─── BACKUP REMINDER ───────────────────────────────────────────
+// Tracked in localStorage so the reminder survives reloads and is visible
+// to the (later) sync engine's local-only deny-list.
+const LAST_BACKUP_KEY = "secplus-last-backup-at";
+const BACKUP_BANNER_SNOOZE_KEY = "secplus-backup-banner-snooze-until";
+const BACKUP_REMINDER_DAYS = 7;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
 // ─── EXPORT / IMPORT ───────────────────────────────────────────
 function exportStoreToFile(store) {
   const payload = JSON.stringify({
@@ -201,11 +209,18 @@ function exportStoreToFile(store) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `secplus-progress-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `secplus-backup-${new Date().toISOString().slice(0, 10)}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+  try {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(LAST_BACKUP_KEY, String(Date.now()));
+    }
+  } catch (e) {
+    console.error("[secplus] last-backup-at write failed:", e);
+  }
 }
 
 function importStoreFromFile(file) {
@@ -462,6 +477,11 @@ export default function App() {
   const [storageStatus, setStorageStatus] = useState({ primary: "unknown", fallbackUsed: false, error: null });
   const [importMsg, setImportMsg] = useState(null); // { kind: 'ok'|'err', text }
   const [tab, setTab] = useState("progress"); // progress | quiz | cram | exam
+  // Backup reminder state — hydrated from localStorage on mount, updated on
+  // every successful export. Both stored as ms-epoch numbers; null means
+  // "no record yet" (first-run users see the reminder banner immediately).
+  const [lastBackupAt, setLastBackupAt] = useState(null);
+  const [bannerSnoozeUntil, setBannerSnoozeUntil] = useState(null);
   // When an exam's "Drill Wrong" button is clicked, the wrong questions are
   // stored here and the user is switched to the Quiz tab, which picks them up
   // and starts a drill session. null means no pending drill.
@@ -476,6 +496,25 @@ export default function App() {
       setStorageStatus(status);
       setLoaded(true);
     });
+  }, []);
+
+  // Hydrate backup reminder state from localStorage on mount
+  useEffect(() => {
+    try {
+      if (typeof localStorage === "undefined") return;
+      const lba = localStorage.getItem(LAST_BACKUP_KEY);
+      if (lba) {
+        const n = Number(lba);
+        if (Number.isFinite(n)) setLastBackupAt(n);
+      }
+      const sn = localStorage.getItem(BACKUP_BANNER_SNOOZE_KEY);
+      if (sn) {
+        const n = Number(sn);
+        if (Number.isFinite(n)) setBannerSnoozeUntil(n);
+      }
+    } catch (e) {
+      console.error("[secplus] backup reminder hydrate failed:", e);
+    }
   }, []);
 
   // Save whenever store changes — but only after initial load to avoid
@@ -500,10 +539,11 @@ export default function App() {
   const onExport = useCallback(() => {
     try {
       exportStoreToFile(store);
-      setImportMsg({ kind: "ok", text: "Progress exported — check your Downloads folder." });
+      setLastBackupAt(Date.now());
+      setImportMsg({ kind: "ok", text: "Backup downloaded — check your Downloads folder." });
     } catch (e) {
       console.error("[secplus] export failed:", e);
-      setImportMsg({ kind: "err", text: "Export failed: " + (e && e.message ? e.message : e) });
+      setImportMsg({ kind: "err", text: "Backup failed: " + (e && e.message ? e.message : e) });
     }
   }, [store]);
 
@@ -539,6 +579,32 @@ export default function App() {
 
   const watched = store.watched;
   const watchedSet = new Set(watched);
+
+  // Backup reminder banner visibility — only after the store has loaded so
+  // we don't briefly show "no backup" before localStorage is read.
+  const backupBanner = (() => {
+    if (!loaded) return null;
+    const now = Date.now();
+    if (bannerSnoozeUntil && bannerSnoozeUntil > now) return null;
+    if (lastBackupAt) {
+      const days = Math.floor((now - lastBackupAt) / DAY_MS);
+      if (days < BACKUP_REMINDER_DAYS) return null;
+      return { message: `It's been ${days} days since your last backup — back up now?` };
+    }
+    return { message: "You haven't backed up your progress yet — back up now?" };
+  })();
+
+  const snoozeBackupBanner = () => {
+    const until = Date.now() + BACKUP_REMINDER_DAYS * DAY_MS;
+    setBannerSnoozeUntil(until);
+    try {
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem(BACKUP_BANNER_SNOOZE_KEY, String(until));
+      }
+    } catch (e) {
+      console.error("[secplus] backup reminder snooze write failed:", e);
+    }
+  };
 
   function toggleWatched(vid) {
     setStore(s => {
@@ -601,6 +667,19 @@ export default function App() {
           <button onClick={() => setImportMsg(null)} style={{ background: "rgba(255,255,255,0.15)", color: "inherit", border: "none", borderRadius: 4, padding: "2px 10px", cursor: "pointer", fontSize: 12 }}>Dismiss</button>
         </div>
       )}
+      {backupBanner && (
+        <div style={{ background: "#78350f", color: "#fed7aa", padding: "10px 16px", textAlign: "center", fontSize: 13, borderBottom: "1px solid #000", display: "flex", justifyContent: "center", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+          <span>{backupBanner.message}</span>
+          <button
+            onClick={onExport}
+            style={{ background: "#f59e0b", color: "#0f172a", border: "none", borderRadius: 4, padding: "4px 12px", cursor: "pointer", fontSize: 12, fontWeight: 700 }}
+          >Back up now</button>
+          <button
+            onClick={snoozeBackupBanner}
+            style={{ background: "rgba(255,255,255,0.15)", color: "inherit", border: "none", borderRadius: 4, padding: "4px 10px", cursor: "pointer", fontSize: 12 }}
+          >Remind me in 7 days</button>
+        </div>
+      )}
       <header style={styles.header}>
         <div style={styles.headerInner}>
           <div>
@@ -610,6 +689,13 @@ export default function App() {
           <div style={styles.headerStats}>
             <StatPill label="Watched" value={`${watched.length}/${getAllVideos(ALL_SECTIONS).length}`} />
             <StatPill label="Streak" value={`${store.streak}🔥`} />
+            <button
+              onClick={onExport}
+              title="Download a backup of your progress as a JSON file"
+              style={styles.headerBackupBtn}
+            >
+              💾 Backup
+            </button>
           </div>
         </div>
         <nav style={styles.nav}>
@@ -2288,7 +2374,8 @@ const styles = {
   headerInner: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px" },
   headerTitle: { fontSize: 18, fontWeight: 900, color: "#3b82f6" },
   headerSub: { fontSize: 12, color: "#64748b" },
-  headerStats: { display: "flex", gap: 8 },
+  headerStats: { display: "flex", gap: 8, alignItems: "center" },
+  headerBackupBtn: { background: "#3b82f6", color: "#fff", border: "none", borderRadius: 20, padding: "6px 12px", cursor: "pointer", fontSize: 12, fontWeight: 700, marginLeft: 4, lineHeight: 1.2 },
   statPill: { background: "#0f172a", borderRadius: 20, padding: "4px 12px", display: "flex", flexDirection: "column", alignItems: "center" },
   statLabel: { fontSize: 10, color: "#64748b" },
   statValue: { fontSize: 13, fontWeight: 700, color: "#f1f5f9" },
