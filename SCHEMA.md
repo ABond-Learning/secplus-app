@@ -135,3 +135,78 @@ Implications for any future schema change:
 3. Removing items shifts indices for everything after. Don't.
 4. The umbrella localStorage key is `STORE_KEY = "secplus-v4"` with
    `SCHEMA_VERSION = 2`. Bumping the version triggers the in-app migration path.
+
+## Cross-device sync (Task 1.5)
+
+The sync engine in `src/sync/sync-engine.js` reconciles a subset of
+localStorage with a private GitHub Gist. It identifies sync-eligible keys
+via two filters: TRACKED_PREFIXES (allow-list) and LOCAL_ONLY (deny-list,
+which overrides the allow-list).
+
+### TRACKED_PREFIXES
+
+Any localStorage key starting with one of these is a sync candidate:
+
+- `mc-` — multiple-choice SM-2 records
+- `scen-` — scenario SM-2 records
+- `match-` — matching-question SM-2 records
+- `secplus-` — the umbrella store and any other app-prefixed key
+
+### LOCAL_ONLY (deny-list)
+
+Checked first — keys here are NEVER synced even if their prefix matches
+TRACKED_PREFIXES. Stored as a list of `{kind, value}` so we can mix coarse
+prefix rules with surgical exact-key entries:
+
+Kind | Value | Reason
+--- | --- | ---
+`prefix` | `secplus-sync-` | PAT, Gist ID, deviceId, ETag, scanner state — per-device, must never reach the Gist (which is unencrypted).
+`exact` | `secplus-last-backup-at` | Per-device backup timestamp — banner logic should reflect THIS device's local backup history, not other devices'.
+`exact` | `secplus-backup-banner-snooze-until` | Per-device snooze.
+
+### Gist payload (schemaVersion 1)
+
+A single file `secplus-sync.json` per Gist. Shape:
+
+```jsonc
+{
+  "schemaVersion": 1,
+  "deviceId": "<uuid>",
+  "lastWriteAt": "2026-04-25T12:34:56.789Z",
+  "entries": {
+    "mc-1.1.1-0": { "value": "<original JSON-string>", "ts": "ISO" },
+    "secplus-v4":  { "value": "<original JSON-string>", "ts": "ISO" }
+  }
+}
+```
+
+`value` is the verbatim string the React app already wrote to localStorage,
+so the engine is value-agnostic. `ts` is the local-time stamp of when this
+device last observed that key change.
+
+`parsePayload` rejects any payload whose `schemaVersion` doesn't match
+`PAYLOAD_SCHEMA_VERSION` — bumping requires a migration path.
+
+### Engine local-state keys
+
+Held under the `secplus-sync-` prefix (covered by LOCAL_ONLY):
+
+Key | Shape | Purpose
+--- | --- | ---
+`secplus-sync-config` | `{pat, gistId, deviceId}` | Persisted credentials + device identity.
+`secplus-sync-meta` | `{localTs, lastObservedValues, etag, lastSuccessAt}` | Scanner/sync runtime state.
+
+### Merge semantics
+
+Per-key latest-timestamp-wins. Tie → local wins (stable, prevents
+ping-pong). Local entries with no `localTs` get the fallback timestamp
+(usually `now` at engine init), which means a freshly-activated device
+generally claims its current state as authoritative — for joining-device
+scenarios where this is wrong, the engine exposes `pushAll()` (force
+upload) and `pullAll()` (force overwrite) for explicit direction.
+
+### Tombstones / deletes (v1 limitation)
+
+The engine does NOT propagate deletes. If a key is removed from
+localStorage on one device, the next pull will restore it from the Gist.
+Adding tombstones is a candidate for schemaVersion 2 if needed.
