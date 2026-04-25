@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import ALL_SECTIONS from "../questions.json";
+import SyncSettings, { deriveHealth } from "./sync/SyncSettings.jsx";
+import { getStatus as getSyncStatus, subscribe as subscribeSync } from "./sync/sync-engine.js";
 
 // ─── DATA LIVES IN questions.json ──────────────────────────────
 
@@ -477,11 +479,14 @@ export default function App() {
   const [storageStatus, setStorageStatus] = useState({ primary: "unknown", fallbackUsed: false, error: null });
   const [importMsg, setImportMsg] = useState(null); // { kind: 'ok'|'err', text }
   const [tab, setTab] = useState("progress"); // progress | quiz | cram | exam
+  const [view, setView] = useState("main");   // main | sync
   // Backup reminder state — hydrated from localStorage on mount, updated on
   // every successful export. Both stored as ms-epoch numbers; null means
   // "no record yet" (first-run users see the reminder banner immediately).
   const [lastBackupAt, setLastBackupAt] = useState(null);
   const [bannerSnoozeUntil, setBannerSnoozeUntil] = useState(null);
+  // Sync engine status mirror — subscribed once on mount.
+  const [syncStatus, setSyncStatus] = useState(getSyncStatus());
   // When an exam's "Drill Wrong" button is clicked, the wrong questions are
   // stored here and the user is switched to the Quiz tab, which picks them up
   // and starts a drill session. null means no pending drill.
@@ -496,6 +501,20 @@ export default function App() {
       setStorageStatus(status);
       setLoaded(true);
     });
+  }, []);
+
+  // Subscribe to sync engine status changes — keeps the header indicator
+  // and any UI showing engine state in sync without polling.
+  useEffect(() => {
+    setSyncStatus(getSyncStatus());
+    return subscribeSync(setSyncStatus);
+  }, []);
+
+  // Re-render the sync indicator once a minute so the "synced HH:MM" age
+  // check transitions to "degraded" after 60 minutes without traffic.
+  useEffect(() => {
+    const i = setInterval(() => setSyncStatus(getSyncStatus()), 60 * 1000);
+    return () => clearInterval(i);
   }, []);
 
   // Hydrate backup reminder state from localStorage on mount
@@ -680,6 +699,7 @@ export default function App() {
           >Remind me in 7 days</button>
         </div>
       )}
+      <div style={{ display: view === "main" ? "block" : "none" }}>
       <header style={styles.header}>
         <div style={styles.headerInner}>
           <div>
@@ -696,6 +716,16 @@ export default function App() {
             >
               💾 Backup
             </button>
+            {syncStatus.enabled && (
+              <button
+                onClick={() => setView("sync")}
+                title="Open sync settings"
+                style={styles.headerSyncPill}
+              >
+                <span style={{ ...styles.headerSyncDot, background: deriveHealth(syncStatus).color }} />
+                <span style={styles.headerSyncLabel}>{deriveHealth(syncStatus).label}</span>
+              </button>
+            )}
           </div>
         </div>
         <nav style={styles.nav}>
@@ -762,6 +792,15 @@ export default function App() {
           </ErrorBoundary>
         </div>
       </main>
+      <footer style={styles.footer}>
+        <button onClick={() => setView("sync")} style={styles.footerLink}>
+          ⚙ Sync settings
+        </button>
+      </footer>
+      </div>
+      {view === "sync" && (
+        <SyncSettings onBack={() => setView("main")} setDialog={setDialog} />
+      )}
     </div>
     <Modal
       open={!!dialog}
@@ -2374,8 +2413,13 @@ const styles = {
   headerInner: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px" },
   headerTitle: { fontSize: 18, fontWeight: 900, color: "#3b82f6" },
   headerSub: { fontSize: 12, color: "#64748b" },
-  headerStats: { display: "flex", gap: 8, alignItems: "center" },
+  headerStats: { display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" },
   headerBackupBtn: { background: "#3b82f6", color: "#fff", border: "none", borderRadius: 20, padding: "6px 12px", cursor: "pointer", fontSize: 12, fontWeight: 700, marginLeft: 4, lineHeight: 1.2 },
+  headerSyncPill: { display: "inline-flex", alignItems: "center", gap: 6, background: "#0f172a", border: "1px solid #334155", borderRadius: 20, padding: "5px 11px", cursor: "pointer", fontSize: 12, fontWeight: 600, color: "#e2e8f0", lineHeight: 1.2 },
+  headerSyncDot: { width: 8, height: 8, borderRadius: "50%" },
+  headerSyncLabel: { whiteSpace: "nowrap" },
+  footer: { borderTop: "1px solid #334155", marginTop: 32, padding: "14px 16px", textAlign: "center" },
+  footerLink: { background: "none", border: "none", color: "#64748b", cursor: "pointer", fontSize: 13, padding: "4px 8px" },
   statPill: { background: "#0f172a", borderRadius: 20, padding: "4px 12px", display: "flex", flexDirection: "column", alignItems: "center" },
   statLabel: { fontSize: 10, color: "#64748b" },
   statValue: { fontSize: 13, fontWeight: 700, color: "#f1f5f9" },

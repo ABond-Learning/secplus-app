@@ -478,6 +478,40 @@ export function createEngine({ storage: injectedStorage, fetchFn: injectedFetch 
     return getStatus();
   }
 
+  // Probe the gist with the given creds without writing config or starting
+  // the engine. Returns { ok: bool, status: number?, error?: string,
+  // hasContent?: bool }. Used by the Settings → Sync screen's "Test
+  // connection" button before the user commits to enabling sync.
+  async function testConnection({ pat, gistId } = {}) {
+    const f = getFetch();
+    if (!f) return { ok: false, error: "fetch unavailable" };
+    if (!pat || !gistId) return { ok: false, error: "pat and gistId required" };
+    try {
+      const res = await f(`https://api.github.com/gists/${gistId}`, {
+        headers: {
+          "Accept": "application/vnd.github+json",
+          "Authorization": `Bearer ${pat}`,
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      });
+      if (res.status === 401 || res.status === 403) {
+        return { ok: false, status: res.status, error: "Authentication failed — check your PAT (needs gist scope)." };
+      }
+      if (res.status === 404) {
+        return { ok: false, status: 404, error: "Gist not found — check the Gist ID." };
+      }
+      if (!res.ok) {
+        return { ok: false, status: res.status, error: `HTTP ${res.status}` };
+      }
+      const data = await res.json();
+      const file = data.files && data.files[GIST_FILENAME];
+      const hasContent = !!(file && file.content && file.content.length > 2); // > "{}"
+      return { ok: true, status: 200, hasContent };
+    } catch (e) {
+      return { ok: false, error: e.message || String(e) };
+    }
+  }
+
   async function createGist({ pat, description = GIST_DESCRIPTION } = {}) {
     const f = getFetch();
     if (!f) throw new Error("fetch unavailable");
@@ -571,7 +605,8 @@ export function createEngine({ storage: injectedStorage, fetchFn: injectedFetch 
 
   const api = {
     initSync, getStatus, subscribe, setConfig, clearConfig,
-    triggerPush, createGist, pushAll, pullAll, _scanAndSync,
+    triggerPush, createGist, pushAll, pullAll, testConnection,
+    _scanAndSync,
   };
   return api;
 }
@@ -587,3 +622,4 @@ export const triggerPush = () => _default.triggerPush();
 export const createGist = (opts) => _default.createGist(opts);
 export const pushAll = () => _default.pushAll();
 export const pullAll = () => _default.pullAll();
+export const testConnection = (opts) => _default.testConnection(opts);
