@@ -11,7 +11,7 @@ Task | State | Notes
 --- | --- | ---
 1a — Foundations + spelling pass | **complete, deployed** | All phases shipped. Live bundle verified clean.
 1.5 — Cross-device sync via private Gist | **complete, deployed, verified on 3 devices** | Backup polish + sync engine + sync UI all live. Real-device sync verified across 3 of Aiden's devices post-deploy (joining-device guard holds; bidirectional sync works).
-1b — Content generation | **in progress** — Domain 1 scenarios (25/25) and Domain 5 (78/78 items, all 4 batches committed) complete. Domain 4 next, then Domain 2 BEST/MOST rewrites.
+1b — Content generation | **in progress** — Domain 1 scenarios (25/25), Domain 5 (78/78), and Domain 4 (55 items across 2 batches: +32 MC + +23 scen) complete. **Only Domain 2 BEST/MOST rewrites remain.**
 2 — Mode consolidation | not started | Touches localStorage migration; see SCHEMA.md. Will need a `schemaVersion` bump in the sync engine if payload shape changes.
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
@@ -56,8 +56,10 @@ Each batch: count + all questions + validator-clean confirmation, then user revi
   - `062781c` — Batch 2: 17 MC + 4 scen across §5.3 + §5.4.
   - `3f40fc1` — Batch 3: 12 MC + 8 scen across §5.5 + §5.6.
   - `4851623` — Batch 4: 17 MC fill batch across §5.1 (×6) + §5.2 (×7) + §5.5 (×2) + §5.6 (×2). No scenarios (target already met at 60/60).
-- [ ] ~65 Domain 4 items (40 MC + 25 scenarios), 2 batches. **Next up.**
-- [ ] 40 Domain 2 BEST/MOST rewrites (target: tighten recall-style stems into "BEST/MOST" framing per CLAUDE.md Quality Rule 6).
+- [x] **Domain 4 complete (55 items: 32 MC + 23 scenarios across 2 batches, committed and live)**. Final Domain 4 totals: **84 → 116 MCs, 73 → 96 scenarios**. Original target was +40 MC / +25 scen — finished at +32/+23 (gap accepted; coverage hits all priority confusables). The §4.4.1/§4.9.1 NTP duplicate was resolved in Batch 2 by replace-in-place at §4.4.1 MC[3] (preserves SM-2 indices; new content = continuous-monitoring vs periodic-scanning). The §4.9.1 NTP MC[0] kept as the canonical NTP-in-log-analysis question.
+  - `bcded87` — Batch 1: 25 items (15 MC + 10 scen) across §4.1, §4.2, §4.3, §4.4, §4.5, §4.6, §4.7, §4.8 — confusables: WPA3 Personal/Enterprise, CVSS metric groups, SIEM/SOAR, SAML/OAuth/OIDC, HIDS/HIPS/EDR, FIDO2 origin binding, IR exercise types.
+  - `3bcae44` — Batch 2: 30 items (17 MC + 13 scen across all sub-objectives, including 1 in-place replacement at §4.4.1 MC[3] for the NTP duplicate) — confusables: BYOD/COPE/CYOD, patch/compensating/accept/avoid, DMARC progression, DLP positioning, NIST 800-63B, PAM/PASM/PEDM, RCA frameworks, syslog severities, log retention tiers.
+- [ ] **40 Domain 2 BEST/MOST rewrites (target: tighten recall-style stems into "BEST/MOST" framing per CLAUDE.md Quality Rule 6). Only remaining Task 1b work.**
 - [ ] Final domain-weight audit vs CLAUDE.md targets (1: 12% / 2: 22% / 3: 18% / 4: 28% / 5: 20%).
 - [ ] Commit + Pages deploy per domain.
 
@@ -85,6 +87,17 @@ All new content must:
 - `scripts/add-domain5-batch4.mjs` — 17 MCs closing the +60 MC target (committed `4851623`). Per-video: 5.1.1 ×1, 5.1.2 ×1, 5.1.3 ×1, 5.1.4 ×2, 5.1.5 ×1, 5.2.1 ×2, 5.2.2 ×2, 5.2.3 ×2, 5.2.4 ×1, 5.5.1 ×1, 5.5.2 ×1, 5.6.1 ×1, 5.6.2 ×1. Topics: guidelines-vs-procedures, defense-in-depth recognition, regulation-to-data-type mapping, data classification levels, inherent-vs-residual risk, risk appetite vs tolerance, KRIs leading vs lagging, MTBF vs MTTR, SOC 1/2/3 audience matching, SAST/DAST/IAST, phishing repeat-offender metric, JIT training trigger pattern. Validator post-apply: 0 errors (unchanged baseline). Live bundle verified clean.
 
 All Domain 5 scripts are idempotent (skip on stem-prefix match). Safe to re-run.
+
+### Domain 4 batch applier scripts
+
+- `scripts/add-domain4-batch1.mjs` — 25 items (15 MC + 10 scen) across §4.1.2, §4.1.4, §4.2.1, §4.3.1, §4.3.4, §4.4.1, §4.4.2, §4.5.1, §4.5.4, §4.5.5, §4.5.7, §4.6.1, §4.6.2, §4.6.3, §4.7.1, §4.8.1, §4.8.2 (committed `bcded87`).
+- `scripts/add-domain4-batch2.mjs` — 30 items (17 MC + 13 scen) including 1 REPLACE-in-place at §4.4.1 MC[3] (NTP duplicate cleanup). New REPLACEMENTS array in this script does a safety-checked in-place overwrite (refuses to apply if the target slot does not hold the expected old NTP stem, so re-runs are safe). Per-video distribution covers §4.1.2, §4.1.3, §4.2.1, §4.3.1, §4.3.4, §4.3.5, §4.4.1, §4.5.2, §4.5.5, §4.5.6, §4.5.7, §4.6.1, §4.6.2, §4.6.4, §4.7.1, §4.8.1, §4.8.2, §4.8.3, §4.9.1. Heavy §4.9.1 emphasis (5 items) addresses the previously-thin Security Data Sources sub-objective. Committed `3bcae44`.
+
+All Domain 4 scripts are idempotent (insertions skip on stem-prefix match; replacements skip on already-replaced detection or refuse on unexpected stem). Safe to re-run.
+
+### Validator: `--path=` flag
+
+`scripts/validate-questions.mjs` was extended in Batch 1 (commit `bcded87`) with an optional `--path=<file>` argument so it can validate an arbitrary JSON file. Used by both Domain 4 batch scripts via their `--preview` mode to validate proposed changes against `/tmp/questions-d4bN-preview.json` before any commit, preserving the "validate → review → apply" order.
 
 ## Task 1.5 — Cross-device sync via private GitHub Gist (complete, deployed)
 
