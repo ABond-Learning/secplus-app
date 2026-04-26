@@ -12,6 +12,7 @@ Task | State | Notes
 1a — Foundations + spelling pass | **complete, deployed** | All phases shipped. Live bundle verified clean.
 1.5 — Cross-device sync via private Gist | **complete, deployed, verified on 3 devices** | Backup polish + sync engine + sync UI all live. Real-device sync verified across 3 of Aiden's devices post-deploy (joining-device guard holds; bidirectional sync works).
 1b — Content generation | **in progress** — Domain 1 scenarios (25/25), Domain 5 (78/78), and Domain 4 (55 items across 2 batches: +32 MC + +23 scen) complete. **Only Domain 2 BEST/MOST rewrites remain.**
+1c — Anchor questions + grounding audit | **not started, intentionally deferred** | Wait until Task 1b complete AND ~2 weeks of real study have surfaced friction points from data rather than guesses. Should run before Task 2 so anchors can be tagged for the Flashcards-vs-Quiz mode split.
 2 — Mode consolidation | not started | Touches localStorage migration; see SCHEMA.md. Will need a `schemaVersion` bump in the sync engine if payload shape changes.
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
@@ -236,6 +237,40 @@ Files: `src/secplus-quiz.jsx` (and possibly `src/sync/SyncSettings.jsx`). Checkp
 - **Gist file size cap (1 MB)**: well under for the personal namespace.
 - **Rate limits**: 5000 req/hr per PAT. Debounce keeps us at single digits/hr.
 - **Task 2 interaction**: when mode consolidation rewrites localStorage, the engine sees new/missing keys; no `schemaVersion` bump needed unless the payload shape itself changes.
+
+## Task 1c — Anchor questions and grounding audit (NEW, deferred)
+
+Status: **not started, intentionally deferred** until Task 1b is complete AND Aiden has used the app for ~2 weeks of real study. Friction points should come from real data rather than upfront guessing. Task 1c must happen **before Task 2** so anchor questions can be tagged appropriately for the Flashcards-vs-Quiz mode split that Task 2 will introduce.
+
+Two pieces:
+
+### 1c.1 — Anchor recall questions per video
+
+Add ~150-250 easier "what is X?" / "X is used for which purpose?" recall-anchor questions across videos that currently lack a basic recall check. The current catalogue is heavy on discrimination (confusables) and BEST/MOST application scenarios; learners watching a Messer video need a recall anchor before being thrown into discrimination questions.
+
+- Estimate: ~50 anchors per under-anchored domain (rough — refine after the audit identifies which videos are under-anchored).
+- Per-video target: at least 1 recall-anchor per Messer video that introduces a discrete concept. Videos already well-anchored (e.g. those with definition-style MCs) need no addition.
+- These anchors should be tagged so Task 2's Flashcards mode can pull them while Quiz mode pulls discrimination/scenarios. Tagging design lives in SCHEMA.md (TBD when Task 1c starts).
+
+### 1c.2 — Video-grounding audit
+
+For each existing question, verify the cited Messer video actually covers the concept being tested. Came up because Aiden flagged questions on early Domain 1 videos that test concepts not yet introduced in those videos at video 1.4.2 — the question expected knowledge a learner watching in order would not yet have.
+
+- Process: walk every question; check `messerVideo` cite against actual video content (or at least video title scope); flag mismatches; either re-cite to the correct video or reword the question to fit the cited video's scope.
+- Bounded by catalogue size — estimate 4-6 hours of focused work.
+- Mismatches go in an audit report; Aiden reviews per-mismatch decision (re-cite vs reword vs accept).
+
+### Why deferred
+
+Doing Task 1c prematurely would optimise against guessed friction points rather than real ones. Aiden's first 2 weeks of post-Task-1b study will surface:
+- Which sub-objectives feel under-anchored in practice (vs which felt fine despite low anchor counts)
+- Which video-grounding mismatches actually trip up real study sessions (vs which are theoretical concerns)
+
+The 2-week window also lets Aiden's SM-2 data accumulate enough that any post-1c additions can be intelligently slotted into the existing review schedule rather than appearing as a sudden cohort of unseen items.
+
+### Why before Task 2
+
+Task 2 will collapse modes into Quiz / Flashcards / Review / Drill Wrong. Anchor questions belong in Flashcards (recall-only), not Quiz (discrimination/scenario). For the mode split to work cleanly, anchors need to exist and be tagged before the mode UI is built. Doing 1c after Task 2 would require either a second-pass tagging migration or shipping a Flashcards mode that's empty for many videos until 1c lands.
 
 ## Task 2 — Mode consolidation (later)
 
