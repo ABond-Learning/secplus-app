@@ -193,9 +193,6 @@ Authoritative reference for Messer video titles. Use this list for all `messerVi
 
 ## Citation format
 
-Use `"{section number} - {exact title}"` for the `messerVideo` field, e.g.:
-- `"1.2 - The CIA Triad"`
-- `"2.3 - SQL Injection"`
-- `"5.2 - Risk Analysis"`
+Use `"{section number} - {exact title}"` for the `messerVideo` field — for example, `"1.2 - The CIA Triad"`, `"2.3 - SQL Injection"`, or `"5.2 - Risk Analysis"`.
 
 The section number prefix is a project convention for quick cross-referencing; the title portion must match this document exactly, including punctuation and capitalization.
