@@ -2972,7 +2972,9 @@
               "Insider threat"
             ],
             "a": 2,
-            "exp": "Nation-state actors have government backing, large budgets, and the most advanced TTPs."
+            "exp": "Nation-state actors have government backing, large budgets, and the most advanced TTPs.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "A hacker defacing websites to protest corporate environmental practices is a:",
@@ -2983,7 +2985,9 @@
               "Cybercriminal"
             ],
             "a": 2,
-            "exp": "Hacktivists are motivated by ideology or political causes — not financial gain."
+            "exp": "Hacktivists are motivated by ideology or political causes — not financial gain.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "Which threat actor uses pre-written tools and exploits without truly understanding them?",
@@ -2994,7 +2998,9 @@
               "Unskilled attacker"
             ],
             "a": 3,
-            "exp": "Unskilled attackers rely on existing tools — low skill, opportunistic, often causing unintended damage."
+            "exp": "Unskilled attackers rely on existing tools — low skill, opportunistic, often causing unintended damage.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "An employee stealing customer data before resigning is which type of threat actor?",
@@ -3005,7 +3011,9 @@
               "Unskilled attacker"
             ],
             "a": 1,
-            "exp": "Insider threats have legitimate access and abuse it — making them uniquely dangerous."
+            "exp": "Insider threats have legitimate access and abuse it — making them uniquely dangerous.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "APT stands for:",
@@ -3016,7 +3024,9 @@
               "Application Protection Technology"
             ],
             "a": 1,
-            "exp": "APT = Advanced Persistent Threat — long-term stealthy campaigns, typically nation-states or organized crime."
+            "exp": "APT = Advanced Persistent Threat — long-term stealthy campaigns, typically nation-states or organized crime.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "Financial gain is the PRIMARY motivation for which threat actor?",
@@ -3027,7 +3037,9 @@
               "Unskilled attacker"
             ],
             "a": 2,
-            "exp": "Cybercriminals are primarily financially motivated — ransomware, fraud, data theft for resale."
+            "exp": "Cybercriminals are primarily financially motivated — ransomware, fraud, data theft for resale.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "What most distinguishes an insider threat from external attackers?",
@@ -3038,7 +3050,9 @@
               "Exclusive use of zero-day exploits"
             ],
             "a": 2,
-            "exp": "Insider threats already have authorized access — bypassing perimeter controls that stop external attackers."
+            "exp": "Insider threats already have authorized access — bypassing perimeter controls that stop external attackers.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "Shadow IT refers to:",
@@ -3049,7 +3063,9 @@
               "Dark web forums used by attackers"
             ],
             "a": 1,
-            "exp": "Shadow IT creates unmanaged risks — IT can't patch, monitor, or secure what it doesn't know exists."
+            "exp": "Shadow IT creates unmanaged risks — IT can't patch, monitor, or secure what it doesn't know exists.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "Which BEST distinguishes an APT (Advanced Persistent Threat) from a typical opportunistic cyberattack?",
@@ -3075,7 +3091,9 @@
               "An insider threat exploiting travel absence"
             ],
             "a": 1,
-            "exp": "BEC (Business Email Compromise) is a financially motivated cybercriminal technique — impersonating executives to authorize fraudulent wire transfers. Urgency, travel context, and financial request are classic BEC indicators."
+            "exp": "BEC (Business Email Compromise) is a financially motivated cybercriminal technique — impersonating executives to authorize fraudulent wire transfers. Urgency, travel context, and financial request are classic BEC indicators.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "A security analyst notices that a recently terminated employee's VPN credentials were used to access internal systems three days after termination, downloading 40GB of files. Which threat actor category does this BEST represent?",
@@ -3086,7 +3104,9 @@
               "Hacktivist conducting data disclosure"
             ],
             "a": 2,
-            "exp": "Former employees whose access isn't immediately revoked remain insider threats post-termination. The 3-day window is a de-provisioning failure — the most dangerous insider threat window."
+            "exp": "Former employees whose access isn't immediately revoked remain insider threats post-termination. The 3-day window is a de-provisioning failure — the most dangerous insider threat window.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "An organization's SOC detects a low-and-slow intrusion active for 8 months. The attacker has pivoted through 12 systems, established multiple backdoors, and exfiltrated intellectual property in small encrypted chunks. No ransom demand has been made. Which threat actor profile BEST fits?",
@@ -3097,7 +3117,9 @@
               "Hacktivist building public embarrassment"
             ],
             "a": 2,
-            "exp": "APT characteristics: long dwell time, multiple persistence mechanisms, intellectual property focus, no financial demand, slow exfiltration. Nation-state actors prioritize persistence over speed."
+            "exp": "APT characteristics: long dwell time, multiple persistence mechanisms, intellectual property focus, no financial demand, slow exfiltration. Nation-state actors prioritize persistence over speed.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "A developer installs an unapproved cloud storage app on their work laptop to share large files with clients. IT discovers the app is syncing internal project documents to a personal cloud account. The developer had no malicious intent. Which risk category BEST describes this?",
@@ -3108,7 +3130,9 @@
               "Cybercriminal malware disguised as a productivity tool"
             ],
             "a": 1,
-            "exp": "Shadow IT: the developer isn't malicious — they're solving a real problem. But IT can't monitor, control, or secure tools they don't know exist. The exposure is real even without malicious intent."
+            "exp": "Shadow IT: the developer isn't malicious — they're solving a real problem. But IT can't monitor, control, or secure tools they don't know exist. The exposure is real even without malicious intent.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           },
           {
             "q": "Security researchers discover a threat group has been compromising industrial control systems at energy utilities across three countries over two years, causing minor undetected calibration errors that could eventually cause equipment failures. No financial demand has been made. This MOST closely resembles:",
@@ -3119,7 +3143,9 @@
               "A nation-state actor with strategic infrastructure disruption objectives"
             ],
             "a": 3,
-            "exp": "Nation-state characteristics: multi-year campaign, critical infrastructure target, geographic scope, sabotage without financial motive, and operational technology focus. This aligns with state-sponsored strategic disruption objectives."
+            "exp": "Nation-state characteristics: multi-year campaign, critical infrastructure target, geographic scope, sabotage without financial motive, and operational technology focus. This aligns with state-sponsored strategic disruption objectives.",
+            "messerVideo": "2.1 - Threat Actors",
+            "subObjective": "2.1"
           }
         ]
       }
@@ -3215,7 +3241,9 @@
               "Deploying more honeypots"
             ],
             "a": 1,
-            "exp": "Reducing attack surface removes unnecessary entry points — fewer ways in means less risk."
+            "exp": "Reducing attack surface removes unnecessary entry points — fewer ways in means less risk.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2"
           },
           {
             "q": "Default credentials on a newly deployed network device represent which type of vulnerability?",
@@ -3226,7 +3254,9 @@
               "Social engineering vector"
             ],
             "a": 2,
-            "exp": "Default credentials (admin/admin) are a well-known configuration weakness — change them on first login."
+            "exp": "Default credentials (admin/admin) are a well-known configuration weakness — change them on first login.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2"
           },
           {
             "q": "Which threat vector involves malicious code injected into a legitimate software update before delivery?",
@@ -3237,7 +3267,9 @@
               "Insider threat vector"
             ],
             "a": 1,
-            "exp": "Supply chain attacks inject malware into legitimate software or hardware before it reaches the target — e.g. SolarWinds."
+            "exp": "Supply chain attacks inject malware into legitimate software or hardware before it reaches the target — e.g. SolarWinds.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2"
           },
           {
             "q": "Which of the following BEST reduces the risk from open service ports?",
@@ -3248,7 +3280,9 @@
               "Requiring stronger passwords for service accounts"
             ],
             "a": 1,
-            "exp": "Closing unused ports and disabling unnecessary services eliminates those attack vectors entirely."
+            "exp": "Closing unused ports and disabling unnecessary services eliminates those attack vectors entirely.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2"
           }
         ],
         "scenarios": [
@@ -3261,7 +3295,9 @@
               "Shadow IT created by the security camera vendor"
             ],
             "a": 0,
-            "exp": "Attack surface is the sum of all points where an attacker could try to enter. Four separate internet-facing systems — especially the forgotten staging server and IoT cameras — represent unnecessary exposure that should be reduced."
+            "exp": "Attack surface is the sum of all points where an attacker could try to enter. Four separate internet-facing systems — especially the forgotten staging server and IoT cameras — represent unnecessary exposure that should be reduced.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2"
           },
           {
             "q": "A new branch office deploys 20 switches. The IT team configures VLANs and firewall rules but forgets to change default admin credentials. Six months later, an attacker gains admin access using credentials from the vendor's publicly available setup guide. Which threat vector did the attacker exploit?",
@@ -3272,7 +3308,9 @@
               "Physical access to the switch management ports"
             ],
             "a": 1,
-            "exp": "Default credentials are a configuration-based threat vector. The attacker didn't need to find a vulnerability — the organization handed over access by failing the most basic hardening step."
+            "exp": "Default credentials are a configuration-based threat vector. The attacker didn't need to find a vulnerability — the organization handed over access by failing the most basic hardening step.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2"
           },
           {
             "q": "A security team receives an alert that malware was found on 12 workstations. All affected machines opened the same vendor invoice PDF sent via email two weeks ago. The PDF exploited an unpatched vulnerability in the PDF reader. Which combination of threat vectors does this attack chain use?",
@@ -3283,7 +3321,9 @@
               "Supply chain vector through the vendor's email system"
             ],
             "a": 1,
-            "exp": "Two-stage vector chain: email (message-based vector) as the delivery mechanism, with a malicious PDF (file-based vector) as the payload. The PDF exploited a client-side vulnerability — a classic phishing-to-file-exploit chain."
+            "exp": "Two-stage vector chain: email (message-based vector) as the delivery mechanism, with a malicious PDF (file-based vector) as the payload. The PDF exploited a client-side vulnerability — a classic phishing-to-file-exploit chain.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2"
           },
           {
             "q": "A security architect reviewing internet-facing services finds: a public website, a customer portal, an API used by mobile apps, an RDP server used by remote admins, a legacy FTP server no longer actively used, and an exposed Elasticsearch database with no authentication. What is the MOST effective first action without purchasing new tools?",
@@ -3294,7 +3334,9 @@
               "Require MFA for the RDP server only"
             ],
             "a": 2,
-            "exp": "Attack surface reduction: removing unnecessary services eliminates the attack vector entirely. The legacy FTP server and unauthenticated Elasticsearch are the highest-risk, lowest-justification exposures — they shouldn't exist at all."
+            "exp": "Attack surface reduction: removing unnecessary services eliminates the attack vector entirely. The legacy FTP server and unauthenticated Elasticsearch are the highest-risk, lowest-justification exposures — they shouldn't exist at all.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2"
           },
           {
             "q": "An attacker sends a malicious Word document to 500 employees via a spoofed vendor email. The document contains a macro that downloads a RAT from a compromised website and establishes a C2 connection. Three employees enable the macro. Which combination of threat vectors is used?",
@@ -3305,7 +3347,9 @@
               "File-based → DNS-based → wireless"
             ],
             "a": 0,
-            "exp": "Multi-vector chain: email (message-based) delivers the Word doc (file-based), the macro downloads from a compromised site (web-based), establishing C2. Understanding how vectors combine is key to the exam."
+            "exp": "Multi-vector chain: email (message-based) delivers the Word doc (file-based), the macro downloads from a compromised site (web-based), establishing C2. Understanding how vectors combine is key to the exam.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2"
           }
         ]
       },
@@ -3398,7 +3442,9 @@
               "Vishing"
             ],
             "a": 1,
-            "exp": "Whaling targets high-value executives. Spear phishing is targeted but at a broader group."
+            "exp": "Whaling targets high-value executives. Spear phishing is targeted but at a broader group.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           },
           {
             "q": "SMS-based phishing is called:",
@@ -3409,7 +3455,9 @@
               "Spear phishing"
             ],
             "a": 2,
-            "exp": "Smishing = SMS phishing — malicious links or requests delivered via text message."
+            "exp": "Smishing = SMS phishing — malicious links or requests delivered via text message.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           },
           {
             "q": "Vishing is phishing conducted via:",
@@ -3420,7 +3468,9 @@
               "Social media direct messages"
             ],
             "a": 2,
-            "exp": "Vishing uses phone calls — attackers often impersonate IT support, financial institutions, or government agencies."
+            "exp": "Vishing uses phone calls — attackers often impersonate IT support, financial institutions, or government agencies.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           },
           {
             "q": "Which BEST distinguishes pharming from phishing?",
@@ -3444,7 +3494,9 @@
               "TLS"
             ],
             "a": 2,
-            "exp": "SPF (Sender Policy Framework) publishes authorized sending servers in DNS — receiving servers reject mail from others."
+            "exp": "SPF (Sender Policy Framework) publishes authorized sending servers in DNS — receiving servers reject mail from others.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           },
           {
             "q": "DKIM provides which security property for email?",
@@ -3455,7 +3507,9 @@
               "Blocks phishing emails automatically"
             ],
             "a": 1,
-            "exp": "DKIM applies a cryptographic signature to emails — verifying the sending domain and detecting tampering."
+            "exp": "DKIM applies a cryptographic signature to emails — verifying the sending domain and detecting tampering.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           },
           {
             "q": "DMARC builds on which two standards?",
@@ -3466,7 +3520,9 @@
               "MFA and SSO"
             ],
             "a": 1,
-            "exp": "DMARC extends SPF and DKIM — defining what to do (reject, quarantine, report) when emails fail both checks."
+            "exp": "DMARC extends SPF and DKIM — defining what to do (reject, quarantine, report) when emails fail both checks.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           }
         ],
         "scenarios": [
@@ -3479,7 +3535,9 @@
               "Vishing; blocked by caller ID verification"
             ],
             "a": 1,
-            "exp": "Mass phishing (not targeted) impersonating Microsoft. SPF/DMARC rejects spoofed sender domains — if Microsoft has DMARC p=reject, receiving mail servers reject email falsely claiming to be from microsoft.com."
+            "exp": "Mass phishing (not targeted) impersonating Microsoft. SPF/DMARC rejects spoofed sender domains — if Microsoft has DMARC p=reject, receiving mail servers reject email falsely claiming to be from microsoft.com.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           },
           {
             "q": "The CFO receives a phone call from someone claiming to be from the company's external auditors, requesting network credentials to run a remote audit tool. The caller knows the CFO's name, the auditor firm's name, and the upcoming audit date. What attack is being attempted, and what should the CFO do?",
@@ -3490,7 +3548,9 @@
               "Watering hole attack — avoid clicking any links the caller sends"
             ],
             "a": 1,
-            "exp": "Vishing with pretexting: social engineering via voice call. The attacker did reconnaissance to build credibility. The correct response is independent verification — hang up, find the auditor's number from an official statement, and call back."
+            "exp": "Vishing with pretexting: social engineering via voice call. The attacker did reconnaissance to build credibility. The correct response is independent verification — hang up, find the auditor's number from an official statement, and call back.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           },
           {
             "q": "A security awareness trainer sends a simulated phishing email about a new benefits portal to all 2,000 employees. 340 click the link; 89 enter credentials. Most clickers are warehouse division employees who rarely use computers. What is the MOST appropriate next action?",
@@ -3501,7 +3561,9 @@
               "Implement MFA organization-wide and consider the matter resolved"
             ],
             "a": 2,
-            "exp": "The simulation identified a specific vulnerable population. MFA is important but doesn't address why they clicked — they need training tailored to their context and how they actually use technology."
+            "exp": "The simulation identified a specific vulnerable population. MFA is important but doesn't address why they clicked — they need training tailored to their context and how they actually use technology.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           },
           {
             "q": "A company's DMARC policy is set to p=none. The security team wants to change it to p=reject, but the IT director warns this could break email from third-party marketing tools. What does p=none mean in practice, and what is the risk of leaving it?",
@@ -3512,7 +3574,9 @@
               "p=none requires SPF but not DKIM"
             ],
             "a": 1,
-            "exp": "p=none is monitoring-only — no enforcement. Attackers can still send spoofed email from your domain and it will be delivered. The IT director's concern is valid, but the solution is to fix misconfigured senders and move to p=quarantine then p=reject."
+            "exp": "p=none is monitoring-only — no enforcement. Attackers can still send spoofed email from your domain and it will be delivered. The IT director's concern is valid, but the solution is to fix misconfigured senders and move to p=quarantine then p=reject.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           },
           {
             "q": "Employees at a hospital begin receiving texts claiming the payroll portal requires immediate password reset due to a 'security incident.' Two employees reset their passwords on the fake site. What is the IMMEDIATE priority for the security team?",
@@ -3523,7 +3587,9 @@
               "Spear phishing — identify which executives were targeted"
             ],
             "a": 1,
-            "exp": "Smishing (SMS phishing). Immediate priority is containing the damage: reset the two compromised accounts, force MFA, and check for any access using those credentials before the security team arrived. Stopping active harm precedes investigation."
+            "exp": "Smishing (SMS phishing). Immediate priority is containing the damage: reset the two compromised accounts, force MFA, and check for any access using those credentials before the security team arrived. Stopping active harm precedes investigation.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2"
           }
         ]
       },
@@ -3580,7 +3646,9 @@
               "Cracking encrypted passwords"
             ],
             "a": 1,
-            "exp": "Pretexting creates a believable false context — the attacker plays a role to make the manipulation seem legitimate."
+            "exp": "Pretexting creates a believable false context — the attacker plays a role to make the manipulation seem legitimate.",
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2"
           },
           {
             "q": "Business Email Compromise (BEC) attacks primarily target:",
@@ -3591,7 +3659,9 @@
               "Web application databases"
             ],
             "a": 1,
-            "exp": "BEC impersonates executives via email to manipulate employees — often resulting in large fraudulent wire transfers."
+            "exp": "BEC impersonates executives via email to manipulate employees — often resulting in large fraudulent wire transfers.",
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2"
           },
           {
             "q": "Typosquatting involves:",
@@ -3602,7 +3672,9 @@
               "Cloning RFID badges"
             ],
             "a": 1,
-            "exp": "Typosquatting registers slightly misspelled versions of popular domains — capturing misdirected traffic."
+            "exp": "Typosquatting registers slightly misspelled versions of popular domains — capturing misdirected traffic.",
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2"
           }
         ],
         "scenarios": [
@@ -3615,7 +3687,9 @@
               "A baiting attack — the 'tool' is a USB drive the attacker will mail later"
             ],
             "a": 1,
-            "exp": "Quid pro quo: attacker offers IT help in exchange for the employee installing remote access software. Verify independently — hang up and call IT using a number from a trusted internal source, not one the caller provides."
+            "exp": "Quid pro quo: attacker offers IT help in exchange for the employee installing remote access software. Verify independently — hang up and call IT using a number from a trusted internal source, not one the caller provides.",
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2"
           },
           {
             "q": "A financial institution's customers are being redirected to a fake banking site even when they type the correct URL directly into the browser. The institution's own DNS records appear correct. What is MOST likely occurring?",
@@ -3626,7 +3700,9 @@
               "An SSL stripping attack downgrading customer connections to HTTP"
             ],
             "a": 1,
-            "exp": "Pharming via DNS cache poisoning — the correct URL is being typed but a compromised resolver is returning a malicious IP. The institution's own DNS records being correct rules out domain hijacking."
+            "exp": "Pharming via DNS cache poisoning — the correct URL is being typed but a compromised resolver is returning a malicious IP. The institution's own DNS records being correct rules out domain hijacking.",
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2"
           },
           {
             "q": "The CEO posts on LinkedIn that she is attending a conference in Singapore next week. Three days later, the CFO receives an email from the CEO's personal email requesting he authorize an emergency $80,000 gift card purchase for a client deal that must close before the CEO returns. What attack is this, and what control would MOST directly prevent it?",
@@ -3637,7 +3713,9 @@
               "Supply chain attack through the conference organizer"
             ],
             "a": 1,
-            "exp": "Whaling/BEC using OSINT: the LinkedIn post provided the travel window. The CEO's personal email can't be controlled by corporate SPF. The control that matters is a human process: any financial request above threshold requires a live voice callback using a known number."
+            "exp": "Whaling/BEC using OSINT: the LinkedIn post provided the travel window. The CEO's personal email can't be controlled by corporate SPF. The control that matters is a human process: any financial request above threshold requires a live voice callback using a known number.",
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2"
           },
           {
             "q": "Threat intelligence reveals attackers have registered 'microsofft.com', 'rniicrosoft.com', and 'microsoft-security-alert.com' — all hosting convincing Microsoft login pages. What technique is being used, and which population is MOST at risk?",
@@ -3648,7 +3726,9 @@
               "BGP hijacking — enterprise customers with direct Microsoft connections"
             ],
             "a": 1,
-            "exp": "Typosquatting (microsofft, rniicrosoft) catches fast typists. Brand impersonation (microsoft-security-alert.com) catches users who click links in emails without inspecting the full URL. Users who carefully verify domains before entering credentials are protected."
+            "exp": "Typosquatting (microsofft, rniicrosoft) catches fast typists. Brand impersonation (microsoft-security-alert.com) catches users who click links in emails without inspecting the full URL. Users who carefully verify domains before entering credentials are protected.",
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2"
           },
           {
             "q": "An attacker spends two weeks building rapport with a target company's IT administrator on a professional networking site, posing as a cybersecurity consultant. After establishing trust, they send the admin a 'security assessment tool' to run on the network — actually a backdoor. What social engineering principle is being exploited?",
@@ -3659,7 +3739,9 @@
               "Intimidation — threatening professional consequences for non-compliance"
             ],
             "a": 2,
-            "exp": "Liking: people lower their defenses and comply more readily with people they like. Two weeks of rapport-building is deliberate — it makes the malicious request feel like a favor to a friend rather than a suspicious request from a stranger."
+            "exp": "Liking: people lower their defenses and comply more readily with people they like. Two weeks of rapport-building is deliberate — it makes the malicious request feel like a favor to a friend rather than a suspicious request from a stranger.",
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2"
           }
         ]
       },
@@ -3708,7 +3790,9 @@
               "Sending targeted phishing emails to specific individuals"
             ],
             "a": 1,
-            "exp": "Watering hole attacks compromise sites the target regularly visits — the attacker waits for victims to come to them."
+            "exp": "Watering hole attacks compromise sites the target regularly visits — the attacker waits for victims to come to them.",
+            "messerVideo": "2.2 - Watering Hole Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "Why are watering hole attacks difficult to detect before infection?",
@@ -3719,7 +3803,9 @@
               "They always use encrypted communication"
             ],
             "a": 2,
-            "exp": "Victims have no reason to distrust a familiar, legitimate-looking site — the malicious code is hidden within it."
+            "exp": "Victims have no reason to distrust a familiar, legitimate-looking site — the malicious code is hidden within it.",
+            "messerVideo": "2.2 - Watering Hole Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "A threat actor wants to target engineers at an energy company. They compromise a popular ICS/SCADA industry news website. This is:",
@@ -3730,7 +3816,9 @@
               "A supply chain attack"
             ],
             "a": 2,
-            "exp": "Compromising an industry site frequented by the target group — waiting for them to visit — is a watering hole attack."
+            "exp": "Compromising an industry site frequented by the target group — waiting for them to visit — is a watering hole attack.",
+            "messerVideo": "2.2 - Watering Hole Attacks",
+            "subObjective": "2.2"
           }
         ],
         "scenarios": [
@@ -3743,7 +3831,9 @@
               "Baiting attack using USB drives left at the conference"
             ],
             "a": 2,
-            "exp": "Watering hole: the attacker never contacted the targets. They compromised trusted sites the targets visit — exploiting the target's own browsing behavior. The engineers had no reason to distrust their regular professional resources."
+            "exp": "Watering hole: the attacker never contacted the targets. They compromised trusted sites the targets visit — exploiting the target's own browsing behavior. The engineers had no reason to distrust their regular professional resources.",
+            "messerVideo": "2.2 - Watering Hole Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "A financial firm's SOC detects malware on three analyst workstations. All three visited a well-known financial regulation news website last Tuesday. The website appears legitimate and is still online. Threat intel confirms the site was briefly compromised with a malicious iframe last Tuesday afternoon. What MOST directly would have prevented the infection?",
@@ -3754,7 +3844,9 @@
               "Implementing DMARC on the company's email domain"
             ],
             "a": 2,
-            "exp": "Watering hole attacks exploit client-side vulnerabilities. Fully patched browsers often survive watering hole attempts because the exploits target specific known CVEs. Blocking the site wasn't possible in advance. Network IDS alerts but doesn't prevent."
+            "exp": "Watering hole attacks exploit client-side vulnerabilities. Fully patched browsers often survive watering hole attempts because the exploits target specific known CVEs. Blocking the site wasn't possible in advance. Network IDS alerts but doesn't prevent.",
+            "messerVideo": "2.2 - Watering Hole Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "A red team is tasked with compromising a government agency. Direct phishing is detected and blocked by their email gateway. The red team identifies three external contractor websites that agency staff regularly use for project collaboration and compromises one. Which offensive technique is this?",
@@ -3765,7 +3857,9 @@
               "Typosquatting the contractor's website"
             ],
             "a": 1,
-            "exp": "Strategic web compromise is another term for watering hole attack. The red team adapted when direct phishing failed — pivoting to indirect compromise via a trusted resource. Browser patching and endpoint protection were the required defenses."
+            "exp": "Strategic web compromise is another term for watering hole attack. The red team adapted when direct phishing failed — pivoting to indirect compromise via a trusted resource. Browser patching and endpoint protection were the required defenses.",
+            "messerVideo": "2.2 - Watering Hole Attacks",
+            "subObjective": "2.2"
           }
         ]
       },
@@ -3834,7 +3928,9 @@
               "Vishing"
             ],
             "a": 1,
-            "exp": "Baiting uses enticing physical media or offers to lure victims — the USB drive triggers malware execution when inserted."
+            "exp": "Baiting uses enticing physical media or offers to lure victims — the USB drive triggers malware execution when inserted.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "Which social engineering principle does 'Act now — this offer expires in 1 hour!' exploit?",
@@ -3845,7 +3941,9 @@
               "Liking"
             ],
             "a": 1,
-            "exp": "Scarcity creates artificial urgency — pressure to act immediately reduces critical thinking and victim scrutiny."
+            "exp": "Scarcity creates artificial urgency — pressure to act immediately reduces critical thinking and victim scrutiny.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "Following an authorized person through a badge-access door without using your own credentials is:",
@@ -3856,7 +3954,9 @@
               "Eliciting"
             ],
             "a": 0,
-            "exp": "Piggybacking/tailgating physically follows an authorized person through a controlled access point without authenticating."
+            "exp": "Piggybacking/tailgating physically follows an authorized person through a controlled access point without authenticating.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "Which BEST distinguishes disinformation from misinformation?",
@@ -3880,7 +3980,9 @@
               "Stronger encryption"
             ],
             "a": 2,
-            "exp": "Social engineering targets people — technical controls don't stop it. Training employees to recognize and report attempts is the primary mitigation."
+            "exp": "Social engineering targets people — technical controls don't stop it. Training employees to recognize and report attempts is the primary mitigation.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2"
           }
         ],
         "scenarios": [
@@ -3893,7 +3995,9 @@
               "Baiting and a watering hole attack"
             ],
             "a": 1,
-            "exp": "Two techniques: (1) impersonation with pretexting — claiming to be IT vendor to gain access; (2) physical keylogger installation once inside. Visitor verification procedures and a clean desk/screen lock policy would have mitigated both."
+            "exp": "Two techniques: (1) impersonation with pretexting — claiming to be IT vendor to gain access; (2) physical keylogger installation once inside. Visitor verification procedures and a clean desk/screen lock policy would have mitigated both.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "A security awareness test sends: 'FINAL NOTICE: Your email account will be permanently deleted in 2 hours unless you click here.' 28% of employees click. Which social engineering principle made this test so effective?",
@@ -3904,7 +4008,9 @@
               "Liking — the email used friendly, familiar language"
             ],
             "a": 1,
-            "exp": "Scarcity/urgency: '2 hours' and 'permanent deletion' create panic that overrides careful evaluation. Training should specifically focus on recognizing artificial urgency as a manipulation tactic — legitimate IT departments don't delete accounts on 2-hour notice."
+            "exp": "Scarcity/urgency: '2 hours' and 'permanent deletion' create panic that overrides careful evaluation. Training should specifically focus on recognizing artificial urgency as a manipulation tactic — legitimate IT departments don't delete accounts on 2-hour notice.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "An employee finds a USB drive in the company car park labeled 'Salary Review 2024 - CONFIDENTIAL'. They plug it in at their workstation. The drive executes a script that installs malware. Which social engineering attack is this, and what combination of controls MOST effectively prevents it?",
@@ -3915,7 +4021,9 @@
               "RFID cloning — Faraday cage around workstations"
             ],
             "a": 1,
-            "exp": "Baiting exploits curiosity and greed. Two controls needed: technical (disable USB ports via MDM/endpoint policy) AND human (train employees that found media is a known attack vector — turn it in to IT, don't plug it in). Either alone is insufficient."
+            "exp": "Baiting exploits curiosity and greed. Two controls needed: technical (disable USB ports via MDM/endpoint policy) AND human (train employees that found media is a known attack vector — turn it in to IT, don't plug it in). Either alone is insufficient.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "A disgruntled ex-employee tells a journalist that the company's security practices are dangerously inadequate and provides fabricated 'evidence' — fake internal memos and manufactured screenshots. The story goes viral and damages the company's stock price. What type of attack is this?",
@@ -3926,7 +4034,9 @@
               "A supply chain attack through media publication"
             ],
             "a": 1,
-            "exp": "Disinformation: the information is deliberately fabricated. The goal is reputational and financial harm through false narrative. This differs from a whistleblower (real information) or misinformation (false but not deliberately so)."
+            "exp": "Disinformation: the information is deliberately fabricated. The goal is reputational and financial harm through false narrative. This differs from a whistleblower (real information) or misinformation (false but not deliberately so).",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2"
           },
           {
             "q": "An attacker calls an employee claiming to be from their health insurance provider, saying the employee has an unpaid claim that could affect their coverage — but they need to 'verify' the employee's SSN and date of birth first. The employee, worried about their coverage, provides the information. What principle is being exploited?",
@@ -3937,7 +4047,9 @@
               "Liking — the attacker built rapport before asking"
             ],
             "a": 1,
-            "exp": "Authority (impersonating insurance provider) combined with fear of personal harm (losing coverage) is a powerful combination. The threat is personal and health-related — employees' critical thinking is bypassed by emotional response. Train employees to call companies back using numbers from official statements."
+            "exp": "Authority (impersonating insurance provider) combined with fear of personal harm (losing coverage) is a powerful combination. The threat is personal and health-related — employees' critical thinking is bypassed by emotional response. Train employees to call companies back using numbers from official statements.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2"
           }
         ]
       }
@@ -4000,7 +4112,9 @@
               "Intercept network traffic"
             ],
             "a": 1,
-            "exp": "DLL injection forces a legitimate process to load a malicious DLL — the malicious code then runs with the process's privileges."
+            "exp": "DLL injection forces a legitimate process to load a malicious DLL — the malicious code then runs with the process's privileges.",
+            "messerVideo": "2.3 - Memory Injections",
+            "subObjective": "2.3"
           },
           {
             "q": "Process hollowing involves:",
@@ -4011,7 +4125,9 @@
               "Injecting SQL into a process"
             ],
             "a": 1,
-            "exp": "Process hollowing creates a trusted process 'shell' and fills it with malicious code — the OS sees a legitimate process name."
+            "exp": "Process hollowing creates a trusted process 'shell' and fills it with malicious code — the OS sees a legitimate process name.",
+            "messerVideo": "2.3 - Memory Injections",
+            "subObjective": "2.3"
           },
           {
             "q": "ASLR mitigates memory attacks by:",
@@ -4022,7 +4138,9 @@
               "Preventing code execution in data regions"
             ],
             "a": 1,
-            "exp": "ASLR randomizes memory locations — making buffer overflows and memory injection harder to exploit reliably."
+            "exp": "ASLR randomizes memory locations — making buffer overflows and memory injection harder to exploit reliably.",
+            "messerVideo": "2.3 - Memory Injections",
+            "subObjective": "2.3"
           },
           {
             "q": "DEP (Data Execution Prevention) mitigates memory attacks by:",
@@ -4033,7 +4151,9 @@
               "Monitoring memory usage"
             ],
             "a": 1,
-            "exp": "DEP marks certain memory regions as non-executable — preventing attackers from running shellcode injected into data areas."
+            "exp": "DEP marks certain memory regions as non-executable — preventing attackers from running shellcode injected into data areas.",
+            "messerVideo": "2.3 - Memory Injections",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -4046,7 +4166,9 @@
               "A macro virus attached to svchost.exe"
             ],
             "a": 1,
-            "exp": "Process injection: malicious code is running inside the legitimate svchost.exe process. The EDR sees svchost.exe making the connection — which is less suspicious than an unknown process. The file hash is clean because the executable itself wasn't modified; the malicious code was injected at runtime."
+            "exp": "Process injection: malicious code is running inside the legitimate svchost.exe process. The EDR sees svchost.exe making the connection — which is less suspicious than an unknown process. The file hash is clean because the executable itself wasn't modified; the malicious code was injected at runtime.",
+            "messerVideo": "2.3 - Memory Injections",
+            "subObjective": "2.3"
           },
           {
             "q": "A developer discovers their C application allocates a fixed 512-byte buffer for user input but doesn't validate input length. An attacker submits 600 bytes of crafted input. The application crashes and the developer finds the return address on the stack was overwritten. What vulnerability is this, and what is the PRIMARY mitigation?",
@@ -4057,7 +4179,9 @@
               "Integer overflow — use unsigned integer types"
             ],
             "a": 1,
-            "exp": "Stack buffer overflow: user input exceeded the allocated buffer, overwriting the return address. Primary mitigation is the root cause fix: validate input length before writing to the buffer. ASLR, DEP, and stack canaries make exploitation harder but don't fix the vulnerable code."
+            "exp": "Stack buffer overflow: user input exceeded the allocated buffer, overwriting the return address. Primary mitigation is the root cause fix: validate input length before writing to the buffer. ASLR, DEP, and stack canaries make exploitation harder but don't fix the vulnerable code.",
+            "messerVideo": "2.3 - Memory Injections",
+            "subObjective": "2.3"
           },
           {
             "q": "A forensic analyst finds a legitimate antivirus process has an unusual thread not present in the baseline. Memory forensics reveals shellcode running within the antivirus process's address space. The antivirus binary's file integrity checks show no tampering. How was the attacker likely able to execute code while evading detection?",
@@ -4068,7 +4192,9 @@
               "The attacker used a rootkit to hide the malicious process"
             ],
             "a": 1,
-            "exp": "Thread injection: shellcode was injected into an existing thread of the antivirus process. The AV binary itself is untampered (file integrity checks pass). Security tools often trust their own process, making injection into AV a particularly effective evasion technique."
+            "exp": "Thread injection: shellcode was injected into an existing thread of the antivirus process. The AV binary itself is untampered (file integrity checks pass). Security tools often trust their own process, making injection into AV a particularly effective evasion technique.",
+            "messerVideo": "2.3 - Memory Injections",
+            "subObjective": "2.3"
           },
           {
             "q": "A penetration tester launches calc.exe in a suspended state, uses WriteProcessMemory to replace its code with a custom payload, then resumes the process. Task Manager shows calc.exe running. What technique is this, and why is it effective?",
@@ -4079,7 +4205,9 @@
               "A rootkit — effective because it modifies the Windows kernel"
             ],
             "a": 1,
-            "exp": "Process hollowing: a legitimate process shell is created, its code replaced with malicious code, and it's resumed. Task Manager shows 'calc.exe'. Allow-listing solutions that whitelist processes by name are bypassed because calc.exe IS whitelisted — the hollowing happens after launch."
+            "exp": "Process hollowing: a legitimate process shell is created, its code replaced with malicious code, and it's resumed. Task Manager shows 'calc.exe'. Allow-listing solutions that whitelist processes by name are bypassed because calc.exe IS whitelisted — the hollowing happens after launch.",
+            "messerVideo": "2.3 - Memory Injections",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -4132,7 +4260,9 @@
               "Decrypting encrypted data"
             ],
             "a": 1,
-            "exp": "Buffer overflows occur when input exceeds buffer capacity — overwriting memory that can redirect program execution."
+            "exp": "Buffer overflows occur when input exceeds buffer capacity — overwriting memory that can redirect program execution.",
+            "messerVideo": "2.3 - Buffer Overflows",
+            "subObjective": "2.3"
           },
           {
             "q": "A stack canary is used to:",
@@ -4143,7 +4273,9 @@
               "Randomize memory addresses"
             ],
             "a": 1,
-            "exp": "Stack canaries are random values placed before the return address — if they change, an overflow is detected and the program halts."
+            "exp": "Stack canaries are random values placed before the return address — if they change, an overflow is detected and the program halts.",
+            "messerVideo": "2.3 - Buffer Overflows",
+            "subObjective": "2.3"
           },
           {
             "q": "Buffer overflows are most commonly found in programs written in:",
@@ -4154,7 +4286,9 @@
               "SQL"
             ],
             "a": 1,
-            "exp": "C and C++ allow direct memory manipulation without automatic bounds checking — making buffer overflows possible."
+            "exp": "C and C++ allow direct memory manipulation without automatic bounds checking — making buffer overflows possible.",
+            "messerVideo": "2.3 - Buffer Overflows",
+            "subObjective": "2.3"
           },
           {
             "q": "Which combination of mitigations BEST protects against buffer overflow exploitation?",
@@ -4165,7 +4299,9 @@
               "VPN and encryption"
             ],
             "a": 1,
-            "exp": "ASLR (randomizes addresses), DEP (blocks code in data memory), canaries (detect overflow), input validation (prevents overlong input)."
+            "exp": "ASLR (randomizes addresses), DEP (blocks code in data memory), canaries (detect overflow), input validation (prevents overlong input).",
+            "messerVideo": "2.3 - Buffer Overflows",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -4178,7 +4314,9 @@
               "A SQL injection in the packet processing logic"
             ],
             "a": 1,
-            "exp": "Buffer overflow: the application trusted the attacker-controlled length field without validation. The fix is to validate that the declared length matches actual received data before using it. Never trust user-controlled values for memory operations without bounds checking."
+            "exp": "Buffer overflow: the application trusted the attacker-controlled length field without validation. The fix is to validate that the declared length matches actual received data before using it. Never trust user-controlled values for memory operations without bounds checking.",
+            "messerVideo": "2.3 - Buffer Overflows",
+            "subObjective": "2.3"
           },
           {
             "q": "A legacy C++ codebase uses sprintf() extensively to format strings into fixed-size character arrays. A junior developer asks why this is flagged as high-risk. What is the BEST explanation?",
@@ -4189,7 +4327,9 @@
               "sprintf() doesn't support Unicode"
             ],
             "a": 1,
-            "exp": "sprintf() writes to a destination buffer without checking its size. If the formatted output is larger than the buffer, it overwrites adjacent memory — a classic buffer overflow. Modern alternatives like snprintf() require an explicit size limit."
+            "exp": "sprintf() writes to a destination buffer without checking its size. If the formatted output is larger than the buffer, it overwrites adjacent memory — a classic buffer overflow. Modern alternatives like snprintf() require an explicit size limit.",
+            "messerVideo": "2.3 - Buffer Overflows",
+            "subObjective": "2.3"
           },
           {
             "q": "A buffer overflow vulnerability exists in a Windows service. An attacker's exploit works in a test environment but fails against production. Investigation reveals production has ASLR enabled. Why does ASLR make exploitation unreliable?",
@@ -4200,7 +4340,9 @@
               "ASLR prevents writing to the stack"
             ],
             "a": 0,
-            "exp": "ASLR randomizes where code and data are loaded in memory each run. A buffer overflow exploit needs to overwrite the return address with a specific value pointing to shellcode or a useful gadget. ASLR means that address changes every run — making reliable exploitation much harder without chaining an information leak vulnerability."
+            "exp": "ASLR randomizes where code and data are loaded in memory each run. A buffer overflow exploit needs to overwrite the return address with a specific value pointing to shellcode or a useful gadget. ASLR means that address changes every run — making reliable exploitation much harder without chaining an information leak vulnerability.",
+            "messerVideo": "2.3 - Buffer Overflows",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -4253,7 +4395,9 @@
               "Encryption is applied incorrectly"
             ],
             "a": 1,
-            "exp": "Race conditions arise when the outcome depends on timing — an attacker manipulates the sequence to gain an unintended result."
+            "exp": "Race conditions arise when the outcome depends on timing — an attacker manipulates the sequence to gain an unintended result.",
+            "messerVideo": "2.3 - Race Conditions",
+            "subObjective": "2.3"
           },
           {
             "q": "TOCTOU stands for:",
@@ -4264,7 +4408,9 @@
               "Threat of Credential Theft over Untrusted Origination"
             ],
             "a": 1,
-            "exp": "TOCTOU = Time-of-Check to Time-of-Use. The attacker modifies a resource after it's checked as safe but before it's used."
+            "exp": "TOCTOU = Time-of-Check to Time-of-Use. The attacker modifies a resource after it's checked as safe but before it's used.",
+            "messerVideo": "2.3 - Race Conditions",
+            "subObjective": "2.3"
           },
           {
             "q": "A developer checks if a file is owned by the correct user, then opens it. An attacker replaces the file between these steps. This is:",
@@ -4275,7 +4421,9 @@
               "A DLL injection"
             ],
             "a": 2,
-            "exp": "This is a classic TOCTOU attack — the file passes the check but is replaced before use."
+            "exp": "This is a classic TOCTOU attack — the file passes the check but is replaced before use.",
+            "messerVideo": "2.3 - Race Conditions",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -4288,7 +4436,9 @@
               "An integer overflow in the transaction amount"
             ],
             "a": 1,
-            "exp": "TOCTOU race condition: the check (balance verification) and the use (debit operation) are not atomic. Multiple concurrent requests each pass the check independently. The fix is an atomic database transaction that locks the account record between check and update."
+            "exp": "TOCTOU race condition: the check (balance verification) and the use (debit operation) are not atomic. Multiple concurrent requests each pass the check independently. The fix is an atomic database transaction that locks the account record between check and update.",
+            "messerVideo": "2.3 - Race Conditions",
+            "subObjective": "2.3"
           },
           {
             "q": "Code creates a temporary file, checks if it's safe to process, then opens it for processing. A security reviewer flags this as a TOCTOU vulnerability. What specific attack would exploit this, and what is the fix?",
@@ -4299,7 +4449,9 @@
               "A race condition in the file system driver — fix: upgrade the OS"
             ],
             "a": 1,
-            "exp": "Classic TOCTOU: between check (is this file safe?) and use (open the file), an attacker swaps the file with a symlink to /etc/passwd or another sensitive file. Fix: open the file first to get a file descriptor, then check the safety of the descriptor's content — not the filename, which can be changed underneath you."
+            "exp": "Classic TOCTOU: between check (is this file safe?) and use (open the file), an attacker swaps the file with a symlink to /etc/passwd or another sensitive file. Fix: open the file first to get a file descriptor, then check the safety of the descriptor's content — not the filename, which can be changed underneath you.",
+            "messerVideo": "2.3 - Race Conditions",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -4357,7 +4509,9 @@
               "A buffer overflow exploit"
             ],
             "a": 2,
-            "exp": "SolarWinds delivered malware through a legitimate software update — a textbook supply chain attack affecting thousands of organizations."
+            "exp": "SolarWinds delivered malware through a legitimate software update — a textbook supply chain attack affecting thousands of organizations.",
+            "messerVideo": "2.3 - Malicious Updates",
+            "subObjective": "2.3"
           },
           {
             "q": "Which control BEST protects against malicious software updates?",
@@ -4368,7 +4522,9 @@
               "Using a VPN for update downloads"
             ],
             "a": 1,
-            "exp": "Code signing verification ensures updates genuinely came from the vendor and haven't been tampered with."
+            "exp": "Code signing verification ensures updates genuinely came from the vendor and haven't been tampered with.",
+            "messerVideo": "2.3 - Malicious Updates",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -4381,7 +4537,9 @@
               "A zero-day exploit in the compiler itself"
             ],
             "a": 1,
-            "exp": "Supply chain attack on the build pipeline (similar to SolarWinds). Code signing verifies the binary matches what was signed — it doesn't verify the build process was clean. The attacker modified the build process before signing, so the signed output was legitimately signed malicious code."
+            "exp": "Supply chain attack on the build pipeline (similar to SolarWinds). Code signing verifies the binary matches what was signed — it doesn't verify the build process was clean. The attacker modified the build process before signing, so the signed output was legitimately signed malicious code.",
+            "messerVideo": "2.3 - Malicious Updates",
+            "subObjective": "2.3"
           },
           {
             "q": "An organization automatically pushes software updates to 50,000 endpoints within hours of vendor release. A security manager proposes a 72-hour staging period. A security engineer argues speed is critical for zero-days. What is the BEST compromise?",
@@ -4392,7 +4550,9 @@
               "The security manager — staging should extend to 30 days for proper testing"
             ],
             "a": 2,
-            "exp": "Risk-tiered deployment: staging catches problematic updates (and malicious ones like SolarWinds). But for critical zero-days, 72 hours of exposure is worse than a small risk of a bad patch. Tier by severity — critical security patches fast, everything else staged."
+            "exp": "Risk-tiered deployment: staging catches problematic updates (and malicious ones like SolarWinds). But for critical zero-days, 72 hours of exposure is worse than a small risk of a bad patch. Tier by severity — critical security patches fast, everything else staged.",
+            "messerVideo": "2.3 - Malicious Updates",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -4445,7 +4605,9 @@
               "Encrypting operating system files"
             ],
             "a": 1,
-            "exp": "Privilege escalation exploits vulnerabilities to gain admin/root access — enabling full system control."
+            "exp": "Privilege escalation exploits vulnerabilities to gain admin/root access — enabling full system control.",
+            "messerVideo": "2.3 - Operating System Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Which BEST captures why running an end-of-life operating system creates significant security risk?",
@@ -4469,7 +4631,9 @@
               "NetBIOS"
             ],
             "a": 2,
-            "exp": "WannaCry used the EternalBlue exploit targeting SMBv1 — spreading automatically across unpatched Windows systems."
+            "exp": "WannaCry used the EternalBlue exploit targeting SMBv1 — spreading automatically across unpatched Windows systems.",
+            "messerVideo": "2.3 - Operating System Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Which is the MOST effective mitigation for operating system vulnerabilities?",
@@ -4480,7 +4644,9 @@
               "Enabling full disk encryption"
             ],
             "a": 1,
-            "exp": "Patching is the primary mitigation — it removes the vulnerabilities attackers exploit."
+            "exp": "Patching is the primary mitigation — it removes the vulnerabilities attackers exploit.",
+            "messerVideo": "2.3 - Operating System Vulnerabilities",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -4493,7 +4659,9 @@
               "That the antivirus vendor should have blocked the exploit"
             ],
             "a": 1,
-            "exp": "Vertical privilege escalation (user to SYSTEM) via a third-party app vulnerability. Patch management must include ALL software, not just the OS. Many organizations focus on Windows Update but neglect third-party applications which are increasingly targeted precisely because they're often behind on patches."
+            "exp": "Vertical privilege escalation (user to SYSTEM) via a third-party app vulnerability. Patch management must include ALL software, not just the OS. Many organizations focus on Windows Update but neglect third-party applications which are increasingly targeted precisely because they're often behind on patches.",
+            "messerVideo": "2.3 - Operating System Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "A hospital runs a critical patient monitoring system on Windows XP because the medical device vendor won't support newer OS versions and a new version won't be available for 18 months. What is the MOST appropriate interim risk management approach?",
@@ -4504,7 +4672,9 @@
               "Upgrade the OS to Windows 10 without vendor approval since patient safety requires it"
             ],
             "a": 2,
-            "exp": "EOL OS on a medical device: a classic OT dilemma. Patient safety requires the device to keep running. Compensating controls — isolation limits blast radius, strict firewall rules limit attack vectors, monitoring detects anomalies — reduce risk while replacement is planned. Document the accepted risk formally."
+            "exp": "EOL OS on a medical device: a classic OT dilemma. Patient safety requires the device to keep running. Compensating controls — isolation limits blast radius, strict firewall rules limit attack vectors, monitoring detects anomalies — reduce risk while replacement is planned. Document the accepted risk formally.",
+            "messerVideo": "2.3 - Operating System Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "A penetration tester with low-privilege domain user access uses a tool to request Kerberos service tickets for service accounts with weak passwords, then takes the encrypted tickets offline for cracking. What technique is this, and what does it enable?",
@@ -4515,7 +4685,9 @@
               "AS-REP roasting — exploits accounts with pre-authentication disabled"
             ],
             "a": 1,
-            "exp": "Kerberoasting: any domain user can request service tickets; the ticket is encrypted with the service account's password hash. Taking it offline allows password cracking without further network interaction. If the service account has admin privileges (common misconfiguration), cracking the password leads to privilege escalation."
+            "exp": "Kerberoasting: any domain user can request service tickets; the ticket is encrypted with the service account's password hash. Taking it offline allows password cracking without further network interaction. If the service account has admin privileges (common misconfiguration), cracking the password leads to privilege escalation.",
+            "messerVideo": "2.3 - Operating System Vulnerabilities",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -4576,7 +4748,9 @@
               "Physical security systems"
             ],
             "a": 1,
-            "exp": "SQLi inserts malicious SQL into input fields — manipulating database queries to exfiltrate, modify, or delete data."
+            "exp": "SQLi inserts malicious SQL into input fields — manipulating database queries to exfiltrate, modify, or delete data.",
+            "messerVideo": "2.3 - SQL Injection",
+            "subObjective": "2.3"
           },
           {
             "q": "What is the PRIMARY mitigation against SQL injection?",
@@ -4587,7 +4761,9 @@
               "HTTPS encryption"
             ],
             "a": 2,
-            "exp": "Parameterized queries separate SQL code from user data — input can never be interpreted as executable SQL code."
+            "exp": "Parameterized queries separate SQL code from user data — input can never be interpreted as executable SQL code.",
+            "messerVideo": "2.3 - SQL Injection",
+            "subObjective": "2.3"
           },
           {
             "q": "An attacker enters ' OR '1'='1 into a login form. If successful, this is:",
@@ -4598,7 +4774,9 @@
               "A directory traversal attack"
             ],
             "a": 1,
-            "exp": "This classic SQLi payload creates an always-true condition, bypassing authentication without valid credentials."
+            "exp": "This classic SQLi payload creates an always-true condition, bypassing authentication without valid credentials.",
+            "messerVideo": "2.3 - SQL Injection",
+            "subObjective": "2.3"
           },
           {
             "q": "Which BEST distinguishes blind SQL injection from in-band SQL injection?",
@@ -4624,7 +4802,9 @@
               "CSRF — the attacker forged a search request on behalf of a legitimate user"
             ],
             "a": 1,
-            "exp": "Union-based SQLi: the attacker extended the original query with UNION SELECT to retrieve data from another table. Root cause: string concatenation of user input into SQL. Parameterized queries treat user input as data, never as executable SQL."
+            "exp": "Union-based SQLi: the attacker extended the original query with UNION SELECT to retrieve data from another table. Root cause: string concatenation of user input into SQL. Parameterized queries treat user input as data, never as executable SQL.",
+            "messerVideo": "2.3 - SQL Injection",
+            "subObjective": "2.3"
           },
           {
             "q": "A developer fixes a SQL injection vulnerability by blocking single quotes, semicolons, and the word 'SELECT'. A security reviewer rejects this fix. Why?",
@@ -4635,7 +4815,9 @@
               "Single quotes are allowed in legitimate names like O'Brien"
             ],
             "a": 1,
-            "exp": "Blocklist filtering is fundamentally flawed — too many ways to encode malicious input. Parameterized queries completely separate code from data — user input is never parsed as SQL regardless of what it contains. WAF is a useful additional layer but not a replacement for fixing the root cause."
+            "exp": "Blocklist filtering is fundamentally flawed — too many ways to encode malicious input. Parameterized queries completely separate code from data — user input is never parsed as SQL regardless of what it contains. WAF is a useful additional layer but not a replacement for fixing the root cause.",
+            "messerVideo": "2.3 - SQL Injection",
+            "subObjective": "2.3"
           },
           {
             "q": "A security team finds a blind SQL injection vulnerability in a product search parameter. No data is returned in error messages — the page either shows products or shows 'no results.' How does an attacker exploit blind SQLi, and what is the risk?",
@@ -4646,7 +4828,9 @@
               "Blind SQLi requires physical access to the database server"
             ],
             "a": 1,
-            "exp": "Blind SQLi exploitation: no direct output, but the attacker observes page behavior differences. By asking binary questions ('is the first character of the admin password greater than M?'), they eventually extract everything — slowly but completely. Automated tools make this practical."
+            "exp": "Blind SQLi exploitation: no direct output, but the attacker observes page behavior differences. By asking binary questions ('is the first character of the admin password greater than M?'), they eventually extract everything — slowly but completely. Automated tools make this practical.",
+            "messerVideo": "2.3 - SQL Injection",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -4715,7 +4899,9 @@
               "DNS responses"
             ],
             "a": 1,
-            "exp": "XSS injects client-side scripts into web pages — the malicious script executes in the victim's browser."
+            "exp": "XSS injects client-side scripts into web pages — the malicious script executes in the victim's browser.",
+            "messerVideo": "2.3 - Cross-site Scripting",
+            "subObjective": "2.3"
           },
           {
             "q": "The PRIMARY difference between XSS and SQL injection is:",
@@ -4726,7 +4912,9 @@
               "SQLi is obsolete; XSS is current"
             ],
             "a": 1,
-            "exp": "XSS executes in the victim's browser (client-side). SQLi manipulates the server's database (server-side)."
+            "exp": "XSS executes in the victim's browser (client-side). SQLi manipulates the server's database (server-side).",
+            "messerVideo": "2.3 - Cross-site Scripting",
+            "subObjective": "2.3"
           },
           {
             "q": "The HttpOnly cookie attribute mitigates XSS by:",
@@ -4737,7 +4925,9 @@
               "Making cookies expire immediately"
             ],
             "a": 1,
-            "exp": "HttpOnly prevents client-side scripts from reading cookies — even if XSS is successful, session cookies can't be stolen by the script."
+            "exp": "HttpOnly prevents client-side scripts from reading cookies — even if XSS is successful, session cookies can't be stolen by the script.",
+            "messerVideo": "2.3 - Cross-site Scripting",
+            "subObjective": "2.3"
           },
           {
             "q": "An attacker posts a comment on a website containing malicious JavaScript. Every user who views the comment executes the script. This is:",
@@ -4748,7 +4938,9 @@
               "SQL injection"
             ],
             "a": 2,
-            "exp": "The script is stored in the database and served to every subsequent visitor — stored/persistent XSS."
+            "exp": "The script is stored in the database and served to every subsequent visitor — stored/persistent XSS.",
+            "messerVideo": "2.3 - Cross-site Scripting",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -4761,7 +4953,9 @@
               "CSRF — it forges requests on behalf of authenticated users"
             ],
             "a": 2,
-            "exp": "Stored XSS: the malicious script is stored in the database (as a comment) and served to every visitor. No crafted link is required — simply viewing the comments page triggers the attack. More dangerous than reflected XSS because it scales to all users automatically and persists until removed."
+            "exp": "Stored XSS: the malicious script is stored in the database (as a comment) and served to every visitor. No crafted link is required — simply viewing the comments page triggers the attack. More dangerous than reflected XSS because it scales to all users automatically and persists until removed.",
+            "messerVideo": "2.3 - Cross-site Scripting",
+            "subObjective": "2.3"
           },
           {
             "q": "A developer encodes < as &lt; and > as &gt; to fix an XSS vulnerability in a review field. A security tester bypasses this by injecting: \" onmouseover=\"alert(document.cookie)\" into an HTML attribute (the product image alt text). What does this demonstrate?",
@@ -4772,7 +4966,9 @@
               "The image alt text attribute is immune to XSS in all contexts"
             ],
             "a": 1,
-            "exp": "Context-sensitive encoding: XSS exists in multiple injection contexts, each requiring different encoding rules. Encoding < and > protects HTML body but not attribute contexts where \" breaks out of the attribute value. A proper output encoding library handles context-appropriate encoding automatically."
+            "exp": "Context-sensitive encoding: XSS exists in multiple injection contexts, each requiring different encoding rules. Encoding < and > protects HTML body but not attribute contexts where \" breaks out of the attribute value. A proper output encoding library handles context-appropriate encoding automatically.",
+            "messerVideo": "2.3 - Cross-site Scripting",
+            "subObjective": "2.3"
           },
           {
             "q": "A company's Content Security Policy is: default-src 'self'; script-src 'self' 'unsafe-inline'. A security auditor flags 'unsafe-inline' as defeating the purpose of CSP for XSS mitigation. Why?",
@@ -4783,7 +4979,9 @@
               "'unsafe-inline' is required for modern web applications and the auditor is incorrect"
             ],
             "a": 1,
-            "exp": "'unsafe-inline' defeats CSP's core XSS protection. CSP prevents XSS by blocking inline scripts and requiring all scripts to load from approved sources. 'unsafe-inline' overrides this — permitting exactly what XSS uses. The fix is to remove it and use nonces or hashes to whitelist specific legitimate inline scripts."
+            "exp": "'unsafe-inline' defeats CSP's core XSS protection. CSP prevents XSS by blocking inline scripts and requiring all scripts to load from approved sources. 'unsafe-inline' overrides this — permitting exactly what XSS uses. The fix is to remove it and use nonces or hashes to whitelist specific legitimate inline scripts.",
+            "messerVideo": "2.3 - Cross-site Scripting",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -4849,7 +5047,9 @@
               "Exploiting SQL injection"
             ],
             "a": 1,
-            "exp": "Side-channel attacks exploit physical characteristics of hardware rather than software vulnerabilities."
+            "exp": "Side-channel attacks exploit physical characteristics of hardware rather than software vulnerabilities.",
+            "messerVideo": "2.3 - Hardware Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Specter and Meltdown are examples of:",
@@ -4860,7 +5060,9 @@
               "Social engineering attacks"
             ],
             "a": 2,
-            "exp": "Specter and Meltdown are CPU hardware-level vulnerabilities — they exploit speculative execution to leak protected memory contents."
+            "exp": "Specter and Meltdown are CPU hardware-level vulnerabilities — they exploit speculative execution to leak protected memory contents.",
+            "messerVideo": "2.3 - Hardware Vulnerabilities",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -4873,7 +5075,9 @@
               "Continue normal operations and purchase cyber insurance to cover the risk"
             ],
             "a": 2,
-            "exp": "EOL hardware with no patch available: you cannot patch away the vulnerability. Compensating controls — network isolation, strict firewall rules, enhanced monitoring — reduce risk while replacement is planned. This is the standard approach for unpatched embedded systems."
+            "exp": "EOL hardware with no patch available: you cannot patch away the vulnerability. Compensating controls — network isolation, strict firewall rules, enhanced monitoring — reduce risk while replacement is planned. This is the standard approach for unpatched embedded systems.",
+            "messerVideo": "2.3 - Hardware Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "A cryptography researcher recovers a 256-bit AES encryption key from a device by measuring power consumption patterns during encryption operations — without accessing the key directly or breaking AES mathematically. What type of attack is this?",
@@ -4884,7 +5088,9 @@
               "A supply chain attack on the device's crypto library"
             ],
             "a": 1,
-            "exp": "Side-channel attack: the attack doesn't break AES (which is computationally secure) — it exploits physical characteristics of the implementation. Power consumption correlates with operations on key bits. The AES algorithm is fine; the hardware implementation leaks information."
+            "exp": "Side-channel attack: the attack doesn't break AES (which is computationally secure) — it exploits physical characteristics of the implementation. Power consumption correlates with operations on key bits. The AES algorithm is fine; the hardware implementation leaks information.",
+            "messerVideo": "2.3 - Hardware Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "During a security audit of new servers, a researcher discovers some contain undocumented chips soldered to the motherboard that appear to report system information to external IP addresses. The vendor denies knowledge of the chips. What type of threat does this represent?",
@@ -4895,7 +5101,9 @@
               "Shadow IT — an employee added the chips after delivery"
             ],
             "a": 1,
-            "exp": "Hardware supply chain attack: malicious components inserted before the product reached the customer. Distinct from firmware attacks (software). The buyer had no opportunity to detect or prevent this through software security controls. Mitigations include hardware attestation and buying from trusted suppliers with verified chain of custody."
+            "exp": "Hardware supply chain attack: malicious components inserted before the product reached the customer. Distinct from firmware attacks (software). The buyer had no opportunity to detect or prevent this through software security controls. Mitigations include hardware attestation and buying from trusted suppliers with verified chain of custody.",
+            "messerVideo": "2.3 - Hardware Vulnerabilities",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -4952,7 +5160,9 @@
               "Migrating VMs between cloud regions"
             ],
             "a": 1,
-            "exp": "VM escape is the most serious virtualization attack — the attacker gains access to the hypervisor and potentially all VMs on the host."
+            "exp": "VM escape is the most serious virtualization attack — the attacker gains access to the hypervisor and potentially all VMs on the host.",
+            "messerVideo": "2.3 - Virtualization Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Which BEST captures the SECURITY concern with VM sprawl (vs operational concerns like cost or performance)?",
@@ -4991,7 +5201,9 @@
               "A hypervisor type confusion error causing VMs to share address spaces"
             ],
             "a": 2,
-            "exp": "Resource reuse: hypervisors allocate and deallocate memory pages between VMs. If memory isn't properly zeroed before being assigned to a new VM, the new VM may read residual data from the previous VM. Mitigations include secure memory wiping between allocations."
+            "exp": "Resource reuse: hypervisors allocate and deallocate memory pages between VMs. If memory isn't properly zeroed before being assigned to a new VM, the new VM may read residual data from the previous VM. Mitigations include secure memory wiping between allocations.",
+            "messerVideo": "2.3 - Virtualization Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "A security team finds 47 VMs created for projects over 3 years that are no longer actively monitored and haven't received OS updates in over a year. What risk does this represent, and what is the recommended action?",
@@ -5002,7 +5214,9 @@
               "VM escape risk — idle VMs are more likely to allow hypervisor escape"
             ],
             "a": 1,
-            "exp": "VM sprawl creates unmanaged attack surfaces — forgotten VMs often have default configurations, no patches, and no monitoring. An attacker who compromises one has internal network access. Proper VM lifecycle management — inventory, justify, patch, and decommission — is essential."
+            "exp": "VM sprawl creates unmanaged attack surfaces — forgotten VMs often have default configurations, no patches, and no monitoring. An attacker who compromises one has internal network access. Proper VM lifecycle management — inventory, justify, patch, and decommission — is essential.",
+            "messerVideo": "2.3 - Virtualization Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "A penetration tester gains access to a VM in a cloud environment and attempts an advanced exploit targeting the hypervisor's memory management to break out of the VM and access the host system. If successful, what attack has occurred and what is the most critical impact?",
@@ -5013,7 +5227,9 @@
               "A supply chain attack on the hypervisor software"
             ],
             "a": 1,
-            "exp": "VM escape is the most serious virtualization attack. A successful escape gives the attacker access to the hypervisor, which controls all VMs on that host. All co-resident tenants are potentially compromised. This is why hypervisor patching is critical."
+            "exp": "VM escape is the most serious virtualization attack. A successful escape gives the attacker access to the hypervisor, which controls all VMs on that host. All co-resident tenants are potentially compromised. This is why hypervisor patching is critical.",
+            "messerVideo": "2.3 - Virtualization Vulnerabilities",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -5066,7 +5282,9 @@
               "Responsibilities are always equal between provider and customer"
             ],
             "a": 2,
-            "exp": "The shared responsibility model divides duties — providers secure infrastructure; customers secure what they put on it."
+            "exp": "The shared responsibility model divides duties — providers secure infrastructure; customers secure what they put on it.",
+            "messerVideo": "2.3 - Cloud-specific Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Which is the MOST common cause of cloud data breaches?",
@@ -5090,7 +5308,9 @@
               "A virtualization escape"
             ],
             "a": 1,
-            "exp": "Publicly accessible cloud storage is a misconfiguration — a customer-side security failure in the shared responsibility model."
+            "exp": "Publicly accessible cloud storage is a misconfiguration — a customer-side security failure in the shared responsibility model.",
+            "messerVideo": "2.3 - Cloud-specific Vulnerabilities",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -5103,7 +5323,9 @@
               "The developer personally, not the organization"
             ],
             "a": 1,
-            "exp": "Shared responsibility: AWS secures the infrastructure and the S3 service itself. The customer is responsible for what they do with the service — including bucket permissions and data classification. Misconfiguration is the customer's responsibility."
+            "exp": "Shared responsibility: AWS secures the infrastructure and the S3 service itself. The customer is responsible for what they do with the service — including bucket permissions and data classification. Misconfiguration is the customer's responsibility.",
+            "messerVideo": "2.3 - Cloud-specific Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "A security team reviewing cloud posture finds: an S3 bucket with versioning disabled containing DB backups, an EC2 security group allowing inbound RDP from 0.0.0.0/0, an IAM role with AdministratorAccess attached to a Lambda that only needs to read from one S3 bucket, and an API Gateway endpoint with no authentication. Which should be addressed FIRST?",
@@ -5114,7 +5336,9 @@
               "All four are equal priority"
             ],
             "a": 1,
-            "exp": "Prioritize direct exposure paths: open RDP to internet (automated scanners find this in minutes) and unauthenticated API endpoint (immediate data exposure risk) are critical. Overprivileged IAM is high. Disabled versioning is a resilience issue but not an immediate external risk."
+            "exp": "Prioritize direct exposure paths: open RDP to internet (automated scanners find this in minutes) and unauthenticated API endpoint (immediate data exposure risk) are critical. Overprivileged IAM is high. Disabled versioning is a resilience issue but not an immediate external risk.",
+            "messerVideo": "2.3 - Cloud-specific Vulnerabilities",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -5180,7 +5404,9 @@
               "Manage user access rights"
             ],
             "a": 1,
-            "exp": "An SBOM lists all components in software — when a vulnerability is found in a library, organizations with SBOMs know if they're affected."
+            "exp": "An SBOM lists all components in software — when a vulnerability is found in a library, organizations with SBOMs know if they're affected.",
+            "messerVideo": "2.3 - Supply Chain Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Which contractual clause gives an organization the right to examine a vendor's security practices?",
@@ -5191,7 +5417,9 @@
               "Memorandum of Understanding"
             ],
             "a": 2,
-            "exp": "Right-to-audit clauses allow organizations to verify their vendors' security practices — important for supply chain risk management."
+            "exp": "Right-to-audit clauses allow organizations to verify their vendors' security practices — important for supply chain risk management.",
+            "messerVideo": "2.3 - Supply Chain Vulnerabilities",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -5204,7 +5432,9 @@
               "An SBOM is only useful for hardware components"
             ],
             "a": 1,
-            "exp": "SBOM value: transitive dependencies are the blind spot. When Log4Shell dropped, organizations with SBOMs knew within hours whether they were affected. Organizations without them spent days doing manual inventory. SBOM is the prerequisite for rapid supply chain vulnerability response."
+            "exp": "SBOM value: transitive dependencies are the blind spot. When Log4Shell dropped, organizations with SBOMs knew within hours whether they were affected. Organizations without them spent days doing manual inventory. SBOM is the prerequisite for rapid supply chain vulnerability response.",
+            "messerVideo": "2.3 - Supply Chain Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "An MSP that manages IT for 200 small businesses is compromised via a vulnerability in their RMM software. The attacker uses the MSP's legitimate admin access to deploy ransomware to all 200 client environments simultaneously. What does this demonstrate about supply chain risk?",
@@ -5215,7 +5445,9 @@
               "MSPs should only be used by large enterprises with dedicated security teams"
             ],
             "a": 1,
-            "exp": "MSP as supply chain risk: the attacker didn't compromise 200 businesses — they compromised the one entity with access to all 200. Mitigations: vet MSP security (SOC 2 Type II, right-to-audit), segment MSP access, monitor MSP activity, have IR plans that assume MSP compromise."
+            "exp": "MSP as supply chain risk: the attacker didn't compromise 200 businesses — they compromised the one entity with access to all 200. Mitigations: vet MSP security (SOC 2 Type II, right-to-audit), segment MSP access, monitor MSP activity, have IR plans that assume MSP compromise.",
+            "messerVideo": "2.3 - Supply Chain Vulnerabilities",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -5277,7 +5509,9 @@
               "Monitor network traffic"
             ],
             "a": 1,
-            "exp": "CIS Benchmarks provide detailed, prescriptive security configuration recommendations."
+            "exp": "CIS Benchmarks provide detailed, prescriptive security configuration recommendations.",
+            "messerVideo": "2.3 - Misconfiguration Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Which approach BEST prevents misconfiguration vulnerabilities at scale?",
@@ -5288,7 +5522,9 @@
               "Using only cloud services"
             ],
             "a": 1,
-            "exp": "Configuration management with secure baselines applied consistently and verified automatically is most effective."
+            "exp": "Configuration management with secure baselines applied consistently and verified automatically is most effective.",
+            "messerVideo": "2.3 - Misconfiguration Vulnerabilities",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -5301,7 +5537,9 @@
               "The switch should not have had a web admin interface enabled"
             ],
             "a": 2,
-            "exp": "Default credentials: the most basic hardening step was missed. A device hardening checklist or new device setup SOP should require: change default credentials, disable unnecessary interfaces, update firmware — before the device touches production. This is a process failure, not just an individual one."
+            "exp": "Default credentials: the most basic hardening step was missed. A device hardening checklist or new device setup SOP should require: change default credentials, disable unnecessary interfaces, update firmware — before the device touches production. This is a process failure, not just an individual one.",
+            "messerVideo": "2.3 - Misconfiguration Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "An organization fails a PCI DSS audit. The finding states several servers in the cardholder data environment are running TLSv1.0 and 3DES cipher suites. The IT team says these were the standards when the servers were configured five years ago. What type of vulnerability is this, and what remediation is required?",
@@ -5312,7 +5550,9 @@
               "A hardware vulnerability — replace the server network cards"
             ],
             "a": 1,
-            "exp": "Cryptographic misconfiguration: TLSv1.0 and 3DES have known vulnerabilities and are explicitly prohibited by PCI DSS 4.0. Configuration drift — the environment was once compliant but became non-compliant as standards evolved while the config stayed static."
+            "exp": "Cryptographic misconfiguration: TLSv1.0 and 3DES have known vulnerabilities and are explicitly prohibited by PCI DSS 4.0. Configuration drift — the environment was once compliant but became non-compliant as standards evolved while the config stayed static.",
+            "messerVideo": "2.3 - Misconfiguration Vulnerabilities",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -5390,7 +5630,9 @@
               "Installing malware on a phone"
             ],
             "a": 1,
-            "exp": "SIM swapping redirects the victim's phone number to the attacker — enabling interception of SMS-based MFA codes."
+            "exp": "SIM swapping redirects the victim's phone number to the attacker — enabling interception of SMS-based MFA codes.",
+            "messerVideo": "2.3 - Mobile Device Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "MDM helps secure mobile devices by:",
@@ -5401,7 +5643,9 @@
               "Preventing SIM swapping"
             ],
             "a": 1,
-            "exp": "MDM provides centralized control — enforcing encryption, PIN requirements, remote wipe, and detecting compromised devices."
+            "exp": "MDM provides centralized control — enforcing encryption, PIN requirements, remote wipe, and detecting compromised devices.",
+            "messerVideo": "2.3 - Mobile Device Vulnerabilities",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -5414,7 +5658,9 @@
               "MDM remote wipe is always an all-or-nothing operation"
             ],
             "a": 1,
-            "exp": "Container-based MDM: corporate data exists in a managed container; personal data is outside it. A selective/corporate wipe removes only the container — email, corporate apps, documents — leaving personal photos and apps untouched. This is the correct BYOD configuration."
+            "exp": "Container-based MDM: corporate data exists in a managed container; personal data is outside it. A selective/corporate wipe removes only the container — email, corporate apps, documents — leaving personal photos and apps untouched. This is the correct BYOD configuration.",
+            "messerVideo": "2.3 - Mobile Device Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "An attacker calls a user's mobile carrier, impersonates the user using social media-sourced personal information, and convinces the carrier to transfer the phone number to a new SIM. The attacker then triggers a bank password reset and intercepts the SMS verification code. What attack occurred and what would have prevented it?",
@@ -5425,7 +5671,9 @@
               "A replay attack — the SMS code was captured and reused"
             ],
             "a": 1,
-            "exp": "SIM swapping: the attacker socially engineered the carrier, not the bank. SMS MFA is vulnerable because the phone number is the second factor — and phone numbers can be hijacked. Better alternatives: TOTP authenticator apps (tied to a device) or FIDO2 hardware keys (cannot be SIM-swapped)."
+            "exp": "SIM swapping: the attacker socially engineered the carrier, not the bank. SMS MFA is vulnerable because the phone number is the second factor — and phone numbers can be hijacked. Better alternatives: TOTP authenticator apps (tied to a device) or FIDO2 hardware keys (cannot be SIM-swapped).",
+            "messerVideo": "2.3 - Mobile Device Vulnerabilities",
+            "subObjective": "2.3"
           }
         ]
       },
@@ -5499,7 +5747,9 @@
               "Reporting the vulnerability to law enforcement first"
             ],
             "a": 1,
-            "exp": "Responsible disclosure balances the public's right to know with giving vendors time to patch — preventing immediate exploitation."
+            "exp": "Responsible disclosure balances the public's right to know with giving vendors time to patch — preventing immediate exploitation.",
+            "messerVideo": "2.3 - Zero-day Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "When a zero-day vulnerability is actively being exploited with no patch available, the BEST mitigations include:",
@@ -5510,7 +5760,9 @@
               "Disconnecting all systems from the internet"
             ],
             "a": 1,
-            "exp": "Without a patch, layered defenses — segmentation, least privilege, behavioral detection — reduce but cannot eliminate risk."
+            "exp": "Without a patch, layered defenses — segmentation, least privilege, behavioral detection — reduce but cannot eliminate risk.",
+            "messerVideo": "2.3 - Zero-day Vulnerabilities",
+            "subObjective": "2.3"
           }
         ],
         "scenarios": [
@@ -5523,7 +5775,9 @@
               "Implement compensating controls (restrict VPN access, enhanced logging, block known malicious IPs) and patch within 24 hours on an emergency change basis"
             ],
             "a": 3,
-            "exp": "Risk-tiered response for active exploitation: emergency change management — compress the process, don't eliminate it. Meanwhile, compensating controls reduce exposure during the brief delay. Document everything. This balances urgency with process discipline."
+            "exp": "Risk-tiered response for active exploitation: emergency change management — compress the process, don't eliminate it. Meanwhile, compensating controls reduce exposure during the brief delay. Document everything. This balances urgency with process discipline.",
+            "messerVideo": "2.3 - Zero-day Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Threat intelligence indicates a zero-day exists in your web server software, being actively exploited against targets in your industry. No patch is available. Your web servers are public-facing. What combination of compensating controls provides the MOST meaningful risk reduction?",
@@ -5534,7 +5788,9 @@
               "Change the web server software to a different product immediately"
             ],
             "a": 1,
-            "exp": "Compensating controls for no-patch-available zero-day: WAF custom rules target the specific exploit technique; enhanced monitoring detects exploitation attempts; minimizing server capabilities reduces what an attacker can do if they succeed. Disconnecting isn't viable for public customer services. Changing software immediately introduces more risk than it mitigates."
+            "exp": "Compensating controls for no-patch-available zero-day: WAF custom rules target the specific exploit technique; enhanced monitoring detects exploitation attempts; minimizing server capabilities reduces what an attacker can do if they succeed. Disconnecting isn't viable for public customer services. Changing software immediately introduces more risk than it mitigates.",
+            "messerVideo": "2.3 - Zero-day Vulnerabilities",
+            "subObjective": "2.3"
           }
         ]
       }
@@ -5614,7 +5870,9 @@
               "Installing antivirus software"
             ],
             "a": 2,
-            "exp": "Offline backups that ransomware cannot reach allow recovery without paying the ransom."
+            "exp": "Offline backups that ransomware cannot reach allow recovery without paying the ransom.",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4"
           },
           {
             "q": "Which BEST explains why fileless malware evades traditional signature-based antivirus?",
@@ -5638,7 +5896,9 @@
               "Store stolen credentials"
             ],
             "a": 1,
-            "exp": "C2 servers communicate with malware on victim systems — receiving stolen data and sending instructions."
+            "exp": "C2 servers communicate with malware on victim systems — receiving stolen data and sending instructions.",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -5651,7 +5911,9 @@
               "Pay if the ransom is less than the cost of recovery from backups"
             ],
             "a": 2,
-            "exp": "Ransomware response decision framework: (1) Can backups actually restore? (verify first) (2) Is the 48-hour data gap a patient safety risk? (3) Legal — some ransomware groups are sanctioned, making payment illegal (4) Law enforcement engagement. Ransom is the last resort, not an automatic choice."
+            "exp": "Ransomware response decision framework: (1) Can backups actually restore? (verify first) (2) Is the 48-hour data gap a patient safety risk? (3) Legal — some ransomware groups are sanctioned, making payment illegal (4) Law enforcement engagement. Ransom is the last resort, not an automatic choice.",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4"
           },
           {
             "q": "Six months after deploying EDR, a security analyst notices hundreds of legitimate PowerShell automation scripts triggering daily alerts. The analyst begins dismissing alerts without investigating to manage the volume. What risk does this create, and what is the better approach?",
@@ -5662,7 +5924,9 @@
               "PowerShell should be disabled organization-wide"
             ],
             "a": 1,
-            "exp": "Alert fatigue is a critical security operations failure mode. The solution isn't to ignore alerts — it's to tune detection logic so known-good activity is suppressed and truly anomalous activity surfaces clearly. EDR tuning is an ongoing operational requirement."
+            "exp": "Alert fatigue is a critical security operations failure mode. The solution isn't to ignore alerts — it's to tune detection logic so known-good activity is suppressed and truly anomalous activity surfaces clearly. EDR tuning is an ongoing operational requirement.",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -5719,7 +5983,9 @@
               "Rootkit"
             ],
             "a": 1,
-            "exp": "Worms self-replicate and spread automatically — no host file needed and no user action required to propagate."
+            "exp": "Worms self-replicate and spread automatically — no host file needed and no user action required to propagate.",
+            "messerVideo": "2.4 - Viruses and Worms",
+            "subObjective": "2.4"
           },
           {
             "q": "Which malware type REQUIRES user interaction (such as opening a file) to execute and spread?",
@@ -5730,7 +5996,9 @@
               "Ransomware"
             ],
             "a": 2,
-            "exp": "Viruses attach to host files and require user action to execute — they cannot spread without being triggered by a user."
+            "exp": "Viruses attach to host files and require user action to execute — they cannot spread without being triggered by a user.",
+            "messerVideo": "2.4 - Viruses and Worms",
+            "subObjective": "2.4"
           },
           {
             "q": "A polymorphic virus is designed to:",
@@ -5741,7 +6009,9 @@
               "Operate only in system memory"
             ],
             "a": 1,
-            "exp": "Polymorphic viruses mutate their signature — making them harder to detect with traditional signature-based AV."
+            "exp": "Polymorphic viruses mutate their signature — making them harder to detect with traditional signature-based AV.",
+            "messerVideo": "2.4 - Viruses and Worms",
+            "subObjective": "2.4"
           },
           {
             "q": "WannaCry spread rapidly without user interaction because it behaved like a:",
@@ -5752,7 +6022,9 @@
               "Rootkit"
             ],
             "a": 2,
-            "exp": "WannaCry used the EternalBlue SMBv1 exploit to self-propagate automatically — classic worm behavior."
+            "exp": "WannaCry used the EternalBlue SMBv1 exploit to self-propagate automatically — classic worm behavior.",
+            "messerVideo": "2.4 - Viruses and Worms",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -5765,7 +6037,9 @@
               "Deploy a patch for the SMBv1 vulnerability to all systems immediately"
             ],
             "a": 2,
-            "exp": "Worm containment: the worm spreads via network (SMBv1). The containment lever is network isolation — segment the network to prevent east-west propagation, and block/disable SMBv1 on unaffected systems. Patching is the right long-term fix but takes time to deploy at scale."
+            "exp": "Worm containment: the worm spreads via network (SMBv1). The containment lever is network isolation — segment the network to prevent east-west propagation, and block/disable SMBv1 on unaffected systems. Patching is the right long-term fix but takes time to deploy at scale.",
+            "messerVideo": "2.4 - Viruses and Worms",
+            "subObjective": "2.4"
           },
           {
             "q": "An antivirus vendor updates signatures to detect a specific ransomware strain. The ransomware authors release a new variant that changes a few bytes of non-functional code on each infection cycle. Each infected system has a slightly different file hash. What type of malware is this, and why does it evade signature-based detection?",
@@ -5776,7 +6050,9 @@
               "Fileless malware — it operates in memory where AV can't scan"
             ],
             "a": 1,
-            "exp": "Polymorphic malware: the code changes enough to produce a different hash each infection, defeating signature matching. Functionality is preserved. Detection requires heuristic or behavioral analysis (what does it do?) rather than signature matching (what does it look like?)."
+            "exp": "Polymorphic malware: the code changes enough to produce a different hash each infection, defeating signature matching. Functionality is preserved. Detection requires heuristic or behavioral analysis (what does it do?) rather than signature matching (what does it look like?).",
+            "messerVideo": "2.4 - Viruses and Worms",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -5833,7 +6109,9 @@
               "Creates a backdoor for remote access"
             ],
             "a": 1,
-            "exp": "Spyware silently collects and exfiltrates sensitive information — running in the background without the user's knowledge."
+            "exp": "Spyware silently collects and exfiltrates sensitive information — running in the background without the user's knowledge.",
+            "messerVideo": "2.4 - Spyware and Bloatware",
+            "subObjective": "2.4"
           },
           {
             "q": "Which BEST captures why a Remote Access Trojan is particularly dangerous?",
@@ -5859,7 +6137,9 @@
               "A rootkit — reformat the entire system"
             ],
             "a": 2,
-            "exp": "Adware/PUP indicators: browser hijacking, unwanted toolbars, excessive ads, performance degradation. No data theft indicators. Removal: uninstall the source application, remove browser extensions, scan with malware removal tools, reset browser settings. Full reformat is disproportionate for adware."
+            "exp": "Adware/PUP indicators: browser hijacking, unwanted toolbars, excessive ads, performance degradation. No data theft indicators. Removal: uninstall the source application, remove browser extensions, scan with malware removal tools, reset browser settings. Full reformat is disproportionate for adware.",
+            "messerVideo": "2.4 - Spyware and Bloatware",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -5950,7 +6230,9 @@
               "A hardware vulnerability"
             ],
             "a": 1,
-            "exp": "Logic bombs trigger on conditions like a specific date, a user logging in, or a file being deleted — often planted by disgruntled insiders."
+            "exp": "Logic bombs trigger on conditions like a specific date, a user logging in, or a file being deleted — often planted by disgruntled insiders.",
+            "messerVideo": "2.4 - Other Malware Types",
+            "subObjective": "2.4"
           },
           {
             "q": "Why are rootkits particularly difficult to detect?",
@@ -5961,7 +6243,9 @@
               "They only infect BIOS firmware"
             ],
             "a": 1,
-            "exp": "Rootkits modify how the OS reports system information — making infected files, processes, and connections invisible to standard tools."
+            "exp": "Rootkits modify how the OS reports system information — making infected files, processes, and connections invisible to standard tools.",
+            "messerVideo": "2.4 - Other Malware Types",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -5974,7 +6258,9 @@
               "A backdoor — the contractor used it to maintain access after the contract ended"
             ],
             "a": 2,
-            "exp": "Logic bomb: the trigger condition is the removal of a specific account. This is a classic insider threat technique — planting a logic bomb before departure. Detection is difficult because the code is dormant until triggered. Code review of all contractor-written code is the mitigation."
+            "exp": "Logic bomb: the trigger condition is the removal of a specific account. This is a classic insider threat technique — planting a logic bomb before departure. Detection is difficult because the code is dormant until triggered. Code review of all contractor-written code is the mitigation.",
+            "messerVideo": "2.4 - Other Malware Types",
+            "subObjective": "2.4"
           },
           {
             "q": "A user reports their computer is extremely slow. Investigation reveals: CPU pegged at 95-100%, the culprit process is named 'svchost.exe' but its path is %AppData% rather than System32, and it's making outbound connections to multiple external IPs. No ransom demand has been made and files appear intact. What is MOST likely occurring?",
@@ -5985,7 +6271,9 @@
               "A worm propagating across the network"
             ],
             "a": 2,
-            "exp": "Cryptominer indicators: maxed CPU, no file encryption, outbound connections, disguised as a legitimate process name but running from an unexpected path (%AppData% instead of System32). Cryptominers need the CPU for mining — no interest in ransoming or destroying data."
+            "exp": "Cryptominer indicators: maxed CPU, no file encryption, outbound connections, disguised as a legitimate process name but running from an unexpected path (%AppData% instead of System32). Cryptominers need the CPU for mining — no interest in ransoming or destroying data.",
+            "messerVideo": "2.4 - Other Malware Types",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -6038,7 +6326,9 @@
               "Encrypt RFID communications"
             ],
             "a": 1,
-            "exp": "RFID cloning captures and duplicates the data on proximity cards — the cloned card can then be used to bypass access controls."
+            "exp": "RFID cloning captures and duplicates the data on proximity cards — the cloned card can then be used to bypass access controls.",
+            "messerVideo": "2.4 - Physical Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "Dumpster diving is a physical attack that involves:",
@@ -6049,7 +6339,9 @@
               "Dropping infected USB drives in car parks"
             ],
             "a": 1,
-            "exp": "Organizations discard sensitive documents without shredding — dumpster diving recovers this information. Mitigated by shredding policies."
+            "exp": "Organizations discard sensitive documents without shredding — dumpster diving recovers this information. Mitigated by shredding policies.",
+            "messerVideo": "2.4 - Physical Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "An employee enters their banking PIN at a self-service kiosk in an open lobby and notices someone standing close behind them. Which mitigation is MOST effective at preventing this specific class of disclosure?",
@@ -6075,7 +6367,9 @@
               "Skimming and social engineering via phone"
             ],
             "a": 1,
-            "exp": "Two techniques: (1) Tailgating — followed the legitimate employee group through access control. (2) Impersonation — the fake badge from a recognized firm reduced scrutiny. Mitigations: mantrap (prevents tailgating), verify all visitors at reception regardless of badge, enforce clean desk/screen lock policy."
+            "exp": "Two techniques: (1) Tailgating — followed the legitimate employee group through access control. (2) Impersonation — the fake badge from a recognized firm reduced scrutiny. Mitigations: mantrap (prevents tailgating), verify all visitors at reception regardless of badge, enforce clean desk/screen lock policy.",
+            "messerVideo": "2.4 - Physical Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "An attacker attaches a device to an ATM's card reader that stores magnetic stripe data from every card inserted. A small camera captures PIN entry. Three weeks later, the attacker creates cloned cards. What attacks were used and what mitigations protect against this?",
@@ -6086,7 +6380,9 @@
               "Bluetooth sniffing and keylogging — mitigated by disabling Bluetooth on ATMs"
             ],
             "a": 1,
-            "exp": "Skimming and PIN camera capture. Chip-and-PIN (EMV) was specifically designed to defeat skimming — the chip generates a unique transaction code each time and cannot be cloned from the magnetic stripe. PIN pad shields make camera capture harder. Banks run ATM inspection programs to detect skimmers."
+            "exp": "Skimming and PIN camera capture. Chip-and-PIN (EMV) was specifically designed to defeat skimming — the chip generates a unique transaction code each time and cannot be cloned from the magnetic stripe. PIN pad shields make camera capture harder. Banks run ATM inspection programs to detect skimmers.",
+            "messerVideo": "2.4 - Physical Attacks",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -6155,7 +6451,9 @@
               "DDoS requires physical access"
             ],
             "a": 1,
-            "exp": "DDoS uses thousands of compromised systems as sources — blocking one IP has no effect, unlike a single-source DoS."
+            "exp": "DDoS uses thousands of compromised systems as sources — blocking one IP has no effect, unlike a single-source DoS.",
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4"
           },
           {
             "q": "A SYN flood attack works by:",
@@ -6166,7 +6464,9 @@
               "Disrupting application-layer HTTP requests"
             ],
             "a": 1,
-            "exp": "SYN floods leave many half-open TCP connections — eventually the server's connection table is full and it can't accept legitimate connections."
+            "exp": "SYN floods leave many half-open TCP connections — eventually the server's connection table is full and it can't accept legitimate connections.",
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4"
           },
           {
             "q": "An attacker generates a 50 Gbps DDoS flood at a target by sending small DNS queries (with the victim's address spoofed as the source) to thousands of open recursive DNS resolvers. The mechanism that BEST explains how a small attacker pipe produces large victim-side traffic is:",
@@ -6192,7 +6492,9 @@
               "A DNS amplification attack — block all DNS traffic"
             ],
             "a": 1,
-            "exp": "Application layer DDoS: HTTP requests look legitimate. IP blocking is ineffective against a 200,000-IP botnet — each IP contributes minimally but collectively overwhelm the server. Mitigations: rate limiting per IP, challenge-response (CAPTCHA), CDN/DDoS scrubbing service, and geo-IP filtering if the sale is region-specific."
+            "exp": "Application layer DDoS: HTTP requests look legitimate. IP blocking is ineffective against a 200,000-IP botnet — each IP contributes minimally but collectively overwhelm the server. Mitigations: rate limiting per IP, challenge-response (CAPTCHA), CDN/DDoS scrubbing service, and geo-IP filtering if the sale is region-specific.",
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4"
           },
           {
             "q": "A SYN flood sends 100,000 TCP SYN packets per second without completing the three-way handshake. After 30 seconds, the server's connection table is full and it cannot accept legitimate connections. What mitigation technique specifically addresses the resource exhaustion aspect of SYN floods?",
@@ -6203,7 +6505,9 @@
               "Rate limit TCP connections to 10 per second from any single IP"
             ],
             "a": 1,
-            "exp": "SYN cookies: instead of allocating state for each SYN, the server encodes connection information into the ISN of the SYN-ACK. No memory is allocated until the ACK arrives completing the handshake. Legitimate clients complete the handshake; attackers' spoofed packets never do — eliminating resource exhaustion."
+            "exp": "SYN cookies: instead of allocating state for each SYN, the server encodes connection information into the ISN of the SYN-ACK. No memory is allocated until the ACK arrives completing the handshake. Legitimate clients complete the handshake; attackers' spoofed packets never do — eliminating resource exhaustion.",
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -6264,7 +6568,9 @@
               "Registering similar domain names"
             ],
             "a": 1,
-            "exp": "DNS cache poisoning corrupts cached records — any user that resolver serves will be redirected to the attacker's IP."
+            "exp": "DNS cache poisoning corrupts cached records — any user that resolver serves will be redirected to the attacker's IP.",
+            "messerVideo": "2.4 - DNS Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "DNSSEC mitigates DNS attacks by:",
@@ -6275,7 +6581,9 @@
               "Requiring MFA for DNS changes"
             ],
             "a": 1,
-            "exp": "DNSSEC uses digital signatures on DNS records — resolvers verify the signature, detecting tampered or forged records."
+            "exp": "DNSSEC uses digital signatures on DNS records — resolvers verify the signature, detecting tampered or forged records.",
+            "messerVideo": "2.4 - DNS Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "DNS tunneling is used to:",
@@ -6286,7 +6594,9 @@
               "Poison DNS caches"
             ],
             "a": 1,
-            "exp": "DNS tunneling encodes data within DNS queries — many firewalls allow all DNS traffic, making it a covert channel."
+            "exp": "DNS tunneling encodes data within DNS queries — many firewalls allow all DNS traffic, making it a covert channel.",
+            "messerVideo": "2.4 - DNS Attacks",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -6299,7 +6609,9 @@
               "BGP hijacking redirecting traffic before DNS resolution"
             ],
             "a": 1,
-            "exp": "DNS cache poisoning: the resolver's cache has been poisoned with false records. Internal zone files being correct rules out domain hijacking. DNSSEC cryptographically signs zone data — a resolver can verify the DNS response came from the authoritative source. Certificate errors on the fake site are a detection opportunity — train users to report them."
+            "exp": "DNS cache poisoning: the resolver's cache has been poisoned with false records. Internal zone files being correct rules out domain hijacking. DNSSEC cryptographically signs zone data — a resolver can verify the DNS response came from the authoritative source. Certificate errors on the fake site are a detection opportunity — train users to report them.",
+            "messerVideo": "2.4 - DNS Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "A security team finds an endpoint making hundreds of DNS queries per hour for subdomains of a domain with no web presence. The subdomains are all long random-looking strings (a3f7b2c1d8e4.attacker.com, b9d2e7f3a1c4.attacker.com). DNS responses return valid IPs but no traffic goes to those IPs. What is most likely happening?",
@@ -6310,7 +6622,9 @@
               "Legitimate CDN behavior generating random subdomain lookups"
             ],
             "a": 1,
-            "exp": "DNS tunneling: data is encoded in subdomain labels of DNS queries. The 'random' subdomains are actually encoded data. Responses carry C2 commands back. Most firewalls allow DNS — attackers exploit this. Detection: anomalously high DNS query volume, long/random subdomain strings, queries for domains with no legitimate web presence."
+            "exp": "DNS tunneling: data is encoded in subdomain labels of DNS queries. The 'random' subdomains are actually encoded data. Responses carry C2 commands back. Most firewalls allow DNS — attackers exploit this. Detection: anomalously high DNS query volume, long/random subdomain strings, queries for domains with no legitimate web presence.",
+            "messerVideo": "2.4 - DNS Attacks",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -6363,7 +6677,9 @@
               "Brute-forcing a WPA2 password"
             ],
             "a": 1,
-            "exp": "Evil twin APs mimic legitimate SSIDs — clients connect thinking they're on the real network, enabling MITM interception."
+            "exp": "Evil twin APs mimic legitimate SSIDs — clients connect thinking they're on the real network, enabling MITM interception.",
+            "messerVideo": "2.4 - Wireless Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "Which is the BEST mitigation for WPS-related wireless attacks (e.g. Reaver-style PIN brute-force)?",
@@ -6387,7 +6703,9 @@
               "Inject traffic into the wireless network"
             ],
             "a": 1,
-            "exp": "The captured handshake contains enough information for offline cracking — the attacker can test passwords without further network interaction."
+            "exp": "The captured handshake contains enough information for offline cracking — the attacker can test passwords without further network interaction.",
+            "messerVideo": "2.4 - Wireless Attacks",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -6400,7 +6718,9 @@
               "A Bluetooth pairing attack — prevented by requiring PIN authentication"
             ],
             "a": 1,
-            "exp": "Evil twin: WPA2-Personal (PSK) has no way for clients to verify the AP's identity. WPA2-Enterprise with EAP-TLS or PEAP requires the AP to present a certificate signed by a trusted CA — a rogue AP without that certificate is rejected. Enterprise wireless should use 802.1X, not PSK."
+            "exp": "Evil twin: WPA2-Personal (PSK) has no way for clients to verify the AP's identity. WPA2-Enterprise with EAP-TLS or PEAP requires the AP to present a certificate signed by a trusted CA — a rogue AP without that certificate is rejected. Enterprise wireless should use 802.1X, not PSK.",
+            "messerVideo": "2.4 - Wireless Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "A wireless penetration tester uses aireplay-ng to send deauthentication frames to clients, forcing them to reconnect. The tester captures the 4-way handshake and takes it offline for dictionary attack. What is the tester doing, and what wireless standard was designed to address the handshake capture vulnerability?",
@@ -6411,7 +6731,9 @@
               "Conducting ARP poisoning on the wireless network"
             ],
             "a": 1,
-            "exp": "WPA2 handshake capture: deauth forces reauthentication, the 4-way handshake contains enough information for offline password cracking. WPA3's SAE replaces the PSK exchange — it's a zero-knowledge proof that prevents offline cracking even with a full capture of the authentication exchange."
+            "exp": "WPA2 handshake capture: deauth forces reauthentication, the 4-way handshake contains enough information for offline password cracking. WPA3's SAE replaces the PSK exchange — it's a zero-knowledge proof that prevents offline cracking even with a full capture of the authentication exchange.",
+            "messerVideo": "2.4 - Wireless Attacks",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -6472,7 +6794,9 @@
               "Scan for wireless networks"
             ],
             "a": 1,
-            "exp": "MITM attacks give the attacker full visibility of — and ability to modify — the traffic between victim and server."
+            "exp": "MITM attacks give the attacker full visibility of — and ability to modify — the traffic between victim and server.",
+            "messerVideo": "2.4 - On-path Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "ARP poisoning enables an on-path attack by:",
@@ -6483,7 +6807,9 @@
               "Blocking all ARP traffic"
             ],
             "a": 1,
-            "exp": "ARP poisoning corrupts the ARP cache of victims — they send traffic to the attacker thinking it's going to the legitimate destination."
+            "exp": "ARP poisoning corrupts the ARP cache of victims — they send traffic to the attacker thinking it's going to the legitimate destination.",
+            "messerVideo": "2.4 - On-path Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "HSTS (HTTP Strict Transport Security) mitigates SSL stripping by:",
@@ -6494,7 +6820,9 @@
               "Requiring certificate pinning"
             ],
             "a": 1,
-            "exp": "HSTS tells browsers the site must always be accessed via HTTPS — browsers refuse to connect over HTTP even if redirected."
+            "exp": "HSTS tells browsers the site must always be accessed via HTTPS — browsers refuse to connect over HTTP even if redirected.",
+            "messerVideo": "2.4 - On-path Attacks",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -6507,7 +6835,9 @@
               "Packet sniffing of unencrypted WiFi — WPA3 with OWE would have encrypted the WiFi traffic"
             ],
             "a": 1,
-            "exp": "SSL stripping on public WiFi: HSTS tells browsers 'always use HTTPS for this domain' — preloaded HSTS means even the first connection is forced to HTTPS before any server response. No HTTP connection is ever made, nothing to strip."
+            "exp": "SSL stripping on public WiFi: HSTS tells browsers 'always use HTTPS for this domain' — preloaded HSTS means even the first connection is forced to HTTPS before any server response. No HTTP connection is ever made, nothing to strip.",
+            "messerVideo": "2.4 - On-path Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "A penetration tester sends gratuitous ARP replies claiming their MAC address is associated with the default gateway's IP. Within seconds, all workstations send traffic to the tester instead of the actual gateway. The tester forwards traffic to the real gateway while recording it. What attack is this, and what Layer 2 control prevents it?",
@@ -6518,7 +6848,9 @@
               "BGP hijacking — route filtering on border routers prevents this"
             ],
             "a": 2,
-            "exp": "ARP poisoning: ARP has no authentication. Dynamic ARP Inspection (DAI) is the Layer 2 control: the switch inspects ARP packets and compares them against the DHCP snooping binding table. Gratuitous ARP replies that don't match legitimate bindings are dropped."
+            "exp": "ARP poisoning: ARP has no authentication. Dynamic ARP Inspection (DAI) is the Layer 2 control: the switch inspects ARP packets and compares them against the DHCP snooping binding table. Gratuitous ARP replies that don't match legitimate bindings are dropped.",
+            "messerVideo": "2.4 - On-path Attacks",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -6571,7 +6903,9 @@
               "Cracking encrypted session keys"
             ],
             "a": 1,
-            "exp": "Replay attacks capture valid auth packets and replay them — the system accepts them as legitimate since they passed authentication originally."
+            "exp": "Replay attacks capture valid auth packets and replay them — the system accepts them as legitimate since they passed authentication originally.",
+            "messerVideo": "2.4 - Replay Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "Which BEST explains why pass-the-hash is classified as a type of replay attack?",
@@ -6595,7 +6929,9 @@
               "Limiting login attempts"
             ],
             "a": 1,
-            "exp": "Each nonce is unique and single-use — replaying an old authentication packet fails because the nonce has already been used."
+            "exp": "Each nonce is unique and single-use — replaying an old authentication packet fails because the nonce has already been used.",
+            "messerVideo": "2.4 - Replay Attacks",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -6608,7 +6944,9 @@
               "A SQL injection providing direct database access"
             ],
             "a": 1,
-            "exp": "Session hijacking: the cookie was captured in transit (Secure flag would have prevented transmission over HTTP). The attack succeeded because the cookie has no expiry context or binding — it works anywhere. Session binding and short timeouts limit the replay window."
+            "exp": "Session hijacking: the cookie was captured in transit (Secure flag would have prevented transmission over HTTP). The attack succeeded because the cookie has no expiry context or binding — it works anywhere. Session binding and short timeouts limit the replay window.",
+            "messerVideo": "2.4 - Replay Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "A Windows domain uses NTLM authentication for legacy applications. An attacker compromises one workstation and uses Mimikatz to extract NTLM hashes from memory. They then authenticate to a file server using only the captured hash — without cracking it. What technique is this, and what architectural change most effectively prevents it?",
@@ -6619,7 +6957,9 @@
               "Mimikatz itself is the vulnerability — prevented by patching Mimikatz signatures in AV"
             ],
             "a": 1,
-            "exp": "Pass-the-hash exploits NTLM's design — the hash IS the credential. Mitigations: Kerberos doesn't have the same hash-replay issue. Protected Users group prevents NTLM fallback and credential caching. Windows Credential Guard stores hashes in an isolated environment. Network segmentation limits what the attacker can reach even with valid hashes."
+            "exp": "Pass-the-hash exploits NTLM's design — the hash IS the credential. Mitigations: Kerberos doesn't have the same hash-replay issue. Protected Users group prevents NTLM fallback and credential caching. Windows Credential Guard stores hashes in an isolated environment. Network segmentation limits what the attacker can reach even with valid hashes.",
+            "messerVideo": "2.4 - Replay Attacks",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -6672,7 +7012,9 @@
               "A firewall configuration for web servers"
             ],
             "a": 1,
-            "exp": "Web shells provide persistent remote access to a compromised web server — the attacker issues commands via HTTP requests."
+            "exp": "Web shells provide persistent remote access to a compromised web server — the attacker issues commands via HTTP requests.",
+            "messerVideo": "2.4 - Malicious Code",
+            "subObjective": "2.4"
           },
           {
             "q": "'Living off the land' (LOLBins) attacks involve:",
@@ -6683,7 +7025,9 @@
               "Social engineering via phone calls"
             ],
             "a": 1,
-            "exp": "LOLBins use trusted system tools — since they're legitimate applications, many security tools don't flag their malicious use."
+            "exp": "LOLBins use trusted system tools — since they're legitimate applications, many security tools don't flag their malicious use.",
+            "messerVideo": "2.4 - Malicious Code",
+            "subObjective": "2.4"
           },
           {
             "q": "Which BEST describes a dropper malware's primary function?",
@@ -6709,7 +7053,9 @@
               "The web application has a directory traversal vulnerability"
             ],
             "a": 1,
-            "exp": "Web shell: the attacker previously uploaded a PHP script to the web server — likely via a file upload vulnerability. The shell accepts commands via POST and executes them with the web server's privileges. Incident response: isolate the server, find how the shell was uploaded, remove it, identify what was accessed."
+            "exp": "Web shell: the attacker previously uploaded a PHP script to the web server — likely via a file upload vulnerability. The shell accepts commands via POST and executes them with the web server's privileges. Incident response: isolate the server, find how the shell was uploaded, remove it, identify what was accessed.",
+            "messerVideo": "2.4 - Malicious Code",
+            "subObjective": "2.4"
           },
           {
             "q": "A threat hunter finds that a legitimate scheduled task on several workstations runs: powershell.exe -enc [long base64 string]. The base64 decodes to a script downloading and executing files from an external domain. What technique is being used and why is it effective at evading detection?",
@@ -6720,7 +7066,9 @@
               "A worm using legitimate system tools to propagate"
             ],
             "a": 1,
-            "exp": "LOLBins + encoded commands + scheduled task persistence: all three use legitimate Windows features. PowerShell is expected on corporate endpoints. Base64 encoding hides the payload from string-matching rules. Scheduled tasks are legitimate persistence mechanisms. Detection requires PowerShell ScriptBlock logging (which decodes base64) and monitoring for scheduled task creation events."
+            "exp": "LOLBins + encoded commands + scheduled task persistence: all three use legitimate Windows features. PowerShell is expected on corporate endpoints. Base64 encoding hides the payload from string-matching rules. Scheduled tasks are legitimate persistence mechanisms. Detection requires PowerShell ScriptBlock logging (which decodes base64) and monitoring for scheduled task creation events.",
+            "messerVideo": "2.4 - Malicious Code",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -6781,7 +7129,9 @@
               "DNS queries to locate files"
             ],
             "a": 1,
-            "exp": "Directory traversal uses ../ to move up directory levels — potentially reaching /etc/passwd or other sensitive files."
+            "exp": "Directory traversal uses ../ to move up directory levels — potentially reaching /etc/passwd or other sensitive files.",
+            "messerVideo": "2.4 - Application Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "CSRF (Cross-Site Request Forgery) attacks exploit:",
@@ -6792,7 +7142,9 @@
               "DNS poisoning"
             ],
             "a": 1,
-            "exp": "CSRF exploits that web apps trust requests from authenticated sessions — the attacker tricks the victim's browser into sending malicious requests."
+            "exp": "CSRF exploits that web apps trust requests from authenticated sessions — the attacker tricks the victim's browser into sending malicious requests.",
+            "messerVideo": "2.4 - Application Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "IDOR (Insecure Direct Object Reference) vulnerabilities allow attackers to:",
@@ -6803,7 +7155,9 @@
               "Bypass network firewalls"
             ],
             "a": 1,
-            "exp": "IDOR occurs when apps expose internal object IDs — changing ?account=1001 to ?account=1002 might access another user's data."
+            "exp": "IDOR occurs when apps expose internal object IDs — changing ?account=1001 to ?account=1002 might access another user's data.",
+            "messerVideo": "2.4 - Application Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "Which is the PRIMARY mitigation for CSRF (Cross-Site Request Forgery) attacks?",
@@ -6829,7 +7183,9 @@
               "Directory traversal — the account number is used as a file path"
             ],
             "a": 1,
-            "exp": "IDOR: the application uses a predictable identifier (account number) as a direct database reference without an authorization check. Fix is server-side: before returning account 10453's data, verify the authenticated session belongs to the owner of account 10453. Client-side controls don't help — attackers modify HTTP requests directly."
+            "exp": "IDOR: the application uses a predictable identifier (account number) as a direct database reference without an authorization check. Fix is server-side: before returning account 10453's data, verify the authenticated session belongs to the owner of account 10453. Client-side controls don't help — attackers modify HTTP requests directly.",
+            "messerVideo": "2.4 - Application Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "A developer builds a web preview feature where users provide a URL and the server fetches content to display. A researcher provides: http://169.254.169.254/latest/meta-data/ and receives the application's cloud instance metadata including IAM credentials. What vulnerability is this?",
@@ -6840,7 +7196,9 @@
               "SQL injection — the URL parameter is passed to a database query"
             ],
             "a": 1,
-            "exp": "SSRF: the cloud metadata service at 169.254.169.254 is accessible only from within the cloud instance — not from the internet. But the server IS the cloud instance. By making the server fetch that URL, the attacker accesses internal resources as if they were the server. Fix: validate/restrict URLs the server will fetch, block private IP ranges."
+            "exp": "SSRF: the cloud metadata service at 169.254.169.254 is accessible only from within the cloud instance — not from the internet. But the server IS the cloud instance. By making the server fetch that URL, the attacker accesses internal resources as if they were the server. Fix: validate/restrict URLs the server will fetch, block private IP ranges.",
+            "messerVideo": "2.4 - Application Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "Authenticated users can submit support tickets. A researcher discovers they can embed JavaScript in a ticket that executes when a support agent views it in the admin console. The researcher uses this to capture the admin's session cookie. What type of XSS is this, and why is it particularly dangerous?",
@@ -6851,7 +7209,9 @@
               "CSRF — the ticket submission forges requests on the admin's behalf"
             ],
             "a": 1,
-            "exp": "Stored XSS targeting admins: the payload is stored in the ticket and executes when a privileged user views it. This is privilege escalation via XSS — an unprivileged user executing code in a privileged user's browser context. This is how many high-profile compromises begin."
+            "exp": "Stored XSS targeting admins: the payload is stored in the ticket and executes when a privileged user views it. This is privilege escalation via XSS — an unprivileged user executing code in a privileged user's browser context. This is how many high-profile compromises begin.",
+            "messerVideo": "2.4 - Application Attacks",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -6912,7 +7272,9 @@
               "Attackers can guess birthdays from social media"
             ],
             "a": 1,
-            "exp": "The birthday problem shows that hash collisions occur far sooner than intuition suggests — exploited to break MD5 and SHA-1."
+            "exp": "The birthday problem shows that hash collisions occur far sooner than intuition suggests — exploited to break MD5 and SHA-1.",
+            "messerVideo": "2.4 - Cryptographic Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "A downgrade attack forces a connection to:",
@@ -6923,7 +7285,9 @@
               "Use stronger encryption"
             ],
             "a": 1,
-            "exp": "Downgrade attacks exploit backward compatibility — forcing use of deprecated protocols like SSLv3 that have known vulnerabilities."
+            "exp": "Downgrade attacks exploit backward compatibility — forcing use of deprecated protocols like SSLv3 that have known vulnerabilities.",
+            "messerVideo": "2.4 - Cryptographic Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "Key stretching algorithms like bcrypt mitigate brute force attacks by:",
@@ -6934,7 +7298,9 @@
               "Requiring a hardware token"
             ],
             "a": 2,
-            "exp": "Key stretching applies many iterations of hashing — taking milliseconds per attempt is fine for login but makes billions of guesses per second impractical."
+            "exp": "Key stretching applies many iterations of hashing — taking milliseconds per attempt is fine for login but makes billions of guesses per second impractical.",
+            "messerVideo": "2.4 - Cryptographic Attacks",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -6947,7 +7313,9 @@
               "A downgrade attack forcing MD5 instead of SHA-256"
             ],
             "a": 1,
-            "exp": "Collision attack on MD5: it's computationally feasible to find two different inputs with the same MD5 hash. MD5 was broken for this purpose in 2004. SHA-256 (and SHA-3) are collision-resistant. For software integrity verification, SHA-256 is the minimum."
+            "exp": "Collision attack on MD5: it's computationally feasible to find two different inputs with the same MD5 hash. MD5 was broken for this purpose in 2004. SHA-256 (and SHA-3) are collision-resistant. For software integrity verification, SHA-256 is the minimum.",
+            "messerVideo": "2.4 - Cryptographic Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "A TLS connection between a client and server negotiates to TLS 1.0 with RC4 cipher despite both supporting TLS 1.3. An attacker on the network modified the ClientHello, altering the supported cipher suites list before forwarding it to the server. What attack is this and how should the server prevent it?",
@@ -6958,7 +7326,9 @@
               "A birthday attack on the RC4 stream cipher"
             ],
             "a": 1,
-            "exp": "Protocol downgrade attack: the attacker manipulates negotiation to force use of a weaker protocol the server still supports. Fix: remove TLS 1.0 and 1.1 from the server's supported versions entirely — if the server won't negotiate TLS 1.0, the downgrade can't succeed. Also remove RC4 and other weak ciphers."
+            "exp": "Protocol downgrade attack: the attacker manipulates negotiation to force use of a weaker protocol the server still supports. Fix: remove TLS 1.0 and 1.1 from the server's supported versions entirely — if the server won't negotiate TLS 1.0, the downgrade can't succeed. Also remove RC4 and other weak ciphers.",
+            "messerVideo": "2.4 - Cryptographic Attacks",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -7041,7 +7411,9 @@
               "Pass-the-hash"
             ],
             "a": 2,
-            "exp": "Credential stuffing uses valid credentials — account lockout won't trigger. MFA prevents access even with correct credentials."
+            "exp": "Credential stuffing uses valid credentials — account lockout won't trigger. MFA prevents access even with correct credentials.",
+            "messerVideo": "2.4 - Password Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "Which BEST captures why pass-the-hash is particularly dangerous in Windows enterprise environments?",
@@ -7067,7 +7439,9 @@
               "Password spraying — prevented by monitoring for single passwords across multiple accounts"
             ],
             "a": 1,
-            "exp": "Credential stuffing exploits password reuse — it uses correct passwords, so account lockout and complexity requirements don't help. MFA is the most effective control: even with the correct password, the attacker needs the second factor they don't have."
+            "exp": "Credential stuffing exploits password reuse — it uses correct passwords, so account lockout and complexity requirements don't help. MFA is the most effective control: even with the correct password, the attacker needs the second factor they don't have.",
+            "messerVideo": "2.4 - Password Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "A SOC team notices in their authentication logs: between 9-11am each day, exactly one failed login attempt occurs against each of 3,000 user accounts, using the password 'Welcome1'. No accounts are locked out. What attack is occurring and why does it evade traditional brute-force detection?",
@@ -7078,7 +7452,9 @@
               "Dictionary attack — the attacker is working through a password list one entry at a time"
             ],
             "a": 1,
-            "exp": "Password spraying: lockout policies count failures per account. Spraying makes only ONE attempt per account — never triggering per-account lockout. Detection requires correlation across accounts (one password, many accounts). Mitigations: MFA, block commonly-used passwords like 'Welcome1', anomaly detection on authentication patterns."
+            "exp": "Password spraying: lockout policies count failures per account. Spraying makes only ONE attempt per account — never triggering per-account lockout. Detection requires correlation across accounts (one password, many accounts). Mitigations: MFA, block commonly-used passwords like 'Welcome1', anomaly detection on authentication patterns.",
+            "messerVideo": "2.4 - Password Attacks",
+            "subObjective": "2.4"
           }
         ]
       },
@@ -7147,7 +7523,9 @@
               "A user downloads a large file"
             ],
             "a": 1,
-            "exp": "Impossible travel detects when the same account logs in from locations too far apart for human travel — strong indicator of credential theft."
+            "exp": "Impossible travel detects when the same account logs in from locations too far apart for human travel — strong indicator of credential theft.",
+            "messerVideo": "2.4 - Indicators of Compromise",
+            "subObjective": "2.4"
           },
           {
             "q": "An on-call engineer notices a production server pinning 100% CPU at 3am with no scheduled jobs, no expected backups, and no user load. Which is the MOST likely cause to investigate FIRST?",
@@ -7171,7 +7549,9 @@
               "Legitimate software signatures"
             ],
             "a": 1,
-            "exp": "Hash-based IoCs match exact files — polymorphic malware changes its hash with each infection, evading hash-based detection."
+            "exp": "Hash-based IoCs match exact files — polymorphic malware changes its hash with each infection, evading hash-based detection.",
+            "messerVideo": "2.4 - Indicators of Compromise",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -7184,7 +7564,9 @@
               "An NTP synchronization error causing timestamp confusion"
             ],
             "a": 1,
-            "exp": "Impossible travel is a strong credential compromise indicator. Immediate actions matter: disable the account first (stop active damage), terminate all sessions, then investigate. The out-of-band channel for credential reset is important — if email is compromised, emailing a reset link helps the attacker."
+            "exp": "Impossible travel is a strong credential compromise indicator. Immediate actions matter: disable the account first (stop active damage), terminate all sessions, then investigate. The out-of-band channel for credential reset is important — if email is compromised, emailing a reset link helps the attacker.",
+            "messerVideo": "2.4 - Indicators of Compromise",
+            "subObjective": "2.4"
           },
           {
             "q": "A threat hunter reviews DNS logs and notices an internal workstation making periodic DNS queries every 60 seconds to a domain registered 3 days ago that has no web presence. The workstation's user has not reported any issues. What does this pattern suggest?",
@@ -7195,7 +7577,9 @@
               "A botnet scanning behavior"
             ],
             "a": 1,
-            "exp": "Beaconing IoC: regular interval (60 seconds = timer-based), newly registered domain (threat feeds don't have it yet), no legitimate purpose. This is characteristic malware C2 check-in behavior. The user reporting no issues is expected — modern malware is designed to be silent. Memory forensics will reveal the malicious process."
+            "exp": "Beaconing IoC: regular interval (60 seconds = timer-based), newly registered domain (threat feeds don't have it yet), no legitimate purpose. This is characteristic malware C2 check-in behavior. The user reporting no issues is expected — modern malware is designed to be silent. Memory forensics will reveal the malicious process.",
+            "messerVideo": "2.4 - Indicators of Compromise",
+            "subObjective": "2.4"
           }
         ]
       }
@@ -7279,7 +7663,9 @@
               "Monitor network traffic"
             ],
             "a": 1,
-            "exp": "A DMZ exposes public services (web, email) to the internet while protecting the internal network if those services are compromised."
+            "exp": "A DMZ exposes public services (web, email) to the internet while protecting the internal network if those services are compromised.",
+            "messerVideo": "2.5 - Segmentation and Access Control",
+            "subObjective": "2.5"
           },
           {
             "q": "An air gap provides the STRONGEST isolation primarily because:",
@@ -7318,7 +7704,9 @@
               "Deploying an IDS to detect the ransomware spreading"
             ],
             "a": 1,
-            "exp": "Network segmentation is the core answer. In a flat network, ransomware can reach everything. Segmentation with zone-based firewall rules means workstations can't reach production controllers directly. The blast radius is contained to the segment where infection occurs. The production controller infection was the most serious — OT network segmentation is critical."
+            "exp": "Network segmentation is the core answer. In a flat network, ransomware can reach everything. Segmentation with zone-based firewall rules means workstations can't reach production controllers directly. The blast radius is contained to the segment where infection occurs. The production controller infection was the most serious — OT network segmentation is critical.",
+            "messerVideo": "2.5 - Segmentation and Access Control",
+            "subObjective": "2.5"
           },
           {
             "q": "An organization deploys application allow-listing permitting only signed binaries from approved vendors. A red team bypasses this by using mshta.exe (a legitimate, signed Microsoft binary) to execute a malicious HTA file hosted on a remote server. The allow-list is not triggered. What technique bypassed the control, and what additional detection would catch it?",
@@ -7329,7 +7717,9 @@
               "The allow-list was misconfigured to allow all Microsoft signed binaries"
             ],
             "a": 1,
-            "exp": "LOLBins bypass allow-listing by definition — the binary IS allowed. The control works at process creation; it can't control what the allowed process does. Behavioral monitoring catches this: mshta.exe calling out to the internet is anomalous. EDR rules on LOLBin behavior are a necessary complement to allow-listing."
+            "exp": "LOLBins bypass allow-listing by definition — the binary IS allowed. The control works at process creation; it can't control what the allowed process does. Behavioral monitoring catches this: mshta.exe calling out to the internet is anomalous. EDR rules on LOLBin behavior are a necessary complement to allow-listing.",
+            "messerVideo": "2.5 - Segmentation and Access Control",
+            "subObjective": "2.5"
           }
         ]
       },
@@ -7390,7 +7780,9 @@
               "MFA"
             ],
             "a": 2,
-            "exp": "Patching removes the vulnerability — other controls reduce impact but don't fix the underlying flaw."
+            "exp": "Patching removes the vulnerability — other controls reduce impact but don't fix the underlying flaw.",
+            "messerVideo": "2.5 - Mitigation Techniques",
+            "subObjective": "2.5"
           },
           {
             "q": "Least privilege as a mitigation technique means:",
@@ -7401,7 +7793,9 @@
               "Encrypting all user data"
             ],
             "a": 1,
-            "exp": "Least privilege limits the blast radius of a compromise — an attacker who compromises a limited account has limited access."
+            "exp": "Least privilege limits the blast radius of a compromise — an attacker who compromises a limited account has limited access.",
+            "messerVideo": "2.5 - Mitigation Techniques",
+            "subObjective": "2.5"
           },
           {
             "q": "Which BEST captures why an IR team isolates a compromised system rather than immediately wiping or restoring it?",
@@ -7427,7 +7821,9 @@
               "The vendor should have released the patch before the vulnerability was public"
             ],
             "a": 1,
-            "exp": "Patching is essential but not sufficient. Zero-day attacks occur before patches are available. Existing controls — network segmentation, least privilege, behavioral monitoring — determine how much damage a successful pre-patch exploit causes. Patch fast AND maintain layered defenses."
+            "exp": "Patching is essential but not sufficient. Zero-day attacks occur before patches are available. Existing controls — network segmentation, least privilege, behavioral monitoring — determine how much damage a successful pre-patch exploit causes. Patch fast AND maintain layered defenses.",
+            "messerVideo": "2.5 - Mitigation Techniques",
+            "subObjective": "2.5"
           },
           {
             "q": "An analyst receives an alert that a workstation is attempting to connect to 47 different internal IP addresses on port 445 (SMB) within 5 minutes. The workstation belongs to an accountant with no IT duties. The analyst isolates the workstation. What is the NEXT step?",
@@ -7438,7 +7834,9 @@
               "The analyst applied zero trust by requiring re-authentication"
             ],
             "a": 1,
-            "exp": "Isolation stops the spread (the SMB scanning is consistent with worm behavior or ransomware propagation). But isolation before forensics destroys evidence — the memory dump captures running malware and encryption keys that disappear on shutdown. Then investigate: the 47 IPs scanned may already be compromised."
+            "exp": "Isolation stops the spread (the SMB scanning is consistent with worm behavior or ransomware propagation). But isolation before forensics destroys evidence — the memory dump captures running malware and encryption keys that disappear on shutdown. Then investigate: the 47 IPs scanned may already be compromised.",
+            "messerVideo": "2.5 - Mitigation Techniques",
+            "subObjective": "2.5"
           }
         ]
       },
@@ -7503,7 +7901,9 @@
               "Monitoring system logs for anomalies"
             ],
             "a": 1,
-            "exp": "Hardening systematically removes anything not needed for the system's intended function — reducing the ways an attacker can exploit it."
+            "exp": "Hardening systematically removes anything not needed for the system's intended function — reducing the ways an attacker can exploit it.",
+            "messerVideo": "2.5 - Hardening Techniques",
+            "subObjective": "2.5"
           },
           {
             "q": "The FIRST step when hardening a newly deployed network device should be:",
@@ -7514,7 +7914,9 @@
               "Configure network segmentation"
             ],
             "a": 2,
-            "exp": "Default credentials are publicly known — changing them immediately is the most critical first step in device hardening."
+            "exp": "Default credentials are publicly known — changing them immediately is the most critical first step in device hardening.",
+            "messerVideo": "2.5 - Hardening Techniques",
+            "subObjective": "2.5"
           },
           {
             "q": "Secure Boot mitigates which type of attack?",
@@ -7525,7 +7927,9 @@
               "DDoS attacks"
             ],
             "a": 2,
-            "exp": "Secure Boot verifies the cryptographic signature of bootloader and OS — preventing unsigned malicious code from running at boot."
+            "exp": "Secure Boot verifies the cryptographic signature of bootloader and OS — preventing unsigned malicious code from running at boot.",
+            "messerVideo": "2.5 - Hardening Techniques",
+            "subObjective": "2.5"
           },
           {
             "q": "Which BEST distinguishes EDR from traditional signature-based antivirus?",
@@ -7551,7 +7955,9 @@
               "Enable SELinux and configure all policies from scratch"
             ],
             "a": 1,
-            "exp": "Hardening priority: run as non-root (if exploited, attacker gets web server privileges, not root), disable unused modules (each module is an attack surface), display_errors reveals code paths to attackers, password SSH is vulnerable to brute force. These are quick wins with highest impact."
+            "exp": "Hardening priority: run as non-root (if exploited, attacker gets web server privileges, not root), disable unused modules (each module is an attack surface), display_errors reveals code paths to attackers, password SSH is vulnerable to brute force. These are quick wins with highest impact.",
+            "messerVideo": "2.5 - Hardening Techniques",
+            "subObjective": "2.5"
           },
           {
             "q": "An organization implements Secure Boot on all new laptops. Six months later, a red team boots a laptop from a USB drive containing a customized OS that bypasses all endpoint controls. Investigation reveals Secure Boot is enabled but the UEFI settings have no password and allow USB to boot first. What failed?",
@@ -7562,7 +7968,9 @@
               "The USB drive had a Microsoft-signed bootloader that Secure Boot accepted"
             ],
             "a": 1,
-            "exp": "Layered hardening: an attacker with physical access and no UEFI password can disable Secure Boot or change boot order in 30 seconds. The complete hardening: Secure Boot (verified boot chain) + UEFI password (prevents configuration changes) + boot order locked (prevents USB boot) + full disk encryption (protects data even if they succeed)."
+            "exp": "Layered hardening: an attacker with physical access and no UEFI password can disable Secure Boot or change boot order in 30 seconds. The complete hardening: Secure Boot (verified boot chain) + UEFI password (prevents configuration changes) + boot order locked (prevents USB boot) + full disk encryption (protects data even if they succeed).",
+            "messerVideo": "2.5 - Hardening Techniques",
+            "subObjective": "2.5"
           }
         ]
       }
