@@ -4126,15 +4126,17 @@
         ],
         "questions": [
           {
-            "q": "A malicious update attack is dangerous primarily because:",
+            "q": "Which BEST explains why a malicious update attack is so dangerous?",
             "opts": [
-              "Updates are always large files",
-              "It exploits user and system TRUST in legitimate update mechanisms — making it hard to detect",
-              "It requires physical access",
-              "It only affects open-source software"
+              "It exploits user and system trust in legitimate update mechanisms — signed binaries from a trusted vendor pass normal security controls without raising alarms",
+              "Updates always require kernel-level privileges to install, so any malicious update automatically runs as ring 0 regardless of the actual installer",
+              "Update channels use unencrypted HTTP transport, so an on-path attacker can swap the payload during transit to the consumer",
+              "Operating systems automatically install every offered update without any user consent or admin approval, regardless of source"
             ],
-            "a": 1,
-            "exp": "Users trust updates from known vendors — malicious updates exploit this trust to bypass suspicion and security controls."
+            "a": 0,
+            "exp": "Malicious update attacks weaponize the trust chain that consumers extend to their software vendors. The malware arrives as a signed update from a vendor the user already trusts; allowlisting, EDR, and signature-verification rules typically pass it because the signature is valid and the source is approved. This is the SolarWinds-class pattern. The other distractors are factually wrong (kernel privileges aren't always required; modern updates use HTTPS) or misstate update behavior (most OS updates require user/admin consent). Trust exploitation is the defining axis.",
+            "messerVideo": "2.3 - Malicious Updates",
+            "subObjective": "2.3"
           },
           {
             "q": "The SolarWinds attack is an example of:",
@@ -4236,15 +4238,17 @@
             "exp": "Privilege escalation exploits vulnerabilities to gain admin/root access — enabling full system control."
           },
           {
-            "q": "Running an end-of-life (EOL) operating system is a significant security risk because:",
+            "q": "Which BEST captures why running an end-of-life operating system creates significant security risk?",
             "opts": [
-              "EOL systems run slower",
-              "The vendor no longer provides security patches, leaving known vulnerabilities permanently unmitigated",
-              "EOL systems cannot connect to the internet",
-              "EOL systems require more memory"
+              "The vendor no longer issues security patches, so newly disclosed vulnerabilities in the OS become permanently exploitable — defenders have no upstream fix path",
+              "EOL operating systems are inherently slower and consume more memory than supported versions because vendor performance patches stop after EOL",
+              "EOL operating systems cannot run modern security tools because all major AV/EDR vendors immediately drop EOL OS support on the EOL date itself",
+              "EOL operating systems are blocked from accessing the internet by ISPs to protect other users from compromised hosts on the open network"
             ],
-            "a": 1,
-            "exp": "EOL means no more patches — any newly discovered vulnerability will never be fixed."
+            "a": 0,
+            "exp": "The defining EOL risk is the loss of patches. When new CVEs are disclosed against a supported OS, the vendor releases a patch and defenders apply it. After EOL, no patches arrive — every newly disclosed vulnerability becomes a permanent exposure with no upstream remediation path. The distractors confuse OS support with: performance (B — wrong; performance is not the security risk), AV/EDR availability (C — partially true over very long timescales but not the defining EOL day-zero issue), and ISP-level blocking (D — fabricated). Compensating controls (segmentation, monitoring) reduce exposure but do not close the underlying gap.",
+            "messerVideo": "2.3 - Operating System Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "The WannaCry ransomware exploited which legacy Windows protocol vulnerability?",
@@ -4614,15 +4618,17 @@
         ],
         "questions": [
           {
-            "q": "Firmware vulnerabilities are particularly difficult to remediate because:",
+            "q": "Which BEST explains why firmware vulnerabilities are particularly difficult to remediate?",
             "opts": [
-              "They require replacing the entire computer",
-              "Firmware operates below the OS and may persist through OS reinstalls — updates are complex and rare",
-              "They only affect consumer devices",
-              "They are always zero-days"
+              "Firmware operates below the OS and persists through OS reinstalls; vendor updates are infrequent, risky to apply (bricking), and many devices receive no firmware updates after the first product cycle",
+              "Firmware is written in low-level assembly that defenders cannot read, so vulnerability researchers cannot publish proof-of-concept exploits or patches at all",
+              "All firmware vulnerabilities are zero-days by definition because firmware never has a previous version to compare against for binary diffing",
+              "Firmware vulnerabilities can only be patched by replacing the entire physical device because modern hardware does not support in-field firmware updates"
             ],
-            "a": 1,
-            "exp": "Firmware runs below the OS — malicious firmware can survive OS reinstalls and is very hard to detect or remove."
+            "a": 0,
+            "exp": "Firmware sits below the OS — BIOS/UEFI, NIC firmware, drive controller firmware, IPMI/BMC firmware — so wiping and reinstalling the OS does not touch it. Vendor update cadence is much slower than software updates (often quarterly or longer if at all), updates can brick the device if interrupted, and many devices receive no firmware patches after the first product cycle. This combination makes firmware exposure long-lived. The other distractors are wrong: defenders DO read firmware (binary reverse engineering is mature); zero-day status is per-vulnerability not per-class; modern devices generally support firmware updates (replacement is rarely required).",
+            "messerVideo": "2.3 - Hardware Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "A side-channel attack extracts information by:",
@@ -4739,15 +4745,17 @@
             "exp": "VM escape is the most serious virtualization attack — the attacker gains access to the hypervisor and potentially all VMs on the host."
           },
           {
-            "q": "VM sprawl is a security concern because:",
+            "q": "Which BEST captures the SECURITY concern with VM sprawl (vs operational concerns like cost or performance)?",
             "opts": [
-              "It causes network congestion",
-              "Unmanaged, forgotten VMs may be unpatched and become easy targets for attackers",
-              "It increases licensing costs",
-              "It reduces VM performance"
+              "VMs proliferate without clear ownership and then get forgotten — they go unpatched, unhardened, and unmonitored over time, becoming easy targets that no team is responsible for fixing",
+              "Hypervisor CPU oversubscription forces VMs to share execution slices, allowing one tenant's process to read another tenant's CPU register state via timing side channels",
+              "VM-to-VM network traffic stays inside the hypervisor and never reaches the network monitoring stack, creating a permanent monitoring blind spot regardless of inventory state",
+              "Each additional VM costs licensing fees and consumes datacenter cooling capacity, raising IT operational costs faster than the security team's budget grows"
             ],
-            "a": 1,
-            "exp": "Untracked VMs don't receive patches or monitoring — they become soft targets within the network."
+            "a": 0,
+            "exp": "The defining security concern with VM sprawl is unmanaged ownership: VMs spin up for testing, projects, demos, then no one updates the inventory, no team patches them, no one monitors their behavior. Over months/years, those VMs accumulate unpatched CVEs and weak configurations that an attacker reaching the network can pivot through. The fix is asset management, ownership tagging, and lifecycle policies — not raw VM count limits. Distractor B (CPU side-channel timing attacks) is a different topic — the Meltdown/Spectre family of hardware vulnerabilities, unrelated to VM sprawl. Distractor C is wrong — modern virtual networking exposes VM-to-VM traffic via vSwitch port mirroring/SPAN. Distractor D is the operational concern the stem explicitly dismisses.",
+            "messerVideo": "2.3 - Virtualization Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Which BEST distinguishes a Type 1 hypervisor from a Type 2 hypervisor?",
@@ -5038,15 +5046,17 @@
         ],
         "questions": [
           {
-            "q": "Which of the following is an example of a misconfiguration vulnerability?",
+            "q": "Which of the following is BEST classified as a misconfiguration vulnerability (vs another vulnerability category)?",
             "opts": [
-              "A zero-day exploit in the OS kernel",
-              "Leaving default credentials unchanged on a newly deployed network device",
-              "A buffer overflow in a web application",
-              "A supply chain attack on software updates"
+              "A zero-day exploit in the OS kernel that no vendor patch yet exists for and no public details have been disclosed",
+              "Leaving default vendor credentials (admin/admin) unchanged on a newly deployed network device that is reachable from the production network",
+              "A buffer overflow in a web application's image-upload handler that allows attacker-supplied input to overwrite return addresses",
+              "A supply chain attack in which a software dependency is compromised upstream and the malicious payload reaches consumers via signed updates"
             ],
             "a": 1,
-            "exp": "Leaving default credentials is a misconfiguration — a human error that's easily exploited and easily prevented."
+            "exp": "A misconfiguration vulnerability is one introduced by HOW a system is set up — default credentials left in place, overly permissive firewall rules, public-by-default storage buckets, exposed admin endpoints. The fix is configuration management, not code or supply-chain action. Other categories: zero-day (A) is an unknown vendor-side defect; buffer overflow (C) is a code defect; supply chain (D) is an upstream compromise. Knowing the category matters because remediation paths differ — misconfig means reconfigure; code defect means patch; supply chain means vendor response and software bill of materials review.",
+            "messerVideo": "2.3 - Misconfiguration Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "CIS Benchmarks are used to:",
@@ -5149,15 +5159,17 @@
         ],
         "questions": [
           {
-            "q": "Jailbreaking an iOS device is a security risk because:",
+            "q": "Which BEST captures the SECURITY risk of jailbreaking an iOS device?",
             "opts": [
-              "It voids the manufacturer warranty",
-              "It removes iOS security restrictions, allowing unsigned code to run and bypassing security controls",
-              "It slows down the device",
-              "It prevents software updates"
+              "Jailbreaking removes iOS's app-sandbox and code-signing enforcement, allowing unsigned (potentially malicious) code to run with full device access; most platform security controls are disabled",
+              "Jailbreaking voids the manufacturer warranty, removing the user's option to seek vendor repair if the device develops a hardware fault later",
+              "Jailbreaking permanently slows the device by approximately 30% because the bypassed security checks consume CPU cycles when re-enabled by background apps",
+              "Jailbreaking exposes the user's iCloud password to Apple Support staff, who can then read it during any subsequent support interaction"
             ],
-            "a": 1,
-            "exp": "Jailbreaking removes iOS sandboxing, code signing, and other security restrictions — making the device significantly more vulnerable."
+            "a": 0,
+            "exp": "Jailbreaking strips out iOS's defense-in-depth: the app sandbox that isolates apps from each other and from system data, the code-signing enforcement that ensures only signed apps run, and various kernel-level mitigations. Once removed, malicious apps from non-App-Store sources can run with full device access. Jailbroken devices also often stop receiving iOS security updates because update flows assume an unmodified system. The warranty distractor (B) is real but is a legal/business concern, not a security concern. Performance and Apple-Support-iCloud claims (C, D) are fabricated.",
+            "messerVideo": "2.3 - Mobile Device Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "A SIM swapping attack involves:",
@@ -5256,15 +5268,17 @@
         ],
         "questions": [
           {
-            "q": "A zero-day vulnerability is one that:",
+            "q": "Which BEST defines a zero-day vulnerability?",
             "opts": [
-              "Has been patched for zero days since discovery",
-              "Is unknown to the vendor and has no available patch",
-              "Affects zero systems currently",
-              "Is rated 0.0 on the CVSS scale"
+              "Has been patched for zero days since the public disclosure date — i.e. the patch dropped on day zero of disclosure",
+              "Is unknown to the vendor at the time it is exploited and has no available patch — defenders have zero days to prepare a fix",
+              "Affects zero deployed systems currently because zero-day refers to the day the vulnerability is first deployed in the wild",
+              "Is rated 0.0 on the CVSS scale because zero-day vulnerabilities have not yet been scored by NVD at the time of discovery"
             ],
             "a": 1,
-            "exp": "Zero-day means the vendor has had 'zero days' to prepare a fix — no patch is available, making it extremely dangerous."
+            "exp": "A zero-day vulnerability is one that the vendor doesn't know about (or hasn't patched) at the time it is being exploited — defenders have 'zero days' between learning of the vulnerability and needing to defend against active exploitation. The 'zero' in zero-day refers to the defender's preparation time, NOT to the patch age, system count, or CVSS score (the wordplay distractors). Zero-days are particularly dangerous because no signature/IoC exists yet, so detection relies on behavioral anomaly. Once the vendor releases a patch and the CVE is public, it becomes an 'n-day' vulnerability where n = days since disclosure.",
+            "messerVideo": "2.3 - Zero-day Vulnerabilities",
+            "subObjective": "2.3"
           },
           {
             "q": "Responsible disclosure means:",
@@ -5393,15 +5407,17 @@
             "exp": "Offline backups that ransomware cannot reach allow recovery without paying the ransom."
           },
           {
-            "q": "Fileless malware is difficult to detect with traditional antivirus because:",
+            "q": "Which BEST explains why fileless malware evades traditional signature-based antivirus?",
             "opts": [
-              "It uses advanced encryption",
-              "It never writes files to disk — operating entirely in memory where file-based scans can't find it",
-              "It disguises itself as system files",
-              "It changes its signature every hour"
+              "It never writes the malicious payload to disk — execution stays in process memory; persistence rides registry keys, WMI subscriptions, or scheduled-task XML rather than executable files",
+              "It uses living-off-the-land binaries (LOLBins like PowerShell, certutil, regsvr32) — legitimate signed Windows tools that traditional AV does not flag as malicious by default",
+              "It disguises itself as legitimate system files in protected directories so signature scans treat it as benign system content rather than a candidate for inspection",
+              "It changes its signature every hour through polymorphic encoding so AV signature databases cannot maintain coverage of the current variant in time"
             ],
-            "a": 1,
-            "exp": "Traditional AV scans files on disk. Fileless malware lives in RAM — requiring memory-based or behavioral detection."
+            "a": 0,
+            "exp": "Signature-based AV scans files at rest and at execution-write — its detection model is 'compare file bytes against malware hash database.' Fileless malware never writes the malicious payload to disk: it injects shellcode into a running process's memory, persists via registry keys or WMI subscriptions or scheduled-task XML, and runs in memory. With no file to scan, the AV's scanning model has no input. LOLBin abuse (B) is a related evasion technique but not the defining 'fileless' property. System-file disguise (C) is a different stealth technique. Polymorphism (D) is a different evasion technique. Modern AV/EDR adds behavioral and memory-scanning detection to address the fileless gap.",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4"
           },
           {
             "q": "C2 (Command and Control) infrastructure is used by attackers to:",
@@ -5610,15 +5626,17 @@
             "exp": "Spyware silently collects and exfiltrates sensitive information — running in the background without the user's knowledge."
           },
           {
-            "q": "A Remote Access Trojan (RAT) is particularly dangerous because:",
+            "q": "Which BEST captures why a Remote Access Trojan is particularly dangerous?",
             "opts": [
-              "It spreads like a worm",
-              "It gives the attacker complete remote control of the victim's system — keyboard, camera, files, and microphone",
-              "It encrypts all files",
-              "It is always installed from a USB drive"
+              "It self-propagates from host to host like a worm, infecting every reachable machine on the network without needing user action",
+              "It gives the attacker interactive remote control of the victim's system — full access to keyboard, screen, camera, microphone, and file system, persisting as long as the channel survives",
+              "It encrypts the victim's files in place and demands cryptocurrency payment for the decryption key, treating extortion as the primary monetization path",
+              "It deletes itself after first execution to leave no forensic trace, ensuring the attacker's activity cannot be reconstructed even if the compromise is later detected"
             ],
             "a": 1,
-            "exp": "RATs provide full remote control — attackers can spy, steal files, install more malware, or use the system as a pivot point."
+            "exp": "A RAT's danger is interactive remote control — the attacker sees what the user sees and can drive the keyboard/mouse, capture camera/microphone feeds, browse the filesystem, install additional payloads, and pivot from the compromised host. The persistence and full-environment access make RATs much more dangerous than single-purpose malware. Distractors describe other malware categories: worms self-propagate (A); ransomware encrypts and extorts (C); self-deleting malware (D) is a separate stealth pattern not specific to RATs. Common RAT examples include njRAT and Quasar, all built around the remote-control primitive.",
+            "messerVideo": "2.4 - Spyware and Bloatware",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -5941,15 +5959,17 @@
             "exp": "SYN floods leave many half-open TCP connections — eventually the server's connection table is full and it can't accept legitimate connections."
           },
           {
-            "q": "A DNS amplification attack is effective because:",
+            "q": "An attacker generates a 50 Gbps DDoS flood at a target by sending small DNS queries (with the victim's address spoofed as the source) to thousands of open recursive DNS resolvers. The mechanism that BEST explains how a small attacker pipe produces large victim-side traffic is:",
             "opts": [
-              "DNS servers are always unpatched",
-              "Small DNS query requests produce much larger responses that are reflected at the victim — multiplying attacker bandwidth",
-              "DNS uses TCP which is easier to flood",
-              "DNS responses are not encrypted"
+              "Three effects combined: spoofed source IP reflects responses to the victim, small queries elicit ~50x larger responses (EDNS0/DNSSEC), and open recursive resolvers act as unwitting amplifiers using their bandwidth",
+              "The DNS protocol uses TCP for amplification queries, which the attacker floods with SYN packets; each TCP connection consumes more victim resources than a UDP packet would",
+              "DNS responses are inherently larger than queries because the protocol is inefficient; this inefficiency by itself is the amplification mechanism, no other components required",
+              "The attacker compromises the victim's authoritative DNS server and uses it to respond to internet DNS queries, reflecting traffic at the victim from every DNS-using client globally"
             ],
-            "a": 1,
-            "exp": "DNS amplification: attacker sends small spoofed DNS queries; large responses go to the victim — amplifying bandwidth by 50-70x."
+            "a": 0,
+            "exp": "DNS amplification combines three mechanisms. (1) REFLECTION: the attacker spoofs the victim's IP as the query source, so DNS responses go to the victim instead of the attacker — the attacker never sees the responses, which is fine because the attack goal is consumption of the victim's bandwidth. (2) AMPLIFICATION: a small ~64-byte query elicits a much larger ~3000+ byte response when DNSSEC and EDNS0 are involved — typical amplification factor ~50x. (3) THIRD-PARTY BANDWIDTH: open recursive DNS resolvers (misconfigured to answer any source) are the unwitting amplifiers — the attacker's small upload becomes the resolvers' large download to the victim. Removing any one component defeats the attack: source-IP filtering at the resolver kills reflection; response-rate limiting reduces amplification; closing open recursors removes the third-party bandwidth pool.",
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -6136,15 +6156,17 @@
             "exp": "Evil twin APs mimic legitimate SSIDs — clients connect thinking they're on the real network, enabling MITM interception."
           },
           {
-            "q": "WPS vulnerabilities are best mitigated by:",
+            "q": "Which is the BEST mitigation for WPS-related wireless attacks (e.g. Reaver-style PIN brute-force)?",
             "opts": [
-              "Using WPA3 exclusively",
-              "Hiding the network SSID",
-              "Disabling WPS on all access points",
-              "Using a stronger WPS PIN"
+              "Using WPA3 exclusively across the network and removing WPA2 backwards compatibility from every access point in the environment",
+              "Hiding the network SSID so attackers cannot see the wireless network exists during a passive site survey of the area",
+              "Disabling WPS on all access points — the WPS PIN exchange is the attack surface, and turning it off eliminates the brute-force path entirely",
+              "Using a stronger WPS PIN with more digits and a mix of letters and symbols to resist brute-force attempts"
             ],
             "a": 2,
-            "exp": "WPS has a fundamental design flaw — the 8-digit PIN can be brute-forced in ~11,000 attempts. Disable it entirely."
+            "exp": "WPS (Wi-Fi Protected Setup) was designed to make wireless setup easier — but the PIN-based variant has a fundamental flaw: the 8-digit PIN is split into two 4-digit halves checked separately, reducing brute-force complexity from 10^8 to ~11,000 combinations. Tools like Reaver exploit this directly. The only effective mitigation is to DISABLE WPS entirely; the PIN cannot be made resistant within the WPS spec. Moving to WPA3 helps but doesn't directly address WPS (you can run WPS on top of WPA3-Personal too); hiding the SSID is security theater (passive listeners see SSIDs in beacon frames or association requests anyway); a stronger PIN doesn't help because the protocol still leaks information about each half independently.",
+            "messerVideo": "2.4 - Wireless Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "Capturing a WPA2 4-way handshake allows an attacker to:",
@@ -6454,15 +6476,17 @@
             "exp": "LOLBins use trusted system tools — since they're legitimate applications, many security tools don't flag their malicious use."
           },
           {
-            "q": "A dropper malware's primary function is:",
+            "q": "Which BEST describes a dropper malware's primary function?",
             "opts": [
-              "Encrypting files for ransom",
-              "Serving as the initial payload that downloads and installs the main malicious component",
-              "Exfiltrating data directly",
-              "Providing remote desktop access"
+              "Encrypting the victim's files in place and demanding cryptocurrency payment for the decryption key (the ransomware function)",
+              "Serving as a small initial payload that downloads, decrypts, and installs the main malicious component on the compromised host",
+              "Exfiltrating the victim's stored credentials, browser session tokens, and saved authentication material to attacker infrastructure (the info-stealer function)",
+              "Providing the attacker with persistent interactive remote desktop access to the compromised host for hands-on-keyboard activity (the RAT function)"
             ],
             "a": 1,
-            "exp": "Droppers are first-stage malware — they establish a foothold and then download the main payload from C2 infrastructure."
+            "exp": "A dropper is a small staged payload designed to land first on a compromised system and then fetch/install the main malware. The dropper itself is intentionally minimal — small footprint, sometimes obfuscated specifically to evade initial detection — because its job is just to bridge from the initial-access payload (e.g. a phishing attachment) to the larger second-stage malware. Distractors describe primary functions of OTHER categories: ransomware (A), info-stealer (C), RAT (D). Modern attack chains often involve a dropper then loader then main malware sequence, with each stage doing a different job.",
+            "messerVideo": "2.4 - Malicious Code",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -6786,15 +6810,17 @@
             "subObjective": "2.4"
           },
           {
-            "q": "Credential stuffing attacks work because:",
+            "q": "Which BEST explains why credential stuffing attacks are effective?",
             "opts": [
-              "Attackers guess common passwords",
-              "Many users reuse the same username and password across multiple services — breached credentials from one site work on others",
-              "Attackers have access to password databases",
-              "Stolen hashes are cracked before use"
+              "Many users reuse the same username and password across multiple services — credentials breached from one site work directly against many other services without any guessing",
+              "Attackers guess a few common passwords across many user accounts to find an account where the guess matches (this is password spraying)",
+              "Attackers buy or steal a password hash database from a target site and try every account with the recovered credentials (this is database theft + cracking)",
+              "Attackers crack stolen NTLM hashes offline using GPU rigs and then replay the recovered cleartext passwords against the original target (offline cracking)"
             ],
-            "a": 1,
-            "exp": "Credential stuffing exploits password reuse — a breach at Site A gives attackers credentials that work on Site B."
+            "a": 0,
+            "exp": "Credential stuffing exploits PASSWORD REUSE across services. The attacker takes a username/password list breached from one site (or bought from a leak market) and replays it against many other sites. Wherever the user reused the credential, the login succeeds — no guessing, no cracking. Defense: unique passwords per site (password manager), MFA on every account, breach-credential monitoring at signup. Distractors describe related but distinct attacks: spraying (B), database theft + cracking (C), offline hash cracking (D). The defining reuse axis is what makes stuffing effective at scale.",
+            "messerVideo": "2.4 - Password Attacks",
+            "subObjective": "2.4"
           },
           {
             "q": "Which attack is MOST effectively mitigated by MFA but NOT account lockout?",
@@ -6808,15 +6834,17 @@
             "exp": "Credential stuffing uses valid credentials — account lockout won't trigger. MFA prevents access even with correct credentials."
           },
           {
-            "q": "Pass-the-hash is particularly dangerous because:",
+            "q": "Which BEST captures why pass-the-hash is particularly dangerous in Windows enterprise environments?",
             "opts": [
-              "It cracks passwords instantly",
-              "The attacker doesn't need to know the actual password — the hash itself is the authentication credential that can be replayed",
-              "It only works on Linux systems",
-              "It requires the attacker to physically access the system"
+              "A captured NTLM hash authenticates as the target user against any NTLM-accepting service — no cracking needed, no rotation defeats it; lateral movement is one tool away wherever the user is logged in",
+              "Pass-the-hash succeeds against modern Kerberos-based authentication out of the box, so even a fully Kerberos-enforced domain provides no protection against the technique",
+              "NTLM hashes can be decrypted to cleartext passwords by anyone who knows the published Microsoft decryption key, so the hash itself acts like a cleartext credential",
+              "Pass-the-hash gives the attacker raw kernel access on the target, allowing them to load any driver and disable EDR before performing the actual authentication attempt"
             ],
-            "a": 1,
-            "exp": "NTLM authentication accepts the hash directly — attackers capture hashes from memory and use them without cracking."
+            "a": 0,
+            "exp": "Pass-the-hash is dangerous because the hash IS the credential — capturing it (from lsass memory, SAM database, or domain controller replication) gives the attacker authenticated access to every NTLM-accepting service the user can reach. Because NTLM hashes don't change unless the user changes their password, and because Windows admin accounts are often used to log into many hosts (each leaving a hash in memory), one hash capture often unlocks broad lateral movement. This is why credential hygiene (admin tier separation, no admin logon to workstations, LAPS, strict NTLM restrictions) is critical. Kerberos-only enforcement DOES help (B is wrong); NTLM hashes are NOT reversible (C is wrong); kernel access is a different attack class (D is wrong).",
+            "messerVideo": "2.4 - Password Attacks",
+            "subObjective": "2.4"
           }
         ],
         "scenarios": [
@@ -6912,15 +6940,17 @@
             "exp": "Impossible travel detects when the same account logs in from locations too far apart for human travel — strong indicator of credential theft."
           },
           {
-            "q": "Unexpected high CPU usage on a server with no scheduled processes is an indicator of:",
+            "q": "An on-call engineer notices a production server pinning 100% CPU at 3am with no scheduled jobs, no expected backups, and no user load. Which is the MOST likely cause to investigate FIRST?",
             "opts": [
-              "Normal background maintenance",
-              "Possible cryptomining malware or other resource-intensive malicious process",
-              "A failed software update",
-              "Disk encryption"
+              "Routine background maintenance running on the server's monthly maintenance schedule that the on-call engineer has not yet noticed in the runbook documentation overnight",
+              "Possible cryptomining or other resource-intensive malicious workload — off-hours timing plus full CPU saturation plus no expected load is the classic crypto-jacking pattern",
+              "A failed software update that is silently retrying installation in a tight loop, consuming CPU until the next reboot or manual intervention by the support team",
+              "Another administrator already debugging the issue with strace or perf attached to a hot process, consuming CPU as the diagnostic instrumentation collects samples"
             ],
             "a": 1,
-            "exp": "Cryptominers use victim CPU/GPU resources — unexplained high utilization is an IoC to investigate."
+            "exp": "The combination of '3am, no scheduled work, full CPU saturation' is the classic cryptojacking IoC pattern: malicious crypto-mining processes typically run when defenders aren't watching and use all available CPU because mining throughput depends on it. First-hour investigation: list running processes (top, ps), look for unfamiliar binaries or system processes spawning unusual children, check outbound connections (netstat, NetFlow) for mining-pool destinations (port 3333 stratum), and check sudden onset time. Benign causes (A routine maintenance, C failed-update loop, D admin debugging) are real possibilities and should be ruled out — but the scenario asks what to investigate FIRST, and the cryptojacking signature is most actionable.",
+            "messerVideo": "2.4 - Indicators of Compromise",
+            "subObjective": "2.4"
           },
           {
             "q": "File hash IoCs are easily evaded by:",
@@ -7164,15 +7194,17 @@
             "exp": "Least privilege limits the blast radius of a compromise — an attacker who compromises a limited account has limited access."
           },
           {
-            "q": "Isolating a compromised system is done to:",
+            "q": "Which BEST captures why an IR team isolates a compromised system rather than immediately wiping or restoring it?",
             "opts": [
-              "Preserve the system for forensic analysis only",
-              "Prevent the spread of malware or attacker access to other systems while maintaining the compromised system for investigation",
-              "Delete all malware immediately",
-              "Restore the system from backup"
+              "Prevent the spread of malware or attacker access to other systems while preserving the compromised system intact for forensic investigation and root-cause analysis",
+              "Preserve the compromised system in its current state strictly for later forensic analysis, with no other operational goal beyond evidence collection",
+              "Immediately remove the malware and attacker tooling from the system so it can be safely returned to production within hours of the initial detection",
+              "Trigger an automatic snapshot of the system's memory and disk for offline analysis while the attacker continues to operate normally on the system"
             ],
-            "a": 1,
-            "exp": "Isolation quarantines the infected system — stopping spread while preserving evidence for forensic investigation."
+            "a": 0,
+            "exp": "Isolation has TWO primary purposes that distinguish it from other IR steps: (1) STOP the spread — the compromised host can no longer reach other systems on the network, blocking lateral movement and exfiltration; (2) PRESERVE the system intact — for forensic investigation, evidence collection, and root-cause analysis. Wiping or restoring (C, D) destroys the evidence needed to understand HOW the compromise happened and WHAT the attacker accessed. Forensics-only framing (B) misses the spread-prevention purpose. The standard NIST IR sequence is contain then eradicate then recover; isolation is containment, not eradication or recovery.",
+            "messerVideo": "2.5 - Mitigation Techniques",
+            "subObjective": "2.5"
           }
         ],
         "scenarios": [
