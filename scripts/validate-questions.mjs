@@ -28,8 +28,10 @@ const jsonPath = resolve(repo, "questions.json");
 const args = process.argv.slice(2);
 const reportPath = args.find((a) => a.startsWith("--report="))?.split("=")[1];
 const quiet = args.includes("--quiet");
+const pathOverride = args.find((a) => a.startsWith("--path="))?.split("=")[1];
 
-const data = JSON.parse(readFileSync(jsonPath, "utf8"));
+const effectiveJsonPath = pathOverride ? resolve(pathOverride) : jsonPath;
+const data = JSON.parse(readFileSync(effectiveJsonPath, "utf8"));
 
 // ─── Constants ────────────────────────────────────────────────────────────
 const MIN_EXP_CHARS = 40;
