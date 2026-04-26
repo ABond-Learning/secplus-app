@@ -100,7 +100,9 @@
               "Compensating"
             ],
             "a": 2,
-            "exp": "Preventive controls stop threats before they happen — firewalls, ACLs, locks, MFA."
+            "exp": "Preventive controls stop threats before they happen — firewalls, ACLs, locks, MFA.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "A CCTV camera monitoring a server room is which control type?",
@@ -111,7 +113,9 @@
               "Directive"
             ],
             "a": 1,
-            "exp": "Detective controls identify and record events. CCTV logs intrusions but doesn't stop them."
+            "exp": "Detective controls identify and record events. CCTV logs intrusions but doesn't stop them.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "Extra logging added because MFA can't be funded is a _____ control.",
@@ -122,7 +126,9 @@
               "Physical"
             ],
             "a": 2,
-            "exp": "Compensating controls substitute for a primary control when it can't be implemented."
+            "exp": "Compensating controls substitute for a primary control when it can't be implemented.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "A security guard patrolling a data center falls under which control CATEGORY?",
@@ -133,7 +139,9 @@
               "Physical"
             ],
             "a": 3,
-            "exp": "Physical controls are tangible, real-world measures — guards, fences, locks, badge readers."
+            "exp": "Physical controls are tangible, real-world measures — guards, fences, locks, badge readers.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "Annual security awareness training is best classified as which control category?",
@@ -144,7 +152,9 @@
               "Physical"
             ],
             "a": 1,
-            "exp": "Managerial controls are administrative — policies, risk assessments, security planning."
+            "exp": "Managerial controls are administrative — policies, risk assessments, security planning.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "A warning sign reading 'Unauthorized Access Prohibited' is primarily which control type?",
@@ -155,7 +165,9 @@
               "Directive"
             ],
             "a": 2,
-            "exp": "Deterrent controls discourage attackers by highlighting consequences without physically stopping them."
+            "exp": "Deterrent controls discourage attackers by highlighting consequences without physically stopping them.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "IT restores from a clean backup after a malware infection. This is which control type?",
@@ -166,7 +178,9 @@
               "Compensating"
             ],
             "a": 2,
-            "exp": "Corrective controls minimize damage and restore systems after an incident."
+            "exp": "Corrective controls minimize damage and restore systems after an incident.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "An IDS that alerts the SOC to suspicious traffic is which control type?",
@@ -177,7 +191,9 @@
               "Deterrent"
             ],
             "a": 1,
-            "exp": "An IDS detects and alerts only — unlike IPS it doesn't block, making it a detective control."
+            "exp": "An IDS detects and alerts only — unlike IPS it doesn't block, making it a detective control.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "A mantrap at a data center entrance is primarily which control type?",
@@ -188,7 +204,9 @@
               "Corrective"
             ],
             "a": 2,
-            "exp": "A mantrap physically prevents unauthorized entry one person at a time — preventive."
+            "exp": "A mantrap physically prevents unauthorized entry one person at a time — preventive.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "Which control category includes security guards, incident response procedures, and change management?",
@@ -199,7 +217,9 @@
               "Physical"
             ],
             "a": 2,
-            "exp": "Operational controls are executed by people following procedures — guards, IR drills, change management."
+            "exp": "Operational controls are executed by people following procedures — guards, IR drills, change management.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           },
           {
             "q": "A policy stating 'All employees must wear ID badges' is which control type?",
@@ -210,7 +230,9 @@
               "Compensating"
             ],
             "a": 1,
-            "exp": "Directive controls instruct personnel on required behavior through policy."
+            "exp": "Directive controls instruct personnel on required behavior through policy.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           }
         ],
         "scenarios": [
@@ -373,7 +395,9 @@
               "Confidentiality, Identity, Access"
             ],
             "a": 1,
-            "exp": "CIA = Confidentiality, Integrity, Availability — the three foundational goals of information security."
+            "exp": "CIA = Confidentiality, Integrity, Availability — the three foundational goals of information security.",
+            "messerVideo": "1.2 - The CIA Triad",
+            "subObjective": "1.2"
           },
           {
             "q": "Which CIA component ensures data is only accessible to authorized users?",
@@ -384,7 +408,9 @@
               "Authentication"
             ],
             "a": 2,
-            "exp": "Confidentiality protects data from unauthorized disclosure — encryption and access controls support this."
+            "exp": "Confidentiality protects data from unauthorized disclosure — encryption and access controls support this.",
+            "messerVideo": "1.2 - The CIA Triad",
+            "subObjective": "1.2"
           },
           {
             "q": "A hospital's records system going offline during surgery violates which CIA component?",
@@ -395,7 +421,9 @@
               "Non-repudiation"
             ],
             "a": 2,
-            "exp": "Availability ensures systems are accessible when needed — critical outages directly violate this."
+            "exp": "Availability ensures systems are accessible when needed — critical outages directly violate this.",
+            "messerVideo": "1.2 - The CIA Triad",
+            "subObjective": "1.2"
           },
           {
             "q": "An attacker modifying financial records without detection violates which CIA component?",
@@ -406,7 +434,9 @@
               "Authentication"
             ],
             "a": 1,
-            "exp": "Integrity ensures data has not been altered in an unauthorized way."
+            "exp": "Integrity ensures data has not been altered in an unauthorized way.",
+            "messerVideo": "1.2 - The CIA Triad",
+            "subObjective": "1.2"
           },
           {
             "q": "Encryption primarily protects which CIA component?",
@@ -417,7 +447,9 @@
               "Confidentiality"
             ],
             "a": 3,
-            "exp": "Encryption scrambles data so only authorized parties can read it — directly protecting confidentiality."
+            "exp": "Encryption scrambles data so only authorized parties can read it — directly protecting confidentiality.",
+            "messerVideo": "1.2 - The CIA Triad",
+            "subObjective": "1.2"
           },
           {
             "q": "A DDoS attack primarily targets which CIA component?",
@@ -428,7 +460,9 @@
               "Authentication"
             ],
             "a": 2,
-            "exp": "DDoS floods a target to make it unavailable — directly attacking availability."
+            "exp": "DDoS floods a target to make it unavailable — directly attacking availability.",
+            "messerVideo": "1.2 - The CIA Triad",
+            "subObjective": "1.2"
           },
           {
             "q": "Which of the following BEST supports availability?",
@@ -439,7 +473,9 @@
               "Access control lists"
             ],
             "a": 2,
-            "exp": "Redundancy and backups ensure services remain available even during failures or attacks."
+            "exp": "Redundancy and backups ensure services remain available even during failures or attacks.",
+            "messerVideo": "1.2 - The CIA Triad",
+            "subObjective": "1.2"
           },
           {
             "q": "Hashing is primarily used to protect which CIA component?",
@@ -450,7 +486,9 @@
               "Non-repudiation"
             ],
             "a": 1,
-            "exp": "Hashing verifies data hasn't changed — any modification produces a different hash, protecting integrity."
+            "exp": "Hashing verifies data hasn't changed — any modification produces a different hash, protecting integrity.",
+            "messerVideo": "1.2 - The CIA Triad",
+            "subObjective": "1.2"
           }
         ],
         "scenarios": [
@@ -538,7 +576,9 @@
               "Systems remain available during attacks"
             ],
             "a": 1,
-            "exp": "Non-repudiation proves an action occurred and prevents the actor from denying it."
+            "exp": "Non-repudiation proves an action occurred and prevents the actor from denying it.",
+            "messerVideo": "1.2 - Non-repudiation",
+            "subObjective": "1.2"
           },
           {
             "q": "Which technology provides non-repudiation?",
@@ -549,7 +589,9 @@
               "VPN tunnels"
             ],
             "a": 2,
-            "exp": "Digital signatures use asymmetric cryptography to bind a message to its sender — providing non-repudiation."
+            "exp": "Digital signatures use asymmetric cryptography to bind a message to its sender — providing non-repudiation.",
+            "messerVideo": "1.2 - Non-repudiation",
+            "subObjective": "1.2"
           },
           {
             "q": "A digital signature is created using the sender's:",
@@ -560,7 +602,9 @@
               "Session key"
             ],
             "a": 2,
-            "exp": "Senders sign with their PRIVATE key. Only they possess it, so only they could have signed."
+            "exp": "Senders sign with their PRIVATE key. Only they possess it, so only they could have signed.",
+            "messerVideo": "1.2 - Non-repudiation",
+            "subObjective": "1.2"
           },
           {
             "q": "Non-repudiation is most closely related to which CIA component?",
@@ -571,7 +615,9 @@
               "All three equally"
             ],
             "a": 1,
-            "exp": "Non-repudiation is a property of integrity — implemented via digital signatures and tamper-evident logs."
+            "exp": "Non-repudiation is a property of integrity — implemented via digital signatures and tamper-evident logs.",
+            "messerVideo": "1.2 - Non-repudiation",
+            "subObjective": "1.2"
           },
           {
             "q": "Why does HMAC NOT provide non-repudiation?",
@@ -582,7 +628,9 @@
               "It is too slow"
             ],
             "a": 1,
-            "exp": "Non-repudiation requires that only one party could have created the proof. HMAC's shared key means either party could have."
+            "exp": "Non-repudiation requires that only one party could have created the proof. HMAC's shared key means either party could have.",
+            "messerVideo": "1.2 - Non-repudiation",
+            "subObjective": "1.2"
           },
           {
             "q": "If Alice signs a message with her private key, what can Bob verify using her public key?",
@@ -593,7 +641,9 @@
               "The message's availability"
             ],
             "a": 1,
-            "exp": "Bob verifying with Alice's public key confirms she signed it (authentication) and the content is intact (integrity)."
+            "exp": "Bob verifying with Alice's public key confirms she signed it (authentication) and the content is intact (integrity).",
+            "messerVideo": "1.2 - Non-repudiation",
+            "subObjective": "1.2"
           },
           {
             "q": "Which BEST supports non-repudiation in a corporate email system?",
@@ -604,7 +654,9 @@
               "Email archiving alone"
             ],
             "a": 1,
-            "exp": "S/MIME applies digital signatures to emails — binding the sender's identity to the message cryptographically."
+            "exp": "S/MIME applies digital signatures to emails — binding the sender's identity to the message cryptographically.",
+            "messerVideo": "1.2 - Non-repudiation",
+            "subObjective": "1.2"
           }
         ],
         "scenarios": [
@@ -704,7 +756,9 @@
               "Assurance, Authorization, Auditing"
             ],
             "a": 1,
-            "exp": "AAA = Authentication (who are you?), Authorization (what can you do?), Accounting (what did you do?)."
+            "exp": "AAA = Authentication (who are you?), Authorization (what can you do?), Accounting (what did you do?).",
+            "messerVideo": "1.2 - Authentication, Authorization, and Accounting",
+            "subObjective": "1.2"
           },
           {
             "q": "Which AAA component verifies a user's identity?",
@@ -715,7 +769,9 @@
               "Access control"
             ],
             "a": 2,
-            "exp": "Authentication answers 'who are you?' — verified via passwords, biometrics, tokens."
+            "exp": "Authentication answers 'who are you?' — verified via passwords, biometrics, tokens.",
+            "messerVideo": "1.2 - Authentication, Authorization, and Accounting",
+            "subObjective": "1.2"
           },
           {
             "q": "Which AAA component determines what resources a user can access?",
@@ -726,7 +782,9 @@
               "Authorization"
             ],
             "a": 3,
-            "exp": "Authorization answers 'what are you allowed to do?' — enforced via ACLs, roles, permissions."
+            "exp": "Authorization answers 'what are you allowed to do?' — enforced via ACLs, roles, permissions.",
+            "messerVideo": "1.2 - Authentication, Authorization, and Accounting",
+            "subObjective": "1.2"
           },
           {
             "q": "Which AAA component tracks what actions a user performed?",
@@ -737,7 +795,9 @@
               "Administration"
             ],
             "a": 2,
-            "exp": "Accounting logs user activity — login times, commands run, resources accessed. Critical for forensics."
+            "exp": "Accounting logs user activity — login times, commands run, resources accessed. Critical for forensics.",
+            "messerVideo": "1.2 - Authentication, Authorization, and Accounting",
+            "subObjective": "1.2"
           },
           {
             "q": "RADIUS is primarily used for which function?",
@@ -748,7 +808,9 @@
               "Hashing passwords"
             ],
             "a": 1,
-            "exp": "RADIUS provides centralized AAA for network access control — widely used with 802.1X."
+            "exp": "RADIUS provides centralized AAA for network access control — widely used with 802.1X.",
+            "messerVideo": "1.2 - Authentication, Authorization, and Accounting",
+            "subObjective": "1.2"
           },
           {
             "q": "Which of the following is 'something you have'?",
@@ -759,7 +821,9 @@
               "PIN"
             ],
             "a": 2,
-            "exp": "Hardware tokens and smart cards are possession factors — something you physically carry."
+            "exp": "Hardware tokens and smart cards are possession factors — something you physically carry.",
+            "messerVideo": "1.2 - Authentication, Authorization, and Accounting",
+            "subObjective": "1.2"
           },
           {
             "q": "A user provides a password AND a fingerprint. This is:",
@@ -770,7 +834,9 @@
               "Identification"
             ],
             "a": 1,
-            "exp": "Two different factor types (knowledge + inherence) = two-factor authentication, a form of MFA."
+            "exp": "Two different factor types (knowledge + inherence) = two-factor authentication, a form of MFA.",
+            "messerVideo": "1.2 - Authentication, Authorization, and Accounting",
+            "subObjective": "1.2"
           },
           {
             "q": "Using a PIN and a password together is:",
@@ -781,7 +847,9 @@
               "A form of biometric authentication"
             ],
             "a": 1,
-            "exp": "PIN and password are both knowledge factors — using two of the same factor type is NOT MFA."
+            "exp": "PIN and password are both knowledge factors — using two of the same factor type is NOT MFA.",
+            "messerVideo": "1.2 - Authentication, Authorization, and Accounting",
+            "subObjective": "1.2"
           }
         ],
         "scenarios": [
@@ -857,7 +925,9 @@
               "Classify data sensitivity levels"
             ],
             "a": 1,
-            "exp": "A gap analysis identifies the difference between where you are and where your security baseline requires you to be."
+            "exp": "A gap analysis identifies the difference between where you are and where your security baseline requires you to be.",
+            "messerVideo": "1.2 - Gap Analysis",
+            "subObjective": "1.2"
           },
           {
             "q": "Which document is commonly used as a baseline for a security gap analysis?",
@@ -868,7 +938,9 @@
               "A firewall ruleset"
             ],
             "a": 2,
-            "exp": "Security frameworks define desired security states that organizations compare their current posture against."
+            "exp": "Security frameworks define desired security states that organizations compare their current posture against.",
+            "messerVideo": "1.2 - Gap Analysis",
+            "subObjective": "1.2"
           },
           {
             "q": "After a gap analysis, the organization should produce:",
@@ -879,7 +951,9 @@
               "A new firewall ruleset"
             ],
             "a": 1,
-            "exp": "The primary output of a gap analysis is a prioritized remediation roadmap."
+            "exp": "The primary output of a gap analysis is a prioritized remediation roadmap.",
+            "messerVideo": "1.2 - Gap Analysis",
+            "subObjective": "1.2"
           },
           {
             "q": "How does a gap analysis differ from a penetration test?",
@@ -890,7 +964,9 @@
               "They are the same thing"
             ],
             "a": 1,
-            "exp": "Gap analysis compares documentation and controls to a framework. Pen testing actively attempts exploitation."
+            "exp": "Gap analysis compares documentation and controls to a framework. Pen testing actively attempts exploitation.",
+            "messerVideo": "1.2 - Gap Analysis",
+            "subObjective": "1.2"
           }
         ]
       },
@@ -959,7 +1035,9 @@
               "Use VPNs for all connections"
             ],
             "a": 1,
-            "exp": "Zero Trust assumes no user or device is trusted by default — every access request must be verified."
+            "exp": "Zero Trust assumes no user or device is trusted by default — every access request must be verified.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
           },
           {
             "q": "A Zero Trust model treats internal network users:",
@@ -970,7 +1048,9 @@
               "As administrators by default"
             ],
             "a": 1,
-            "exp": "Zero Trust eliminates implicit trust for internal users — every request is authenticated and authorized."
+            "exp": "Zero Trust eliminates implicit trust for internal users — every request is authenticated and authorized.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
           },
           {
             "q": "Micro-segmentation in a Zero Trust architecture is used to:",
@@ -981,7 +1061,9 @@
               "Replace firewalls entirely"
             ],
             "a": 1,
-            "exp": "Micro-segmentation contains breaches — a compromised segment cannot easily reach other segments."
+            "exp": "Micro-segmentation contains breaches — a compromised segment cannot easily reach other segments.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
           },
           {
             "q": "Which BEST aligns with a Zero Trust approach?",
@@ -992,7 +1074,9 @@
               "Trusting devices on a known subnet"
             ],
             "a": 2,
-            "exp": "Zero Trust requires per-resource authentication with strong factors and continuous verification."
+            "exp": "Zero Trust requires per-resource authentication with strong factors and continuous verification.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
           },
           {
             "q": "Continuous verification in Zero Trust means:",
@@ -1003,7 +1087,9 @@
               "Users must re-authenticate every minute"
             ],
             "a": 1,
-            "exp": "Zero Trust continuously evaluates device health, user behavior, and context — not just at initial authentication."
+            "exp": "Zero Trust continuously evaluates device health, user behavior, and context — not just at initial authentication.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
           }
         ],
         "scenarios": [
@@ -1091,7 +1177,9 @@
               "Alert the SOC of intrusions"
             ],
             "a": 1,
-            "exp": "A mantrap forces one-at-a-time entry through two interlocked doors — preventing tailgating."
+            "exp": "A mantrap forces one-at-a-time entry through two interlocked doors — preventing tailgating.",
+            "messerVideo": "1.2 - Physical Security",
+            "subObjective": "1.2"
           },
           {
             "q": "Which physical security device prevents vehicle-based attacks on buildings?",
@@ -1102,7 +1190,9 @@
               "Mantrap"
             ],
             "a": 2,
-            "exp": "Bollards are sturdy posts placed to stop vehicles from ramming into buildings or restricted areas."
+            "exp": "Bollards are sturdy posts placed to stop vehicles from ramming into buildings or restricted areas.",
+            "messerVideo": "1.2 - Physical Security",
+            "subObjective": "1.2"
           },
           {
             "q": "A Faraday cage is used to:",
@@ -1113,7 +1203,9 @@
               "Store encryption keys securely"
             ],
             "a": 1,
-            "exp": "A Faraday cage blocks electromagnetic fields — protecting against RF attacks and signal interception."
+            "exp": "A Faraday cage blocks electromagnetic fields — protecting against RF attacks and signal interception.",
+            "messerVideo": "1.2 - Physical Security",
+            "subObjective": "1.2"
           },
           {
             "q": "Two-person integrity requires:",
@@ -1124,7 +1216,9 @@
               "Two security guards on patrol"
             ],
             "a": 1,
-            "exp": "Two-person integrity prevents insider abuse by requiring a witness for high-security operations."
+            "exp": "Two-person integrity prevents insider abuse by requiring a witness for high-security operations.",
+            "messerVideo": "1.2 - Physical Security",
+            "subObjective": "1.2"
           },
           {
             "q": "Motion-activated perimeter lighting is primarily which type of security control?",
@@ -1135,7 +1229,9 @@
               "Corrective"
             ],
             "a": 2,
-            "exp": "Lighting deters intruders and improves camera footage — primarily a deterrent control."
+            "exp": "Lighting deters intruders and improves camera footage — primarily a deterrent control.",
+            "messerVideo": "1.2 - Physical Security",
+            "subObjective": "1.2"
           }
         ],
         "scenarios": [
@@ -1219,7 +1315,9 @@
               "A password vault"
             ],
             "a": 1,
-            "exp": "Honeypots are intentionally vulnerable decoy systems that attract attackers so their techniques can be analyzed."
+            "exp": "Honeypots are intentionally vulnerable decoy systems that attract attackers so their techniques can be analyzed.",
+            "messerVideo": "1.2 - Deception and Disruption",
+            "subObjective": "1.2"
           },
           {
             "q": "Which deception technique redirects malicious DNS queries to neutralize C2 communications?",
@@ -1230,7 +1328,9 @@
               "Honeynet"
             ],
             "a": 1,
-            "exp": "DNS sinkholes intercept malicious domain lookups and redirect them to a controlled IP, cutting off C2 channels."
+            "exp": "DNS sinkholes intercept malicious domain lookups and redirect them to a controlled IP, cutting off C2 channels.",
+            "messerVideo": "1.2 - Deception and Disruption",
+            "subObjective": "1.2"
           },
           {
             "q": "A honeytoken is:",
@@ -1241,7 +1341,9 @@
               "A type of firewall rule"
             ],
             "a": 1,
-            "exp": "Honeytokens are fake data items — any access reveals an attacker's presence since no legitimate use exists."
+            "exp": "Honeytokens are fake data items — any access reveals an attacker's presence since no legitimate use exists.",
+            "messerVideo": "1.2 - Deception and Disruption",
+            "subObjective": "1.2"
           },
           {
             "q": "The primary purpose of deception technologies is to:",
@@ -1252,7 +1354,9 @@
               "Automatically patch vulnerabilities"
             ],
             "a": 2,
-            "exp": "Deception tech is about detection and intelligence — not blocking. Attackers interacting with decoys reveal themselves."
+            "exp": "Deception tech is about detection and intelligence — not blocking. Attackers interacting with decoys reveal themselves.",
+            "messerVideo": "1.2 - Deception and Disruption",
+            "subObjective": "1.2"
           },
           {
             "q": "Which deception technology would BEST help detect attackers who have already breached the perimeter?",
@@ -1263,7 +1367,9 @@
               "DNS filtering"
             ],
             "a": 1,
-            "exp": "Internal honeytokens detect lateral movement — an attacker accessing them reveals they are inside."
+            "exp": "Internal honeytokens detect lateral movement — an attacker accessing them reveals they are inside.",
+            "messerVideo": "1.2 - Deception and Disruption",
+            "subObjective": "1.2"
           }
         ],
         "scenarios": [
@@ -1353,7 +1459,9 @@
               "Automate patch deployment"
             ],
             "a": 1,
-            "exp": "Change management provides a controlled process for evaluating and approving changes to reduce unintended security impacts."
+            "exp": "Change management provides a controlled process for evaluating and approving changes to reduce unintended security impacts.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "A rollback plan is used to:",
@@ -1364,7 +1472,9 @@
               "Train new staff"
             ],
             "a": 1,
-            "exp": "A rollback plan defines how to undo a change quickly if it causes problems, minimizing downtime."
+            "exp": "A rollback plan defines how to undo a change quickly if it causes problems, minimizing downtime.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "Which group reviews and approves significant changes before implementation?",
@@ -1375,7 +1485,9 @@
               "The penetration testing team"
             ],
             "a": 1,
-            "exp": "The CAB reviews proposed changes, assesses risk and impact, and approves or rejects before implementation."
+            "exp": "The CAB reviews proposed changes, assesses risk and impact, and approves or rejects before implementation.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "An emergency patch for a critical zero-day should:",
@@ -1386,7 +1498,9 @@
               "Require no approval"
             ],
             "a": 1,
-            "exp": "Even emergency changes require an expedited process and post-implementation documentation."
+            "exp": "Even emergency changes require an expedited process and post-implementation documentation.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "Which type of change is pre-approved, low-risk, and routine?",
@@ -1397,7 +1511,9 @@
               "RFC"
             ],
             "a": 2,
-            "exp": "Standard changes are pre-approved routine changes that don't require CAB review every time."
+            "exp": "Standard changes are pre-approved routine changes that don't require CAB review every time.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "A change freeze is implemented because:",
@@ -1408,7 +1524,9 @@
               "The rollback plan has failed"
             ],
             "a": 1,
-            "exp": "Change freezes prevent changes during critical business periods to reduce risk."
+            "exp": "Change freezes prevent changes during critical business periods to reduce risk.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "An administrator changes a firewall rule without submitting an RFC or getting CAB approval. This is:",
@@ -1419,7 +1537,9 @@
               "Standard practice"
             ],
             "a": 1,
-            "exp": "Unauthorized changes bypass review processes and can introduce vulnerabilities, outages, or compliance violations."
+            "exp": "Unauthorized changes bypass review processes and can introduce vulnerabilities, outages, or compliance violations.",
+            "messerVideo": "1.3 - Change Management",
+            "subObjective": "1.3"
           }
         ],
         "scenarios": [
@@ -1533,7 +1653,9 @@
               "Penetration testing"
             ],
             "a": 1,
-            "exp": "Allow listing (whitelisting) ensures only explicitly approved software can execute — everything else is blocked."
+            "exp": "Allow listing (whitelisting) ensures only explicitly approved software can execute — everything else is blocked.",
+            "messerVideo": "1.3 - Technical Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "A configuration baseline is used to:",
@@ -1544,7 +1666,9 @@
               "Monitor network traffic in real time"
             ],
             "a": 1,
-            "exp": "A configuration baseline documents the standard secure configuration — deviations trigger alerts and remediation."
+            "exp": "A configuration baseline documents the standard secure configuration — deviations trigger alerts and remediation.",
+            "messerVideo": "1.3 - Technical Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "Allow listing is considered more secure than block listing because:",
@@ -1555,7 +1679,9 @@
               "It does not require administrative rights"
             ],
             "a": 1,
-            "exp": "Allow listing is default-deny — only explicitly approved applications run. Block listing is default-allow, which is weaker."
+            "exp": "Allow listing is default-deny — only explicitly approved applications run. Block listing is default-allow, which is weaker.",
+            "messerVideo": "1.3 - Technical Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "Sandboxing a suspicious file is used to:",
@@ -1566,7 +1692,9 @@
               "Send it to the antivirus vendor"
             ],
             "a": 1,
-            "exp": "Sandboxing isolates execution so any malicious behavior cannot affect the host system or network."
+            "exp": "Sandboxing isolates execution so any malicious behavior cannot affect the host system or network.",
+            "messerVideo": "1.3 - Technical Change Management",
+            "subObjective": "1.3"
           },
           {
             "q": "An immutable infrastructure approach means:",
@@ -1577,7 +1705,9 @@
               "Systems can never be changed"
             ],
             "a": 1,
-            "exp": "Immutable infrastructure replaces systems rather than patching them in place — eliminating configuration drift."
+            "exp": "Immutable infrastructure replaces systems rather than patching them in place — eliminating configuration drift.",
+            "messerVideo": "1.3 - Technical Change Management",
+            "subObjective": "1.3"
           }
         ],
         "scenarios": [
@@ -1696,7 +1826,9 @@
               "A shared symmetric key"
             ],
             "a": 2,
-            "exp": "Encrypt with the recipient's PUBLIC key — they then decrypt with their PRIVATE key."
+            "exp": "Encrypt with the recipient's PUBLIC key — they then decrypt with their PRIVATE key.",
+            "messerVideo": "1.4 - Public Key Infrastructure",
+            "subObjective": "1.4"
           },
           {
             "q": "PKI is used to manage:",
@@ -1707,7 +1839,9 @@
               "Network routing tables"
             ],
             "a": 1,
-            "exp": "PKI manages the lifecycle of digital certificates — creation, distribution, renewal, and revocation."
+            "exp": "PKI manages the lifecycle of digital certificates — creation, distribution, renewal, and revocation.",
+            "messerVideo": "1.4 - Public Key Infrastructure",
+            "subObjective": "1.4"
           },
           {
             "q": "Symmetric encryption is preferred for bulk data encryption because:",
@@ -1718,7 +1852,9 @@
               "It uses public/private key pairs"
             ],
             "a": 1,
-            "exp": "Symmetric algorithms (AES) are much faster than asymmetric (RSA) — used for bulk data; asymmetric used for key exchange."
+            "exp": "Symmetric algorithms (AES) are much faster than asymmetric (RSA) — used for bulk data; asymmetric used for key exchange.",
+            "messerVideo": "1.4 - Public Key Infrastructure",
+            "subObjective": "1.4"
           },
           {
             "q": "Which key must NEVER be shared in asymmetric cryptography?",
@@ -1729,7 +1865,9 @@
               "Shared key"
             ],
             "a": 2,
-            "exp": "The private key must never be shared — it is used to decrypt incoming data and to create digital signatures."
+            "exp": "The private key must never be shared — it is used to decrypt incoming data and to create digital signatures.",
+            "messerVideo": "1.4 - Public Key Infrastructure",
+            "subObjective": "1.4"
           },
           {
             "q": "An intermediate CA in a PKI hierarchy is used to:",
@@ -1740,7 +1878,9 @@
               "Revoke expired certificates"
             ],
             "a": 1,
-            "exp": "Intermediate CAs issue certificates while the root CA remains offline — protecting the critical trust anchor."
+            "exp": "Intermediate CAs issue certificates while the root CA remains offline — protecting the critical trust anchor.",
+            "messerVideo": "1.4 - Public Key Infrastructure",
+            "subObjective": "1.4"
           },
           {
             "q": "Key escrow means:",
@@ -1751,7 +1891,9 @@
               "Publicly publishing private keys"
             ],
             "a": 1,
-            "exp": "Key escrow allows recovery of encrypted data if keys are lost — required in some regulated industries."
+            "exp": "Key escrow allows recovery of encrypted data if keys are lost — required in some regulated industries.",
+            "messerVideo": "1.4 - Public Key Infrastructure",
+            "subObjective": "1.4"
           },
           {
             "q": "Which of the following is an example of asymmetric encryption?",
@@ -1762,7 +1904,9 @@
               "ChaCha20"
             ],
             "a": 2,
-            "exp": "RSA is asymmetric (public/private key pair). AES, 3DES, and ChaCha20 are all symmetric algorithms."
+            "exp": "RSA is asymmetric (public/private key pair). AES, 3DES, and ChaCha20 are all symmetric algorithms.",
+            "messerVideo": "1.4 - Public Key Infrastructure",
+            "subObjective": "1.4"
           }
         ],
         "scenarios": [
@@ -1850,7 +1994,9 @@
               "Data in process"
             ],
             "a": 2,
-            "exp": "Data at rest refers to stored data — on drives, databases, and backups. Typically encrypted with AES."
+            "exp": "Data at rest refers to stored data — on drives, databases, and backups. Typically encrypted with AES.",
+            "messerVideo": "1.4 - Encrypting Data",
+            "subObjective": "1.4"
           },
           {
             "q": "TLS protects data in which state?",
@@ -1861,7 +2007,9 @@
               "In backup"
             ],
             "a": 2,
-            "exp": "TLS encrypts data moving across networks — protecting data in transit between clients and servers."
+            "exp": "TLS encrypts data moving across networks — protecting data in transit between clients and servers.",
+            "messerVideo": "1.4 - Encrypting Data",
+            "subObjective": "1.4"
           },
           {
             "q": "Full disk encryption (FDE) primarily protects against:",
@@ -1872,7 +2020,9 @@
               "Phishing attacks"
             ],
             "a": 1,
-            "exp": "FDE encrypts the entire drive — stolen devices cannot have their data read without the decryption key."
+            "exp": "FDE encrypts the entire drive — stolen devices cannot have their data read without the decryption key.",
+            "messerVideo": "1.4 - Encrypting Data",
+            "subObjective": "1.4"
           },
           {
             "q": "Which state of data is most difficult to protect with encryption?",
@@ -1883,7 +2033,9 @@
               "Data in backup"
             ],
             "a": 2,
-            "exp": "Data in use (in RAM/CPU) is actively being processed — it must be decrypted to be used, making it hard to protect."
+            "exp": "Data in use (in RAM/CPU) is actively being processed — it must be decrypted to be used, making it hard to protect.",
+            "messerVideo": "1.4 - Encrypting Data",
+            "subObjective": "1.4"
           },
           {
             "q": "Cryptographic erasure is:",
@@ -1894,7 +2046,9 @@
               "Deleting the file system"
             ],
             "a": 2,
-            "exp": "Cryptographic erasure destroys only the key — the encrypted data remains but is permanently inaccessible."
+            "exp": "Cryptographic erasure destroys only the key — the encrypted data remains but is permanently inaccessible.",
+            "messerVideo": "1.4 - Encrypting Data",
+            "subObjective": "1.4"
           },
           {
             "q": "Which protocol replaced SSL and is now used to protect HTTPS traffic?",
@@ -1905,7 +2059,9 @@
               "SFTP"
             ],
             "a": 1,
-            "exp": "TLS (Transport Layer Security) replaced SSL and is the standard for encrypting web traffic — HTTPS uses TLS."
+            "exp": "TLS (Transport Layer Security) replaced SSL and is the standard for encrypting web traffic — HTTPS uses TLS.",
+            "messerVideo": "1.4 - Encrypting Data",
+            "subObjective": "1.4"
           }
         ],
         "scenarios": [
@@ -1981,7 +2137,9 @@
               "Encrypt email attachments"
             ],
             "a": 2,
-            "exp": "Diffie-Hellman allows two parties to derive a shared secret over a public channel without transmitting the secret."
+            "exp": "Diffie-Hellman allows two parties to derive a shared secret over a public channel without transmitting the secret.",
+            "messerVideo": "1.4 - Key Exchange",
+            "subObjective": "1.4"
           },
           {
             "q": "Perfect Forward Secrecy (PFS) ensures that:",
@@ -1992,7 +2150,9 @@
               "One key is used for all sessions"
             ],
             "a": 1,
-            "exp": "PFS uses ephemeral session keys — even if the server's private key is later stolen, past sessions remain safe."
+            "exp": "PFS uses ephemeral session keys — even if the server's private key is later stolen, past sessions remain safe.",
+            "messerVideo": "1.4 - Key Exchange",
+            "subObjective": "1.4"
           },
           {
             "q": "Why is RSA key exchange being phased out of modern TLS in favor of DHE/ECDHE?",
@@ -2003,7 +2163,9 @@
               "RSA cannot encrypt data"
             ],
             "a": 1,
-            "exp": "RSA key exchange uses the same server private key for all sessions — compromising it exposes all past sessions. DHE/ECDHE provide PFS."
+            "exp": "RSA key exchange uses the same server private key for all sessions — compromising it exposes all past sessions. DHE/ECDHE provide PFS.",
+            "messerVideo": "1.4 - Key Exchange",
+            "subObjective": "1.4"
           },
           {
             "q": "DHE stands for:",
@@ -2014,7 +2176,9 @@
               "Distributed Hash Encryption"
             ],
             "a": 2,
-            "exp": "DHE = Diffie-Hellman Ephemeral. 'Ephemeral' means a new key pair is generated for each session — enabling PFS."
+            "exp": "DHE = Diffie-Hellman Ephemeral. 'Ephemeral' means a new key pair is generated for each session — enabling PFS.",
+            "messerVideo": "1.4 - Key Exchange",
+            "subObjective": "1.4"
           }
         ],
         "scenarios": [
@@ -2090,7 +2254,9 @@
               "Manage user passwords in Active Directory"
             ],
             "a": 1,
-            "exp": "TPM is a hardware chip that stores keys, certificates, and passwords — bound to the specific device it's installed in."
+            "exp": "TPM is a hardware chip that stores keys, certificates, and passwords — bound to the specific device it's installed in.",
+            "messerVideo": "1.4 - Encryption Technologies",
+            "subObjective": "1.4"
           },
           {
             "q": "BitLocker relies on which hardware component to verify boot integrity before releasing the encryption key?",
@@ -2101,7 +2267,9 @@
               "Smart card exclusively"
             ],
             "a": 2,
-            "exp": "BitLocker uses the TPM to seal the volume encryption key — it checks system integrity at boot before decryption."
+            "exp": "BitLocker uses the TPM to seal the volume encryption key — it checks system integrity at boot before decryption.",
+            "messerVideo": "1.4 - Encryption Technologies",
+            "subObjective": "1.4"
           },
           {
             "q": "A secure enclave is:",
@@ -2112,7 +2280,9 @@
               "An encrypted backup location"
             ],
             "a": 1,
-            "exp": "Secure enclaves are isolated execution environments resistant to OS-level attacks."
+            "exp": "Secure enclaves are isolated execution environments resistant to OS-level attacks.",
+            "messerVideo": "1.4 - Encryption Technologies",
+            "subObjective": "1.4"
           },
           {
             "q": "Which of the following provides the BEST protection for private keys in a high-security enterprise environment?",
@@ -2123,7 +2293,9 @@
               "Keeping keys in a password manager"
             ],
             "a": 2,
-            "exp": "HSMs are the gold standard for enterprise key protection — tamper-resistant, high-performance, with strict access controls."
+            "exp": "HSMs are the gold standard for enterprise key protection — tamper-resistant, high-performance, with strict access controls.",
+            "messerVideo": "1.4 - Encryption Technologies",
+            "subObjective": "1.4"
           }
         ],
         "scenarios": [
@@ -2203,7 +2375,9 @@
               "Generating digital certificates"
             ],
             "a": 1,
-            "exp": "Steganography hides messages inside ordinary files — the existence of the secret message is itself concealed."
+            "exp": "Steganography hides messages inside ordinary files — the existence of the secret message is itself concealed.",
+            "messerVideo": "1.4 - Obfuscation",
+            "subObjective": "1.4"
           },
           {
             "q": "Tokenization replaces sensitive data with:",
@@ -2214,7 +2388,9 @@
               "A compressed version of the data"
             ],
             "a": 1,
-            "exp": "Tokenization substitutes sensitive data (e.g. credit card numbers) with a random token — the original stays in a secure vault."
+            "exp": "Tokenization substitutes sensitive data (e.g. credit card numbers) with a random token — the original stays in a secure vault.",
+            "messerVideo": "1.4 - Obfuscation",
+            "subObjective": "1.4"
           },
           {
             "q": "Data masking is used to:",
@@ -2225,7 +2401,9 @@
               "Monitor who accesses data"
             ],
             "a": 1,
-            "exp": "Data masking provides realistic test data without exposing real customer information to developers or testers."
+            "exp": "Data masking provides realistic test data without exposing real customer information to developers or testers.",
+            "messerVideo": "1.4 - Obfuscation",
+            "subObjective": "1.4"
           },
           {
             "q": "How does steganography differ from encryption?",
@@ -2236,7 +2414,9 @@
               "Encryption is illegal; steganography is not"
             ],
             "a": 1,
-            "exp": "Encryption makes the message unreadable. Steganography hides the fact that a message exists at all."
+            "exp": "Encryption makes the message unreadable. Steganography hides the fact that a message exists at all.",
+            "messerVideo": "1.4 - Obfuscation",
+            "subObjective": "1.4"
           }
         ],
         "scenarios": [
@@ -2328,7 +2508,9 @@
               "SHA-512"
             ],
             "a": 2,
-            "exp": "SHA-256 produces a 256-bit digest and is part of the SHA-2 family — widely used and considered secure."
+            "exp": "SHA-256 produces a 256-bit digest and is part of the SHA-2 family — widely used and considered secure.",
+            "messerVideo": "1.4 - Hashing and Digital Signatures",
+            "subObjective": "1.4"
           },
           {
             "q": "What is added to a password BEFORE hashing to defend against rainbow table attacks?",
@@ -2339,7 +2521,9 @@
               "Nonce"
             ],
             "a": 2,
-            "exp": "A salt is a unique random value added per user before hashing — making precomputed rainbow table attacks useless."
+            "exp": "A salt is a unique random value added per user before hashing — making precomputed rainbow table attacks useless.",
+            "messerVideo": "1.4 - Hashing and Digital Signatures",
+            "subObjective": "1.4"
           },
           {
             "q": "Why is MD5 no longer recommended for security purposes?",
@@ -2350,7 +2534,9 @@
               "It requires a password to compute"
             ],
             "a": 1,
-            "exp": "MD5 has known collision vulnerabilities — two different inputs can produce the same hash, breaking integrity guarantees."
+            "exp": "MD5 has known collision vulnerabilities — two different inputs can produce the same hash, breaking integrity guarantees.",
+            "messerVideo": "1.4 - Hashing and Digital Signatures",
+            "subObjective": "1.4"
           },
           {
             "q": "A digital signature is verified using the sender's:",
@@ -2361,7 +2547,9 @@
               "Session key"
             ],
             "a": 2,
-            "exp": "The sender's PUBLIC key is used to verify their signature — anyone can verify, but only the private key holder could have signed."
+            "exp": "The sender's PUBLIC key is used to verify their signature — anyone can verify, but only the private key holder could have signed.",
+            "messerVideo": "1.4 - Hashing and Digital Signatures",
+            "subObjective": "1.4"
           },
           {
             "q": "HMAC provides which security properties?",
@@ -2372,7 +2560,9 @@
               "Key exchange and digital signatures"
             ],
             "a": 1,
-            "exp": "HMAC combines hashing with a shared secret — verifying both that the data hasn't changed and that the sender knows the key."
+            "exp": "HMAC combines hashing with a shared secret — verifying both that the data hasn't changed and that the sender knows the key.",
+            "messerVideo": "1.4 - Hashing and Digital Signatures",
+            "subObjective": "1.4"
           },
           {
             "q": "What is the correct order for creating a digital signature?",
@@ -2383,7 +2573,9 @@
               "Encrypt with symmetric key, then sign with public key"
             ],
             "a": 1,
-            "exp": "Digital signing: hash the message → encrypt the hash with your private key. Verification: decrypt with public key → compare hashes."
+            "exp": "Digital signing: hash the message → encrypt the hash with your private key. Verification: decrypt with public key → compare hashes.",
+            "messerVideo": "1.4 - Hashing and Digital Signatures",
+            "subObjective": "1.4"
           }
         ],
         "scenarios": [
@@ -2459,7 +2651,9 @@
               "A certificate authority"
             ],
             "a": 1,
-            "exp": "A blockchain is a distributed ledger — each block cryptographically links to the previous, making tampering detectable."
+            "exp": "A blockchain is a distributed ledger — each block cryptographically links to the previous, making tampering detectable.",
+            "messerVideo": "1.4 - Blockchain Technology",
+            "subObjective": "1.4"
           },
           {
             "q": "What makes blockchain records tamper-evident?",
@@ -2470,7 +2664,9 @@
               "Records are deleted after 30 days"
             ],
             "a": 1,
-            "exp": "Altering any block changes its hash, which invalidates the next block's stored hash — breaking the entire chain."
+            "exp": "Altering any block changes its hash, which invalidates the next block's stored hash — breaking the entire chain.",
+            "messerVideo": "1.4 - Blockchain Technology",
+            "subObjective": "1.4"
           },
           {
             "q": "Which security property does blockchain primarily provide?",
@@ -2481,7 +2677,9 @@
               "Authentication"
             ],
             "a": 1,
-            "exp": "Blockchain's cryptographic chaining provides strong integrity — records cannot be altered undetected."
+            "exp": "Blockchain's cryptographic chaining provides strong integrity — records cannot be altered undetected.",
+            "messerVideo": "1.4 - Blockchain Technology",
+            "subObjective": "1.4"
           }
         ],
         "scenarios": [
@@ -2605,7 +2803,9 @@
               "SCEP"
             ],
             "a": 2,
-            "exp": "OCSP (Online Certificate Status Protocol) allows clients to query the revocation status of a specific certificate in real time."
+            "exp": "OCSP (Online Certificate Status Protocol) allows clients to query the revocation status of a specific certificate in real time.",
+            "messerVideo": "1.4 - Certificates",
+            "subObjective": "1.4"
           },
           {
             "q": "A wildcard certificate (*.example.com) covers:",
@@ -2616,7 +2816,9 @@
               "Only internal IP addresses"
             ],
             "a": 1,
-            "exp": "A wildcard cert covers any first-level subdomain: mail.example.com, www.example.com, app.example.com, etc."
+            "exp": "A wildcard cert covers any first-level subdomain: mail.example.com, www.example.com, app.example.com, etc.",
+            "messerVideo": "1.4 - Certificates",
+            "subObjective": "1.4"
           },
           {
             "q": "A self-signed certificate is signed by:",
@@ -2627,7 +2829,9 @@
               "A registration authority"
             ],
             "a": 2,
-            "exp": "Self-signed certs are signed by the entity itself — not a trusted third-party CA, so browsers display warnings."
+            "exp": "Self-signed certs are signed by the entity itself — not a trusted third-party CA, so browsers display warnings.",
+            "messerVideo": "1.4 - Certificates",
+            "subObjective": "1.4"
           },
           {
             "q": "Certificate pinning is used to:",
@@ -2638,7 +2842,9 @@
               "Generate CSRs"
             ],
             "a": 1,
-            "exp": "Certificate pinning rejects any certificate not matching the hardcoded expected value — even a valid CA-signed cert."
+            "exp": "Certificate pinning rejects any certificate not matching the hardcoded expected value — even a valid CA-signed cert.",
+            "messerVideo": "1.4 - Certificates",
+            "subObjective": "1.4"
           },
           {
             "q": "What is a CSR (Certificate Signing Request)?",
@@ -2649,7 +2855,9 @@
               "A hash of a certificate"
             ],
             "a": 1,
-            "exp": "A CSR is generated by the requester — it contains their public key and identifying info, and is sent to a CA to be signed."
+            "exp": "A CSR is generated by the requester — it contains their public key and identifying info, and is sent to a CA to be signed.",
+            "messerVideo": "1.4 - Certificates",
+            "subObjective": "1.4"
           },
           {
             "q": "OCSP stapling improves performance by:",
@@ -2660,7 +2868,9 @@
               "Reducing the key size"
             ],
             "a": 1,
-            "exp": "OCSP stapling has the server provide the pre-fetched OCSP response during the handshake — no extra round trip for the client."
+            "exp": "OCSP stapling has the server provide the pre-fetched OCSP response during the handshake — no extra round trip for the client.",
+            "messerVideo": "1.4 - Certificates",
+            "subObjective": "1.4"
           }
         ],
         "scenarios": [
