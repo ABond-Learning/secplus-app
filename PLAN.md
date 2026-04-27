@@ -3,17 +3,23 @@
 Single source of truth for in-flight work. Update as state changes.
 See CLAUDE.md for the underlying 3-task plan and quality rules.
 
-Last updated: 2026-04-26
+Last updated: 2026-04-27
 
 ## Status snapshot
+
+Priority order reflects the 2026-04-27 reorder triggered by study-session findings: catalogue quality issues (length-tell distractors, weak distractors) are actively undermining current study, and the "N new things to try" UX has no surfacing path. Both jumped ahead of continuing 1c grounding-audit tuning.
 
 Task | State | Notes
 --- | --- | ---
 1a — Foundations + spelling pass | **complete, deployed** | All phases shipped. Live bundle verified clean.
 1.5 — Cross-device sync via private Gist | **complete, deployed, verified on 3 devices** | Backup polish + sync engine + sync UI all live. Real-device sync verified across 3 of Aiden's devices post-deploy (joining-device guard holds; bidirectional sync works).
-1b — Content generation | **complete, deployed** — All 5 domains done: Domain 1 scenarios (25), Domain 5 (78), Domain 4 (55), Domain 2 BEST/MOST rewrites (35 across 2 batches). **Total Task 1b additions/modifications: 193 items.**
-1c — Anchor questions + grounding audit | **not started, intentionally deferred** | Wait until Task 1b complete AND ~2 weeks of real study have surfaced friction points from data rather than guesses. Should run before Task 2 so anchors can be tagged for the Flashcards-vs-Quiz mode split.
-2 — Mode consolidation | not started | Touches localStorage migration; see SCHEMA.md. Will need a `schemaVersion` bump in the sync engine if payload shape changes.
+1b — Content generation | **complete, deployed** | All 5 domains done: Domain 1 scenarios (25), Domain 5 (78), Domain 4 (55), Domain 2 BEST/MOST rewrites (35 across 2 batches). **Total: 193 items added/modified.**
+1c-structural — Citation backfill + grounding/anchor-gap audits | **partially complete; remaining work DEPRIORITIZED** | Citation backfill DONE (728 → 0 legacy-no-citation; 100% catalog coverage). Grounding + anchor-gap audit scripts built but extractor produces noise-dominated output — 30 spot-checks across all 5 domains found zero true misfiles. Extractor tuning pending; lower priority than 1d/1e because grounding side mostly produces negative-confirmation. See "Task 1c — split into structural and experiential" below.
+**1d — Catalogue quality audit + fixes** | **NEW (2026-04-27), highest priority** | Triggered by study session: length-tell distractors and weak distractors are actively undermining current study. Catalogue-wide audit script first (no fixes), then Aiden-scoped fix batches.
+**1e — New-content prioritization** | **NEW (2026-04-27)** | App reports "N new things to try" with no way to see/prioritize them. Either separate New mode or have existing modes prioritize unseen-from-watched-videos. Smaller scope than Task 2; ~1-2 hours.
+1c-structural (continuation) — extractor tuning | not started | Tune grounding/anchor-gap extractors to handle `X means:` / `X is used to:` / `X requires:` patterns; multi-word phrases before linking verbs; clause-fragment stripping; stop-word filtering. Bottlenecks both audits.
+1c-experiential — anchor-gap fixes | not started | Generate anchor questions for concepts the audit flags as uncovered. Real pedagogical value once extractor is tuned.
+2 — Mode consolidation | not started | Bigger UX redesign. Naturally folds in any other UX issues identified during study. Touches localStorage migration; see SCHEMA.md. Will need a `schemaVersion` bump in the sync engine if payload shape changes.
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
 ## Task 1a — completed
@@ -249,39 +255,75 @@ Files: `src/secplus-quiz.jsx` (and possibly `src/sync/SyncSettings.jsx`). Checkp
 - **Rate limits**: 5000 req/hr per PAT. Debounce keeps us at single digits/hr.
 - **Task 2 interaction**: when mode consolidation rewrites localStorage, the engine sees new/missing keys; no `schemaVersion` bump needed unless the payload shape itself changes.
 
-## Task 1c — Anchor questions and grounding audit (NEW, deferred)
+## Task 1c — split into structural and experiential
 
-Status: **not started, intentionally deferred** until Task 1b is complete AND Aiden has used the app for ~2 weeks of real study. Friction points should come from real data rather than upfront guessing. Task 1c must happen **before Task 2** so anchor questions can be tagged appropriately for the Flashcards-vs-Quiz mode split that Task 2 will introduce.
+Originally a single task ("anchor questions + grounding audit"); split 2026-04-27 into two halves with different priorities after the citation-backfill phase exposed that the audit signal was noise-dominated by extractor quality rather than true misfiles.
 
-Two pieces:
+### 1c-structural — Citation backfill + grounding/anchor-gap audits
 
-### 1c.1 — Anchor recall questions per video
+**Citation backfill — DONE 2026-04-26.** All 867 questions across 5 domains now carry `messerVideo` + `subObjective`. Validator legacy-no-citation count: 728 → 0. Per-domain commits: D1 `c08720a`, D2 `407575d`, D3 `7e799b7`, D4 `5f675ae`, D5 `f8f5c44` (+ prep commit `2b01a36`).
 
-Add ~150-250 easier "what is X?" / "X is used for which purpose?" recall-anchor questions across videos that currently lack a basic recall check. The current catalogue is heavy on discrimination (confusables) and BEST/MOST application scenarios; learners watching a Messer video need a recall anchor before being thrown into discrimination questions.
+**Audit infrastructure — built but bottlenecked.** Scripts shipped:
+- `scripts/fetch-messer-transcripts.mjs` — pulls all 121 transcripts from professormesser.com; cache at `.messer-transcripts/` (gitignored, 935 KB); idempotent.
+- `scripts/audit-video-grounding.mjs` — checks whether each question's central concept appears in its cited transcript.
+- `scripts/audit-anchor-gaps.mjs` — extracts concepts from each transcript and checks if a recall question exists.
+- `scripts/backfill-citations.mjs` — generalized from a Domain-1-only earlier version; takes `--domain=N`.
 
-- Estimate: ~50 anchors per under-anchored domain (rough — refine after the audit identifies which videos are under-anchored).
-- Per-video target: at least 1 recall-anchor per Messer video that introduces a discrete concept. Videos already well-anchored (e.g. those with definition-style MCs) need no addition.
-- These anchors should be tagged so Task 2's Flashcards mode can pull them while Quiz mode pulls discrimination/scenarios. Tagging design lives in SCHEMA.md (TBD when Task 1c starts).
+**Audit signal — noise-dominated.** Aggregate grounding audit across 867 questions: 125 PASS / 230 LOW / 454 MEDIUM / 58 HIGH (7%). Spot-checks of 30/58 HIGH flags across all 5 domains found **zero true misfiles**. Same shape on the anchor-gap side (Domain 1 reported 166 unanchored concepts but the extracted "concepts" included prose connectors like "These", "Another important control type").
 
-### 1c.2 — Video-grounding audit
+**Extractor tuning — pending; deprioritized 2026-04-27.** Lower priority than 1d/1e because the grounding side mostly produces negative-confirmation (we already know misfiles are rare). The anchor-gap side has more value but is bottlenecked by the same extractor. Resume options when picked back up:
+  - (A) Tune extractor to handle `X means:` / `X is used to:` / `X requires:` patterns; multi-word phrases before linking verbs; strip extracted clauses to noun heads; filter stop-words.
+  - (B) Pivot to vocabulary-overlap grounding (count what fraction of question vocabulary appears in cited transcript). Less precise, lower false-positive rate.
+  - (C) Skip grounding entirely; treat anchor-gap as the productive output and tune only its extraction path.
 
-For each existing question, verify the cited Messer video actually covers the concept being tested. Came up because Aiden flagged questions on early Domain 1 videos that test concepts not yet introduced in those videos at video 1.4.2 — the question expected knowledge a learner watching in order would not yet have.
+### 1c-experiential — Anchor-gap fixes (recall questions per video)
 
-- Process: walk every question; check `messerVideo` cite against actual video content (or at least video title scope); flag mismatches; either re-cite to the correct video or reword the question to fit the cited video's scope.
-- Bounded by catalogue size — estimate 4-6 hours of focused work.
-- Mismatches go in an audit report; Aiden reviews per-mismatch decision (re-cite vs reword vs accept).
+Once the extractor produces clean signal, generate ~150-250 "what is X?" / "X is used for which purpose?" recall-anchor questions across videos the audit flags as under-anchored. The current catalogue is heavy on discrimination and BEST/MOST application scenarios; learners need a recall anchor before being thrown into discrimination.
 
-### Why deferred
+- Per-video target: at least 1 recall-anchor per Messer video that introduces a discrete concept.
+- Anchors should be tagged so Task 2's Flashcards mode can pull them while Quiz mode pulls discrimination/scenarios. Tagging design lives in SCHEMA.md (TBD when 1c-experiential starts).
+- Should land before Task 2 so the Flashcards mode has content to draw from on day one.
 
-Doing Task 1c prematurely would optimise against guessed friction points rather than real ones. Aiden's first 2 weeks of post-Task-1b study will surface:
-- Which sub-objectives feel under-anchored in practice (vs which felt fine despite low anchor counts)
-- Which video-grounding mismatches actually trip up real study sessions (vs which are theoretical concerns)
+## Task 1d — Catalogue quality audit + fixes (NEW, 2026-04-27, **highest priority**)
 
-The 2-week window also lets Aiden's SM-2 data accumulate enough that any post-1c additions can be intelligently slotted into the existing review schedule rather than appearing as a sudden cohort of unseen items.
+Triggered by 2026-04-27 study session findings: length-tell distractors (correct answer noticeably longer/shorter than distractors, leakage of answer via length cue) and weak/filler distractors are actively undermining current study. Aiden has raised the broader "review the catalogue" concern multiple times.
 
-### Why before Task 2
+**Approach:** audit first, fix second. The audit script produces the diagnostic picture; Aiden reviews and decides scope/priority for fix batches. No content modification in this step.
 
-Task 2 will collapse modes into Quiz / Flashcards / Review / Drill Wrong. Anchor questions belong in Flashcards (recall-only), not Quiz (discrimination/scenario). For the mode split to work cleanly, anchors need to exist and be tagged before the mode UI is built. Doing 1c after Task 2 would require either a second-pass tagging migration or shipping a Flashcards mode that's empty for many videos until 1c lands.
+### 1d.1 — Audit script
+
+`scripts/audit-catalogue-quality.mjs` — catalogue-wide across all 5 domains, flagging:
+
+1. **Length-balance violations** — max/min option-length ratio > 1.5×, with severity buckets and correct-vs-distractor outlier distinction (so we can tell whether the correct answer or a distractor is the outlier).
+2. **Distractor quality issues** — under 15 chars, filler distractors (e.g. "All of the above", "None of these"), sentence fragments, options that don't parse as a complete answer to the stem.
+3. **Stem quality issues** — recall-only stems on judgment-amenable topics, grammatical issues, colon-ended legacy patterns ("X differs from Y in that:" without BEST/MOST framing).
+4. **Cross-question duplication** — pairs of questions with > 70% stem-word overlap (Jaccard or token-set similarity).
+5. **Correct-answer position bias** — statistical distribution of `a` (0/1/2/3) across all MCs catalogue-wide and per-domain. A truly randomized catalog should be ~25% each; large deviations suggest position bias.
+
+**Output:** per-dimension flag counts catalogue-wide and per-domain, severity breakdowns (high/med/low), samples of worst offenders per dimension, estimated fix scope per dimension.
+
+**Quality bar:** idempotent, no destructive ops, fast (pure JSON walk, no transcript dependency), `--domain=N` filter, `--details` for per-issue dump.
+
+### 1d.2 — Fix batches (TBD after audit review)
+
+Aiden reviews the audit output and scopes fix batches. Each batch:
+- Targets one dimension at a time (length-balance, then distractor quality, etc.) so reviews stay focused.
+- Uses in-place REPLACEMENTS pattern from Task 1b (preserves SM-2 indices, idempotent, safety-checked refusal on unexpected stem).
+- Validator-clean before commit.
+- Per-batch user review before moving on.
+
+## Task 1e — New-content prioritization (NEW, 2026-04-27)
+
+Triggered by 2026-04-27 study session: app currently surfaces a "N new things to try" count with no way to see them or prioritize them. Aiden ends up replaying already-seen content because there's no "show me the unseen ones" path.
+
+**Scope:** smaller than Task 2's full mode consolidation. ~1-2 hours. Two implementation paths to choose between:
+
+- **Option A — Separate "New" mode**: a new top-level mode that pulls only unseen-from-watched-videos items. Easy to reason about, but adds another mode just before Task 2 collapses modes anyway.
+- **Option B — Existing modes prioritize unseen**: when an existing mode has unseen items available from videos Aiden has marked watched, surface those first. Less disruptive, no new top-level surface, and naturally subsumed by Task 2's customise drawer later.
+
+**Recommendation (subject to Aiden's call):** Option B, because Task 2 will collapse modes anyway. Adds a "prefer unseen" toggle to existing modes' query.
+
+**Done when:** the daily "N new things to try" count actually translates into Aiden seeing those N things in his next session without manual hunting.
 
 ## Task 2 — Mode consolidation (later)
 
@@ -295,6 +337,15 @@ array order must remain stable to keep SM-2 progress intact.
 Schema extension for PBQs. Drag-match, firewall ordering, log analysis, port/protocol matching.
 ~40 PBQs across formats. 90-question / 90-min exam simulation with 3-5 PBQs at start.
 CompTIA 100-900 scoring scale.
+
+## Future enhancements identified during study
+
+Captured-but-not-yet-scoped items that have surfaced from real study sessions. Each entry: what was observed, why it matters, candidate fix shape. Promote into a numbered task when scoped.
+
+- **(2026-04-27) Length-tell distractors actively undermining study.** On many MCs the correct answer is visibly longer (or shorter) than the distractors, leaking the answer via length cue. Fix path: addressed by Task 1d audit + fix batches (length-balance dimension).
+- **(2026-04-27) Weak/filler distractors.** Some MCs include distractors that are obviously wrong (filler "All of the above" or sentence fragments) so the question functionally has 3 options instead of 4. Fix path: addressed by Task 1d audit + fix batches (distractor quality dimension).
+- **(2026-04-27) "N new things to try" with no surfacing path.** App reports unseen-item count but offers no way to actually see those N items in the next session. Fix path: addressed by Task 1e (prefer-unseen toggle in existing modes, or separate New mode).
+- **(2026-04-27) Catch-all: broader catalogue review.** Aiden has raised "review the catalogue" multiple times. Task 1d's audit is the structured form of this — additional concerns surfaced during fix-batch reviews get folded back here.
 
 ## Files produced
 
