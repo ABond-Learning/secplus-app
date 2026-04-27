@@ -59,8 +59,9 @@ const HIGH = 3.0;
 const SENTENCE_START = /^(This|That|It|These|Those|There|When|If|Yes|No)\b/;
 const SENTENCE_VERBS = / (is|are|was|were|have|has|had|can|could|will|would|should|must|may) /;
 const IMPERATIVE_VERBS = /^(Investigate|Use|Apply|Restore|Notify|Establish|Deploy|Configure|Enable|Disable|Implement|Document|Maintain|Monitor|Detect|Identify|Analyze|Analyse|Report|Backup|Recover|Verify|Validate|Invoke|Engage|Trigger)\b/i;
-const QUANTITY_WORDS = /\b(approximately|several|multiple|many)\b/i;
+const QUANTITY_WORDS = /\b(approximately|several|multiple|many|one|two|three|four|five|six|seven|eight|nine|ten)\b/i;
 const HAS_DIGIT = /\d/;
+const VAGUE_CATEGORY = /^(critical|high|major|significant|serious|important|minor|low|moderate)\s+(risk|priority|issue|problem|concern|factor|failure|failures|gap|gaps|impact|level)$/i;
 // Allowed prefix terminators: word char, ), ], ", ' (parens/brackets/quotes)
 // Disallowed: . ! ? , ; : - – —  (sentence/clause enders)
 const BAD_PREFIX_END = /[.!?,;:\-–—]$/;
@@ -103,6 +104,9 @@ function tryPatternA(opt, lens, correctIdx) {
   }
   if (QUANTITY_WORDS.test(prefix)) {
     return { kind: "ambiguous", reason: "prefix-quantity-word", sep, prefix, suffix };
+  }
+  if (VAGUE_CATEGORY.test(prefix)) {
+    return { kind: "ambiguous", reason: "prefix-vague-category", sep, prefix, suffix };
   }
   // Criterion 3e: no bad terminating punctuation (TIGHTENED — was just comma/semicolon)
   if (BAD_PREFIX_END.test(prefix)) {

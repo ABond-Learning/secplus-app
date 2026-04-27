@@ -34,8 +34,10 @@ const domainFilter = args.find((a) => a.startsWith("--domain="))?.split("=")[1];
 const dimFilter = args.find((a) => a.startsWith("--dim="))?.split("=")[1];
 const showDetails = args.includes("--details");
 const reportPath = args.find((a) => a.startsWith("--report="))?.split("=")[1];
+const pathOverride = args.find((a) => a.startsWith("--path="))?.split("=")[1];
 
-const data = JSON.parse(readFileSync(jsonPath, "utf8"));
+const effectivePath = pathOverride ? resolve(pathOverride) : jsonPath;
+const data = JSON.parse(readFileSync(effectivePath, "utf8"));
 
 // ─── Tunables ────────────────────────────────────────────────────────────
 const LENGTH_RATIO_LOW = 1.5;   // flagged at all
