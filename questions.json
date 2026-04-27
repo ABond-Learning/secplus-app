@@ -1872,9 +1872,9 @@
           {
             "q": "An intermediate CA in a PKI hierarchy is used to:",
             "opts": [
-              "Self-sign root certificates",
-              "Revoke expired certificates",
-              "Store private keys",
+              "Self-sign and issue root certificates for the entire PKI tree",
+              "Maintain the master Certificate Revocation List for the entire PKI",
+              "Store the root CA private keys in protected hardware escrow",
               "Issue certificates on behalf of the root CA, protecting the root from direct exposure"
             ],
             "a": 3,
@@ -2015,9 +2015,9 @@
             "q": "Full disk encryption (FDE) primarily protects against:",
             "opts": [
               "Unauthorized access to data when a device is lost or stolen",
-              "Network eavesdropping",
-              "Malware execution",
-              "Phishing attacks"
+              "Network eavesdropping while data is in transit",
+              "Malware execution after the system has booted",
+              "Phishing attacks targeting user credentials"
             ],
             "a": 0,
             "exp": "FDE encrypts the entire drive — stolen devices cannot have their data read without the decryption key.",
@@ -2041,9 +2041,9 @@
             "q": "Cryptographic erasure is:",
             "opts": [
               "Destroying the encryption key to render encrypted data permanently unreadable",
-              "Physically destroying storage media",
-              "Overwriting data multiple times",
-              "Deleting the file system"
+              "Physically destroying the storage media using shredding",
+              "Overwriting all data on the disk multiple times with random patterns",
+              "Deleting the file system index from the storage device"
             ],
             "a": 0,
             "exp": "Cryptographic erasure destroys only the key — the encrypted data remains but is permanently inaccessible.",
@@ -2131,10 +2131,10 @@
           {
             "q": "Diffie-Hellman is used to:",
             "opts": [
-              "Sign digital certificates",
+              "Sign digital certificates with the issuer's private key",
               "Establish a shared secret over an insecure public channel",
-              "Hash passwords",
-              "Encrypt email attachments"
+              "Hash user passwords stored in a database",
+              "Encrypt email attachments using a public key"
             ],
             "a": 1,
             "exp": "Diffie-Hellman allows two parties to derive a shared secret over a public channel without transmitting the secret.",
@@ -2144,9 +2144,9 @@
           {
             "q": "Perfect Forward Secrecy (PFS) ensures that:",
             "opts": [
-              "Encryption never expires",
-              "One key is used for all sessions",
-              "All keys are stored permanently",
+              "Encryption keys never expire and remain valid forever",
+              "One key is reused for every encryption session over time",
+              "All keys are stored permanently in a key escrow database",
               "Compromising the long-term private key does not expose past session keys"
             ],
             "a": 3,
@@ -2157,9 +2157,9 @@
           {
             "q": "Why is RSA key exchange being phased out of modern TLS in favor of DHE/ECDHE?",
             "opts": [
-              "RSA is too slow for modern hardware",
-              "RSA cannot encrypt data",
-              "RSA uses symmetric keys",
+              "RSA key exchange is no longer mathematically secure against modern computers",
+              "RSA encryption is too slow for modern hardware speeds",
+              "RSA key exchange requires a separate certificate per session",
               "RSA key exchange does not provide Perfect Forward Secrecy"
             ],
             "a": 3,
@@ -2248,10 +2248,10 @@
           {
             "q": "A TPM (Trusted Platform Module) is used to:",
             "opts": [
-              "Provide internet access",
-              "Block malware at the network level",
+              "Provide secure internet access through a trusted hardware module",
+              "Block malware at the corporate network perimeter via firewall rules",
               "Securely store cryptographic keys and support hardware-based encryption tied to a device",
-              "Manage user passwords in Active Directory"
+              "Manage user passwords centrally in Active Directory user groups"
             ],
             "a": 2,
             "exp": "TPM is a hardware chip that stores keys, certificates, and passwords — bound to the specific device it's installed in.",
@@ -2274,9 +2274,9 @@
           {
             "q": "A secure enclave is:",
             "opts": [
-              "A physically locked server room",
-              "An encrypted backup location",
-              "A type of VPN tunnel",
+              "A physically locked and access-controlled secure server room with biometrics",
+              "An encrypted backup storage location managed entirely by the OS itself",
+              "A type of VPN tunnel used for secure remote administration of the device",
               "An isolated processor area that protects sensitive code and data from the main operating system"
             ],
             "a": 3,
@@ -2383,9 +2383,9 @@
             "q": "Tokenization replaces sensitive data with:",
             "opts": [
               "A random non-sensitive token that maps back to the original in a secure vault",
-              "An encrypted version of the data",
-              "A hash of the data",
-              "A compressed version of the data"
+              "An encrypted version of the original data using AES-256",
+              "A cryptographic hash of the original data using SHA-256",
+              "A compressed version of the original data using zlib compression"
             ],
             "a": 0,
             "exp": "Tokenization substitutes sensitive data (e.g. credit card numbers) with a random token — the original stays in a secure vault.",
@@ -2395,9 +2395,9 @@
           {
             "q": "Data masking is used to:",
             "opts": [
-              "Permanently delete sensitive data",
-              "Monitor who accesses data",
-              "Encrypt backups",
+              "Permanently delete and overwrite sensitive data records in production",
+              "Monitor and audit-log all access to sensitive data files for review",
+              "Encrypt backup data at rest using strong industry-standard ciphers",
               "Replace real data with realistic-looking fake data so developers can test without real PII"
             ],
             "a": 3,
@@ -2408,10 +2408,10 @@
           {
             "q": "How does steganography differ from encryption?",
             "opts": [
-              "Steganography is always stronger",
+              "Steganography is always cryptographically stronger than encryption",
               "Steganography hides the existence of the message; encryption hides its content",
-              "They are the same technique",
-              "Encryption is illegal; steganography is not"
+              "They are essentially the same cryptographic technique",
+              "Steganography is more efficient than encryption for protecting large files"
             ],
             "a": 1,
             "exp": "Encryption makes the message unreadable. Steganography hides the fact that a message exists at all.",
@@ -2515,7 +2515,7 @@
           {
             "q": "What is added to a password BEFORE hashing to defend against rainbow table attacks?",
             "opts": [
-              "IV (Initialization Vector)",
+              "IV",
               "Salt",
               "Pepper",
               "Nonce"
@@ -2528,9 +2528,9 @@
           {
             "q": "Why is MD5 no longer recommended for security purposes?",
             "opts": [
-              "It is too slow",
-              "It requires a password to compute",
-              "It uses asymmetric keys",
+              "It produces fixed-length 128-bit output regardless of input size",
+              "It cannot be used with a salt to defend against rainbow tables",
+              "It was deprecated by NIST in 2008 due to quantum computing threats",
               "It produces collision vulnerabilities — different inputs can produce the same hash"
             ],
             "a": 3,
@@ -2554,10 +2554,10 @@
           {
             "q": "HMAC provides which security properties?",
             "opts": [
-              "Encryption and compression",
-              "Non-repudiation and confidentiality",
+              "Message encryption and compression of payload data",
+              "Non-repudiation and full message confidentiality",
               "Integrity and authentication using a shared secret key",
-              "Key exchange and digital signatures"
+              "Key exchange and digital signature generation"
             ],
             "a": 2,
             "exp": "HMAC combines hashing with a shared secret — verifying both that the data hasn't changed and that the sender knows the key.",
@@ -2645,10 +2645,10 @@
           {
             "q": "A blockchain is best described as:",
             "opts": [
-              "A centralized encrypted database",
+              "A centralized encrypted database for storing all transactions",
               "A distributed immutable ledger where each block contains a hash of the previous block",
-              "A type of symmetric encryption",
-              "A certificate authority"
+              "A type of symmetric encryption algorithm used widely in banking",
+              "A certificate authority that issues and revokes digital certificates"
             ],
             "a": 1,
             "exp": "A blockchain is a distributed ledger — each block cryptographically links to the previous, making tampering detectable.",
@@ -2811,9 +2811,9 @@
             "q": "A wildcard certificate (*.example.com) covers:",
             "opts": [
               "All first-level subdomains of example.com",
-              "Only example.com itself",
-              "Multiple unrelated domains",
-              "Only internal IP addresses"
+              "Only the example.com root domain itself",
+              "Multiple unrelated domains in one certificate",
+              "Only internal IP addresses on the LAN"
             ],
             "a": 0,
             "exp": "A wildcard cert covers any first-level subdomain: mail.example.com, www.example.com, app.example.com, etc.",
@@ -2824,9 +2824,9 @@
             "q": "A self-signed certificate is signed by:",
             "opts": [
               "The entity that owns it, using its own private key",
-              "An intermediate CA",
-              "A trusted root CA",
-              "A registration authority"
+              "An intermediate certificate authority in the PKI",
+              "A trusted root CA at the top of the chain",
+              "A separate registration authority entity"
             ],
             "a": 0,
             "exp": "Self-signed certs are signed by the entity itself — not a trusted third-party CA, so browsers display warnings.",
@@ -2837,9 +2837,9 @@
             "q": "Certificate pinning is used to:",
             "opts": [
               "Prevent MITM attacks by hardcoding the expected certificate or public key in an application",
-              "Speed up TLS handshakes",
-              "Automatically renew certificates",
-              "Generate CSRs"
+              "Speed up TLS handshakes by skipping the certificate validation step",
+              "Automatically renew certificates before they reach their expiration date",
+              "Generate Certificate Signing Requests to send to the CA for signing"
             ],
             "a": 0,
             "exp": "Certificate pinning rejects any certificate not matching the hardcoded expected value — even a valid CA-signed cert.",
@@ -2849,9 +2849,9 @@
           {
             "q": "What is a CSR (Certificate Signing Request)?",
             "opts": [
-              "A revocation notice sent to a CA",
-              "A hash of a certificate",
-              "A type of firewall rule",
+              "A formal revocation notice sent from the certificate holder to the issuing CA",
+              "A cryptographic hash of an existing certificate used for fingerprint comparison",
+              "A firewall rule that controls HTTPS traffic flow to a specific application",
               "A document generated by the requester containing their public key and identity info, sent to a CA for signing"
             ],
             "a": 3,
@@ -2862,10 +2862,10 @@
           {
             "q": "OCSP stapling improves performance by:",
             "opts": [
-              "Caching certificates on the client",
-              "Compressing certificate data",
+              "Caching trusted certificates locally on each client browser to allow reuse later",
+              "Compressing the certificate chain data using standard zlib compression algorithms",
               "Having the server include the OCSP revocation response in the TLS handshake, eliminating a separate client lookup",
-              "Reducing the key size"
+              "Reducing the public key size used during handshake to speed up TLS processing"
             ],
             "a": 2,
             "exp": "OCSP stapling has the server provide the pre-fetched OCSP response during the handshake — no extra round trip for the client.",
