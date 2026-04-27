@@ -2,19 +2,32 @@
 // into Pattern A (mechanically extractable post-separator prose) vs
 // Pattern B (monolithic analytical reasoning) vs ambiguous.
 //
-// Pattern A criteria — ALL must hold:
+// Pattern A criteria — ALL must hold (TIGHTENED 2026-04-27):
 //   1. Correct option contains " — " (em-dash + spaces) OR ": " (colon + space)
 //   2. Suffix after the (first) separator is ≥30 chars
-//   3. Prefix before the separator is a "coherent short answer" — heuristically:
-//        a. 5–120 chars long
-//        b. 1–12 words
-//        c. doesn't end in comma/semicolon (would be mid-clause)
-//        d. doesn't start with sentence-form words (This, That, It, These, Those, There, When, If, Yes, No)
-//        e. doesn't contain typical sentence-form verbs in the prefix
-//           (` is `, ` are `, ` was `, ` were `, ` have `, ` has `, ` can `, ` will `, ` should `, ` would `)
+//   3. Prefix before the separator is a "concept name" — heuristically:
+//        a. 1–6 words (was 1–12)
+//        b. 5–60 chars (was 5–120)
+//        c. doesn't start with imperative verb (Investigate, Use, Apply, Restore,
+//           Notify, Establish, Deploy, Configure, Enable, Disable, Implement,
+//           Document, Maintain, Monitor, Detect, Identify, Analyze, Report,
+//           Backup, Recover, Verify, Validate)
+//        d. doesn't contain a number-as-quantity (digits, or "approximately",
+//           "several", "multiple", "many" as standalone words)
+//        e. doesn't end in punctuation other than parens/quote (no ".", "!", "?",
+//           ",", ";", ":" or trailing dash)
+//        f. doesn't start with sentence-form words (This, That, It, These, Those,
+//           There, When, If, Yes, No)
+//        g. doesn't contain sentence-form verbs in the prefix
+//           (` is `, ` are `, ` was `, ` were `, ` have `, ` has `, ` can `,
+//            ` will `, ` should `, ` would `)
+//
+// Goal: Pattern A items should pass the gut check that "the prefix alone, as
+// the option text, would still be the right answer." Concept-name + definition,
+// not analytical-claim + supporting reasoning.
 //
 // Pattern B: no qualifying separator at all.
-// Ambiguous: separator + 30+ suffix present, but prefix fails 3a-e (sentence-form prefix).
+// Ambiguous: separator + 30+ suffix present, but prefix fails 3a-g.
 //
 // Informational only: each Pattern A item also carries postTrimRatio showing
 // what the option-array max/min ratio becomes after trimming the suffix off
@@ -45,6 +58,12 @@ const HIGH = 3.0;
 // ─── Pattern A heuristics ────────────────────────────────────────────────
 const SENTENCE_START = /^(This|That|It|These|Those|There|When|If|Yes|No)\b/;
 const SENTENCE_VERBS = / (is|are|was|were|have|has|had|can|could|will|would|should|must|may) /;
+const IMPERATIVE_VERBS = /^(Investigate|Use|Apply|Restore|Notify|Establish|Deploy|Configure|Enable|Disable|Implement|Document|Maintain|Monitor|Detect|Identify|Analyze|Analyse|Report|Backup|Recover|Verify|Validate)\b/i;
+const QUANTITY_WORDS = /\b(approximately|several|multiple|many)\b/i;
+const HAS_DIGIT = /\d/;
+// Allowed prefix terminators: word char, ), ], ", ' (parens/brackets/quotes)
+// Disallowed: . ! ? , ; : - – —  (sentence/clause enders)
+const BAD_PREFIX_END = /[.!?,;:\-–—]$/;
 
 function tryPatternA(opt, lens, correctIdx) {
   // Find the FIRST qualifying separator.
@@ -65,24 +84,35 @@ function tryPatternA(opt, lens, correctIdx) {
   // Criterion 2: suffix ≥30 chars
   if (suffix.length < 30) return { kind: "B", reason: "suffix-too-short", sep, prefix, suffix };
 
-  // Criterion 3a: prefix length 5-120
-  if (prefix.length < 5 || prefix.length > 120) {
+  // Criterion 3a: prefix length 5-60 (TIGHTENED)
+  if (prefix.length < 5 || prefix.length > 60) {
     return { kind: "ambiguous", reason: `prefix-length-${prefix.length}`, sep, prefix, suffix };
   }
-  // Criterion 3b: prefix word count 1-12
+  // Criterion 3b: prefix word count 1-6 (TIGHTENED)
   const wordCount = prefix.split(/\s+/).filter(Boolean).length;
-  if (wordCount > 12) {
+  if (wordCount > 6) {
     return { kind: "ambiguous", reason: `prefix-words-${wordCount}`, sep, prefix, suffix };
   }
-  // Criterion 3c: not ending in comma/semicolon
-  if (/[,;]$/.test(prefix)) {
-    return { kind: "ambiguous", reason: "prefix-mid-clause", sep, prefix, suffix };
+  // Criterion 3c: not starting with imperative verb (NEW)
+  if (IMPERATIVE_VERBS.test(prefix)) {
+    return { kind: "ambiguous", reason: "prefix-imperative-verb", sep, prefix, suffix };
   }
-  // Criterion 3d: not starting with sentence-form word
+  // Criterion 3d: no number-as-quantity (NEW)
+  if (HAS_DIGIT.test(prefix)) {
+    return { kind: "ambiguous", reason: "prefix-contains-digit", sep, prefix, suffix };
+  }
+  if (QUANTITY_WORDS.test(prefix)) {
+    return { kind: "ambiguous", reason: "prefix-quantity-word", sep, prefix, suffix };
+  }
+  // Criterion 3e: no bad terminating punctuation (TIGHTENED — was just comma/semicolon)
+  if (BAD_PREFIX_END.test(prefix)) {
+    return { kind: "ambiguous", reason: "prefix-bad-end-punct", sep, prefix, suffix };
+  }
+  // Criterion 3f: not starting with sentence-form word
   if (SENTENCE_START.test(prefix)) {
     return { kind: "ambiguous", reason: "prefix-sentence-start", sep, prefix, suffix };
   }
-  // Criterion 3e: no sentence-form verbs in the prefix
+  // Criterion 3g: no sentence-form verbs in the prefix
   // (use spaces around so "isolation"/"watershed" don't trigger)
   if (SENTENCE_VERBS.test(" " + prefix.toLowerCase() + " ")) {
     return { kind: "ambiguous", reason: "prefix-sentence-verb", sep, prefix, suffix };
@@ -136,11 +166,13 @@ console.log("══════════════════════�
 console.log("SECTION 1 — Per-domain triage of HIGH correct=longest items (ratio ≥ 3.0×)");
 console.log("══════════════════════════════════════════════════════════════════════════════");
 console.log();
-console.log("Pattern A = clean separator (em-dash or colon) + 30+ char suffix + short-answer prefix");
+console.log("Pattern A = clean separator + 30+ char suffix + 'concept name' prefix");
+console.log("  Concept name = 1-6 words, 5-60 chars, no imperative verb, no digit/quantity word,");
+console.log("  no sentence-form start/verb, no bad ending punctuation.");
 console.log("  A_solo  = post-trim ratio < 2.0× (trim alone fixes the leak)");
 console.log("  A_combo = post-trim ratio ≥ 2.0× (trim helps but distractors are also too short)");
 console.log("Pattern B = no qualifying separator (monolithic analytical content)");
-console.log("Ambiguous = separator present but prefix is sentence-form (heuristic disqualified)");
+console.log("Ambiguous = separator present but prefix fails one of the concept-name criteria");
 console.log();
 console.log("Dom |  A_solo | A_combo |  B  | Amb | TOTAL  (MC/scen splits in parens)");
 console.log("----+---------+---------+-----+-----+-------");
