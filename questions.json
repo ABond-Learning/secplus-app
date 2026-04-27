@@ -4107,9 +4107,9 @@
             "q": "DLL injection is a technique used to:",
             "opts": [
               "Force a running process to load and execute a malicious library within its address space",
-              "Encrypt data in memory",
-              "Extract passwords from a database",
-              "Intercept network traffic"
+              "Encrypt sensitive data in process memory at rest in the swap",
+              "Extract user passwords from the operating system credential store",
+              "Intercept network traffic between processes via shared kernel memory"
             ],
             "a": 0,
             "exp": "DLL injection forces a legitimate process to load a malicious DLL — the malicious code then runs with the process's privileges.",
@@ -4120,9 +4120,9 @@
             "q": "Process hollowing involves:",
             "opts": [
               "Creating a legitimate process, suspending it, and replacing its code with malicious code",
-              "Deleting all processes on a system",
-              "Encrypting process memory",
-              "Injecting SQL into a process"
+              "Deleting all suspicious processes on the system during boot-up",
+              "Encrypting all process memory pages at runtime to prevent inspection",
+              "Hijacking a running process by injecting code into its open file handles"
             ],
             "a": 0,
             "exp": "Process hollowing creates a trusted process 'shell' and fills it with malicious code — the OS sees a legitimate process name.",
@@ -4132,9 +4132,9 @@
           {
             "q": "ASLR mitigates memory attacks by:",
             "opts": [
-              "Encrypting all memory",
-              "Preventing code execution in data regions",
-              "Monitoring memory usage",
+              "Encrypting all process memory pages at rest in the operating system kernel",
+              "Preventing code execution in memory regions specifically designated for data",
+              "Monitoring all memory allocation requests by running user processes in real time",
               "Randomizing where processes, libraries, and stacks are loaded — making buffer overflows harder to exploit"
             ],
             "a": 3,
@@ -4145,9 +4145,9 @@
           {
             "q": "DEP (Data Execution Prevention) mitigates memory attacks by:",
             "opts": [
-              "Encrypting all memory",
-              "Monitoring memory usage",
-              "Randomizing memory addresses",
+              "Encrypting executable code in memory to prevent disassembly",
+              "Monitoring memory usage and allocation in real time",
+              "Randomizing memory addresses to prevent address prediction",
               "Preventing code from executing in memory regions designated for data storage"
             ],
             "a": 3,
@@ -4254,9 +4254,9 @@
           {
             "q": "A buffer overflow attack works by:",
             "opts": [
-              "Flooding a server with network traffic",
-              "Decrypting encrypted data",
-              "Injecting SQL into a web form",
+              "Flooding a server with very high-volume network traffic until it crashes",
+              "Decrypting protected data using brute-force cryptographic key search",
+              "Injecting SQL commands into a web form to manipulate the underlying database",
               "Writing more data than a buffer can hold, overwriting adjacent memory to potentially redirect execution"
             ],
             "a": 3,
@@ -4267,9 +4267,9 @@
           {
             "q": "A stack canary is used to:",
             "opts": [
-              "Encrypt stack memory",
-              "Randomize memory addresses",
-              "Monitor network traffic",
+              "Marking stack memory as non-executable to prevent shellcode",
+              "Randomize all process memory addresses at load time to prevent injection",
+              "Monitor network traffic for buffer overflow attack signature patterns",
               "Detect buffer overflow attempts by placing a random value before the return address"
             ],
             "a": 3,
@@ -4280,10 +4280,10 @@
           {
             "q": "Buffer overflows are most commonly found in programs written in:",
             "opts": [
-              "Python or Java",
+              "Python or Java which use managed memory and bounds checking",
               "C or C++ which allow direct memory access without bounds checking",
-              "HTML or JavaScript",
-              "SQL"
+              "HTML or JavaScript which run in interpreted runtime sandboxes",
+              "SQL or other database query languages without compiled code"
             ],
             "a": 1,
             "exp": "C and C++ allow direct memory manipulation without automatic bounds checking — making buffer overflows possible.",
@@ -4293,9 +4293,9 @@
           {
             "q": "Which combination of mitigations BEST protects against buffer overflow exploitation?",
             "opts": [
-              "Firewall rules and IDS",
-              "VPN and encryption",
-              "MFA and strong passwords",
+              "Network firewall rules and intrusion detection",
+              "VPN tunneling and end-to-end encryption",
+              "Multi-factor authentication and strong passwords",
               "ASLR, DEP, stack canaries, and input validation"
             ],
             "a": 3,
@@ -4416,9 +4416,9 @@
             "q": "A developer checks if a file is owned by the correct user, then opens it. An attacker replaces the file between these steps. This is:",
             "opts": [
               "A TOCTOU race condition",
-              "A SQL injection",
-              "A buffer overflow",
-              "A DLL injection"
+              "A SQL injection attack",
+              "A buffer overflow attack",
+              "A DLL injection attack"
             ],
             "a": 0,
             "exp": "This is a classic TOCTOU attack — the file passes the check but is replaced before use.",
@@ -4504,9 +4504,9 @@
             "q": "The SolarWinds attack is an example of:",
             "opts": [
               "A supply chain attack via a compromised software update",
-              "A phishing campaign",
-              "A watering hole attack",
-              "A buffer overflow exploit"
+              "A targeted spear-phishing campaign against admins",
+              "A watering hole attack via compromised website",
+              "A buffer overflow exploit in the network stack"
             ],
             "a": 0,
             "exp": "SolarWinds delivered malware through a legitimate software update — a textbook supply chain attack affecting thousands of organizations.",
@@ -4626,9 +4626,9 @@
             "q": "The WannaCry ransomware exploited which legacy Windows protocol vulnerability?",
             "opts": [
               "SMBv1 (EternalBlue vulnerability)",
-              "NTLM authentication",
+              "NTLM (legacy Windows authentication)",
               "RDP (Remote Desktop Protocol)",
-              "NetBIOS"
+              "NetBIOS (legacy Windows networking)"
             ],
             "a": 0,
             "exp": "WannaCry used the EternalBlue exploit targeting SMBv1 — spreading automatically across unpatched Windows systems.",
@@ -4638,10 +4638,10 @@
           {
             "q": "Which is the MOST effective mitigation for operating system vulnerabilities?",
             "opts": [
-              "Using a VPN",
-              "Changing default passwords",
+              "Routinely using a corporate VPN connection",
+              "Changing all default administrator passwords",
               "Regular and timely application of security patches",
-              "Enabling full disk encryption"
+              "Enabling full disk encryption on all endpoints"
             ],
             "a": 2,
             "exp": "Patching is the primary mitigation — it removes the vulnerabilities attackers exploit.",
@@ -4742,9 +4742,9 @@
           {
             "q": "SQL injection attacks target:",
             "opts": [
-              "Network bandwidth and availability",
-              "Physical security systems",
-              "Wireless network encryption",
+              "Network bandwidth and overall availability of services",
+              "Physical security control systems and access badges",
+              "Wireless network encryption protocols and pre-shared keys",
               "Web application databases by inserting malicious SQL code into input fields"
             ],
             "a": 3,
@@ -4756,9 +4756,9 @@
             "q": "What is the PRIMARY mitigation against SQL injection?",
             "opts": [
               "Parameterized queries (prepared statements)",
-              "Input length limits",
-              "Web application firewall alone",
-              "HTTPS encryption"
+              "Strict input length limits enforced at the form",
+              "A web application firewall as the only control",
+              "HTTPS encryption for all client-server traffic"
             ],
             "a": 0,
             "exp": "Parameterized queries separate SQL code from user data — input can never be interpreted as executable SQL code.",
@@ -4769,9 +4769,9 @@
             "q": "An attacker enters ' OR '1'='1 into a login form. If successful, this is:",
             "opts": [
               "SQL injection for authentication bypass",
-              "A buffer overflow",
-              "A cross-site scripting attack",
-              "A directory traversal attack"
+              "A stack-based buffer overflow exploit",
+              "A cross-site scripting (XSS) attack",
+              "A directory traversal exploitation attempt"
             ],
             "a": 0,
             "exp": "This classic SQLi payload creates an always-true condition, bypassing authentication without valid credentials.",
@@ -4893,10 +4893,10 @@
           {
             "q": "Cross-site scripting (XSS) attacks inject malicious scripts into:",
             "opts": [
-              "Network packets",
+              "Network packets at the data link or network transport layer",
               "Trusted web pages viewed by other users — executing in their browsers",
-              "Database query strings",
-              "DNS responses"
+              "Database query strings sent from the application to the server",
+              "DNS query responses returned by upstream recursive resolvers"
             ],
             "a": 1,
             "exp": "XSS injects client-side scripts into web pages — the malicious script executes in the victim's browser.",
@@ -4919,9 +4919,9 @@
           {
             "q": "The HttpOnly cookie attribute mitigates XSS by:",
             "opts": [
-              "Encrypting cookie contents",
-              "Making cookies expire immediately",
-              "Blocking all cookies",
+              "Encrypting all cookie contents using AES",
+              "Making cookies expire immediately on close",
+              "Blocking all cookies at the browser level",
               "Preventing JavaScript from accessing the cookie"
             ],
             "a": 3,
@@ -4932,9 +4932,9 @@
           {
             "q": "An attacker posts a comment on a website containing malicious JavaScript. Every user who views the comment executes the script. This is:",
             "opts": [
-              "Reflected XSS",
-              "DOM-based XSS",
-              "SQL injection",
+              "Reflected XSS (non-persistent type)",
+              "DOM-based XSS (client-side type)",
+              "CSRF (cross-site request forgery) attack",
               "Stored (persistent) XSS"
             ],
             "a": 3,
@@ -5042,9 +5042,9 @@
             "q": "A side-channel attack extracts information by:",
             "opts": [
               "Analyzing physical signals such as power consumption or electromagnetic emissions — without attacking the software directly",
-              "Injecting malicious code into the application",
-              "Intercepting network traffic",
-              "Exploiting SQL injection"
+              "Injecting malicious shellcode directly into the application's process memory",
+              "Intercepting network traffic between client and server using a MITM proxy attack",
+              "Exploiting SQL injection vulnerabilities in the application's database query layer"
             ],
             "a": 0,
             "exp": "Side-channel attacks exploit physical characteristics of hardware rather than software vulnerabilities.",
@@ -5054,10 +5054,10 @@
           {
             "q": "Specter and Meltdown are examples of:",
             "opts": [
-              "Software injection attacks",
+              "Software-based code injection attacks against running applications",
               "CPU hardware vulnerabilities exploiting speculative execution to read protected memory",
-              "Firmware vulnerabilities",
-              "Social engineering attacks"
+              "Firmware vulnerabilities found in BIOS or UEFI boot components",
+              "Social engineering attacks targeting end users with phishing emails"
             ],
             "a": 1,
             "exp": "Specter and Meltdown are CPU hardware-level vulnerabilities — they exploit speculative execution to leak protected memory contents.",
@@ -5331,7 +5331,7 @@
             "q": "A security team reviewing cloud posture finds: an S3 bucket with versioning disabled containing DB backups, an EC2 security group allowing inbound RDP from 0.0.0.0/0, an IAM role with AdministratorAccess attached to a Lambda that only needs to read from one S3 bucket, and an API Gateway endpoint with no authentication. Which should be addressed FIRST?",
             "opts": [
               "API Gateway > S3 bucket > IAM role > EC2 security group",
-              "All four are equal priority",
+              "All four findings are equal in priority",
               "S3 bucket > IAM role > API Gateway > EC2 security group",
               "EC2 security group (RDP open to internet) and API Gateway (no auth) are critical — immediate exposure to unauthenticated access. IAM role is high (excessive permissions). S3 versioning is medium — important for ransomware resilience but not immediate external exposure"
             ],
@@ -5398,10 +5398,10 @@
           {
             "q": "An SBOM (Software Bill of Materials) helps organizations:",
             "opts": [
-              "Track physical hardware inventory",
-              "Monitor network traffic",
+              "Track physical hardware inventory and asset tags across all enterprise data centers",
+              "Monitor live network traffic flows for anomalous communication patterns continuously",
               "Identify all software components and dependencies so they can assess and respond to vulnerabilities in those components",
-              "Manage user access rights"
+              "Manage user access rights and group memberships across all enterprise applications"
             ],
             "a": 2,
             "exp": "An SBOM lists all components in software — when a vulnerability is found in a library, organizations with SBOMs know if they're affected.",
@@ -5503,10 +5503,10 @@
           {
             "q": "CIS Benchmarks are used to:",
             "opts": [
-              "Conduct penetration tests",
-              "Classify vulnerability severity",
+              "Conduct routine penetration tests against all deployed systems",
+              "Classify vulnerability severity rankings by overall business impact",
               "Provide prescriptive secure configuration guidance for operating systems and applications",
-              "Monitor network traffic"
+              "Monitor live network traffic for threat indicators in real time"
             ],
             "a": 2,
             "exp": "CIS Benchmarks provide detailed, prescriptive security configuration recommendations.",
@@ -5516,10 +5516,10 @@
           {
             "q": "Which approach BEST prevents misconfiguration vulnerabilities at scale?",
             "opts": [
-              "Manual review of each system individually",
+              "Manual review of each system individually by a system admin",
               "Configuration management using secure baselines and automated compliance scanning",
-              "Replacing all systems annually",
-              "Using only cloud services"
+              "Replacing all systems with brand new hardware every year",
+              "Using only fully managed cloud services for all infrastructure"
             ],
             "a": 1,
             "exp": "Configuration management with secure baselines applied consistently and verified automatically is most effective.",
@@ -5624,10 +5624,10 @@
           {
             "q": "A SIM swapping attack involves:",
             "opts": [
-              "Cloning a SIM card physically",
-              "Intercepting SMS messages in transit",
+              "Physically cloning a SIM card using a specialized hardware reader device",
+              "Intercepting SMS messages while they are in transit between mobile carriers",
               "Social engineering a mobile carrier into transferring a victim's phone number to an attacker-controlled SIM",
-              "Installing malware on a phone"
+              "Installing malware on a phone via a malicious app from the official store"
             ],
             "a": 2,
             "exp": "SIM swapping redirects the victim's phone number to the attacker — enabling interception of SMS-based MFA codes.",
@@ -5638,9 +5638,9 @@
             "q": "MDM helps secure mobile devices by:",
             "opts": [
               "Enforcing security policies, detecting jailbroken/rooted devices, and enabling remote wipe",
-              "Physically securing devices",
-              "Encrypting Bluetooth connections",
-              "Preventing SIM swapping"
+              "Physically securing devices using lockable hardware containers",
+              "Encrypting all Bluetooth connections between devices automatically",
+              "Preventing SIM swapping attempts at the mobile carrier level"
             ],
             "a": 0,
             "exp": "MDM provides centralized control — enforcing encryption, PIN requirements, remote wipe, and detecting compromised devices.",
