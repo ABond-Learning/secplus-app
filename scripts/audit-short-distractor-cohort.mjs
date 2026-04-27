@@ -25,12 +25,14 @@ const jsonPath = resolve(repo, "questions.json");
 const args = process.argv.slice(2);
 const showDetails = args.includes("--details");
 const domainFilter = args.find((a) => a.startsWith("--domain="))?.split("=")[1];
+const pathOverride = args.find((a) => a.startsWith("--path="))?.split("=")[1];
 
 const SHORT_DISTRACTOR = 30;   // <30 chars = stub
 const LENGTH_RATIO_FLAG = 1.5; // overall question still has length leak
 
 // ─── Load current + pre-Sub-batch-1 catalogs ──────────────────────────────
-const data = JSON.parse(readFileSync(jsonPath, "utf8"));
+const effectivePath = pathOverride ? resolve(pathOverride) : jsonPath;
+const data = JSON.parse(readFileSync(effectivePath, "utf8"));
 
 // Get the pre-Sub-batch-1 version for diff. Fail soft if commit isn't reachable.
 let preData = null;

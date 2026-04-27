@@ -468,9 +468,9 @@
             "q": "Which of the following BEST supports availability?",
             "opts": [
               "Redundant systems and backups",
-              "Hashing",
-              "Encryption",
-              "Access control lists"
+              "Strong password policies for all administrative accounts",
+              "Encrypting data at rest with AES-256 storage",
+              "Strict access control lists on shared drives"
             ],
             "a": 0,
             "exp": "Redundancy and backups ensure services remain available even during failures or attacks.",
@@ -622,10 +622,10 @@
           {
             "q": "Why does HMAC NOT provide non-repudiation?",
             "opts": [
-              "It uses asymmetric keys",
+              "It uses asymmetric keys that anyone can verify with a public key",
               "Both parties share the same key so either could have created it",
-              "It doesn't verify integrity",
-              "It is too slow"
+              "It only verifies integrity but not the origin of the message",
+              "It depends on a centralized timestamp authority that may not exist"
             ],
             "a": 1,
             "exp": "Non-repudiation requires that only one party could have created the proof. HMAC's shared key means either party could have.",
@@ -635,10 +635,10 @@
           {
             "q": "If Alice signs a message with her private key, what can Bob verify using her public key?",
             "opts": [
-              "The message is encrypted",
-              "Bob's own identity",
+              "That the message body has been encrypted by Alice for him",
+              "Bob's own identity has been authenticated to Alice's system",
               "Alice sent it and the content hasn't been altered",
-              "The message's availability"
+              "That the message will reach Bob without delay or loss"
             ],
             "a": 2,
             "exp": "Bob verifying with Alice's public key confirms she signed it (authentication) and the content is intact (integrity).",
@@ -649,8 +649,8 @@
             "q": "Which BEST supports non-repudiation in a corporate email system?",
             "opts": [
               "TLS encryption on email transport",
-              "Email archiving alone",
-              "SPF records in DNS",
+              "Mandatory email archiving with retention policy",
+              "SPF records published in DNS for the sending domain",
               "S/MIME digital signatures on emails"
             ],
             "a": 3,
@@ -803,9 +803,9 @@
             "q": "RADIUS is primarily used for which function?",
             "opts": [
               "Centralized AAA for network access",
-              "Encrypting data at rest",
+              "Encrypting all data at rest on internal servers",
               "Generating digital certificates",
-              "Hashing passwords"
+              "Hashing user passwords for secure storage"
             ],
             "a": 0,
             "exp": "RADIUS provides centralized AAA for network access control — widely used with 802.1X.",
@@ -828,10 +828,10 @@
           {
             "q": "A user provides a password AND a fingerprint. This is:",
             "opts": [
-              "Single-factor authentication",
+              "Single-factor authentication only",
               "Two-factor authentication",
-              "Authorization",
-              "Identification"
+              "Authorization for resource access",
+              "Identification claim by the user"
             ],
             "a": 1,
             "exp": "Two different factor types (knowledge + inherence) = two-factor authentication, a form of MFA.",
@@ -932,10 +932,10 @@
           {
             "q": "Which document is commonly used as a baseline for a security gap analysis?",
             "opts": [
-              "A vulnerability scan report",
-              "A risk register",
+              "A vulnerability scan report from last quarter",
+              "A risk register listing accepted residual risks",
               "A security framework like NIST CSF or ISO 27001",
-              "A firewall ruleset"
+              "A firewall ruleset showing currently allowed traffic"
             ],
             "a": 2,
             "exp": "Security frameworks define desired security states that organizations compare their current posture against.",
@@ -946,9 +946,9 @@
             "q": "After a gap analysis, the organization should produce:",
             "opts": [
               "A prioritized remediation plan to close identified gaps",
-              "An immediate report to regulators",
-              "A full penetration test",
-              "A new firewall ruleset"
+              "An immediate report to regulators on all findings",
+              "A full penetration test against critical assets",
+              "A new firewall ruleset blocking flagged ports"
             ],
             "a": 0,
             "exp": "The primary output of a gap analysis is a prioritized remediation roadmap.",
@@ -958,9 +958,9 @@
           {
             "q": "How does a gap analysis differ from a penetration test?",
             "opts": [
-              "Gap analysis is always automated",
-              "They are the same thing",
-              "Gap analysis requires network access",
+              "A gap analysis is always automated using vulnerability scanning tools",
+              "A gap analysis and a penetration test are essentially the same exercise",
+              "A gap analysis tests technical controls; a pen test reviews policies and procedures",
               "Gap analysis reviews controls against a standard; pen test actively exploits vulnerabilities"
             ],
             "a": 3,
@@ -1042,8 +1042,8 @@
           {
             "q": "A Zero Trust model treats internal network users:",
             "opts": [
-              "As fully trusted by default",
-              "As administrators by default",
+              "As fully trusted by default after VPN login",
+              "As administrators by default within the corporate LAN",
               "With higher trust than external users",
               "The same as external users — requiring verification"
             ],
@@ -1055,9 +1055,9 @@
           {
             "q": "Micro-segmentation in a Zero Trust architecture is used to:",
             "opts": [
-              "Encrypt all data at rest",
-              "Replace firewalls entirely",
-              "Speed up authentication",
+              "Encrypt all data at rest on internal corporate servers",
+              "Replace traditional firewalls with software-defined perimeters",
+              "Speed up authentication across enterprise applications",
               "Divide networks into small isolated zones to limit lateral movement"
             ],
             "a": 3,
@@ -1172,9 +1172,9 @@
             "q": "A mantrap (access control vestibule) is designed to:",
             "opts": [
               "Prevent tailgating by allowing only one person through at a time",
-              "Monitor video footage",
-              "Encrypt physical media",
-              "Alert the SOC of intrusions"
+              "Monitor video footage from CCTV cameras at the entrance",
+              "Encrypt all physical media leaving the secure building",
+              "Alert the SOC after detecting an unauthorized entry attempt"
             ],
             "a": 0,
             "exp": "A mantrap forces one-at-a-time entry through two interlocked doors — preventing tailgating.",
@@ -1197,10 +1197,10 @@
           {
             "q": "A Faraday cage is used to:",
             "opts": [
-              "Prevent unauthorized physical entry",
-              "Log physical access events",
+              "Prevent unauthorized physical entry into a secured area",
+              "Log all physical access events to secured rooms",
               "Block electromagnetic signals to prevent RF eavesdropping",
-              "Store encryption keys securely"
+              "Store encryption keys in a tamper-resistant module"
             ],
             "a": 2,
             "exp": "A Faraday cage blocks electromagnetic fields — protecting against RF attacks and signal interception.",
@@ -1210,10 +1210,10 @@
           {
             "q": "Two-person integrity requires:",
             "opts": [
-              "Two passwords to log in",
-              "Two-factor authentication",
+              "Two passwords to be entered for system login",
+              "Two-factor authentication on every critical account",
               "Two people present to perform sensitive operations",
-              "Two security guards on patrol"
+              "Two security guards on patrol at all entry points"
             ],
             "a": 2,
             "exp": "Two-person integrity prevents insider abuse by requiring a witness for high-security operations.",
@@ -1310,9 +1310,9 @@
             "q": "A honeypot is best described as:",
             "opts": [
               "A decoy system designed to lure and study attackers",
-              "A malware scanner",
-              "A firewall rule set",
-              "A password vault"
+              "A signature-based malware scanning system",
+              "A firewall rule set that blocks known attackers",
+              "A centralized password vault for admin accounts"
             ],
             "a": 0,
             "exp": "Honeypots are intentionally vulnerable decoy systems that attract attackers so their techniques can be analyzed.",
@@ -1335,9 +1335,9 @@
           {
             "q": "A honeytoken is:",
             "opts": [
-              "A fake server",
-              "A type of firewall rule",
-              "A wireless access point",
+              "A fake decoy server in the DMZ designed to attract attackers",
+              "A small piece of malware planted by attackers to test detection",
+              "A network monitoring agent that detects unusual access patterns",
               "A decoy piece of data (credentials, file, API key) that alerts when accessed or used"
             ],
             "a": 3,
@@ -1349,9 +1349,9 @@
             "q": "The primary purpose of deception technologies is to:",
             "opts": [
               "Detect attackers and gather intelligence about their techniques",
-              "Replace traditional firewalls",
-              "Block attacks immediately",
-              "Automatically patch vulnerabilities"
+              "Replace traditional firewalls and IPS appliances",
+              "Block attacks immediately at the network edge",
+              "Automatically patch vulnerabilities upon detection"
             ],
             "a": 0,
             "exp": "Deception tech is about detection and intelligence — not blocking. Attackers interacting with decoys reveal themselves.",
@@ -1362,9 +1362,9 @@
             "q": "Which deception technology would BEST help detect attackers who have already breached the perimeter?",
             "opts": [
               "Honeytokens and honeyfiles placed on internal systems",
-              "Firewall rules",
-              "Perimeter IDS",
-              "DNS filtering"
+              "Firewall rules at the network perimeter",
+              "An IDS deployed at the network perimeter",
+              "DNS filtering of known-malicious domains"
             ],
             "a": 0,
             "exp": "Internal honeytokens detect lateral movement — an attacker accessing them reveals they are inside.",
