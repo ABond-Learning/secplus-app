@@ -58,7 +58,7 @@ const HIGH = 3.0;
 // ─── Pattern A heuristics ────────────────────────────────────────────────
 const SENTENCE_START = /^(This|That|It|These|Those|There|When|If|Yes|No)\b/;
 const SENTENCE_VERBS = / (is|are|was|were|have|has|had|can|could|will|would|should|must|may) /;
-const IMPERATIVE_VERBS = /^(Investigate|Use|Apply|Restore|Notify|Establish|Deploy|Configure|Enable|Disable|Implement|Document|Maintain|Monitor|Detect|Identify|Analyze|Analyse|Report|Backup|Recover|Verify|Validate)\b/i;
+const IMPERATIVE_VERBS = /^(Investigate|Use|Apply|Restore|Notify|Establish|Deploy|Configure|Enable|Disable|Implement|Document|Maintain|Monitor|Detect|Identify|Analyze|Analyse|Report|Backup|Recover|Verify|Validate|Invoke|Engage|Trigger)\b/i;
 const QUANTITY_WORDS = /\b(approximately|several|multiple|many)\b/i;
 const HAS_DIGIT = /\d/;
 // Allowed prefix terminators: word char, ), ], ", ' (parens/brackets/quotes)
