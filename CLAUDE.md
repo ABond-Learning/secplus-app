@@ -57,6 +57,8 @@ These rules apply to EVERY new or modified question. A question that fails any o
 
 7. **Keep scenarios professionally neutral.** No cultural-context-heavy examples unless CompTIA-specific.
 
+8. **Assign correct-answer position by hash, not author judgment.** When generating new MC or scenario items in any future `add-domain*.mjs` / `rewrite-domain*.mjs` script, do NOT pick `a` by hand. Author the four options in whatever order is natural while writing, then set the correct-answer position deterministically: `a = sha256(videoId + ":" + kind + ":" + insertionIndex)[0..3] mod 4`, swapping `opts[originalCorrectIdx] ↔ opts[a]`. This avoids re-introducing the position bias Aiden's audit caught on 2026-04-27 (legacy MC: 75% at index 1; legacy scen: 87% at index 1; Task 1b items also drifted toward 0/1 and away from 3). The reusable mechanism lives in `scripts/shuffle-correct-positions.mjs` — generation scripts can either call into it or inline the same hash. Existing scripts are NOT being retroactively edited; this convention applies only to new generation work.
+
 ## Workflow Rules
 
 1. **Commit to git after every significant task** with a descriptive message. For large refactors, work on a feature branch. Confirm `git status` is clean before starting major new work.
