@@ -3,11 +3,13 @@
 Single source of truth for in-flight work. Update as state changes.
 See CLAUDE.md for the underlying 3-task plan and quality rules.
 
-Last updated: 2026-04-27
+Last updated: 2026-04-28
 
 ## Status snapshot
 
 Priority order reflects the 2026-04-27 reorder triggered by study-session findings: catalogue quality issues (length-tell distractors, weak distractors) are actively undermining current study, and the "N new things to try" UX has no surfacing path. Both jumped ahead of continuing 1c grounding-audit tuning.
+
+**2026-04-28 reframe (authoritative):** There is no fixed exam date. Aiden is currently early in the syllabus (only watched videos up to Cryptography). Quality > speed. Prior CLAUDE.md "8 weeks / late June 2026" framing was incorrect; treat catalogue quality as the binding constraint, not calendar pressure.
 
 Task | State | Notes
 --- | --- | ---
@@ -15,7 +17,7 @@ Task | State | Notes
 1.5 — Cross-device sync via private Gist | **complete, deployed, verified on 3 devices** | Backup polish + sync engine + sync UI all live. Real-device sync verified across 3 of Aiden's devices post-deploy (joining-device guard holds; bidirectional sync works).
 1b — Content generation | **complete, deployed** | All 5 domains done: Domain 1 scenarios (25), Domain 5 (78), Domain 4 (55), Domain 2 BEST/MOST rewrites (35 across 2 batches). **Total: 193 items added/modified.**
 1c-structural — Citation backfill + grounding/anchor-gap audits | **partially complete; remaining work DEPRIORITIZED** | Citation backfill DONE (728 → 0 legacy-no-citation; 100% catalog coverage). Grounding + anchor-gap audit scripts built but extractor produces noise-dominated output — 30 spot-checks across all 5 domains found zero true misfiles. Extractor tuning pending; lower priority than 1d/1e because grounding side mostly produces negative-confirmation. See "Task 1c — split into structural and experiential" below.
-**1d — Catalogue quality audit + fixes** | **NEW (2026-04-27), highest priority** | Triggered by study session: length-tell distractors and weak distractors are actively undermining current study. Catalogue-wide audit script first (no fixes), then Aiden-scoped fix batches.
+**1d — Catalogue quality audit + fixes** | **in progress, partially shipped** | Sub-batch 1 (position shuffle + 95 Pattern A length-tell extractions) shipped. Sub-batch 2 (short-distractor padding) shipped on 6 sub-objectives: §1.2/§1.4/§2.3/§2.4/§2.2/§4.5 — 92 items modified + 33 Convention B holdbacks across 125 cohort items. **177 cohort items remain across 21 untouched sub-objectives.** Next planned move: single mega-pass through all 21 remaining sub-objectives, producing one comprehensive review document. 3 future-content-quality TODOs flagged in TODO-content-quality.md (mc-2.4.14-2, scen-2.2.5-0, mc-2.2.5-2).
 **1e — New-content prioritization** | **NEW (2026-04-27)** | App reports "N new things to try" with no way to see/prioritize them. Either separate New mode or have existing modes prioritize unseen-from-watched-videos. Smaller scope than Task 2; ~1-2 hours.
 1c-structural (continuation) — extractor tuning | not started | Tune grounding/anchor-gap extractors to handle `X means:` / `X is used to:` / `X requires:` patterns; multi-word phrases before linking verbs; clause-fragment stripping; stop-word filtering. Bottlenecks both audits.
 1c-experiential — anchor-gap fixes | not started | Generate anchor questions for concepts the audit flags as uncovered. Real pedagogical value once extractor is tuned.
@@ -304,13 +306,49 @@ Triggered by 2026-04-27 study session findings: length-tell distractors (correct
 
 **Quality bar:** idempotent, no destructive ops, fast (pure JSON walk, no transcript dependency), `--domain=N` filter, `--details` for per-issue dump.
 
-### 1d.2 — Fix batches (TBD after audit review)
+### 1d.2 — Fix batches (in progress)
 
-Aiden reviews the audit output and scopes fix batches. Each batch:
-- Targets one dimension at a time (length-balance, then distractor quality, etc.) so reviews stay focused.
-- Uses in-place REPLACEMENTS pattern from Task 1b (preserves SM-2 indices, idempotent, safety-checked refusal on unexpected stem).
-- Validator-clean before commit.
-- Per-batch user review before moving on.
+#### Sub-batch 1 — position bias + Pattern A length-tell (shipped 2026-04-27)
+
+- `1f6d022` — catalogue-wide hash-based position shuffle. MC χ² 553→1.79; scen χ² 625→5.84.
+- `eb9581f` — CLAUDE.md rule 8 added (future generation scripts must use hash-based position assignment).
+- `a4405fb` — 95 Pattern A length-tell items: definitional gloss relocated from option to explanation.
+- 1 item (mc-5.5.1-1) held back in `HOLD_BACK` array of `fix-pattern-a-length-tells.mjs`.
+
+#### Sub-batch 2 — short-distractor padding (in progress)
+
+Cohort definition: items with option-length ratio > 1.5× AND at least one distractor < 30 chars. Audit at `scripts/audit-short-distractor-cohort.mjs` (1/2/3 short-distractor categories, source-tagged via git compare against `a4405fb~1`).
+
+Per-sub-objective pattern (used through §1.2/§1.4/§2.3/§2.4/§2.2/§4.5):
+- Pull cohort → classify per-item → author distractors → validator-clean preview → side-by-side review → user approves → `--write` → real validator → build → commit → push → Pages live spot-check.
+
+Conventions established:
+- **Convention A** — expand all 4 options to "TLA (expanded form)" or "Term — explanatory tail" pattern when acronym/term discrimination is exam-tested.
+- **Convention B holdback** — accept short-on-short symmetry when terms are complete category names (CIA components, hashing algorithms, malware-type names, password-attack names, etc.).
+- **Convention B-edit** — small distractor edits to balance length under preserve-correct rule.
+- **Plausible-AND-false rule** — distractors must be wrong-but-believable, not real-correct-but-not-best (added 2026-04-28 §2.4 review-2).
+- Length target ≤1.5× ratio ideal; explicit code-comment ratio-acceptance for analytical scenarios with paragraph-length correct (e.g., scen-2.3.10-1 at 268 chars).
+
+Ships to date:
+
+| Sub-obj | Cohort | Modified | Holdbacks | Commit |
+|---------|--------|----------|-----------|--------|
+| §1.2    | 18     | 5        | 13        | `80246d9` |
+| §1.4    | 20     | 11       | 9         | `adfc5fa` |
+| §2.3    | 28     | 26       | 2         | `3d77f8b` |
+| §2.4    | 28     | 24       | 4         | `671e80c` |
+| §2.2    | 15     | 10       | 5         | `83b0ef5` |
+| §4.5    | 16     | 16       | 0         | `4e88da0` |
+| **TOTAL** | **125** | **92** | **33**   |        |
+
+**Next planned move:** single mega-pass through all 21 remaining sub-objectives. 177 cohort items remaining across 21 untouched sub-objectives. (The 6 already-shipped sub-objectives also contain 33 Convention B holdbacks, captured in code comments and tracked in the cumulative table — those don't need further work.) One comprehensive review document, one ship. Aiden will kick this off in a future session when ready. The per-sub-objective rhythm worked well for the first 6 batches but is too slow for the remainder.
+
+3 items flagged for a separate post-Sub-batch-2 content-quality pass (out of distractor-padding scope) — see `TODO-content-quality.md`:
+- `mc-2.4.14-2` (MOST framing ambiguity)
+- `scen-2.2.5-0` (vishing dimension missing from correct answer)
+- `mc-2.2.5-2` (verbal-only distractors for physical-technique question)
+
+#### Sub-batch 3 and beyond — TBD after Sub-batch 2 mega-pass completes
 
 ## Task 1e — New-content prioritization (NEW, 2026-04-27)
 
@@ -371,4 +409,5 @@ Docs:
 - **Bundle size**: 942 KB JS chunk because Vite inlines JSON. Acceptable for a personal study app; Task 2 or 3 could move to a dynamic `fetch("/questions.json")` if needed.
 - **Legacy content has no Messer/sub-objective citations** (710 info-level flags). Per user directive, grandfathered as-is. Task 1b adds citations only on new items.
 - **`analyses` ambiguity** (1 hit at §4.1/4.1.5 mc[1].opts[1]): plural noun (same in AmE) vs verb (AmE = "analyzes"). Flagged for manual review during Task 1b or later.
-- **11 BEST/MOST short-distractor warnings** are heuristic, not blocking. Some flagged distractors are legitimate technical terms (Encryption, Hashing, Pass-the-hash). Review during Task 1b.
+- **11 BEST/MOST short-distractor warnings** are heuristic, not blocking. Some flagged distractors are legitimate technical terms (Encryption, Hashing, Pass-the-hash). Review during Task 1b. (Down to 4 post-Sub-batch-2.)
+- **Permissions config** (2026-04-28, commit `81b1330`): `.claude/settings.json` added with pre-authorized routine workflow shapes (validators, fix scripts, npm run build, git commit/push origin main, clip.exe pipe). Destructive git ops (force-push, hard-reset, rebase, --no-verify) explicitly denied to override broad existing local-settings allows. Supports unattended runs.
