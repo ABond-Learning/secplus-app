@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/validate-questions.mjs *)",
+      "Bash(node scripts/audit-short-distractor-cohort.mjs *)",
+      "Bash(node scripts/audit-catalogue-quality.mjs *)",
+      "Bash(node scripts/audit-length-tell-detail.mjs *)",
+      "Bash(node scripts/audit-length-tell-triaged.mjs *)",
+      "Bash(node scripts/audit-position-bias-by-source.mjs *)",
+      "Bash(node scripts/audit-domain2-rewrite-candidates.mjs *)",
+      "Bash(node scripts/audit-video-grounding.mjs *)",
+      "Bash(node scripts/audit-anchor-gaps.mjs *)",
+      "Bash(node scripts/audit-uncited-domain1.mjs *)",
+      "Bash(node scripts/fix-short-distractors-d1.2.mjs *)",
+      "Bash(node scripts/fix-short-distractors-d1.4.mjs *)",
+      "Bash(node scripts/fix-short-distractors-d2.2.mjs *)",
+      "Bash(node scripts/fix-short-distractors-d2.3.mjs *)",
+      "Bash(node scripts/fix-short-distractors-d2.4.mjs *)",
+      "Bash(node scripts/fix-short-distractors-d4.5.mjs *)",
+      "Bash(node scripts/fix-pattern-a-length-tells.mjs *)",
+      "Bash(node scripts/shuffle-correct-positions.mjs *)",
+      "Bash(node /tmp/*.mjs)",
+      "Bash(node /tmp/*.mjs *)",
+      "Bash(npm run build)",
+      "Bash(git add questions.json *)",
+      "Bash(git add scripts/*.mjs *)",
+      "Bash(git add TODO-content-quality.md *)",
+      "Bash(git commit -m *)",
+      "Bash(git push origin main)",
+      "Bash(git push origin main *)",
+      "Bash(cat /tmp/*.txt | clip.exe)",
+      "Bash(cat /tmp/*.txt | clip.exe *)",
+      "Bash(until curl *)",
+      "Bash(curl -s https://abond-learning.github.io/secplus-app/*)",
+      "Bash(ls dist/assets/*)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push --force-with-lease*)",
+      "Bash(git reset --hard*)",
+      "Bash(git rebase*)",
+      "Bash(rm -rf*)",
+      "Bash(git commit --no-verify*)",
+      "Bash(git commit*--no-verify*)",
+      "Bash(git commit --no-gpg-sign*)",
+      "Bash(git commit*--no-gpg-sign*)"
+    ]
+  }
+}
