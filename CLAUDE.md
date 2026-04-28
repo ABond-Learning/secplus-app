@@ -2,7 +2,9 @@
 
 ## Purpose
 
-This project is a personal study application for the CompTIA Security+ SY0-701 certification exam. The single goal of this project is to help the owner (Aiden Bond, GitHub handle ABond-Learning) pass the Security+ SY0-701 exam in approximately 8 weeks (target: late June 2026).
+This project is a personal study application for the CompTIA Security+ SY0-701 certification exam. The single goal of this project is to help the owner (Aiden Bond, GitHub handle ABond-Learning) pass the Security+ SY0-701 exam.
+
+There is no fixed exam date. Aiden is working through the syllabus at his own pace (currently early in the curriculum, through Cryptography). **Quality is the binding constraint, not calendar pressure.** A clean, well-padded, plausibly-distracted catalogue that takes longer to build is better than a rushed one with length-tells and weak distractors that undermine study.
 
 The app exists to support studying. It is NOT a general-purpose Security+ platform for other users. Every decision — content, features, design — should be evaluated against "does this make Aiden more likely to pass?"
 
@@ -37,7 +39,7 @@ The app exists to support studying. It is NOT a general-purpose Security+ platfo
 - Non-coder. Previously had no dev experience. Just finished setting up WSL + Node + Vite + git + GitHub with step-by-step help.
 - Currently scoring just below passing on practice exams. Known material weaknesses but wants balanced coverage per exam weights, not personal weighting.
 - Primary video reference: Professor Messer SY0-701 course.
-- Studies 1-2 hours daily, 7-14 hours/week.
+- Studies 1-2 hours daily, 7-14 hours/week. Pace is sustainable, not racing a deadline — quality over speed.
 
 ## Quality Rules — Non-Negotiable
 
