@@ -5865,9 +5865,9 @@
             "q": "The BEST defense against ransomware data loss is:",
             "opts": [
               "Maintaining regular offline or offsite backups not connected to the main network",
-              "Strong passwords on all accounts",
-              "Paying the ransom quickly",
-              "Installing antivirus software"
+              "Enforcing strong unique passwords across all user and service accounts",
+              "Paying the ransom quickly to restore data and minimize total downtime",
+              "Installing endpoint antivirus software with up-to-date malware signatures"
             ],
             "a": 0,
             "exp": "Offline backups that ransomware cannot reach allow recovery without paying the ransom.",
@@ -5891,9 +5891,9 @@
             "q": "C2 (Command and Control) infrastructure is used by attackers to:",
             "opts": [
               "Remotely communicate with and issue commands to compromised systems",
-              "Encrypt stolen data",
-              "Conduct phishing campaigns",
-              "Store stolen credentials"
+              "Encrypt stolen victim data on disk before demanding a ransom payment",
+              "Conduct phishing campaigns to harvest corporate user credentials at scale",
+              "Store harvested data and stolen credentials on attacker-controlled servers"
             ],
             "a": 0,
             "exp": "C2 servers communicate with malware on victim systems — receiving stolen data and sending instructions.",
@@ -6003,10 +6003,10 @@
           {
             "q": "A polymorphic virus is designed to:",
             "opts": [
-              "Replicate without a host file",
+              "Replicate across networks without requiring a host file or user execution",
               "Change its code or signature with each infection to evade signature-based antivirus detection",
-              "Encrypt all files on a system",
-              "Operate only in system memory"
+              "Encrypt files on the infected host until the victim pays a ransom",
+              "Operate entirely in system memory without writing any payload to disk"
             ],
             "a": 1,
             "exp": "Polymorphic viruses mutate their signature — making them harder to detect with traditional signature-based AV.",
@@ -6016,10 +6016,10 @@
           {
             "q": "WannaCry spread rapidly without user interaction because it behaved like a:",
             "opts": [
-              "Trojan",
-              "Polymorphic virus",
+              "Trojan — disguised as legitimate software requiring user execution",
+              "Polymorphic virus — changing its signature on each infection to evade AV",
               "Worm — exploiting SMBv1 to self-propagate across networks",
-              "Rootkit"
+              "Rootkit — establishing kernel-level concealment after exploitation"
             ],
             "a": 2,
             "exp": "WannaCry used the EternalBlue SMBv1 exploit to self-propagate automatically — classic worm behavior.",
@@ -6103,9 +6103,9 @@
           {
             "q": "Spyware primarily does which of the following?",
             "opts": [
-              "Encrypts files for ransom",
-              "Creates a backdoor for remote access",
-              "Displays unwanted pop-up advertisements",
+              "Encrypts files on the host system and demands ransom payment for decryption",
+              "Creates a persistent backdoor for remote attacker access to the compromised host",
+              "Displays unwanted pop-up advertisements while the user is browsing the web",
               "Secretly monitors user activity and transmits data (keystrokes, screenshots, credentials) to an attacker"
             ],
             "a": 3,
@@ -6224,10 +6224,10 @@
           {
             "q": "A logic bomb is:",
             "opts": [
-              "Malware that always executes immediately on installation",
+              "Malware that always executes immediately upon installation on the target system",
               "Malicious code that lies dormant and executes only when a specific trigger condition is met",
-              "A type of DDoS attack",
-              "A hardware vulnerability"
+              "A type of distributed denial-of-service amplification attack using public reflectors",
+              "A hardware-level firmware vulnerability in BIOS or UEFI components below the OS"
             ],
             "a": 1,
             "exp": "Logic bombs trigger on conditions like a specific date, a user logging in, or a file being deleted — often planted by disgruntled insiders.",
@@ -6237,10 +6237,10 @@
           {
             "q": "Why are rootkits particularly difficult to detect?",
             "opts": [
-              "They use strong encryption",
+              "They use strong end-to-end encryption to obscure their network communications",
               "They operate at the kernel level and intercept OS calls — hiding themselves from the very tools used to detect them",
-              "They change their code with each infection",
-              "They only infect BIOS firmware"
+              "They change their executable code or signature with each new system infection",
+              "They infect only BIOS or UEFI firmware below the operating system, not user-space"
             ],
             "a": 1,
             "exp": "Rootkits modify how the OS reports system information — making infected files, processes, and connections invisible to standard tools.",
@@ -6320,10 +6320,10 @@
           {
             "q": "RFID cloning is used to:",
             "opts": [
-              "Intercept wireless network traffic",
+              "Replay captured Wi-Fi authentication frames against a wireless access point",
               "Copy the data from an RFID access card to create a duplicate that bypasses physical access controls",
-              "Block RFID signals",
-              "Encrypt RFID communications"
+              "Disrupt the RFID reader's radio signal so legitimate badges cannot authenticate to it",
+              "Brute-force the PIN entry on a smart-card reader using a programmable USB device"
             ],
             "a": 1,
             "exp": "RFID cloning captures and duplicates the data on proximity cards — the cloned card can then be used to bypass access controls.",
@@ -6361,9 +6361,9 @@
           {
             "q": "A penetration tester walks into a financial firm's building alongside a group of employees returning from lunch, and proceeds to an unlocked conference room where they access an unattended laptop. They printed official-looking visitor badges with a major consulting firm's logo. What TWO physical attack techniques did the tester use?",
             "opts": [
-              "Shoulder surfing and RFID cloning",
-              "Skimming and social engineering via phone",
-              "Dumpster diving and baiting",
+              "Shoulder surfing the user's typed laptop password and RFID cloning the visitor's lobby badge",
+              "Skimming credit-card details at the front lobby and social engineering the receptionist via phone",
+              "Dumpster diving through visitor logs in the bin and baiting employees with branded malicious USB drives",
               "Tailgating (following employees through access control without authenticating) and impersonation (fake visitor badge from a known vendor)"
             ],
             "a": 3,
@@ -6445,9 +6445,9 @@
           {
             "q": "How does a DDoS attack differ from a basic DoS attack?",
             "opts": [
-              "DDoS always uses encryption",
-              "DDoS requires physical access",
-              "DDoS only targets web applications",
+              "DDoS attacks always use encryption to mask their malicious payloads in transit",
+              "DDoS attacks require the attacker to have physical access to the target's network",
+              "DDoS attacks only target web applications and never affect network or transport layers",
               "DDoS originates from many distributed sources (botnet), making it much harder to block by IP"
             ],
             "a": 3,
@@ -6575,10 +6575,10 @@
           {
             "q": "DNSSEC mitigates DNS attacks by:",
             "opts": [
-              "Encrypting DNS query content",
-              "Blocking all external DNS queries",
+              "Encrypting DNS query content between client and resolver to hide queries from observers",
+              "Blocking all external DNS queries from corporate clients at the perimeter firewall",
               "Cryptographically signing DNS records so resolvers can verify their authenticity",
-              "Requiring MFA for DNS changes"
+              "Requiring DNS queries to be performed only over IPv6-enabled resolvers"
             ],
             "a": 2,
             "exp": "DNSSEC uses digital signatures on DNS records — resolvers verify the signature, detecting tampered or forged records.",
@@ -6589,9 +6589,9 @@
             "q": "DNS tunneling is used to:",
             "opts": [
               "Hide data exfiltration or C2 traffic within DNS queries — often passing through firewalls that allow DNS",
-              "Speed up DNS resolution",
-              "Attack DNS servers directly",
-              "Poison DNS caches"
+              "Resolve hostnames faster by bypassing the standard recursive DNS hierarchy entirely",
+              "Conduct a denial-of-service attack against an authoritative DNS server's query handling",
+              "Poison the DNS cache of a recursive resolver to redirect users to a malicious destination"
             ],
             "a": 0,
             "exp": "DNS tunneling encodes data within DNS queries — many firewalls allow all DNS traffic, making it a covert channel.",
@@ -6671,10 +6671,10 @@
           {
             "q": "An evil twin attack involves:",
             "opts": [
-              "Stealing a WPA2 handshake",
+              "Capturing the WPA2 four-way handshake to crack the pre-shared key offline later",
               "Creating a rogue access point that mimics a legitimate network's SSID to intercept victim traffic",
-              "Jamming wireless signals to disrupt communications",
-              "Brute-forcing a WPA2 password"
+              "Jamming wireless radio signals to disrupt legitimate access point communications",
+              "Brute-forcing the WPA2 pre-shared key by trying every possible passphrase combination"
             ],
             "a": 1,
             "exp": "Evil twin APs mimic legitimate SSIDs — clients connect thinking they're on the real network, enabling MITM interception.",
@@ -6788,10 +6788,10 @@
           {
             "q": "An on-path (man-in-the-middle) attack allows an attacker to:",
             "opts": [
-              "Crash a target system",
+              "Crash the target host through resource exhaustion until it stops responding to requests",
               "Intercept and potentially read or modify communications between two parties without their knowledge",
-              "Enumerate open network ports",
-              "Scan for wireless networks"
+              "Enumerate all open TCP and UDP ports on a target system to map exposed services",
+              "Inject deauthentication frames into wireless broadcast traffic to disconnect legitimate clients"
             ],
             "a": 1,
             "exp": "MITM attacks give the attacker full visibility of — and ability to modify — the traffic between victim and server.",
@@ -6801,10 +6801,10 @@
           {
             "q": "ARP poisoning enables an on-path attack by:",
             "opts": [
-              "Flooding the network with ARP requests",
+              "Flooding the switch's CAM table with spoofed MAC addresses until it fails open and broadcasts every frame",
               "Sending fake ARP replies that associate the attacker's MAC address with a legitimate IP — redirecting LAN traffic through the attacker",
-              "Cracking ARP encryption",
-              "Blocking all ARP traffic"
+              "Forging ICMP redirect messages so each victim updates its routing table to send traffic via the attacker",
+              "Hijacking DHCP responses on the LAN to assign the attacker as the default gateway for client traffic"
             ],
             "a": 1,
             "exp": "ARP poisoning corrupts the ARP cache of victims — they send traffic to the attacker thinking it's going to the legitimate destination.",
@@ -6814,9 +6814,9 @@
           {
             "q": "HSTS (HTTP Strict Transport Security) mitigates SSL stripping by:",
             "opts": [
-              "Encrypting all cookies",
-              "Requiring certificate pinning",
-              "Blocking non-HTTPS traffic at the firewall",
+              "Encrypting all browser cookies using AES-256 before storing them in local storage",
+              "Requiring strict TLS certificate pinning enforced at the browser-application level",
+              "Blocking all non-HTTPS traffic at the corporate edge firewall before it leaves the network",
               "Instructing browsers to always use HTTPS for a domain — refusing to downgrade to HTTP"
             ],
             "a": 3,
@@ -6923,10 +6923,10 @@
           {
             "q": "Nonces prevent replay attacks by:",
             "opts": [
-              "Encrypting all authentication traffic",
-              "Requiring biometric authentication",
+              "Encrypting all authentication traffic between client and server using TLS in transit",
+              "Requiring biometric authentication factors during the initial login session establishment",
               "Adding a unique random value to each authentication request — old requests with invalid nonces are rejected",
-              "Limiting login attempts"
+              "Limiting login attempts and locking out accounts after repeated authentication failures"
             ],
             "a": 2,
             "exp": "Each nonce is unique and single-use — replaying an old authentication packet fails because the nonce has already been used.",
@@ -7123,10 +7123,10 @@
           {
             "q": "A directory traversal attack uses:",
             "opts": [
-              "SQL code injected into file paths",
+              "SQL code injected into file path parameters processed by the web application",
               "'../' sequences in URLs to navigate outside the intended web root directory and access sensitive system files",
-              "JavaScript to modify file paths",
-              "DNS queries to locate files"
+              "JavaScript executed in the browser to modify file path parameters before the request is submitted",
+              "DNS queries to locate hidden file servers within the internal network infrastructure"
             ],
             "a": 1,
             "exp": "Directory traversal uses ../ to move up directory levels — potentially reaching /etc/passwd or other sensitive files.",
@@ -7137,9 +7137,9 @@
             "q": "CSRF (Cross-Site Request Forgery) attacks exploit:",
             "opts": [
               "The server's trust in the authenticated victim's browser — tricking authenticated users into making unwanted requests",
-              "The attacker's trust in the server",
-              "SQL injection vulnerabilities",
-              "DNS poisoning"
+              "The browser's misplaced trust in the server's TLS certificate during the connection handshake setup",
+              "Unparameterized SQL queries embedded in the form submission processing logic itself",
+              "DNS cache poisoning at the recursive resolver to redirect victims to attacker-controlled sites"
             ],
             "a": 0,
             "exp": "CSRF exploits that web apps trust requests from authenticated sessions — the attacker tricks the victim's browser into sending malicious requests.",
@@ -7149,10 +7149,10 @@
           {
             "q": "IDOR (Insecure Direct Object Reference) vulnerabilities allow attackers to:",
             "opts": [
-              "Inject SQL into databases",
-              "Execute code on the server",
+              "Inject SQL commands into the application's database queries to extract sensitive records",
+              "Execute arbitrary code on the server by exploiting an unrestricted file upload vulnerability",
               "Access objects belonging to other users by manipulating predictable identifiers without proper authorization checks",
-              "Bypass network firewalls"
+              "Bypass network firewall rules by smuggling protocols inside permitted application-layer traffic"
             ],
             "a": 2,
             "exp": "IDOR occurs when apps expose internal object IDs — changing ?account=1001 to ?account=1002 might access another user's data.",
@@ -7279,9 +7279,9 @@
           {
             "q": "A downgrade attack forces a connection to:",
             "opts": [
-              "Use a newer, untested protocol",
-              "Use stronger encryption",
-              "Disconnect entirely",
+              "Use a newer untested protocol with unknown vulnerabilities still present in the codebase",
+              "Use stronger encryption keys without negotiating cipher suites with the server first",
+              "Disconnect entirely and force the user to authenticate again from scratch",
               "Use a weaker, older, vulnerable protocol version that the attacker can then exploit"
             ],
             "a": 3,
@@ -7295,7 +7295,7 @@
               "Encrypting the password before hashing",
               "Being deliberately computationally slow",
               "Using asymmetric keys for password storage",
-              "Requiring a hardware token"
+              "Requiring a separate hardware token at login"
             ],
             "a": 1,
             "exp": "Making large-scale password cracking impractical. Key stretching applies many iterations of hashing — taking milliseconds per attempt is fine for login but makes billions of guesses per second impractical.",
@@ -7518,9 +7518,9 @@
             "q": "An impossible travel alert fires when:",
             "opts": [
               "A user account shows logins from geographically impossible locations within a short time — indicating credential compromise",
-              "A user logs in multiple times in one day",
-              "A server runs out of disk space",
-              "A user downloads a large file"
+              "A user logs in multiple times within a single calendar day from their normal office location",
+              "A backend server suddenly runs out of available disk space and stops accepting new writes",
+              "A user downloads a single very large file from an internal corporate file share over the VPN"
             ],
             "a": 0,
             "exp": "Impossible travel detects when the same account logs in from locations too far apart for human travel — strong indicator of credential theft.",
@@ -7543,10 +7543,10 @@
           {
             "q": "File hash IoCs are easily evaded by:",
             "opts": [
-              "Firewall rules",
-              "Encrypted communications",
+              "Adding new firewall block rules at the network perimeter",
+              "Encrypting all malware command-and-control communications",
               "Polymorphic malware that changes its code",
-              "Legitimate software signatures"
+              "Stolen legitimate code-signing certificate signatures"
             ],
             "a": 2,
             "exp": "And therefore its hash — with each infection. Hash-based IoCs match exact files — polymorphic malware changes its hash with each infection, evading hash-based detection.",
