@@ -3,11 +3,7 @@
 //   - mc-2.4.2-0  worm-vs-other-malware-type recall (single-word options)
 //   - mc-2.4.2-1  virus-requires-user-action recall (single-word options)
 //   - mc-2.4.14-2 credential-stuffing-vs-password-spraying recall (short attack-name options)
-//                 FUTURE REVIEW: the MOST framing ("MOST effectively mitigated by MFA but
-//                 NOT account lockout?") may be ambiguous between credential stuffing and
-//                 password spraying — both fit the criteria (one password against many
-//                 accounts → below lockout threshold, blocked by MFA). Outside the
-//                 distractor-padding scope; flagged for a later content-quality pass.
+//                 (MOST-framing ambiguity flagged in TODO-content-quality.md for future review)
 //   - scen-2.4.15-1 Beaconing — Sub-batch 1 already extracted gloss to explanation; correct
 //                   intrinsically a 9-char term, scenario carries the rationale; padding
 //                   distractors to ≥14 chars would still leave ratio > 1.5×, and forcing
