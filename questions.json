@@ -12520,10 +12520,10 @@
           {
             "q": "TLS inspection on a NGFW is used because:",
             "opts": [
-              "TLS is insecure",
-              "TLS slows network performance",
+              "TLS itself is fundamentally insecure and modern NGFWs decrypt to ensure data confidentiality across the WAN",
+              "TLS slows network performance and inspection allows the NGFW to compress and cache responses for clients",
               "Attackers increasingly hide malware and C2 traffic in encrypted TLS sessions — inspection reveals threats that bypass perimeter controls",
-              "All TLS traffic is malicious"
+              "All TLS-encrypted outbound traffic is presumed malicious and must be decrypted to log session contents"
             ],
             "a": 2,
             "exp": "Encrypted traffic is a growing blind spot — TLS inspection provides visibility into encrypted sessions.",
@@ -12533,9 +12533,9 @@
           {
             "q": "Firewall rules are processed in which order?",
             "opts": [
-              "Random order",
-              "Bottom-to-top",
-              "Alphabetical by rule name",
+              "In random order based on the rule hash to prevent attacker prediction of policy",
+              "Bottom-to-top, last matching rule applies and overrides earlier-defined rules",
+              "Alphabetical by the rule's name field, regardless of rule insertion order",
               "Top-to-bottom, first matching rule applies — order matters significantly"
             ],
             "a": 3,
@@ -12546,10 +12546,10 @@
           {
             "q": "A WAF (Web Application Firewall) is specifically designed to protect against:",
             "opts": [
-              "Network-layer DDoS attacks",
-              "Physical server attacks",
+              "Network-layer DDoS attacks targeting upstream bandwidth saturation at the ISP",
+              "Physical server attacks like USB-based bootkit installation by an insider",
               "Application layer attacks like SQL injection, XSS, and CSRF targeting web applications",
-              "Wireless network attacks"
+              "Wireless network attacks targeting WPA2 handshake capture and PSK cracking offline"
             ],
             "a": 2,
             "exp": "WAFs understand HTTP/HTTPS — they inspect web traffic for attack patterns that network firewalls miss.",
@@ -12672,10 +12672,10 @@
           {
             "q": "DNS filtering is effective at blocking malicious sites because:",
             "opts": [
-              "It inspects packet contents",
-              "It works only on web browsers",
+              "It inspects the contents of every IP packet leaving the corporate edge firewall",
+              "It works only on web browsers and is bypassed by non-browser applications entirely",
               "It prevents DNS resolution of malicious domains — devices never even connect to the malicious IP",
-              "It requires client software installation"
+              "It requires client software installation on every endpoint device that browses the web"
             ],
             "a": 2,
             "exp": "DNS filtering intercepts resolution requests for malicious domains — all devices using the filtering DNS server are protected.",
@@ -12685,9 +12685,9 @@
           {
             "q": "A CASB (Cloud Access Security Broker) is most useful for:",
             "opts": [
-              "Filtering on-premises web traffic",
-              "Scanning endpoints for malware",
-              "Replacing firewalls",
+              "Filtering on-premises web traffic at the corporate proxy gateway level",
+              "Scanning all endpoints for malware signatures and behavioral indicators",
+              "Replacing the perimeter firewall as the primary network security control",
               "Enforcing data security policies for cloud applications and preventing shadow IT usage"
             ],
             "a": 3,
@@ -12795,9 +12795,9 @@
             "q": "Group Policy Objects (GPOs) in Active Directory allow administrators to:",
             "opts": [
               "Centrally enforce security settings across all domain-joined Windows systems — password policies, screen lock, app restrictions",
-              "Manually configure each workstation individually",
-              "Monitor all user activity",
-              "Conduct penetration tests"
+              "Manually configure each domain-joined workstation through individual local policy editor sessions",
+              "Monitor all live user activity by recording every keystroke and screenshot in real time",
+              "Conduct authorized penetration tests against domain-joined systems on a recurring basis"
             ],
             "a": 0,
             "exp": "GPOs push security configuration to all domain members automatically — ensuring consistent baseline enforcement at scale.",
@@ -12807,9 +12807,9 @@
           {
             "q": "User Account Control (UAC) mitigates which risk?",
             "opts": [
-              "Network attacks",
-              "Data exfiltration",
-              "Password attacks",
+              "Network-layer attacks",
+              "Data exfiltration attempts",
+              "Password-cracking attacks",
               "Silent privilege escalation"
             ],
             "a": 3,
@@ -12902,9 +12902,9 @@
           {
             "q": "Why should Telnet be replaced with SSH?",
             "opts": [
-              "SSH is faster",
-              "Telnet is no longer supported",
-              "SSH uses less bandwidth",
+              "SSH connects faster than Telnet thanks to lighter packet structure during the handshake",
+              "Telnet is no longer supported by major operating systems and SSH is the only alternative",
+              "SSH uses significantly less network bandwidth than Telnet across long-haul WAN links",
               "Telnet transmits all data including credentials in plaintext — SSH encrypts the entire session"
             ],
             "a": 3,
@@ -12915,10 +12915,10 @@
           {
             "q": "SNMPv3 is preferred over SNMPv1/v2 because:",
             "opts": [
-              "SNMPv3 supports more MIBs",
+              "SNMPv3 supports a larger number of MIBs and OIDs than v1 and v2 ever supported",
               "SNMPv1 and v2 transmit community strings and data in plaintext — SNMPv3 adds authentication and encryption",
-              "SNMPv3 is backwards compatible",
-              "SNMPv3 is free"
+              "SNMPv3 is fully backwards compatible with all earlier SNMP protocol versions and tools",
+              "SNMPv3 is free to use whereas earlier versions required commercial licensing fees"
             ],
             "a": 1,
             "exp": "SNMP community strings in v1/v2 are transmitted in plaintext — easily intercepted. SNMPv3 adds authentication and encryption.",
@@ -12929,9 +12929,9 @@
             "q": "TLS 1.3 improves security over TLS 1.2 by:",
             "opts": [
               "Removing weak cipher suites, requiring forward secrecy, and simplifying the handshake — faster and more secure",
-              "Adding more cipher suites",
-              "Being backwards compatible with SSL",
-              "Adding client certificate requirements"
+              "Adding more cipher suite options for backwards compatibility with older TLS clients",
+              "Being fully backwards compatible with all SSLv3 and earlier-generation legacy clients",
+              "Adding mandatory client certificate authentication for every TLS session handshake"
             ],
             "a": 0,
             "exp": "TLS 1.3 eliminated all weak algorithms, mandated ECDHE (forward secrecy), and reduced handshake round trips.",
@@ -13045,9 +13045,9 @@
           {
             "q": "SPF prevents email spoofing by:",
             "opts": [
-              "Encrypting email content",
-              "Scanning emails for malware",
-              "Digitally signing each email",
+              "Encrypting outbound email message contents using S/MIME or PGP cryptographic envelopes between mail servers",
+              "Inspecting every inbound message attachment in a sandbox detonation engine before delivery to user inboxes",
+              "Generating a per-message digital signature to verify each message's originating sender domain",
               "Publishing a DNS record listing servers authorized to send email for the domain — receiving servers reject email from unlisted sources"
             ],
             "a": 3,
@@ -13059,9 +13059,9 @@
             "q": "DKIM provides which security property for email?",
             "opts": [
               "Integrity and authentication",
-              "Confidentiality — encrypts email body",
-              "Availability",
-              "Access control"
+              "Confidentiality (encryption)",
+              "Availability (uptime)",
+              "Access control (RBAC)"
             ],
             "a": 0,
             "exp": "Cryptographic signature proves the email came from the domain and wasn't modified. DKIM signs email with the domain's private key — recipients verify with the public key in DNS.",
@@ -13184,10 +13184,10 @@
           {
             "q": "DLP monitors data in which three states?",
             "opts": [
-              "Encrypted, unencrypted, and compressed",
-              "Backup, production, and archive",
+              "Encrypted-state, unencrypted-state, and compressed-state classifications",
+              "Backup state, production state, and archive state lifecycle stages",
               "In motion (network), at rest (storage), and in use (endpoint actions)",
-              "Internal, external, and cloud"
+              "Internal traffic, external traffic, and cloud traffic network zones"
             ],
             "a": 2,
             "exp": "DLP covers all three states: in motion (network DLP), at rest (storage scanning), and in use (endpoint DLP).",
@@ -13198,9 +13198,9 @@
             "q": "An employee attempts to email a spreadsheet with 200 SSNs to a personal email account. Which control should prevent this?",
             "opts": [
               "DLP (Data Loss Prevention)",
-              "Firewall",
-              "Antivirus",
-              "IDS"
+              "Network firewall (NGFW)",
+              "Endpoint antivirus (EPP)",
+              "Network IDS (NIDS sensor)"
             ],
             "a": 0,
             "exp": "Detecting and blocking the transmission of sensitive data patterns. Email DLP inspects outbound messages for sensitive patterns and blocks/quarantines policy-violating emails.",
@@ -13310,10 +13310,10 @@
           {
             "q": "EDR provides which capability that EPP does not?",
             "opts": [
-              "Better malware signatures",
-              "Faster signature updates",
+              "Better malware signatures and a larger threat-intel database than traditional EPP provides",
+              "Faster signature updates pushed to endpoints in real time from the vendor cloud",
               "Behavioral monitoring, forensic investigation tools, and active response — including isolating compromised endpoints",
-              "Free cloud storage"
+              "Free cloud storage for endpoint backups and disaster-recovery rollback snapshots"
             ],
             "a": 2,
             "exp": "EPP prevents known threats. EDR detects, investigates, and responds to advanced threats that bypass prevention.",
@@ -13323,9 +13323,9 @@
           {
             "q": "A posture assessment before network access checks:",
             "opts": [
-              "User identity only",
-              "Physical device location",
-              "Network traffic patterns",
+              "User identity and password authentication only",
+              "The physical location of the device on the network",
+              "Endpoint network traffic flow patterns recently observed",
               "The security compliance of the endpoint"
             ],
             "a": 3,
