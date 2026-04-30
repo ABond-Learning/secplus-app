@@ -54,7 +54,7 @@ const preview = args.includes("--preview");
 
 const data = JSON.parse(readFileSync(jsonPath, "utf8"));
 
-const REPLACEMENTS = [
+export const REPLACEMENTS = [
   // ─── §2.4.1 An Overview of Malware ────────────────────────────────────
   {
     videoId: "2.4.1", kind: "mc", index: 1,

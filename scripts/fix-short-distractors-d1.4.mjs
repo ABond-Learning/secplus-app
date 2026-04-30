@@ -33,7 +33,7 @@ const preview = args.includes("--preview");
 
 const data = JSON.parse(readFileSync(jsonPath, "utf8"));
 
-const REPLACEMENTS = [
+export const REPLACEMENTS = [
   // ─── §1.4.1 PKI ───────────────────────────────────────────────────────
   {
     videoId: "1.4.1", kind: "mc", index: 4,

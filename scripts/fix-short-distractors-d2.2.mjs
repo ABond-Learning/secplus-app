@@ -56,7 +56,7 @@ const preview = args.includes("--preview");
 
 const data = JSON.parse(readFileSync(jsonPath, "utf8"));
 
-const REPLACEMENTS = [
+export const REPLACEMENTS = [
   // ─── §2.2.1 Common Threat Vectors ─────────────────────────────────────
   {
     videoId: "2.2.1", kind: "mc", index: 1,

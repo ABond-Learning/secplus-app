@@ -1453,10 +1453,10 @@
           {
             "q": "The primary purpose of change management in IT security is to:",
             "opts": [
-              "Speed up software deployments",
+              "Speed up software deployments by removing review and approval bottlenecks from release pipelines",
               "Ensure changes are assessed, approved, and documented to minimize risk",
-              "Replace vulnerability scanning",
-              "Automate patch deployment"
+              "Replace vulnerability scanning by enforcing automated configuration drift detection on every host",
+              "Automate patch deployment so emergency security fixes can roll out without management oversight"
             ],
             "a": 1,
             "exp": "Change management provides a controlled process for evaluating and approving changes to reduce unintended security impacts.",
@@ -1466,9 +1466,9 @@
           {
             "q": "A rollback plan is used to:",
             "opts": [
-              "Speed up deployments",
-              "Train new staff",
-              "Archive old configurations",
+              "Speed up future deployments by caching the binaries from prior successful releases",
+              "Train new engineers by giving them documented examples of past production changes",
+              "Archive old configurations indefinitely so auditors can reconstruct historical state",
               "Revert to the previous working state if a change fails"
             ],
             "a": 3,
@@ -1479,9 +1479,9 @@
           {
             "q": "Which group reviews and approves significant changes before implementation?",
             "opts": [
-              "The CISO alone",
-              "The penetration testing team",
-              "The help desk",
+              "The CISO acting alone — no committee review is required for production changes",
+              "The penetration testing team that validates the security posture of each proposed change",
+              "Help desk staff who escalate changes to the on-call engineer for after-hours review",
               "Change Advisory Board (CAB)"
             ],
             "a": 3,
@@ -1493,9 +1493,9 @@
             "q": "An emergency patch for a critical zero-day should:",
             "opts": [
               "Follow an expedited change management process and be documented afterwards",
-              "Skip all documentation since it's urgent",
-              "Bypass testing entirely",
-              "Require no approval"
+              "Skip all documentation since the urgency justifies bypassing every review step",
+              "Bypass testing entirely — emergency patches are pre-validated by the vendor",
+              "Require no approval — engineering teams self-authorize emergency security work"
             ],
             "a": 0,
             "exp": "Even emergency changes require an expedited process and post-implementation documentation.",
@@ -1518,9 +1518,9 @@
           {
             "q": "A change freeze is implemented because:",
             "opts": [
-              "All vulnerabilities have been patched",
-              "The rollback plan has failed",
-              "The CAB has not met recently",
+              "All vulnerabilities have been patched and no further changes are technically required",
+              "The rollback plan has failed in testing and engineers cannot ship without one",
+              "The CAB has not met recently and requires fresh quorum before approving anything",
               "A high-risk period requires stability — no changes permitted"
             ],
             "a": 3,
@@ -1531,9 +1531,9 @@
           {
             "q": "An administrator changes a firewall rule without submitting an RFC or getting CAB approval. This is:",
             "opts": [
-              "Acceptable for minor changes",
-              "Standard practice",
-              "Required in emergency situations",
+              "Acceptable for minor changes since firewall rule edits rarely cause production impact",
+              "Standard practice for firewall administrators with senior-level operational privileges",
+              "Required in emergency situations — the RFC step can always be skipped under time pressure",
               "An unauthorized change that violates change management policy"
             ],
             "a": 3,
@@ -1648,9 +1648,9 @@
             "q": "Which process ensures only approved software versions can execute in production?",
             "opts": [
               "Allow listing",
-              "Change management",
-              "Vulnerability scanning",
-              "Penetration testing"
+              "Change management — approving the introduction of new software through CAB review",
+              "Vulnerability scanning — checking installed software versions for known CVEs and CVSS scores",
+              "Penetration testing — attempting to bypass installed software controls during scheduled engagements"
             ],
             "a": 0,
             "exp": "Allow listing (whitelisting) ensures only explicitly approved software can execute — everything else is blocked.",
@@ -1661,9 +1661,9 @@
             "q": "A configuration baseline is used to:",
             "opts": [
               "Document and enforce the standard secure state of a system",
-              "Define maximum user permissions",
-              "Scan for vulnerabilities",
-              "Monitor network traffic in real time"
+              "Define maximum user permissions allowed across each role in the directory",
+              "Scan for vulnerabilities by comparing installed software versions to a CVE feed",
+              "Apply default operating-system security profiles to every newly imaged endpoint at enrollment time"
             ],
             "a": 0,
             "exp": "A configuration baseline documents the standard secure configuration — deviations trigger alerts and remediation.",
@@ -1673,9 +1673,9 @@
           {
             "q": "Allow listing is considered more secure than block listing because:",
             "opts": [
-              "It requires less maintenance",
-              "It does not require administrative rights",
-              "It is faster to implement",
+              "It requires less ongoing maintenance than maintaining a long block list of bad files",
+              "It does not require administrative rights to enforce on standard endpoint workstations",
+              "It is faster to implement initially because the list of approved apps is usually small",
               "It blocks everything by default and only permits approved applications"
             ],
             "a": 3,
@@ -1687,9 +1687,9 @@
             "q": "Sandboxing a suspicious file is used to:",
             "opts": [
               "Execute it in an isolated environment to observe behavior without risking production systems",
-              "Encrypt it for secure storage",
-              "Delete it permanently",
-              "Send it to the antivirus vendor"
+              "Encrypt the file using a key derived from its hash for safe long-term archival storage",
+              "Permanently delete the file by zeroing its disk blocks before the next backup window",
+              "Forward the file directly to the antivirus vendor for inclusion in their signature feed"
             ],
             "a": 0,
             "exp": "Sandboxing isolates execution so any malicious behavior cannot affect the host system or network.",
@@ -1699,9 +1699,9 @@
           {
             "q": "An immutable infrastructure approach means:",
             "opts": [
-              "Systems are never updated",
-              "Systems can never be changed",
-              "All data is encrypted",
+              "Production systems are deployed once at install and then never receive any updates whatsoever",
+              "Operating systems are configured so administrators cannot change any settings after deployment",
+              "All data on running systems is automatically encrypted at rest using filesystem-level encryption",
               "Instead of patching running systems, they are replaced with pre-configured new instances"
             ],
             "a": 3,
@@ -3044,10 +3044,10 @@
           {
             "q": "What most distinguishes an insider threat from external attackers?",
             "opts": [
-              "High technical skill level",
+              "High technical skill level beyond what most external attackers can match",
               "Legitimate existing access to systems and data",
-              "Financial motivation",
-              "Exclusive use of zero-day exploits"
+              "Financial motivation as the dominant driver behind their attacks",
+              "Exclusive use of zero-day exploits provided by nation-state sponsors"
             ],
             "a": 1,
             "exp": "Insider threats already have authorized access — bypassing perimeter controls that stop external attackers.",
@@ -7658,9 +7658,9 @@
             "q": "A DMZ (Demilitarized Zone) is used to:",
             "opts": [
               "Host public-facing servers in an isolated segment between the internet and internal network",
-              "Encrypt all internal traffic",
-              "Store backups securely",
-              "Monitor network traffic"
+              "Encrypt all internal east-west traffic between segmented production and management subnets",
+              "Store offline disaster-recovery backups in an isolated VLAN protected from production access",
+              "Monitor all internal network traffic from a passive sensor mirroring switchport SPAN data"
             ],
             "a": 0,
             "exp": "A DMZ exposes public services (web, email) to the internet while protecting the internal network if those services are compromised.",
@@ -7788,9 +7788,9 @@
             "q": "Least privilege as a mitigation technique means:",
             "opts": [
               "Granting users and processes only the minimum access necessary to perform their functions — nothing more",
-              "Removing all user accounts except administrators",
-              "Requiring MFA for all access",
-              "Encrypting all user data"
+              "Removing all user accounts except administrators — reducing the number of credential-bearing identities",
+              "Requiring MFA for every operation — strengthening the trust placed on existing user permissions",
+              "Encrypting all user data at rest with role-based key wrapping for confidentiality"
             ],
             "a": 0,
             "exp": "Least privilege limits the blast radius of a compromise — an attacker who compromises a limited account has limited access.",
@@ -7895,10 +7895,10 @@
           {
             "q": "System hardening is BEST described as:",
             "opts": [
-              "Installing the latest malware protection",
+              "Installing the latest endpoint malware protection on every system before deployment",
               "Reducing a system's attack surface by removing unnecessary features, services, accounts, and access",
-              "Encrypting all system data",
-              "Monitoring system logs for anomalies"
+              "Encrypting all system data at rest with full-disk encryption tied to a TPM key",
+              "Monitoring system logs for anomalies and forwarding suspicious events to the SIEM"
             ],
             "a": 1,
             "exp": "Hardening systematically removes anything not needed for the system's intended function — reducing the ways an attacker can exploit it.",
@@ -7921,10 +7921,10 @@
           {
             "q": "Secure Boot mitigates which type of attack?",
             "opts": [
-              "SQL injection",
-              "Password spraying",
+              "Application-layer SQL injection attacks targeting database parameter handling at runtime",
+              "Password spraying attacks that test one common password against many user accounts",
               "Bootkit/rootkit attacks that modify the boot process before the OS loads",
-              "DDoS attacks"
+              "Volumetric DDoS attacks that saturate the network edge with reflected UDP traffic"
             ],
             "a": 2,
             "exp": "Secure Boot verifies the cryptographic signature of bootloader and OS — preventing unsigned malicious code from running at boot.",
@@ -8047,9 +8047,9 @@
           {
             "q": "In the IaaS cloud model, the customer is responsible for:",
             "opts": [
-              "Physical hardware security",
-              "Nothing — the provider handles all security",
-              "Only the application data",
+              "Physical hardware security and hypervisor patching at the cloud provider's data centers",
+              "Nothing — the provider handles all security including OS patching and application logic",
+              "Only the application data while the provider patches the OS and runtime layers",
               "The operating system, applications, and data"
             ],
             "a": 3,
@@ -8087,9 +8087,9 @@
             "q": "A hybrid cloud architecture introduces which unique security challenge?",
             "opts": [
               "Securing data and consistent policy enforcement across both private and public cloud environments",
-              "Lack of encryption support",
-              "No access control options",
-              "Physical security of data centers"
+              "Lack of encryption support — hybrid clouds cannot use TLS for data in transit between sites",
+              "No access control options exist when private and public infrastructure coexist together",
+              "Physical security of data centers fully shifts to the customer once any public cloud is involved"
             ],
             "a": 0,
             "exp": "Hybrid clouds require consistent security policies, data classification, and access controls across two different environments.",
@@ -8221,9 +8221,9 @@
             "q": "East-west traffic security is important because:",
             "opts": [
               "Attackers who breach the perimeter use lateral movement — traditional perimeter firewalls don't inspect internal traffic",
-              "It is always encrypted",
-              "It travels faster than north-south traffic",
-              "It never contains sensitive data"
+              "It is always encrypted by default and so requires no additional inspection or controls",
+              "It travels faster than north-south traffic and overwhelms inspection appliance throughput",
+              "It never contains sensitive data because internal applications scrub all PII at egress"
             ],
             "a": 0,
             "exp": "Traditional security focuses on north-south (perimeter) traffic. East-west inspection catches lateral movement after a breach.",
@@ -8234,9 +8234,9 @@
             "q": "Microsegmentation addresses which limitation of traditional network security?",
             "opts": [
               "Perimeter-only security that leaves internal east-west traffic uninspected — enabling attacker lateral movement",
-              "Lack of encryption",
-              "High cost of network hardware",
-              "Lack of user authentication"
+              "Lack of encryption at the network layer between traditional segmented zones in production",
+              "High cost of dedicated network appliance hardware in legacy three-tier architectures",
+              "Lack of user authentication on internal applications behind the corporate network firewall"
             ],
             "a": 0,
             "exp": "Microsegmentation applies granular security policies to east-west traffic — containing breaches to individual workloads.",
@@ -8377,9 +8377,9 @@
             "q": "ICS/SCADA systems have different security priorities than traditional IT because:",
             "opts": [
               "Availability is the top priority — downtime in industrial control systems can have physical, safety, or economic consequences",
-              "They use stronger encryption",
-              "They are never connected to networks",
-              "They only process non-sensitive data"
+              "They use stronger encryption than IT systems by default for all process control data",
+              "They are never connected to networks and remain physically air-gapped from corporate IT",
+              "They only process non-sensitive data so confidentiality is never a meaningful concern"
             ],
             "a": 0,
             "exp": "In OT/ICS, a patch that requires downtime may be unacceptable — availability and safety often outweigh confidentiality concerns.",
@@ -8518,10 +8518,10 @@
           {
             "q": "RTO (Recovery Time Objective) defines:",
             "opts": [
-              "How much data can be lost",
+              "How much data the organization can afford to lose measured in time elapsed since the last backup",
               "The maximum acceptable time to restore a system or service after a failure or disaster",
-              "How often backups should run",
-              "The average time between system failures"
+              "How often backup jobs should run against a tier of business-critical production data",
+              "The average time between system failures of a given component or subsystem"
             ],
             "a": 1,
             "exp": "RTO answers 'how quickly must we recover?' — systems with low RTO require hot standby or rapid failover capabilities.",
@@ -8531,10 +8531,10 @@
           {
             "q": "RPO (Recovery Point Objective) defines:",
             "opts": [
-              "How quickly systems must be restored",
-              "The target uptime percentage",
+              "How quickly systems must be restored after a failure or disaster strikes the data center",
+              "The target uptime percentage that the SLA commits to over a calendar month",
               "The maximum acceptable amount of data loss measured in time — determining backup frequency",
-              "The time to detect a failure"
+              "The time required to detect a failure has occurred before recovery efforts begin"
             ],
             "a": 2,
             "exp": "RPO answers 'how much data can we afford to lose?' — a 1-hour RPO means backups must run at least hourly.",
@@ -8685,10 +8685,10 @@
           {
             "q": "A fail-closed (fail-secure) security device:",
             "opts": [
-              "Continues to pass all traffic if it fails",
-              "Alerts but never blocks",
+              "Continues to pass all traffic if it fails — prioritizing availability over the security function",
+              "Alerts the security operations team but never blocks any traffic regardless of severity",
               "Blocks all traffic if the security function fails — prioritizing security over availability",
-              "Fails to a half-open state"
+              "Fails to a half-open state where TCP handshakes complete but no data passes through"
             ],
             "a": 2,
             "exp": "Fail-closed blocks all traffic on failure — sacrificing availability to maintain security. Appropriate for high-security environments.",
@@ -8698,10 +8698,10 @@
           {
             "q": "Attack surface reduction involves:",
             "opts": [
-              "Adding more security monitoring tools",
-              "Increasing system redundancy",
+              "Adding more security monitoring tools so every event has multiple detection signals",
+              "Increasing system redundancy so a primary system failure has a hot standby waiting",
               "Minimizing exposed services, components, and access points — anything not needed is removed or disabled",
-              "Deploying more firewalls"
+              "Deploying more firewalls along every internal segment to inspect east-west traffic"
             ],
             "a": 2,
             "exp": "Every unnecessary service, port, or account is a potential entry point — removing them reduces the ways an attacker can gain access.",
@@ -8837,9 +8837,9 @@
             "q": "A false negative in IPS is more concerning than a false positive because:",
             "opts": [
               "A false negative means a real attack succeeded undetected — a false positive only blocks legitimate traffic",
-              "False negatives are easier to fix",
-              "False positives cause more damage",
-              "They both have equal impact"
+              "False negatives are easier to fix once the SOC tunes the IPS signature feed monthly",
+              "False positives cause more financial damage when blocked legitimate traffic is business-critical",
+              "They both have equal impact and consume comparable analyst time during alert triage"
             ],
             "a": 0,
             "exp": "False negatives allow attacks through undetected. False positives are disruptive but don't result in successful attacks.",
@@ -8954,9 +8954,9 @@
             "q": "A data diode is used when:",
             "opts": [
               "Data must only flow in one direction — preventing any return path that could be used for exfiltration or attack",
-              "Bidirectional traffic is required",
-              "High-speed networking is required",
-              "All traffic must be encrypted"
+              "Bidirectional traffic is required between paired control-system endpoints with low latency budgets",
+              "High-speed networking is required at line rate beyond what conventional firewalls can sustain",
+              "All traffic must be encrypted before crossing the security boundary, with key escrow"
             ],
             "a": 0,
             "exp": "Data diodes physically allow only one-way data flow — used in OT/critical infrastructure to receive data without allowing anything back.",
@@ -8966,10 +8966,10 @@
           {
             "q": "A Next-Generation Firewall (NGFW) differs from a traditional stateful firewall by:",
             "opts": [
-              "Being faster but less secure",
+              "Being significantly faster but markedly less secure than the stateful firewall it replaces",
               "Adding application awareness, user identification, SSL inspection, and integrated IPS to traditional stateful inspection",
-              "Using only signature-based detection",
-              "Operating at Layer 2 only"
+              "Using only signature-based detection without any session state tracking or anomaly checks",
+              "Operating at Layer 2 only and so unable to enforce policy on routed network traffic"
             ],
             "a": 1,
             "exp": "NGFWs understand applications (not just ports), identify users, inspect encrypted traffic, and include integrated IPS.",
@@ -9087,10 +9087,10 @@
           {
             "q": "IEEE 802.1X is used for:",
             "opts": [
-              "Wireless encryption",
+              "WPA2/WPA3 wireless encryption negotiation between client and access point",
               "Port-based Network Access Control",
-              "Firewall rule management",
-              "VLAN configuration"
+              "Centralized firewall rule management across distributed enterprise sites",
+              "VLAN configuration on managed enterprise switches and trunk ports"
             ],
             "a": 1,
             "exp": "Authenticating devices before granting network access. 802.1X authenticates devices at the port level before they can access the network — used with both wired and wireless.",
@@ -9113,10 +9113,10 @@
           {
             "q": "MAC address filtering is considered a weak access control because:",
             "opts": [
-              "It requires 802.1X",
+              "It requires 802.1X port-based authentication to function on the switch or access point",
               "MAC addresses can be easily viewed and spoofed — an attacker can clone a legitimate device's MAC address",
-              "It only works on wireless networks",
-              "It requires a RADIUS server"
+              "It only works on wireless networks and offers no protection against wired physical access",
+              "It requires a dedicated RADIUS server which most small environments cannot deploy"
             ],
             "a": 1,
             "exp": "MAC spoofing is trivial — an attacker sniffs a valid MAC address and clones it, bypassing MAC-based access control entirely.",
@@ -9221,9 +9221,9 @@
           {
             "q": "A stateful firewall is more secure than a packet filtering firewall because:",
             "opts": [
-              "It uses stronger encryption",
-              "It is faster than packet filtering",
-              "It inspects application-layer protocols",
+              "It uses stronger encryption algorithms when forwarding traffic between security zones",
+              "It is faster than packet filtering at high traffic rates because of session caching",
+              "It inspects application-layer protocols including HTTP request methods and SQL parameters",
               "It tracks the state of network connections — blocking packets that don't belong to established sessions"
             ],
             "a": 3,
@@ -9235,9 +9235,9 @@
             "q": "A WAF (Web Application Firewall) is specifically designed to protect against:",
             "opts": [
               "Application layer attacks like SQL injection, XSS, and CSRF targeting web applications",
-              "Network-layer DDoS attacks",
-              "Physical server attacks",
-              "Wireless network attacks"
+              "Layer 3 network reconnaissance scans like nmap port enumeration against datacenter ranges",
+              "Layer 2 ARP-cache poisoning attacks intercepting LAN traffic between hosts on the switch",
+              "Insider data exfiltration through unauthorized USB removable storage media on workstations"
             ],
             "a": 0,
             "exp": "WAFs understand HTTP/HTTPS — they inspect web traffic for attack patterns like SQLi and XSS that network firewalls miss.",
@@ -9389,10 +9389,10 @@
           {
             "q": "SASE (Secure Access Service Edge) provides:",
             "opts": [
-              "On-premises security appliances",
+              "On-premises security appliances stacked at each branch office's WAN entry point",
               "Cloud-delivered security services (CASB, SWG, ZTNA, FWaaS) integrated with SD-WAN — security close to the user",
-              "Physical network segmentation",
-              "A single VPN appliance for all users"
+              "Physical network segmentation between operational technology and corporate IT zones",
+              "A single VPN appliance for all users that aggregates all branch traffic at headquarters"
             ],
             "a": 1,
             "exp": "SASE converges networking and security into a cloud service — users get consistent security wherever they connect.",
@@ -9415,10 +9415,10 @@
           {
             "q": "IPsec can be deployed in which two modes?",
             "opts": [
-              "Active and passive",
-              "Symmetric and asymmetric",
+              "Active mode (verifies endpoints with X.509 certificates) and passive mode (logs traffic only)",
+              "Symmetric mode (single shared key) and asymmetric mode (RSA key pair on both sides)",
               "Tunnel mode (encrypts entire packet) and transport mode (encrypts payload only)",
-              "Client and server"
+              "Client mode (TLS-only) and server mode (full deep packet inspection of session traffic)"
             ],
             "a": 2,
             "exp": "IPsec tunnel mode encapsulates and encrypts the entire IP packet — used for VPNs. Transport mode encrypts only the payload.",
@@ -9534,9 +9534,9 @@
             "q": "Data classification is used to:",
             "opts": [
               "Determine appropriate protection levels and handling requirements based on data sensitivity",
-              "Encrypt all data equally",
-              "Monitor who accesses data",
-              "Backup data automatically"
+              "Encrypt all data equally regardless of business value or regulatory exposure for simplicity",
+              "Monitor who accesses data so the SIEM can correlate per-user data access patterns over time",
+              "Backup data automatically based on a uniform retention schedule applied to every dataset"
             ],
             "a": 0,
             "exp": "Classification drives security controls — more sensitive data gets stronger encryption, tighter access, and stricter handling.",
@@ -9546,9 +9546,9 @@
           {
             "q": "PII (Personally Identifiable Information) is best described as:",
             "opts": [
-              "Any data stored in a database",
-              "Only government-issued identification numbers",
-              "All employee records",
+              "Any data stored in a corporate database that has more than ten records",
+              "Only government-issued identification numbers (SSN, driver's license, passport)",
+              "All employee records held in the HR system regardless of identifying content",
               "Data that identifies or could be used to identify a specific individual — name + SSN, email, fingerprint"
             ],
             "a": 3,
@@ -9572,9 +9572,9 @@
           {
             "q": "An organization places a legal hold on email archives related to a lawsuit. This means:",
             "opts": [
-              "The emails must be immediately deleted",
-              "Only lawyers can access the emails",
-              "The emails must be encrypted",
+              "The emails must be immediately deleted to comply with the litigation request",
+              "Only lawyers can access the emails — IT and management lose all read rights",
+              "The emails must be encrypted with a court-managed key escrowed for the duration of the case",
               "The emails cannot be deleted or modified — they must be preserved exactly as they are for litigation"
             ],
             "a": 3,
@@ -9698,9 +9698,9 @@
           {
             "q": "Data in use is the most difficult state to protect because:",
             "opts": [
-              "It travels across insecure networks",
-              "It uses too much memory",
-              "It is always stored insecurely",
+              "It travels across insecure networks where TLS cipher selection is not under defender control",
+              "It uses too much memory to encrypt without a measurable performance penalty",
+              "It is always stored insecurely in the operating system's swap and pagefile by default",
               "The data must be decrypted and in plaintext for the CPU to process it — encryption must be removed temporarily"
             ],
             "a": 3,
@@ -9712,9 +9712,9 @@
             "q": "An organization encrypts all laptop drives and uses HTTPS for all web applications. Which state of data is still NOT directly protected?",
             "opts": [
               "Data in use (being processed in RAM — not protected by either control)",
-              "Data in transit (covered by HTTPS)",
-              "Data at rest (covered by FDE)",
-              "All states are protected"
+              "Data in transit (covered by HTTPS) — already protected against on-the-wire interception",
+              "Data at rest (covered by FDE) — laptop drives are encrypted at the block-device layer",
+              "All states are protected — FDE plus HTTPS covers every data state the organization handles"
             ],
             "a": 0,
             "exp": "FDE covers at-rest. HTTPS covers in-transit. Data in use (RAM) remains exposed — requires additional controls like secure enclaves.",
@@ -9825,9 +9825,9 @@
             "q": "Information Rights Management (IRM) differs from encryption in that:",
             "opts": [
               "IRM controls HOW authorized users can use a document (read-only, no-print, time-limited) — not just who can access it",
-              "IRM uses stronger encryption",
-              "IRM is only for email",
-              "Encryption is more secure than IRM"
+              "IRM uses stronger encryption algorithms than what enterprise file encryption typically deploys",
+              "IRM is only for email and cannot apply to documents stored in cloud collaboration suites",
+              "Encryption is more secure than IRM because IRM relies entirely on the rendering application"
             ],
             "a": 0,
             "exp": "Encryption controls who can open a file. IRM controls what authorized users can do with it — restricting printing, forwarding, and copying.",
@@ -9960,9 +9960,9 @@
             "q": "A hot site differs from a warm site in that:",
             "opts": [
               "A hot site is fully equipped and immediately operational — a warm site requires some configuration before use",
-              "Hot sites use better hardware",
-              "Hot sites are cheaper",
-              "A warm site has more bandwidth"
+              "Hot sites use better hardware than warm sites because the workload demands more compute capacity",
+              "Hot sites are cheaper to maintain because automation reduces the staffing footprint required",
+              "A warm site has more bandwidth than a hot site because it carries replication traffic continuously"
             ],
             "a": 0,
             "exp": "Hot sites have identical, up-to-date infrastructure — failover can happen in minutes. Warm sites need time to configure and sync data.",
@@ -9985,9 +9985,9 @@
           {
             "q": "Geographic dispersal of data center resources protects against:",
             "opts": [
-              "Individual hardware failures",
-              "Software vulnerabilities",
-              "Network-level attacks",
+              "Individual hardware failures inside a single rack within one data center facility",
+              "Software vulnerabilities introduced by an unpatched application stack across all hosts",
+              "Network-level attacks targeting public-facing application services at the perimeter",
               "Site-level disasters (fire, flood, power outage) that could destroy a single location"
             ],
             "a": 3,
@@ -10070,9 +10070,9 @@
             "q": "Capacity planning in security context addresses:",
             "opts": [
               "Ensuring sufficient people, technology, and infrastructure resources to maintain security operations under normal and peak load",
-              "Only server hardware requirements",
-              "Only budget planning",
-              "Only network bandwidth"
+              "Only server hardware requirements forecasted from projected growth in compute workloads",
+              "Only budget planning for next year's security tooling and staffing line items",
+              "Only network bandwidth forecasting for production WAN links between data centers"
             ],
             "a": 0,
             "exp": "Capacity planning covers all three dimensions: people (SOC analysts), technology (SIEM, compute), and infrastructure (power, space, cooling).",
@@ -10169,10 +10169,10 @@
           {
             "q": "A tabletop exercise differs from a full interruption test in that:",
             "opts": [
-              "Tabletop tests use real systems",
-              "Full interruption tests are cheaper",
+              "Tabletop tests use real systems and require failover of production traffic to recovery",
+              "Full interruption tests are cheaper and lower risk than tabletop discussions are by far",
               "A tabletop exercise is discussion-based — no actual systems are involved or tested",
-              "They test different scenarios"
+              "They test different scenarios with no overlap in the threats or failures they address"
             ],
             "a": 2,
             "exp": "Tabletop = talk through the plan. Full interruption = actually fail over production. Tabletop has no real-world impact.",
@@ -10182,10 +10182,10 @@
           {
             "q": "A full interruption test is the MOST realistic DR test because:",
             "opts": [
-              "It uses the most complex scenarios",
+              "It uses the most complex scenarios that include compounding failures and cyber incidents",
               "Production actually fails over to recovery systems — revealing real-world issues that tabletop or parallel tests miss",
-              "It involves the most people",
-              "It tests only network connectivity"
+              "It involves the most people because the entire IT organization must be physically on-site",
+              "It tests only network connectivity between primary and secondary sites at the WAN edge"
             ],
             "a": 1,
             "exp": "Full interruption tests actual failover of production — the highest fidelity but also the highest risk and cost.",
@@ -10355,10 +10355,10 @@
           {
             "q": "An organization discovers their backup files are corrupted when they try to restore after a ransomware attack. This highlights the importance of:",
             "opts": [
-              "More frequent backups",
+              "More frequent backups so the recovery point objective is much shorter than today",
               "Regularly testing backups by actually restoring them — an untested backup provides false confidence",
-              "Using a different backup software",
-              "Storing backups on faster media"
+              "Using a different backup software vendor that offers better hardware sensor monitoring",
+              "Storing backups on faster media to reduce the duration of any future restore window"
             ],
             "a": 1,
             "exp": "An untested backup is not a backup — regular restore testing is essential to confirm backups are complete and recoverable.",
@@ -10468,10 +10468,10 @@
           {
             "q": "The primary purpose of a UPS in a data center is:",
             "opts": [
-              "Providing power for extended outages",
-              "Regulating voltage",
+              "Providing power for extended outages lasting many hours when no generator is available",
+              "Regulating voltage during normal operation by smoothing the AC waveform on the utility feed",
               "Providing immediate battery power to bridge the gap between power failure and generator startup",
-              "Distributing power to rack equipment"
+              "Distributing rack PDUs across redundant power paths inside each cabinet for cabling neatness"
             ],
             "a": 2,
             "exp": "UPS provides instant power on failure — generators take time to start. UPS bridges this gap (typically minutes).",
@@ -10481,9 +10481,9 @@
           {
             "q": "2N power configuration means:",
             "opts": [
-              "Two UPS units",
-              "Two generators",
-              "Power from two utility providers",
+              "Two UPS units installed in series so a single failure trips the next downstream battery",
+              "Two backup generators sharing a common load bus with manual transfer between them",
+              "Power from two utility providers feeding the same single power distribution path",
               "A completely redundant power system"
             ],
             "a": 3,
@@ -10494,10 +10494,10 @@
           {
             "q": "Dual power feeds for critical servers protect against:",
             "opts": [
-              "Power surges",
+              "Power surges from utility provider lightning strikes during summer thunderstorm seasons",
               "Single power circuit failure",
-              "Generator failure",
-              "UPS battery depletion"
+              "Generator failure when the primary diesel generator's fuel pump seizes during operation",
+              "UPS battery depletion during multi-hour utility outages exceeding the runtime budget"
             ],
             "a": 1,
             "exp": "If one circuit fails, the server continues on the second. Dual power feeds provide path redundancy at the equipment level — one feed fails, the other automatically takes full load.",
@@ -10623,9 +10623,9 @@
             "q": "SCAP is used to:",
             "opts": [
               "Automate security configuration assessment and compliance verification against defined standards",
-              "Conduct penetration tests",
-              "Monitor network traffic",
-              "Manage user identities"
+              "Conduct external penetration tests against perimeter-facing services on a quarterly basis",
+              "Monitor real-time network traffic flow patterns for anomalies on internal segments",
+              "Manage user identities and group memberships across federated directory environments"
             ],
             "a": 0,
             "exp": "SCAP provides a standardized, automated way to check whether systems meet security configuration requirements.",
@@ -10718,9 +10718,9 @@
           {
             "q": "When hardening a new network switch, the FIRST action should be:",
             "opts": [
-              "Enable all available features",
-              "Configure VLANs",
-              "Update the switch firmware",
+              "Enable all available switch features so monitoring tools have maximum visibility from day one",
+              "Configure 802.1Q VLANs and trunk ports to match the network architecture immediately",
+              "Update the switch firmware to the latest vendor release before doing anything else",
               "Change all default credentials"
             ],
             "a": 3,
@@ -10744,10 +10744,10 @@
           {
             "q": "Which hardening technique is most important for IoT devices with limited security features?",
             "opts": [
-              "Installing endpoint protection software",
-              "Full disk encryption",
+              "Installing endpoint protection software on each constrained IoT device's onboard storage",
+              "Full disk encryption on every IoT device's flash storage using hardware-rooted keys",
               "Network segmentation",
-              "Deploying a host-based firewall"
+              "Deploying a host-based firewall directly onto each IoT device's microcontroller stack"
             ],
             "a": 2,
             "exp": "Isolating IoT devices in a separate VLAN away from critical systems. IoT devices often cannot be hardened directly — isolating them in a separate network segment limits the damage if they're compromised.",
@@ -10857,10 +10857,10 @@
           {
             "q": "A wireless site survey is performed to:",
             "opts": [
-              "Test network speed only",
-              "Scan for rogue access points",
+              "Test network speed only by running iperf bandwidth tests at each candidate access point location",
+              "Scan for rogue access points broadcasting unauthorized SSIDs near the corporate facility",
               "Plan optimal access point placement and measure signal coverage before and after deployment",
-              "Test wireless encryption strength"
+              "Test wireless encryption strength by attempting WPA2 handshake captures at each location"
             ],
             "a": 2,
             "exp": "Site surveys map signal strength, identify interference, and optimize AP placement for coverage, performance, and security.",
@@ -10883,10 +10883,10 @@
           {
             "q": "Geofencing is used in mobile device management to:",
             "opts": [
-              "Track device GPS for asset management only",
-              "Improve wireless signal strength",
+              "Track device GPS coordinates continuously for asset management inventory reporting only",
+              "Improve wireless signal strength to enrolled corporate devices in the same geographic region",
               "Restrict device functionality or access based on geographic location — blocking corporate access outside defined areas",
-              "Monitor battery usage"
+              "Monitor battery usage patterns to detect compromised devices reporting unusual telemetry"
             ],
             "a": 2,
             "exp": "Geofencing can disable corporate apps or access when the device leaves defined geographic boundaries.",
@@ -11013,10 +11013,10 @@
           {
             "q": "WPA3-Personal improves on WPA2-Personal primarily because:",
             "opts": [
-              "It uses longer passwords",
-              "It uses AES-256 instead of AES-128",
-              "SAE replaces PSK",
-              "It requires certificates"
+              "It uses longer passwords by mandating a 16-character minimum on every WPA3 PSK",
+              "It uses AES-256 instead of AES-128 by default for all session encryption traffic",
+              "SAE (Simultaneous Authentication of Equals) replaces PSK — preventing offline dictionary attacks",
+              "It requires X.509 client certificates instead of any pre-shared secret material"
             ],
             "a": 2,
             "exp": "Providing resistance to offline dictionary attacks and perfect forward secrecy. WPA3's SAE protocol prevents offline cracking of captured handshakes and provides PFS.",
@@ -11026,10 +11026,10 @@
           {
             "q": "WPA2-Enterprise is more secure than WPA2-Personal because:",
             "opts": [
-              "It uses stronger AES encryption",
+              "It uses stronger AES encryption with a longer key length than WPA2-Personal AES-128 CCMP",
               "Per-user authentication via 802.1X/RADIUS — each user has unique credentials and unique session keys",
-              "It is faster",
-              "It doesn't require any passwords"
+              "It is faster because session keys are pre-computed and cached at the access point during boot",
+              "It doesn't require any passwords because every user's device is enrolled by serial number"
             ],
             "a": 1,
             "exp": "Enterprise: each user authenticates individually — no shared PSK. Unique session keys per user improve isolation.",
@@ -11039,9 +11039,9 @@
           {
             "q": "Disabling WPS on wireless access points mitigates:",
             "opts": [
-              "Evil twin attacks",
-              "Deauthentication attacks",
-              "Encryption downgrade attacks",
+              "Evil twin attacks where a rogue AP impersonates a legitimate corporate SSID to capture clients",
+              "Deauthentication attacks that flood the channel with spoofed 802.11 management frames",
+              "Encryption downgrade attacks that force WPA2-AES sessions back down to WEP-RC4 ciphers",
               "Brute-force attacks against the WPS PIN (which has a fundamental design flaw allowing ~11,000 attempts)"
             ],
             "a": 3,
@@ -11186,10 +11186,10 @@
           {
             "q": "Input validation is the PRIMARY defense against:",
             "opts": [
-              "DDoS attacks",
+              "DDoS attacks targeting application bandwidth saturation at upstream peering links",
               "Injection attacks (SQL injection, XSS, command injection) by ensuring user input cannot be interpreted as code",
-              "Brute force password attacks",
-              "Physical security threats"
+              "Brute force password attacks where attackers guess passwords through repeated login attempts",
+              "Physical security threats including tailgating into restricted server rooms after hours"
             ],
             "a": 1,
             "exp": "Validating input prevents malicious data from being processed as code — the root cause of most injection vulnerabilities.",
@@ -11199,10 +11199,10 @@
           {
             "q": "SAST differs from DAST in that:",
             "opts": [
-              "SAST is more expensive",
-              "SAST is always automated; DAST is always manual",
-              "SAST analyses source code without execution",
-              "DAST finds more vulnerabilities than SAST"
+              "SAST is significantly more expensive to license per developer seat than DAST tooling",
+              "SAST is always automated by integration into the CI pipeline; DAST is always manual",
+              "SAST analyzes source code without execution",
+              "DAST finds more vulnerabilities than SAST because runtime testing covers every input path"
             ],
             "a": 2,
             "exp": "Finding vulnerabilities early in development; DAST tests the running application. SAST = source code analysis (no execution). DAST = running app testing (finds runtime issues SAST misses).",
@@ -11212,10 +11212,10 @@
           {
             "q": "Fuzzing involves:",
             "opts": [
-              "Manually reviewing code for vulnerabilities",
+              "Manually reviewing source code for vulnerabilities by walking each function with a checklist",
               "Sending random, unexpected, or malformed inputs to an application to discover crashes and security vulnerabilities",
-              "Scanning for known vulnerability signatures",
-              "Testing network protocols"
+              "Scanning the application binary for known vulnerability signatures from a vendor CVE feed",
+              "Testing network protocols by capturing and replaying traffic to verify request handling"
             ],
             "a": 1,
             "exp": "Fuzzing automates vulnerability discovery by bombarding the application with unexpected inputs — finding edge cases developers miss.",
@@ -11497,10 +11497,10 @@
           {
             "q": "A credentialed vulnerability scan provides more accurate results because:",
             "opts": [
-              "It scans more IP addresses",
-              "It uses more attack signatures",
+              "It scans more IP addresses across the corporate range than a non-credentialed scan does",
+              "It uses more attack signatures from the vendor's premium signature feed library",
               "The scanner authenticates to systems",
-              "It runs faster"
+              "It runs faster because cached fingerprint data avoids the need for service interrogation"
             ],
             "a": 2,
             "exp": "Finding local vulnerabilities, missing patches, and misconfigurations invisible externally. Credentialed scans see what's inside the system — local patch status, user rights, registry settings — not just externally exposed services.",
@@ -11610,10 +11610,10 @@
           {
             "q": "OSINT (Open Source Intelligence) uses:",
             "opts": [
-              "Classified government information",
+              "Classified government intelligence reports shared through cleared partner channels only",
               "Publicly available sources including news sites, social media, vulnerability databases, and public forums",
-              "Only commercial threat feeds",
-              "Only dark web sources"
+              "Only commercial threat feeds purchased from vendors with paid signature subscriptions",
+              "Only dark web sources accessed through a Tor exit node from a cleanroom workstation"
             ],
             "a": 1,
             "exp": "OSINT leverages openly available information — no special access required.",
@@ -11745,9 +11745,9 @@
             "q": "Rules of Engagement (RoE) define:",
             "opts": [
               "The scope, timing, permitted techniques, and off-limits systems — legally protecting both tester and organization",
-              "The payment terms for the test",
-              "The reporting format",
-              "The vulnerabilities to be found"
+              "The payment terms for the test engagement including hourly rate and final report deliverables",
+              "The reporting format including required sections, risk-rating taxonomy, and executive summary length",
+              "The vulnerabilities to be found before the test starts so that scope is locked down at outset"
             ],
             "a": 0,
             "exp": "RoE establishes the legal framework — preventing the tester from being prosecuted and the organization from unexpected disruption.",
@@ -11880,9 +11880,9 @@
             "q": "EPSS improves vulnerability prioritization by:",
             "opts": [
               "Adding the probability that a vulnerability will be actively exploited in the wild — helping focus on likely real-world threats",
-              "Replacing CVSS",
-              "Automating patch deployment",
-              "Calculating financial impact"
+              "Replacing CVSS as the primary scoring framework used by every vulnerability scanner output",
+              "Automating patch deployment timelines based on the predicted exploitation probability score",
+              "Calculating the expected financial impact of each unpatched vulnerability per asset class"
             ],
             "a": 0,
             "exp": "CVSS measures severity; EPSS measures likelihood of exploitation. Combining them improves prioritization.",
@@ -12002,9 +12002,9 @@
             "q": "After applying a patch for a critical vulnerability, the next step should be:",
             "opts": [
               "Validate the remediation — rescan or retest to confirm the vulnerability is actually fixed",
-              "Mark the vulnerability as closed immediately",
-              "Apply the patch to all other systems immediately",
-              "Report to management"
+              "Mark the vulnerability as closed immediately because the vendor patch installed without errors",
+              "Apply the same patch to all other systems immediately without testing in a staging environment",
+              "Report to management with a brief description of the patch deployment and an SLA confirmation"
             ],
             "a": 0,
             "exp": "Patches can fail or be misapplied — validation confirms the vulnerability is actually remediated before closing the finding.",
@@ -12014,9 +12014,9 @@
           {
             "q": "Formally accepting a vulnerability risk requires:",
             "opts": [
-              "No documentation — just move on",
-              "Purchasing cyber insurance",
-              "Immediate notification to regulators",
+              "No documentation — risk acceptance is purely a verbal decision once an engineer chooses to accept",
+              "Purchasing cyber insurance with a coverage limit appropriate for the worst-case incident",
+              "Immediate notification to regulators including the CVE identifier and the affected asset list",
               "Management sign-off, documentation of the risk accepted, and a plan for periodic review"
             ],
             "a": 3,
@@ -12028,9 +12028,9 @@
             "q": "Which remediation approach would an organization use if a critical system cannot be patched due to operational requirements?",
             "opts": [
               "Apply compensating controls (network segmentation, WAF, enhanced monitoring) while scheduling maintenance for patching",
-              "Accept unlimited risk",
-              "Immediately shut down the system",
-              "Remove the system from the network permanently"
+              "Accept unlimited risk and document the decision in a one-line note in the risk register only",
+              "Immediately shut down the system permanently regardless of business operational requirements",
+              "Remove the system from the network permanently and rebuild every dependent integration from scratch"
             ],
             "a": 0,
             "exp": "When patching isn't immediately possible, compensating controls reduce risk to an acceptable level.",
@@ -12171,10 +12171,10 @@
           {
             "q": "A SIEM provides which primary security function?",
             "opts": [
-              "Encrypts log data at rest",
-              "Automatically patches vulnerable systems",
+              "Encrypts every captured log entry at rest using a per-tenant data encryption key",
+              "Automatically patches vulnerable systems based on its own correlated detection rules",
               "Aggregates and correlates logs from across the environment to detect threats and enable investigation",
-              "Blocks malicious traffic at the network level"
+              "Blocks malicious traffic at the network level by injecting reset packets on session matches"
             ],
             "a": 2,
             "exp": "SIEM centralizes log collection and applies correlation rules — detecting complex attack patterns that individual tools would miss.",
@@ -12185,9 +12185,9 @@
             "q": "NetFlow differs from PCAP in that:",
             "opts": [
               "NetFlow provides traffic metadata without packet content; PCAP captures full packet contents",
-              "NetFlow is more detailed",
-              "NetFlow requires more storage",
-              "PCAP is faster to analyze"
+              "NetFlow is more detailed than PCAP because it records every byte of the application payload",
+              "NetFlow requires more storage than PCAP because metadata duplicates payload size on disk",
+              "PCAP is faster to analyze at scale than NetFlow because metadata aggregation slows query times"
             ],
             "a": 0,
             "exp": "NetFlow: lightweight metadata. PCAP: full packet content for deep investigation.",
@@ -12197,9 +12197,9 @@
           {
             "q": "SOAR improves security operations by:",
             "opts": [
-              "Replacing human analysts entirely",
-              "Scanning for vulnerabilities",
-              "Blocking all threats automatically",
+              "Replacing human analysts entirely with autonomous agents that handle every alert without review",
+              "Scanning for vulnerabilities by combining authenticated and unauthenticated checks across endpoints",
+              "Blocking all threats automatically by injecting firewall denies for every alert that fires",
               "Automating repetitive response tasks and integrating disparate security tools — freeing analysts for complex investigation"
             ],
             "a": 3,
@@ -12371,10 +12371,10 @@
           {
             "q": "EDR differs from traditional antivirus in that:",
             "opts": [
-              "EDR only detects known malware",
-              "EDR is only for servers",
+              "EDR only detects known malware via the same signature database that traditional AV uses",
+              "EDR is only deployed on servers and offers no agent for endpoint workstations or laptops",
               "EDR provides continuous behavioral monitoring, investigation capability, and active response — not just signature-based detection",
-              "EDR requires no management"
+              "EDR requires no management overhead because behavioral models are tuned automatically by the vendor"
             ],
             "a": 2,
             "exp": "Traditional AV: signature matching. EDR: continuous behavioral analysis, full endpoint visibility, investigation tools, and response.",
@@ -12384,10 +12384,10 @@
           {
             "q": "XDR expands on EDR by:",
             "opts": [
-              "Providing better endpoint protection only",
+              "Providing better endpoint protection only with no expansion beyond the host where the agent runs",
               "Integrating detection across multiple layers — endpoint, network, cloud, and email — into a single unified platform",
-              "Replacing SIEM entirely",
-              "Focusing on mobile devices"
+              "Replacing SIEM entirely so the organization no longer needs centralized log aggregation",
+              "Focusing exclusively on mobile device telemetry from MDM-enrolled phones and tablets only"
             ],
             "a": 1,
             "exp": "XDR correlates telemetry from multiple security layers — an attack spanning email, endpoint, and network is detected as a single campaign.",
@@ -12397,10 +12397,10 @@
           {
             "q": "File Integrity Monitoring (FIM) is used to detect:",
             "opts": [
-              "Network intrusions",
+              "Network intrusions identified by signature matches at the perimeter firewall stack",
               "Unauthorized modifications to critical system files",
-              "Password attacks",
-              "Data exfiltration"
+              "Password attacks against domain accounts identified by failed-logon-burst patterns",
+              "Data exfiltration over outbound TLS sessions to attacker-controlled cloud storage"
             ],
             "a": 1,
             "exp": "Potentially indicating malware infection or attacker activity. FIM hashes critical files and alerts on changes — detecting backdoors planted in system binaries or configuration files.",
@@ -13462,10 +13462,10 @@
           {
             "q": "SSO (Single Sign-On) improves security by:",
             "opts": [
-              "Eliminating the need for passwords entirely",
+              "Eliminating the need for passwords entirely by replacing them with hardware-only auth tokens",
               "Centralizing authentication",
-              "Removing the need for MFA",
-              "Allowing users to share credentials"
+              "Removing the need for MFA because a single point of authentication is inherently strong enough",
+              "Allowing users to share credentials across teams without compromising the audit trail"
             ],
             "a": 1,
             "exp": "Users have one credential to protect; fewer passwords means less risk of weak or reused passwords. SSO reduces password fatigue, centralizes control, and simplifies de-provisioning (one account to disable).",
@@ -13488,10 +13488,10 @@
           {
             "q": "Permission creep is best addressed by:",
             "opts": [
-              "Provisioning all users with administrator rights initially",
+              "Provisioning all new users with administrator rights initially and then revoking them after onboarding",
               "Regular access reviews",
-              "Requiring users to request access daily",
-              "Removing all user permissions"
+              "Requiring users to request fresh access daily through the helpdesk ticketing portal",
+              "Removing all user permissions every quarter and forcing each user to re-request what they need"
             ],
             "a": 1,
             "exp": "Managers certify that each user's access is still appropriate for their current role. Regular access reviews identify and remove accumulated unnecessary permissions before they become a security risk.",
@@ -13502,9 +13502,9 @@
             "q": "De-provisioning must happen immediately when an employee leaves because:",
             "opts": [
               "Active accounts of departed employees are prime insider threat vectors — terminated employees or attackers using their accounts retain access",
-              "Company policy requires it",
-              "It frees up software licenses",
-              "HR requires it for payroll"
+              "Company policy requires it within a calendar week of the official termination paperwork",
+              "It frees up software licenses for reassignment to other employees on the active roster",
+              "HR requires it for payroll cycle close-out and final paycheck issuance scheduling"
             ],
             "a": 0,
             "exp": "Delayed de-provisioning leaves active credentials — disgruntled ex-employees or attackers retain access.",
@@ -13674,10 +13674,10 @@
           {
             "q": "ABAC is the most granular access control model because:",
             "opts": [
-              "It uses the most complex passwords",
+              "It uses the most complex passwords by enforcing per-role minimum entropy at registration",
               "Access decisions consider multiple attributes simultaneously — user department, device type, time, location, data classification",
-              "It is the oldest model",
-              "It requires more hardware"
+              "It is the oldest model with decades of enterprise tooling integration and audit support",
+              "It requires the most hardware because attribute lookups must run on dedicated appliances"
             ],
             "a": 1,
             "exp": "ABAC can express very specific conditions: user department, device type, time of day, location, data classification — all simultaneously.",
@@ -13817,10 +13817,10 @@
           {
             "q": "Using a fingerprint AND a password is MFA because:",
             "opts": [
-              "Two different inputs are used",
-              "The fingerprint is more secure than a password",
+              "Two different inputs are used at the login prompt regardless of which factor categories they are",
+              "The fingerprint is more secure than a password and so the combination meets the MFA bar by default",
               "They are from two different factor categories — something you are (biometric) + something you know (password)",
-              "Both factors use the same authentication server"
+              "Both factors are processed by the same authentication server through a single back-end pipeline"
             ],
             "a": 2,
             "exp": "MFA requires factors from different CATEGORIES. Fingerprint = something you are. Password = something you know.",
@@ -13939,9 +13939,9 @@
           {
             "q": "According to NIST SP 800-63B, which is the MOST important password security factor?",
             "opts": [
-              "Complexity (mixed character types)",
-              "Frequency of mandatory changes",
-              "Use of special characters",
+              "Complexity (mixed character types required across uppercase, lowercase, digits, and symbols)",
+              "Frequency of mandatory password changes scheduled every thirty, sixty, or ninety days",
+              "Use of special characters drawn from the punctuation row of a US-English keyboard layout",
               "Length — longer passwords are exponentially harder to crack"
             ],
             "a": 3,
@@ -13952,10 +13952,10 @@
           {
             "q": "NIST SP 800-63B recommends that organizations should NOT force periodic password changes UNLESS:",
             "opts": [
-              "The password is over 90 days old",
+              "The password is over 90 days old based on the timestamp recorded in the directory user object",
               "There is evidence the password has been compromised",
-              "The user has not logged in recently",
-              "The user's role changes"
+              "The user has not logged in recently and the directory has flagged the account as inactive",
+              "The user's role changes within the organization to one that handles materially more sensitive data"
             ],
             "a": 1,
             "exp": "NIST found forced periodic changes cause users to make predictable changes — change only on evidence of compromise.",
@@ -14071,10 +14071,10 @@
           {
             "q": "The PRIMARY security benefit of automation over manual processes is:",
             "opts": [
-              "Automation is always more accurate",
-              "Automation is always cheaper",
+              "Automation is always more accurate than humans because the underlying logic never has bugs",
+              "Automation is always cheaper than human analysts at every scale of security operations workload",
               "Speed and consistency",
-              "Automated tools need no maintenance"
+              "Automated tools need no maintenance because vendor-managed pipelines update playbooks invisibly"
             ],
             "a": 2,
             "exp": "Automated responses execute in seconds without human error or delay. Automation responds in milliseconds vs hours for humans — and applies the same logic every time.",
@@ -14084,10 +14084,10 @@
           {
             "q": "A SOAR playbook is:",
             "opts": [
-              "A vendor product manual",
-              "A type of firewall rule",
+              "A vendor product manual describing each module's GUI options and configuration screens",
+              "A type of firewall rule that combines multiple ACL entries into a single grouped policy",
               "A documented, automated sequence of steps that executes in response to a specific type of security incident",
-              "A network diagram"
+              "A network diagram showing the SOC architecture and data flows between security tools and the SIEM"
             ],
             "a": 2,
             "exp": "Playbooks encode response procedures — SOAR executes them automatically on alert trigger.",
@@ -14250,10 +14250,10 @@
           {
             "q": "The purpose of the containment phase is to:",
             "opts": [
-              "Identify who conducted the attack",
-              "Restore systems to production",
+              "Identify who conducted the attack by correlating IOCs with known threat-actor TTPs",
+              "Restore systems to production immediately so business operations continue without interruption",
               "Stop the spread of the incident to other systems while investigation continues",
-              "Document lessons learned"
+              "Document lessons learned and brief stakeholders on the response so playbooks improve over time"
             ],
             "a": 2,
             "exp": "Containment limits damage — isolating compromised systems prevents lateral movement.",
@@ -14263,10 +14263,10 @@
           {
             "q": "Evidence preservation during incident response requires:",
             "opts": [
-              "Immediately reformatting compromised systems",
+              "Immediately reformatting compromised systems so the malware persistence path is destroyed",
               "Capturing memory dumps and forensic images BEFORE remediation — preserving evidence for investigation and potential legal action",
-              "Deleting all malware immediately",
-              "Notifying all users"
+              "Deleting all malware binaries immediately so the attacker can no longer use them on the host",
+              "Notifying all users that an incident has occurred and is being remediated by the SOC team"
             ],
             "a": 1,
             "exp": "Remediation destroys forensic evidence — capture memory and disk images first, then clean.",
@@ -14276,9 +14276,9 @@
           {
             "q": "Post-incident activity (lessons learned) is important because:",
             "opts": [
-              "It satisfies legal requirements only",
-              "It closes the incident ticket",
-              "It assigns blame to responsible parties",
+              "It satisfies legal requirements only with no operational benefit beyond regulatory paperwork",
+              "It closes the incident ticket so the SOC dashboard returns to a green-status overview",
+              "It assigns blame to responsible parties so consequences can be applied during the next review cycle",
               "It identifies what worked and what failed — improving the IR plan, controls, and defenses to reduce impact of future incidents"
             ],
             "a": 3,
@@ -14399,9 +14399,9 @@
             "q": "Root cause analysis (RCA) after an incident is used to:",
             "opts": [
               "Identify the fundamental cause of the incident to prevent recurrence — not just treat the symptom",
-              "Assign blame to responsible individuals",
-              "Calculate financial losses",
-              "Complete the incident report"
+              "Assign blame to the responsible individuals so consequences are applied during quarterly reviews",
+              "Calculate financial losses by aggregating downtime cost across all affected revenue streams",
+              "Complete the incident report by adding final timeline timestamps and ticket close-out fields"
             ],
             "a": 0,
             "exp": "RCA finds why the incident happened — fixing the root cause prevents the same attack from succeeding again.",
@@ -14412,9 +14412,9 @@
             "q": "A DRP (Disaster Recovery Plan) is a subset of BCP because:",
             "opts": [
               "DRP specifically covers IT system recovery",
-              "DRP covers all business functions",
-              "BCP is only for large organizations",
-              "They are the same plan"
+              "DRP covers all business functions including HR, facilities, communications, and supply chain",
+              "BCP is only for large organizations with multi-site footprints and dedicated continuity teams",
+              "They are the same plan with different titles used by different industry verticals interchangeably"
             ],
             "a": 0,
             "exp": "BCP covers the broader goal of maintaining all business operations. BCP is the strategic framework for business continuity. DRP is the tactical IT-specific recovery plan that fits within the broader BCP.",
@@ -14541,9 +14541,9 @@
           {
             "q": "Chain of custody is required to:",
             "opts": [
-              "Speed up the investigation",
-              "Prevent unauthorized access to evidence",
-              "Store evidence securely",
+              "Speed up the investigation by allowing forensic analysts to skip image-verification steps",
+              "Prevent unauthorized access to evidence by restricting the lab to forensic-team members only",
+              "Store evidence securely in a sealed cabinet inside a locked forensic lab on the corporate site",
               "Document every person who handled the evidence and how — ensuring it's admissible in court and hasn't been tampered with"
             ],
             "a": 3,
@@ -14554,9 +14554,9 @@
           {
             "q": "A write blocker is used to:",
             "opts": [
-              "Block write permissions for suspects",
-              "Speed up the imaging process",
-              "Encrypt the evidence drive",
+              "Block write permissions for suspects on their workstation accounts during an active investigation",
+              "Speed up the imaging process by parallelizing reads across multiple SATA channels at once",
+              "Encrypt the evidence drive with a forensic-team-owned key during imaging to prevent leaks",
               "Prevent any writes to the evidence drive during imaging — preserving the original state and maintaining integrity"
             ],
             "a": 3,
@@ -14664,10 +14664,10 @@
           {
             "q": "Why is NTP critical for security log analysis?",
             "opts": [
-              "NTP improves network speed",
+              "NTP improves network speed by reducing the round-trip time of typical TCP handshakes",
               "Accurate, synchronized time across all devices is essential for correlating events from multiple log sources during investigation",
-              "NTP encrypts log data",
-              "NTP prevents log tampering"
+              "NTP encrypts the contents of every transmitted log entry between the source and the SIEM",
+              "NTP prevents log tampering by signing each event with a per-device cryptographic timestamp"
             ],
             "a": 1,
             "exp": "If device clocks are unsynchronized, events from different sources can't be reliably correlated.",
@@ -14677,9 +14677,9 @@
           {
             "q": "DNS logs are valuable for security monitoring because:",
             "opts": [
-              "They contain encrypted traffic",
-              "They are automatically centralized",
-              "They contain user credentials",
+              "They contain encrypted traffic payloads which the SIEM can decrypt server-side for inspection",
+              "They are automatically centralized by every major DNS resolver vendor's default configuration",
+              "They contain user credentials transmitted during DNS resolution against the corporate resolver",
               "All DNS queries are logged — revealing C2 communication, DNS tunneling, and connections to malicious domains"
             ],
             "a": 3,
@@ -14861,10 +14861,10 @@
           {
             "q": "What distinguishes a security policy from a security procedure?",
             "opts": [
-              "Policies are technical; procedures are administrative",
+              "Policies are technical documents written by engineers; procedures are administrative documents written by HR",
               "Policies state high-level management intent and requirements; procedures provide step-by-step instructions for implementing policy",
-              "Policies are optional; procedures are mandatory",
-              "They are the same document"
+              "Policies are written by individual contributors at the engineer level; procedures are signed by senior management",
+              "They are the same document under different names used by different industry frameworks"
             ],
             "a": 1,
             "exp": "Policy: 'what must happen and why' (high-level, management-approved). Procedure: 'how to do it step-by-step' (operational detail).",
@@ -14875,9 +14875,9 @@
             "q": "An Acceptable Use Policy (AUP) must be:",
             "opts": [
               "Communicated to and signed by all employees — establishing permitted and prohibited uses of organizational technology",
-              "Kept confidential from employees",
-              "Written only for IT staff",
-              "Updated daily"
+              "Kept confidential from employees so attackers cannot harvest the document for social-engineering reconnaissance",
+              "Written only for IT staff because end users do not need to understand acceptable-use boundaries",
+              "Updated daily to reflect every operational change in production system configurations"
             ],
             "a": 0,
             "exp": "AUPs establish rules for all users — employees must acknowledge understanding to create accountability.",
@@ -15031,10 +15031,10 @@
           {
             "q": "A security standard differs from a policy in that:",
             "opts": [
-              "Standards are written by regulators only",
-              "Standards are optional; policies are mandatory",
+              "Standards are written exclusively by external regulators; organizations cannot author internal standards",
+              "Standards are optional reference documents; policies are mandatory regulatory submissions to auditors",
               "Standards provide specific, measurable requirements",
-              "They are identical documents"
+              "They are identical documents distinguished only by which executive signed off on them initially"
             ],
             "a": 2,
             "exp": "Policy states high-level intent, standards define exactly what is required. Policy: 'data must be protected.' Standard: 'AES-256 must be used for all data at rest, TLS 1.2+ for all data in transit.'",
@@ -15044,10 +15044,10 @@
           {
             "q": "PCI DSS and HIPAA are examples of:",
             "opts": [
-              "Internal organizational standards",
+              "Internal organizational standards developed and ratified by a single company's compliance team",
               "External standards imposed by regulation",
-              "Optional best practice frameworks",
-              "Security policies"
+              "Optional best-practice frameworks adopted voluntarily without legal or contractual consequence",
+              "Security policies signed by an executive sponsor inside one organization for internal governance"
             ],
             "a": 1,
             "exp": "Organizations in scope must comply or face penalties. PCI DSS (payment cards) and HIPAA (health data) are externally mandated — non-compliance results in fines, audits, or loss of ability to process transactions.",
@@ -15179,10 +15179,10 @@
           {
             "q": "A security playbook is used during incident response to:",
             "opts": [
-              "Provide general security awareness information",
+              "Provide general security awareness information to all employees during the annual training cycle",
               "Provide detailed step-by-step procedures specific to a type of incident — ensuring consistent, correct response every time",
-              "Replace the incident response team",
-              "Document security policies"
+              "Replace the incident response team by automating every detection-to-recovery action without human review",
+              "Document the broad governance security policies covering retention, classification, and access scope"
             ],
             "a": 1,
             "exp": "Playbooks eliminate improvisation during high-stress incidents — providing pre-approved, tested steps for specific scenarios.",
@@ -15305,10 +15305,10 @@
           {
             "q": "GDPR (General Data Protection Regulation) applies to:",
             "opts": [
-              "Only EU-based organizations",
+              "Only EU-based organizations whose corporate headquarters reside in an EU/EEA member state",
               "Any organization that processes personal data of EU/EEA residents — regardless of where the organization is located",
-              "Only government organizations",
-              "Only large enterprises"
+              "Only government organizations in EU member states that handle citizen registry data centrally",
+              "Only large enterprises with annual EU-derived revenue exceeding the GDPR turnover threshold"
             ],
             "a": 1,
             "exp": "GDPR applies based on where data subjects are, not where the organization is — a US company with EU customers must comply.",
@@ -15318,10 +15318,10 @@
           {
             "q": "Separation of duties prevents fraud by:",
             "opts": [
-              "Using stronger encryption",
-              "Limiting access to one person",
+              "Using stronger encryption on the records that document each privileged operation in the audit trail",
+              "Limiting access to one person who is fully accountable and held responsible if anything goes wrong",
               "Requiring multiple people to complete a sensitive process — making it impossible for one person to commit fraud without collusion",
-              "Logging all financial transactions"
+              "Logging all financial transactions to a tamper-evident WORM volume reviewed monthly"
             ],
             "a": 2,
             "exp": "Separation of duties: initiating and approving a payment are separate roles. One person can't create AND approve.",
@@ -15331,9 +15331,9 @@
           {
             "q": "A data breach notification requirement of 72 hours means:",
             "opts": [
-              "72 hours to fix the breach",
-              "72 hours to discover the breach",
-              "72 hours to complete the investigation",
+              "72 hours to fix the breach by remediating the underlying vulnerability and rebuilding compromised systems",
+              "72 hours to discover the breach before regulators consider the response window to have been missed",
+              "72 hours to complete the investigation including root cause analysis and final containment confirmation",
               "Affected parties and supervisory authorities must be notified within 72 hours of becoming aware of the breach (GDPR requirement)"
             ],
             "a": 3,
@@ -15495,9 +15495,9 @@
           {
             "q": "The data owner is responsible for:",
             "opts": [
-              "Technical storage of data",
-              "Processing data on behalf of other organizations",
-              "Day-to-day IT management of data systems",
+              "Technical storage of data on backend infrastructure including disk arrays, encryption keys, and replication",
+              "Processing data on behalf of other organizations under a documented data-processing agreement and BPA",
+              "Day-to-day IT management of data systems including patching, capacity planning, and routine restore checks",
               "Setting data classification levels, access policies, and retention requirements — a senior business role, not IT"
             ],
             "a": 3,
@@ -15508,9 +15508,9 @@
           {
             "q": "Under GDPR, a data processor is:",
             "opts": [
-              "The individual whose data is collected",
-              "A government regulator",
-              "The organization that determines why data is collected",
+              "The individual whose personal data is collected and stored under that individual's identifying attributes",
+              "A government regulator who oversees compliance with the GDPR within a specific EU member state",
+              "The organization that determines why personal data is collected and how it is subsequently processed",
               "An organization that processes personal data on behalf of the data controller — e.g. a cloud provider or payroll service"
             ],
             "a": 3,
@@ -15679,9 +15679,9 @@
             "q": "Residual risk is:",
             "opts": [
               "The risk remaining after security controls have been implemented — some residual risk is always present",
-              "Risk before any controls are applied",
-              "The risk that controls fail",
-              "Risk from external threats only"
+              "The total risk that exists before any security controls or mitigations are applied",
+              "The risk that the deployed controls themselves fail unexpectedly during routine operation",
+              "Risk that arises only from external threats and excludes any internal employee or process risks"
             ],
             "a": 0,
             "exp": "No controls eliminate risk entirely — residual risk is what remains after controls are applied. The goal is reducing residual risk to an acceptable level.",
@@ -15691,10 +15691,10 @@
           {
             "q": "Inherent risk differs from residual risk in that:",
             "opts": [
-              "They are the same measurement",
+              "They are the same measurement of risk reported through two different terminology conventions",
               "Inherent risk exists before any controls; residual risk remains after controls are applied",
-              "Inherent risk is always lower",
-              "Residual risk is always zero"
+              "Inherent risk is always lower than residual risk because raw risk excludes amplification factors",
+              "Residual risk is always zero in any organization that has implemented a recognized control framework"
             ],
             "a": 1,
             "exp": "Inherent = baseline risk with no controls. Residual = risk after controls reduce likelihood/impact. The difference = effectiveness of controls.",
@@ -15864,9 +15864,9 @@
           {
             "q": "ALE (Annualized Loss Expectancy) is used to:",
             "opts": [
-              "Calculate the maximum possible loss",
-              "Calculate exposure factor",
-              "Determine how often incidents occur",
+              "Calculate the maximum possible loss in any single worst-case incident regardless of frequency",
+              "Calculate exposure factor as a percentage representing how much an asset's value is destroyed per event",
+              "Determine how often incidents occur within a calendar year by averaging historical frequency data",
               "Justify security investments by comparing the annual cost of a control against the expected annual loss it prevents"
             ],
             "a": 3,
@@ -16059,10 +16059,10 @@
           {
             "q": "Risk transference via cyber insurance:",
             "opts": [
-              "Eliminates the risk",
-              "Reduces the likelihood of an incident",
+              "Eliminates the risk entirely so the underlying technical vulnerabilities no longer require remediation",
+              "Reduces the likelihood of a security incident by deterring attackers who learn coverage exists",
               "Shifts the financial impact of a breach to the insurer — the technical risk remains",
-              "Prevents all cyberattacks"
+              "Prevents all cyberattacks by triggering automatic insurer-sourced investigation and incident response"
             ],
             "a": 2,
             "exp": "Insurance transfers financial risk — it pays for incident costs. The organization still faces the technical risk; insurance doesn't prevent the breach.",
@@ -16072,10 +16072,10 @@
           {
             "q": "Risk acceptance requires:",
             "opts": [
-              "No documentation — just move forward",
-              "Implementing at least one compensating control",
+              "No documentation — risk acceptance is purely a verbal decision that engineering teams make ad hoc",
+              "Implementing at least one compensating control before formally accepting the residual exposure",
               "Formal written documentation and sign-off from an appropriate level of management — it is a conscious business decision",
-              "Regulatory notification"
+              "Regulatory notification of the supervisory authority before the acceptance becomes legally binding"
             ],
             "a": 2,
             "exp": "Risk acceptance without documentation is negligence. Formal sign-off creates accountability and ensures leadership consciously accepted the risk.",
@@ -16232,10 +16232,10 @@
           {
             "q": "A BIA (Business Impact Analysis) is used to:",
             "opts": [
-              "Identify vulnerabilities in IT systems",
+              "Identify vulnerabilities in IT systems by running authenticated network and application scans",
               "Determine which business functions are critical, quantify the impact of their disruption, and establish recovery priorities",
-              "Conduct penetration testing",
-              "Develop security policies"
+              "Conduct external penetration testing of the organization's perimeter at the start of every fiscal year",
+              "Develop and ratify the corporate security policies that define acceptable use and access scope"
             ],
             "a": 1,
             "exp": "BIA: what functions matter most, what happens if they're down, how long can they be down — driving RTO/RPO requirements.",
@@ -16246,9 +16246,9 @@
             "q": "If a system has an RPO of 4 hours, the organization must:",
             "opts": [
               "Back up data at least every 4 hours — ensuring no more than 4 hours of data could be lost in an incident",
-              "Not experience more than 4 hours of downtime",
-              "Restore the system within 4 hours",
-              "Keep the system running 24/7"
+              "Not experience more than 4 hours of downtime in any single failure or rolling outage event",
+              "Restore the system within 4 hours of a failure regardless of how much data has been lost",
+              "Keep the system running 24/7 without ever incurring planned maintenance windows or change events"
             ],
             "a": 0,
             "exp": "RPO defines acceptable data loss in time — a 4-hour RPO means backups must run at least every 4 hours.",
@@ -16258,10 +16258,10 @@
           {
             "q": "MTBF (Mean Time Between Failures) is a reliability metric meaning:",
             "opts": [
-              "The time to recover from failure",
-              "The frequency of maintenance",
+              "The time required to recover and restore service after a single failure event",
+              "The frequency at which scheduled maintenance is performed against the component over its life",
               "The average time a component operates successfully between failures — higher MTBF = more reliable",
-              "The cost of each failure"
+              "The acquisition cost incurred each time a single component instance fails and must be replaced"
             ],
             "a": 2,
             "exp": "MTBF measures reliability — a component with 50,000-hour MTBF is more reliable than one with 5,000-hour MTBF.",
@@ -16390,10 +16390,10 @@
           {
             "q": "A SOC 2 Type II report differs from SOC 2 Type I in that:",
             "opts": [
-              "Type II covers more controls",
-              "Type I is more valuable",
+              "Type II covers more controls than Type I including additional Trust Service Criteria categories",
+              "Type I is more valuable to a customer than Type II because Type I is conducted more frequently",
               "Type II demonstrates that controls were operating effectively over a period of time (6-12 months) — Type I only verifies controls exist at a point in time",
-              "They are the same report"
+              "They are the same report distinguished only by the auditor firm performing the engagement"
             ],
             "a": 2,
             "exp": "SOC 2 Type I: controls exist at a point in time. Type II: controls actually worked over an extended period — more meaningful assurance.",
@@ -16602,10 +16602,10 @@
           {
             "q": "An ISA (Interconnection Security Agreement) is used when:",
             "opts": [
-              "Two organizations share an NDA",
+              "Two organizations share a non-disclosure agreement covering an upcoming acquisition discussion",
               "Two organizations connect their networks to each other — defining the security requirements, controls, and responsibilities for each side",
-              "A vendor provides cloud services",
-              "An employee works remotely"
+              "A vendor provides cloud services and an SLA covers availability uptime guarantees and remedies",
+              "An employee works remotely from a personal residence using corporate-issued equipment only"
             ],
             "a": 1,
             "exp": "ISAs govern network interconnections — defining firewall rules, encryption requirements, and monitoring for connected systems.",
@@ -16808,9 +16808,9 @@
             "q": "Non-compliance with GDPR can result in:",
             "opts": [
               "Fines up to €20 million or 4% of global annual turnover — whichever is higher — plus reputational damage",
-              "A warning letter only",
-              "Loss of technical certifications only",
-              "Criminal prosecution of the CISO only"
+              "A warning letter only — GDPR has no monetary penalty mechanism beyond regulatory comment",
+              "Loss of technical certifications only — no monetary fines or business-operating constraints",
+              "Criminal prosecution of the CISO only — the corporate entity faces no penalty under the GDPR framework"
             ],
             "a": 0,
             "exp": "GDPR has severe penalties — making compliance a business imperative.",
@@ -16972,9 +16972,9 @@
             "q": "The GDPR principle of data minimization requires organizations to:",
             "opts": [
               "Collect and process only personal data that is necessary for the specific purpose stated — not more",
-              "Delete all data after 30 days",
-              "Encrypt all data",
-              "Share data minimally across departments"
+              "Delete all collected personal data after 30 days regardless of business need or legal hold status",
+              "Encrypt all data at rest and in transit using AES-256 with hardware-rooted keys for confidentiality",
+              "Share data minimally across departments by routing every cross-departmental query through compliance"
             ],
             "a": 0,
             "exp": "Data minimization: if you don't need it, don't collect it. Collecting only necessary data limits breach exposure and compliance scope.",
@@ -16984,10 +16984,10 @@
           {
             "q": "Privacy by design means:",
             "opts": [
-              "Adding privacy controls after deployment",
-              "Making all data private by default",
+              "Adding privacy controls after deployment as a follow-up project once the system is in production",
+              "Making all data fields private by default and requiring explicit opt-in for any data sharing",
               "Integrating privacy protections into systems and processes from the initial design phase — not as an afterthought",
-              "Encrypting all data"
+              "Encrypting all data at rest with envelope encryption tied to a per-tenant key in the HSM"
             ],
             "a": 2,
             "exp": "Privacy by design (PbD) embeds privacy protections into system architecture from the start — much easier and cheaper than retrofitting.",
@@ -16997,10 +16997,10 @@
           {
             "q": "Under GDPR, the right to erasure allows individuals to:",
             "opts": [
-              "Erase any criminal records",
-              "Delete data held by any organization worldwide",
+              "Erase any criminal records held about them by national law enforcement databases on request",
+              "Delete data held by any organization worldwide regardless of jurisdiction or legal-hold status",
               "Request deletion of their personal data under certain circumstances — e.g. when it's no longer needed or consent is withdrawn",
-              "Access and export all their data"
+              "Access and export all their personal data from any organization that holds it in machine-readable form"
             ],
             "a": 2,
             "exp": "The right to erasure allows individuals to request deletion of their personal data when it's no longer needed for its original purpose.",
@@ -17168,10 +17168,10 @@
           {
             "q": "The primary advantage of an external audit over an internal audit is:",
             "opts": [
-              "External audits are cheaper",
-              "External auditors have better tools",
+              "External audits are cheaper than internal audits because there is no in-house staffing cost",
+              "External auditors have better automated tooling than internal teams typically can deploy in-house",
               "External auditors are independent — their assessment is more credible to regulators, customers, and investors",
-              "Internal audits take longer"
+              "Internal audits take longer than external audits because internal teams have more institutional context"
             ],
             "a": 2,
             "exp": "Independence removes the conflict of interest — an external auditor won't soften findings to protect their employer's reputation.",
@@ -17181,10 +17181,10 @@
           {
             "q": "Attestation in the audit context means:",
             "opts": [
-              "Physically witnessing an audit",
+              "Physically witnessing an audit on-site by sitting alongside the auditor during fieldwork days",
               "A formal declaration — either by management or an independent auditor — that controls are implemented and operating effectively",
-              "An automated scan result",
-              "An informal conversation about security controls"
+              "An automated scan result generated by the vulnerability scanner against in-scope production systems",
+              "An informal conversation about security controls during the auditor's annual on-site visit week"
             ],
             "a": 1,
             "exp": "Attestation is a formal declaration of compliance or control effectiveness — used in SOC reports, PCI DSS self-assessment questionnaires.",
@@ -17342,10 +17342,10 @@
           {
             "q": "PCI DSS requires penetration testing:",
             "opts": [
-              "Only when a breach occurs",
-              "Only if the organization processes over 1 million transactions",
+              "Only when a breach occurs and the acquirer demands a forensic post-incident review",
+              "Only if the organization processes over 1 million transactions per year through the acquiring bank",
               "Annually and after any significant changes to the environment — testing both internal and external perspectives",
-              "Only for external-facing systems"
+              "Only for external-facing systems within the cardholder data environment defined in scope"
             ],
             "a": 2,
             "exp": "PCI DSS mandates annual pen testing and testing after significant infrastructure changes — covering both network and application layers.",
@@ -17356,9 +17356,9 @@
             "q": "Post-exploitation demonstrates:",
             "opts": [
               "What an attacker can do AFTER gaining initial access — lateral movement, privilege escalation, and what data they could reach",
-              "That the vulnerability exists",
-              "How the initial compromise occurred",
-              "How to fix the vulnerability"
+              "That the vulnerability exists in the first place by confirming the precondition through fingerprinting",
+              "How the initial compromise occurred by reconstructing the entry vector and exploitation chain in detail",
+              "How to fix the vulnerability by walking the developer through a recommended secure coding pattern"
             ],
             "a": 0,
             "exp": "Post-exploitation shows real-world business impact — reaching the domain controller, extracting cardholder data, or pivoting to other systems.",
@@ -17368,10 +17368,10 @@
           {
             "q": "Remediation validation (retesting) after a pen test is important because:",
             "opts": [
-              "It provides another revenue opportunity for testers",
+              "It provides another revenue opportunity for testers and so should be skipped to control engagement cost",
               "It confirms the vulnerability was actually fixed — patches can be misapplied or incomplete",
-              "It is always required by regulations",
-              "It generates a new report"
+              "It is always required by regulations regardless of the original test scope or risk register entries",
+              "It generates a new report that supersedes the original engagement findings document entirely"
             ],
             "a": 1,
             "exp": "Closing a finding without verifying the fix is remediated is assumption — retesting confirms the vulnerability no longer exists.",
@@ -17543,9 +17543,9 @@
           {
             "q": "Phishing simulations in security awareness programs are used to:",
             "opts": [
-              "Discipline employees who fail",
-              "Replace security technology",
-              "Send real phishing emails to external targets",
+              "Discipline employees who fail by reporting failures up to their manager with a formal warning",
+              "Replace security technology like email gateway filters with a behavioral compensating control",
+              "Send real phishing emails to external targets to test the maturity of those organizations' defenses",
               "Test employees' ability to recognize phishing and identify those needing additional training — measuring program effectiveness"
             ],
             "a": 3,
@@ -17556,9 +17556,9 @@
           {
             "q": "Role-based security training is more effective than generic training because:",
             "opts": [
-              "It's cheaper to produce",
-              "It can be delivered online only",
-              "It requires fewer instructors",
+              "It is cheaper to produce a single role-tailored module than a single generic training module",
+              "It can be delivered online only without any in-person component or instructor-led time",
+              "It requires fewer instructors because each role-tailored module is shorter than the generic version",
               "Content is tailored to the specific threats and scenarios relevant to each role — finance staff get BEC training; developers get secure coding"
             ],
             "a": 3,
@@ -17735,9 +17735,9 @@
             "q": "Security awareness training should be completed by:",
             "opts": [
               "All employees AND contractors and vendors who have access to organizational systems — everyone is a potential attack vector",
-              "Only IT and security staff",
-              "Only executives and managers",
-              "Only staff who handle sensitive data"
+              "Only IT and security staff who handle production system access on a routine operational basis",
+              "Only executives and managers because they decide acceptable-use boundaries for their own teams",
+              "Only staff who handle sensitive data such as PII, PHI, payment cards, or financial transactions"
             ],
             "a": 0,
             "exp": "Every human with access is a potential target — social engineering doesn't discriminate. All staff, contractors, and vendors must be trained.",
@@ -17747,10 +17747,10 @@
           {
             "q": "Just-in-time security training is delivered:",
             "opts": [
-              "Annually in a classroom",
-              "Only after a security incident",
+              "Annually in a classroom session covering the standard awareness curriculum for all employees",
+              "Only after a security incident has occurred and lessons learned point to a specific gap",
               "At the precise moment an employee encounters a security decision or risk — when the lesson is most relevant and memorable",
-              "During initial onboarding only"
+              "During initial employee onboarding only — covered once during the first week and never repeated"
             ],
             "a": 2,
             "exp": "Just-in-time training is contextual — if you nearly clicked a phishing link, training arrives immediately. Context makes the lesson much more effective.",

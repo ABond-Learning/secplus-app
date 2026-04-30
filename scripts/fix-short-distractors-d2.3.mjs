@@ -34,7 +34,7 @@ const preview = args.includes("--preview");
 
 const data = JSON.parse(readFileSync(jsonPath, "utf8"));
 
-const REPLACEMENTS = [
+export const REPLACEMENTS = [
   // ─── §2.3.1 Memory Injections ─────────────────────────────────────────
   {
     videoId: "2.3.1", kind: "mc", index: 0,

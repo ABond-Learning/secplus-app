@@ -59,7 +59,7 @@ const data = JSON.parse(readFileSync(jsonPath, "utf8"));
 // Each REPLACEMENT: { videoId, kind, index, expectedOldStemPrefix, intensity, newOpts }
 // Correct option text MUST match current item.opts[item.a] exactly so we never
 // accidentally rewrite the correct answer. The script verifies this before applying.
-const REPLACEMENTS = [
+export const REPLACEMENTS = [
   // ─── §1.2.1 The CIA Triad ─────────────────────────────────────────────
   {
     videoId: "1.2.1", kind: "mc", index: 6,
