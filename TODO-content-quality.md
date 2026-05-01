@@ -6,10 +6,10 @@ distractor-padding scope of Sub-batch 2 (which closed 2026-04-30 via mega-pass
 tentative, lower priority than Task 1e and the practice-test-gap content
 additions, and will likely interleave rather than land as a single ship.
 
-**Total active inventory: 11 items across 3 categories** (1 resolved 2026-05-01)
+**Total active inventory: 10 items across 2 categories** (2 resolved 2026-05-01 — Section 3 fully closed)
 - Section 1 — Per-item content fixes (4): substantive question issues requiring pedagogical decisions
 - Section 2 — Per-item padding follow-ups (6): mechanical distractor work deferred from Sub-batch 2
-- Section 3 — New content additions (1 active queue + 1 resolved): §1.1 control types vs categories remains; §1.2 Zero Trust shipped in `197f4fe`
+- Section 3 — New content additions (0 active queues + 2 resolved): all 2026-04-30 practice-test gaps closed (§1.2 Zero Trust shipped in `197f4fe`; §1.1 control axes shipped in `610b21d`)
 
 Each section's items are listed with: ID, source/trigger, the issue, and a
 fix sketch. New work should follow the same review cadence as Sub-batch 2
@@ -206,31 +206,54 @@ confusion are both real misses. Current §1.2 catalogue under-tests these dimens
 
 Citation target: Messer video "1.2 - Zero Trust" (confirmed in MESSER_VIDEOS.md L18). Sub-objective: 1.2 (parent objective convention).
 
-### §1.1 Control types vs control categories (orthogonal axes) — MEDIUM PRIORITY
+### ~~§1.1 Control types vs control categories (orthogonal axes)~~ — ✓ RESOLVED 2026-05-01
 
-**Source:** cybersecuritytrail.com practice test 071825, 2026-04-30 evening:
+**Resolution:** Shipped in commit `610b21d` — 5 items added to video 1.1.1
+(4 MC + 1 scenario):
+- `mc-1.1.1-11` — Physical Category w/ Deterrent cross-axis tempter (fencing/bollards/lighting)
+- `mc-1.1.1-12` — Technical Category w/ Operational cross-axis tempter (motion detector/biometric/IDS) — closes Technical Category coverage gap (was 0 MC + 0 scen)
+- `mc-1.1.1-13` — Directive Type w/ Managerial cross-axis tempter (policies + training)
+- `mc-1.1.1-14` — Visible-vs-hidden camera Type contrast
+- `scen-1.1.1-6` — Same-control-both-axes orthogonality (biometric palm-reader → Technical + Preventive)
+
+**Axis-naming convention used (verified during recon and confirmed by Aiden 2026-05-01):**
+CompTIA SY0-701 1.1 official wording is:
+- **Category** = Managerial / Operational / Technical / Physical
+- **Type** = Preventive / Deterrent / Detective / Corrective / Compensating / Directive
+
+(The original entry below had these axes labeled with internal mnemonics —
+"Type axis" for M/O/T/P and "Function axis" for Pre/Det/etc. — which were
+internal-notes-only and have been resolved against CompTIA's actual wording
+in the shipped questions.)
+
+**Teaching mechanic introduced:** cross-axis-confusion distractors. Q1, Q2,
+Q3 each include one distractor that is TRUE about the asked control on the
+OTHER axis but FALSE as an answer on the asked axis. The stem's word
+"category" or "type" is the disambiguator. Q1's explanation expanded with
+the full Category/Type axis reference as a one-time teachable moment
+establishing the orthogonality.
+
+Original content preserved below for reference (specific control mappings
+remain useful anchors for any future §1.1 authoring).
+
+---
+
+~~**Source:** cybersecuritytrail.com practice test 071825, 2026-04-30 evening:~~
 - Q#1 — picked Operational for a Technical control set (motion detector, biometric, IDS/IPS)
 - Q#2 — picked Deterrent (function category) when Physical (type) was wanted (fencing, bollards, lighting)
 - Q#4 — picked Managerial (type) when Directive (function) was wanted (policies and directives compliance)
 
-**Gap:** The catalogue may conflate the **Type** axis with the **Function/Category** axis.
-These are orthogonal — every control has BOTH a type AND a function/category. CompTIA's
-labeling is itself confusing:
+~~**Gap:** The catalogue may conflate the **Type** axis with the **Function/Category** axis.
+These are orthogonal — every control has BOTH a type AND a function/category.~~
 
-- **Type axis** (Managerial / Operational / Technical / Physical) — sometimes called "Categories" in CompTIA materials.
-- **Function axis** (Preventive / Deterrent / Detective / Corrective / Compensating / Directive) — sometimes called "Types" in CompTIA materials.
-
-Naming aside, the two axes are independent: a single control sits at the intersection of
-one type AND one function.
-
-**Recommend adding 4–6 questions to §1.1:**
+~~**Recommend adding 4–6 questions to §1.1:**~~
 - "What TYPE of control is X?" (testing M/O/T/P)
 - "What FUNCTION/CATEGORY does X perform?" (testing Preventive/Deterrent/Detective/Corrective/Compensating/Directive)
 - A scenario asking BOTH for a single control (forces student to recognize the orthogonality)
 
-**Specific control mappings worth testing:**
+**Specific control mappings (still useful for any future §1.1 authoring):**
 
-| Control | Type | Function |
+| Control | Category (M/O/T/P) | Type (Pre/Det/Det/Cor/Comp/Dir) |
 |---|---|---|
 | Fencing / bollards / lighting | Physical | Deterrent |
 | Motion detectors / biometrics | Technical | Detective / Preventive |
@@ -243,11 +266,10 @@ one type AND one function.
 | Visible camera | Technical | Deterrent (deters because seen) |
 | Hidden camera | Technical | Detective (records, doesn't deter) |
 
-The visible-vs-hidden camera contrast is particularly testable — same physical device,
-different function depending on visibility.
+The visible-vs-hidden camera contrast is testable — same physical device,
+different Type depending on visibility — and was used directly in mc-1.1.1-14.
 
-Citation target: Messer video "1.1 - Security Controls" (confirm exact title against
-MESSER_VIDEOS.md before authoring). Sub-objective: 1.1.
+Citation target: Messer video "1.1 - Security Controls" (confirmed in MESSER_VIDEOS.md L11). Sub-objective: 1.1.
 
 ---
 
