@@ -10,7 +10,7 @@
 // devices in one process.
 
 // ─── Constants ─────────────────────────────────────────────────
-export const TRACKED_PREFIXES = ["mc-", "scen-", "match-", "secplus-"];
+export const TRACKED_PREFIXES = ["mc-", "scen-", "match-", "cram-", "secplus-"];
 
 // LOCAL_ONLY entries override TRACKED_PREFIXES — keys that match here are
 // never synced even if their prefix would normally include them.
@@ -18,6 +18,7 @@ export const LOCAL_ONLY = [
   { kind: "prefix", value: "secplus-sync-" },
   { kind: "exact", value: "secplus-last-backup-at" },
   { kind: "exact", value: "secplus-backup-banner-snooze-until" },
+  { kind: "exact", value: "secplus-v4-exam-session" },
 ];
 
 export const PAYLOAD_SCHEMA_VERSION = 1;

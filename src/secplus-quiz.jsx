@@ -77,6 +77,11 @@ const DEFAULT_STORE = {
 function migrateStore(data) {
   if (!data || typeof data !== "object") return { ...DEFAULT_STORE };
   const incomingVersion = typeof data.version === "number" ? data.version : 1;
+  // INVARIANT: this spread MUST preserve unknown fields from `data`.
+  // Cross-device sync safety relies on V_old reading a V_new store
+  // and round-tripping unknown fields back to localStorage without
+  // loss. Any future refactor that drops unknown fields breaks
+  // additive-only schema migration (Task 2 design v2 §5.4b).
   const merged = { ...DEFAULT_STORE, ...data, version: SCHEMA_VERSION };
   if (!Array.isArray(merged.watched)) merged.watched = [];
   if (!merged.sm2 || typeof merged.sm2 !== "object") merged.sm2 = {};
