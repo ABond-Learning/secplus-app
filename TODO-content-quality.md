@@ -6,9 +6,9 @@ distractor-padding scope of Sub-batch 2 (which closed 2026-04-30 via mega-pass
 tentative, lower priority than Task 1e and the practice-test-gap content
 additions, and will likely interleave rather than land as a single ship.
 
-**Total active inventory: 6 items across 2 categories** (5 resolved 2026-05-01 across 3 commits — Section 3 fully closed; Section 2 Convention A subsection fully closed)
+**Total active inventory: 5 items in Section 1 only** (6 resolved 2026-05-01 across 4 commits — Sections 2 and 3 both fully closed)
 - Section 1 — Per-item content fixes (5): substantive question issues requiring pedagogical decisions (4 original + 1 new citation-accuracy item from Convention A batch)
-- Section 2 — Per-item padding follow-ups (1): only `mc-4.2.1-1` remains (5 Convention A items shipped 2026-05-01 in `e610491`)
+- Section 2 — Per-item padding follow-ups (0 active — FULLY CLOSED 2026-05-01): all distractor-padding follow-ups complete (5 Convention A in `e610491` + 1 scope-omitted multi-pad in `2bdd364`)
 - Section 3 — New content additions (0 active queues + 2 resolved): all 2026-04-30 practice-test gaps closed (§1.2 Zero Trust shipped in `197f4fe`; §1.1 control axes shipped in `610b21d`)
 
 Each section's items are listed with: ID, source/trigger, the issue, and a
@@ -146,11 +146,12 @@ useful in the second sub-objective.
 
 ---
 
-## 2. Per-item padding follow-ups (1 item)
+## 2. Per-item padding follow-ups (0 items — ✓ FULLY CLOSED 2026-05-01)
 
-Sub-batch 2 cohort items deferred from the mega-pass. Mechanical work: known
-fix shape, no pedagogy decisions. Can land as a small batch in any future
-session using the same per-sub-objective fix-script pattern.
+All Sub-batch 2 cohort items deferred from the mega-pass have been resolved.
+Convention A expansions (5 items) shipped in `e610491`; the §4.2 scope-omitted
+item (`mc-4.2.1-1`) shipped in `2bdd364`. No mechanical distractor-padding
+work remains in the catalogue's Sub-batch 2 backlog.
 
 ### ~~Convention A expansions (5 items)~~ — ✓ RESOLVED 2026-05-01
 
@@ -186,18 +187,34 @@ near the same length. Source for each: mega-pass review document, 2026-04-30.~~
 ~~| `mc-4.6.1-2` | §4.6.1 | Permission creep | "Regular access reviews" (22) | 4.64× | "Regular access reviews to remove no-longer-needed permissions" (~60) |~~
 ~~| `mc-4.7.1-0` | §4.7.1 | Automation benefit | "Speed and consistency" (21) | 4.52× | "Speed and consistency — automated tasks execute identically every time" (~70) |~~
 
-### Scope-omitted padding (1 item)
+### ~~Scope-omitted padding (1 item)~~ — ✓ RESOLVED 2026-05-01
 
-#### `mc-4.2.1-1` — §4.2 cohort item not included in mega-pass scope
+**Resolution:** Shipped in commit `2bdd364` — multi-pad treatment of
+`mc-4.2.1-1`. 3 short distractors (10/10/22 chars) padded; correct option
+(`Physical destruction (shredding/incineration)`, 45 chars) preserved
+verbatim. Position preserved at index 2; SM-2 key untouched. Length ratio
+4.50× → 1.09× (tightest balance of any of today's batches; all four
+options now sit in the 45-49 char band).
 
-**Issue:** Mega-pass brief listed 21 sub-objectives; §4.2 was omitted. Cohort audit shows
+Apply mechanism: standard multi-pad in `scripts/fix-short-distractors-d4.2.mjs`,
+following the per-sub-objective pattern from the mega-pass d4.x scripts.
+The "Formatting is not sanitization" misconception was deliberately
+preserved as the obvious-floor distractor; crypto-erase as a real NIST
+800-88 method was discussed as an alternative rebuild but deferred to a
+separate new-question if/when authored.
+
+Original entry preserved below for reference:
+
+---
+
+~~**Issue:** Mega-pass brief listed 21 sub-objectives; §4.2 was omitted. Cohort audit shows
 1 item still pending there: `mc-4.2.1-1` (Domain 4, ratio 4.50×, shortCount=3,
-source=legacy).
+source=legacy).~~
 
-**Fix sketch:** Author distractors using the same conventions applied throughout
+~~**Fix sketch:** Author distractors using the same conventions applied throughout
 Sub-batch 2 (length ≤1.5× ratio target, plausible-AND-false rule, preserve correct).
 Standard per-sub-objective fix script (`scripts/fix-short-distractors-d4.2.mjs`) pattern.
-Single-item batch.
+Single-item batch.~~
 
 ---
 
