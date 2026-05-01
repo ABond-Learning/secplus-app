@@ -1323,6 +1323,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 24 }}>
           {[
             ["standard","📝 Standard","Choose topics & count"],
+            ["new","📥 New","Unseen on watched videos"],
             ["scenario","🎯 Scenario","Real-world situation questions"],
             ["spaced","🔁 Spaced Repetition","Questions due today"],
             ["weak","⚡ Weak Spots","Your lowest-scoring topics"],
@@ -1370,6 +1371,35 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
           </div>
         )}
 
+        {setupMode === "new" && (() => {
+          // "New" mode preamble: count unseen MC + scenarios across all watched
+          // videos. Matching items are excluded from the pool because matching
+          // uses a different running-quiz UI; the dashboard's "N new to try"
+          // counter includes matching, so its number may be slightly higher
+          // than the count shown here. Accepted gap.
+          let unseenCount = 0;
+          watchedVideos.forEach(v => {
+            v.questions.forEach((_q, qi) => {
+              if (!store.sm2[mcKey(v.id, qi)]) unseenCount++;
+            });
+            (v.scenarios || []).forEach((_q, qi) => {
+              if (!store.sm2[scenKey(v.id, qi)]) unseenCount++;
+            });
+          });
+          return (
+            <div>
+              <div style={{ padding: "10px 12px", background: "#1e293b", borderRadius: 6, marginBottom: 12, fontSize: 13, color: "#cbd5e1" }}>
+                Drawing from {watchedVideos.length} watched video{watchedVideos.length === 1 ? "" : "s"} · <strong style={{ color: "#10b981" }}>{unseenCount}</strong> new question{unseenCount === 1 ? "" : "s"}
+              </div>
+              <div style={{ marginTop: 12 }}>
+                <div style={styles.formLabel}>Questions: {questionCount}</div>
+                <input type="range" min={5} max={50} value={questionCount} onChange={e => setQuestionCount(+e.target.value)}
+                  style={{ width: "100%" }} />
+              </div>
+            </div>
+          );
+        })()}
+
         {setupMode !== "matching" && (
           <label style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 16, padding: "10px 12px", background: "#1e293b", borderRadius: 6, cursor: "pointer", border: activeRecall ? "1px solid #3b82f6" : "1px solid #334155" }}>
             <input
@@ -1388,7 +1418,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
         )}
 
         <button onClick={() => startQuiz(setupMode)} style={styles.startBtn}>
-          Start {setupMode === "spaced" ? "Spaced Repetition" : setupMode === "weak" ? "Weak Spots" : setupMode === "matching" ? "Matching" : setupMode === "scenario" ? "Scenario Quiz" : "Quiz"}
+          Start {setupMode === "spaced" ? "Spaced Repetition" : setupMode === "weak" ? "Weak Spots" : setupMode === "matching" ? "Matching" : setupMode === "scenario" ? "Scenario Quiz" : setupMode === "new" ? "New Questions" : "Quiz"}
         </button>
       </div>
       <Modal
@@ -1576,6 +1606,28 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
         showAlert("No questions due today! Come back tomorrow or switch to Standard mode.");
         return;
       }
+    } else if (m === "new") {
+      // "New" mode: items on watched videos with no SM-2 record yet. Pool
+      // covers MC + scenarios only — matching uses a different running-quiz
+      // UI, so the dashboard's "N new to try" counter (which includes
+      // matching) may report a slightly higher number than this pool size.
+      watchedVideos.forEach(v => {
+        v.questions.forEach((q, qi) => {
+          if (!store.sm2[mcKey(v.id, qi)]) {
+            pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" });
+          }
+        });
+        (v.scenarios || []).forEach((q, qi) => {
+          if (!store.sm2[scenKey(v.id, qi)]) {
+            pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc", isScenario: true });
+          }
+        });
+      });
+      if (pool.length === 0) {
+        showAlert("No new questions! All your watched-video questions have been seen at least once. Mark more videos watched in Progress, or try Spaced Repetition.");
+        return;
+      }
+      pool = shuffle(pool).slice(0, questionCount);
     } else if (m === "weak") {
       const weak = watchedVideos.filter(v => {
         const recs = v.questions.map((_, qi) => store.sm2[mcKey(v.id, qi)]).filter(Boolean);
