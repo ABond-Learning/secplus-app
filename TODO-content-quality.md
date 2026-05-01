@@ -6,9 +6,9 @@ distractor-padding scope of Sub-batch 2 (which closed 2026-04-30 via mega-pass
 tentative, lower priority than Task 1e and the practice-test-gap content
 additions, and will likely interleave rather than land as a single ship.
 
-**Total active inventory: 10 items across 2 categories** (2 resolved 2026-05-01 — Section 3 fully closed)
-- Section 1 — Per-item content fixes (4): substantive question issues requiring pedagogical decisions
-- Section 2 — Per-item padding follow-ups (6): mechanical distractor work deferred from Sub-batch 2
+**Total active inventory: 6 items across 2 categories** (5 resolved 2026-05-01 across 3 commits — Section 3 fully closed; Section 2 Convention A subsection fully closed)
+- Section 1 — Per-item content fixes (5): substantive question issues requiring pedagogical decisions (4 original + 1 new citation-accuracy item from Convention A batch)
+- Section 2 — Per-item padding follow-ups (1): only `mc-4.2.1-1` remains (5 Convention A items shipped 2026-05-01 in `e610491`)
 - Section 3 — New content additions (0 active queues + 2 resolved): all 2026-04-30 practice-test gaps closed (§1.2 Zero Trust shipped in `197f4fe`; §1.1 control axes shipped in `610b21d`)
 
 Each section's items are listed with: ID, source/trigger, the issue, and a
@@ -17,7 +17,7 @@ fix sketch. New work should follow the same review cadence as Sub-batch 2
 
 ---
 
-## 1. Per-item content fixes (4 items)
+## 1. Per-item content fixes (5 items)
 
 Substantive question issues — flawed framing, missing dimensions in correct
 answers, weak distractor categorization, stem duplication. Each requires
@@ -90,6 +90,39 @@ Convention B holdback was the correct call within the **distractor-padding scope
 options ARE all short technique names with the structural slash-notation issue on
 correct), but the question itself is weak.
 
+### `mc-1.3.2-0` — citation accuracy: allow-listing vs change-management (flagged 2026-05-01, Convention A batch)
+
+**Stem:** "Which process ensures only approved software versions can execute in production?"
+
+**Current correct (post-Convention A expansion):** "Allow listing — defining an explicit set of approved software versions cleared to execute"
+
+**Current citation:** `messerVideo: "1.3 - Technical Change Management"`, `subObjective: "1.3"`
+
+**Issue:** The cited Messer video is "1.3 - Technical Change Management," which covers
+the change-management process (CAB review, backout plans, maintenance windows, etc.) —
+NOT allow-listing as a software-execution control. Allow-listing is more naturally a
+§2.5 (mitigations) / §4.1 (hardening) / §4.5 (endpoint) topic in Messer's curriculum.
+
+The question itself is well-formed and pedagogically valuable — the issue is purely
+citation accuracy. A student following the citation back to "1.3 - Technical Change
+Management" will not find the allow-listing concept covered there.
+
+Discovered during 2026-05-01 Convention A batch (commit `e610491`). Out of scope for
+the mechanical Convention A expansion; needs a pedagogy decision.
+
+**Fix sketch — three options:**
+- (a) Re-cite to a more appropriate Messer video (likely "2.5 - Mitigation Techniques",
+  "4.1 - Hardening Targets", or "4.5 - Endpoint Security" — confirm against
+  MESSER_VIDEOS.md and the actual video content before choosing).
+- (b) Treat as a "concept appears in multiple videos" case and update the citation
+  field to a primary video while noting the concept is reinforced elsewhere.
+- (c) Move the entire question to a different sub-objective if allow-listing is more
+  central to that sub-objective's coverage. (More invasive — would need an array
+  shift; SM-2 keys would stay stable since the question ID would change anyway.)
+
+Recommendation: option (a) is the lightest fix and preserves SM-2 progress on the
+existing item. Aiden's call.
+
 ### `mc-3.2.5-1` vs `mc-4.5.1-2` — duplicate WAF stem (flagged 2026-04-30, mega-pass)
 
 **Stem (both items):** "A WAF (Web Application Firewall) is specifically designed to protect against:"
@@ -113,31 +146,45 @@ useful in the second sub-objective.
 
 ---
 
-## 2. Per-item padding follow-ups (6 items)
+## 2. Per-item padding follow-ups (1 item)
 
 Sub-batch 2 cohort items deferred from the mega-pass. Mechanical work: known
 fix shape, no pedagogy decisions. Can land as a small batch in any future
 session using the same per-sub-objective fix-script pattern.
 
-### Convention A expansions (5 items)
+### ~~Convention A expansions (5 items)~~ — ✓ RESOLVED 2026-05-01
 
-Each item has an intrinsically-short correct option that triggered a length-ratio
+**Resolution:** Shipped in commit `e610491` — 5 Convention A expansions
+applied via `scripts/fix-conv-a-batch.mjs` using the `expectedOldCorrect` /
+`newCorrect` / `newOpts` pattern from the mega-pass's mc-4.1.4-0 SAE
+expansion. All correct positions preserved (SM-2 keys untouched). Length
+ratios brought from 3.48-7.62× down to 1.15-1.40×, all under Sub-batch 2's
+1.5× target.
+
+Resolved items:
+- `mc-1.3.2-0` Allow listing                  13 → 89 chars (7.62× → 1.22×)
+- `mc-4.1.2-2` Network segmentation           20 → 63 chars (4.40× → 1.40×)
+- `mc-4.6.1-0` Centralizing authentication    27 → 82 chars (3.48× → 1.15×)
+- `mc-4.6.1-2` Regular access reviews         22 → 85 chars (4.64× → 1.23×)
+- `mc-4.7.1-0` Speed and consistency          21 → 70 chars (4.52× → 1.36×)
+
+Distractors / explanations / citations all preserved unchanged. In-place
+edits only. Original entry preserved below for reference.
+
+---
+
+~~Each item had an intrinsically-short correct option that triggered a length-ratio
 violation the mega-pass chose not to pad in scope. Convention A treatment: expand all 4
 options to "Term — explanatory tail" or "TLA (expanded form)" pattern so all options sit
-near the same length. Source for each: mega-pass review document, 2026-04-30.
+near the same length. Source for each: mega-pass review document, 2026-04-30.~~
 
-| ID | Sub-obj | Topic | Current correct (chars) | Ratio | Recommended Convention A expansion (target chars) |
-|---|---|---|---|---|---|
-| `mc-1.3.2-0` | §1.3.2 | Allow listing | "Allow listing" (13) | 7.62× | "Allow listing — only approved software can execute" (~50) |
-| `mc-4.1.2-2` | §4.1.2 | IoT segmentation | "Network segmentation" (20) | 4.40× | "Network segmentation — isolating IoT devices on dedicated VLANs" (~65) |
-| `mc-4.6.1-0` | §4.6.1 | SSO benefit | "Centralizing authentication" (27) | 3.48× | "Centralizing authentication into a single identity provider" (~58) |
-| `mc-4.6.1-2` | §4.6.1 | Permission creep | "Regular access reviews" (22) | 4.64× | "Regular access reviews to remove no-longer-needed permissions" (~60) |
-| `mc-4.7.1-0` | §4.7.1 | Automation benefit | "Speed and consistency" (21) | 4.52× | "Speed and consistency — automated tasks execute identically every time" (~70) |
-
-When applying: also expand the 3 distractors to the same length band so the ratio drops
-below 1.5× catalogue-wide. Use the d4.1 fix script's `expectedOldCorrect` /
-`newCorrect` pattern (added in mega-pass for the SAE expansion at `mc-4.1.4-0`) to
-preserve the SM-2 index when the correct-answer text changes.
+~~| ID | Sub-obj | Topic | Current correct (chars) | Ratio | Recommended Convention A expansion (target chars) |~~
+~~|---|---|---|---|---|---|~~
+~~| `mc-1.3.2-0` | §1.3.2 | Allow listing | "Allow listing" (13) | 7.62× | "Allow listing — only approved software can execute" (~50) |~~
+~~| `mc-4.1.2-2` | §4.1.2 | IoT segmentation | "Network segmentation" (20) | 4.40× | "Network segmentation — isolating IoT devices on dedicated VLANs" (~65) |~~
+~~| `mc-4.6.1-0` | §4.6.1 | SSO benefit | "Centralizing authentication" (27) | 3.48× | "Centralizing authentication into a single identity provider" (~58) |~~
+~~| `mc-4.6.1-2` | §4.6.1 | Permission creep | "Regular access reviews" (22) | 4.64× | "Regular access reviews to remove no-longer-needed permissions" (~60) |~~
+~~| `mc-4.7.1-0` | §4.7.1 | Automation benefit | "Speed and consistency" (21) | 4.52× | "Speed and consistency — automated tasks execute identically every time" (~70) |~~
 
 ### Scope-omitted padding (1 item)
 
