@@ -1090,6 +1090,58 @@
             "exp": "Zero Trust continuously evaluates device health, user behavior, and context — not just at initial authentication.",
             "messerVideo": "1.2 - Zero Trust",
             "subObjective": "1.2"
+          },
+          {
+            "q": "In a Zero Trust architecture following NIST SP 800-207, an identity-aware proxy that inspects each user request and either permits or blocks the connection is acting as which component?",
+            "opts": [
+              "Policy Administrator (PA) — it issues the session token after the decision is made",
+              "Policy Engine (PE) — it generates the trust score that drives the access decision",
+              "Policy Enforcement Point (PEP) — it sits inline with the traffic and enforces the access decision",
+              "Resource server — it hosts the application the request is destined for"
+            ],
+            "a": 2,
+            "exp": "An identity-aware proxy that allows or denies traffic in real time is the PEP — it sits on the data plane. The PE makes the decision; the PA communicates it; the proxy enforces it. The resource server is what the PEP is protecting, not the enforcement point itself.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
+          },
+          {
+            "q": "In a Zero Trust architecture, the component that evaluates context — including device posture, user identity, and threat intelligence — to produce an allow-or-deny decision is the:",
+            "opts": [
+              "Policy Enforcement Point (PEP) — it sits inline with traffic and applies whatever decision was made",
+              "Policy Administrator (PA) — it issues a session credential after the decision has been reached",
+              "Policy Engine (PE) — it consults the trust algorithm to decide whether the request should be granted",
+              "Resource Server — it hosts the protected data the subject is trying to access"
+            ],
+            "a": 2,
+            "exp": "The PE is the brain of Zero Trust: it consumes signals (identity, device posture, threat intel) and consults the trust algorithm. The PA acts on the PE's decision by issuing a session credential; the PEP enforces it on traffic; the resource server is what the PEP is protecting.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
+          },
+          {
+            "q": "In a NIST SP 800-207 Zero Trust deployment, which statement BEST distinguishes the Policy Engine from the Policy Enforcement Point?",
+            "opts": [
+              "The Policy Engine handles authentication; the Policy Enforcement Point handles authorization",
+              "The Policy Engine sits inline with traffic; the Policy Enforcement Point lives in the control plane",
+              "The Policy Engine and Policy Enforcement Point are interchangeable terms for the same component",
+              "The Policy Engine decides whether to grant access; the Policy Enforcement Point applies that decision to live traffic"
+            ],
+            "a": 3,
+            "exp": "PE = decision; PEP = enforcement. PE lives on the control plane and consults the trust algorithm; PEP lives on the data plane and applies the verdict to live traffic. Crucially, neither replaces authentication or authorization — Zero Trust is an architecture for HOW access decisions are made and enforced, not the AAA process itself. The PE consumes signals (after authn), produces an authorization decision, and the PEP enforces it.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
+          },
+          {
+            "q": "In a Zero Trust architecture, what is the specific role of the Policy Administrator (PA)?",
+            "opts": [
+              "Inspecting each request against firewall and proxy rules and blocking disallowed traffic",
+              "Evaluating user identity, device posture, and contextual signals to compute a trust score",
+              "Storing the protected data and serving it to subjects after authorization succeeds",
+              "Communicating the Policy Engine's decision to the enforcement point and issuing or revoking the session credential"
+            ],
+            "a": 3,
+            "exp": "PA bridges the PE's decision and the PEP's enforcement: once the PE says 'allow,' the PA generates a session-specific credential or token, hands it to the PEP, and tracks the session. When trust changes mid-session, PA revokes the credential. The PA's role is most clearly articulated in NIST SP 800-207; some Zero Trust framings collapse PA into PE on the control plane.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
           }
         ],
         "scenarios": [
@@ -1103,6 +1155,19 @@
             ],
             "a": 3,
             "exp": "Zero trust replaces implicit network-location trust with explicit per-request verification of identity, device posture, and context. Making access decisions at each request, per application, is the core zero trust pattern. Expanding VPN capacity perpetuates the old implicit-trust model; extending a flat VLAN and trusting internal WAN traffic move in the opposite direction by enlarging the trust zone.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2"
+          },
+          {
+            "q": "An IT architect is implementing Zero Trust at a financial services firm. The team deploys a SIEM that ingests endpoint telemetry, identity provider events, and threat intelligence feeds; an existing reverse proxy at the application edge is configured to consult an internal API before forwarding any HTTP request, and a small service tracks active sessions and revokes their tokens when a device's compliance status changes. In NIST SP 800-207 terms, which mapping is correct?",
+            "opts": [
+              "SIEM/risk feeds → Policy Engine inputs; reverse proxy → Policy Enforcement Point; session-token service → Policy Administrator",
+              "Reverse proxy → Policy Engine; SIEM → Policy Enforcement Point; session-token service → resource server",
+              "All three are different views of the Policy Engine — NIST 800-207 treats the control plane as a single PE",
+              "Reverse proxy → Policy Administrator; SIEM → Policy Engine; session-token service → Policy Enforcement Point"
+            ],
+            "a": 0,
+            "exp": "The SIEM feeds risk signals into the PE's trust algorithm; the PE produces the decision. The reverse proxy sits inline with HTTP traffic and applies the decision — that's the PEP. The session-token service that issues and revokes credentials is the PA, the bridge between PE decisions and PEP enforcement. NIST 800-207 explicitly splits the control plane into PE and PA; collapsing them or swapping the planes is the most common student error.",
             "messerVideo": "1.2 - Zero Trust",
             "subObjective": "1.2"
           }
