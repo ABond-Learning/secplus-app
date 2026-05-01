@@ -6,10 +6,10 @@ distractor-padding scope of Sub-batch 2 (which closed 2026-04-30 via mega-pass
 tentative, lower priority than Task 1e and the practice-test-gap content
 additions, and will likely interleave rather than land as a single ship.
 
-**Total inventory: 12 items across 3 categories**
+**Total active inventory: 11 items across 3 categories** (1 resolved 2026-05-01)
 - Section 1 — Per-item content fixes (4): substantive question issues requiring pedagogical decisions
 - Section 2 — Per-item padding follow-ups (6): mechanical distractor work deferred from Sub-batch 2
-- Section 3 — New content additions (2 multi-question queues): practice-test gaps requiring new authoring
+- Section 3 — New content additions (1 active queue + 1 resolved): §1.1 control types vs categories remains; §1.2 Zero Trust shipped in `197f4fe`
 
 Each section's items are listed with: ID, source/trigger, the issue, and a
 fix sketch. New work should follow the same review cadence as Sub-batch 2
@@ -160,31 +160,51 @@ Different shape from Sections 1 and 2 — these are NEW questions to author, not
 existing ones. Driven by practice-test misses on cybersecuritytrail.com on 2026-04-30
 evening.
 
-### §1.2 Zero Trust components (NIST SP 800-207) — HIGH PRIORITY
+### ~~§1.2 Zero Trust components (NIST SP 800-207)~~ — ✓ RESOLVED 2026-05-01
 
-**Source:** cybersecuritytrail.com practice tests, 2026-04-30 evening:
+**Resolution:** Shipped in commit `197f4fe` — 5 items added to video 1.2.5
+(4 MC + 1 scenario):
+- `mc-1.2.5-5` — PEP component ID (identity-aware proxy → PEP)
+- `mc-1.2.5-6` — PE component ID (context-evaluator → PE)
+- `mc-1.2.5-7` — PE vs PEP forced discrimination
+- `mc-1.2.5-8` — PA's specific role (NIST-leaning, caveat in explanation)
+- `scen-1.2.5-1` — Multi-component scenario (SIEM / proxy / session-token-svc → PE inputs / PEP / PA)
+
+**AAA-vs-ZT addendum** (originally proposed as option (b) — author a 6th item):
+woven into `mc-1.2.5-7`'s explanation per option (a) decision. The
+distinction "Zero Trust is an architecture for HOW access decisions are
+made and enforced, not the AAA process itself" appears directly in the
+explanation, addressing the 090125 q#4 miss without a separate item.
+If practice tests reveal the gap persists after this batch, author a
+follow-up at that point — not speculatively.
+
+Original content preserved below for reference (trigger phrases remain
+useful anchors for any future §1.2 ZT authoring).
+
+---
+
+~~**Source:** cybersecuritytrail.com practice tests, 2026-04-30 evening:~~
 - Test 071825 q#5 — picked Policy Engine when Policy Enforcement Point was correct
 - Test 071825 q#8 — picked Policy Engine when Policy Enforcement Point was correct (recurring confusion)
 - Test 090125 q#4 — picked Authorization when Zero Trust as a concept was correct ("authenticate users AND devices")
 
-**Gap:** The PE/PA/PEP component distinction and Zero-Trust-as-architecture vs AAA
-confusion are both real misses. Current §1.2 catalogue under-tests these dimensions.
+~~**Gap:** The PE/PA/PEP component distinction and Zero-Trust-as-architecture vs AAA
+confusion are both real misses. Current §1.2 catalogue under-tests these dimensions.~~
 
-**Recommend adding 4–5 questions to §1.2:**
+~~**Recommend adding 4–5 questions to §1.2:**~~
 - 2 MC on PE/PA/PEP component identification with concrete devices named (firewall = PEP; SIEM/risk-engine = PE; etc.)
 - 1 MC distinguishing strategic-decision (PE) from tactical-enforcement (PEP) wording
 - 1 MC on PA's role specifically (most often forgotten — generates session-specific tokens, communicates between PE and PEP)
 - 1 scenario testing component identification in context
 
-**Trigger phrases to teach (use as anchor language across the new questions):**
+**Trigger phrases (still useful for any future §1.2 ZT authoring):**
 - "Dynamic conditions" / "context-aware" / "risk-based decision" → **PE** (Policy Engine)
 - "Enforces policies" / "checks traffic against rules" / "firewall" / "proxy" / "VPN gateway" / "API gateway" → **PEP** (Policy Enforcement Point)
 - "Communicates the decision" / "session token generation" → **PA** (Policy Administrator)
 - **Control Plane** = where PE/PA operate (decision layer)
 - **Data Plane** = where PEP operates (traffic layer)
 
-Citation target: Messer video "1.2 - Zero Trust" (confirm exact title against
-MESSER_VIDEOS.md before authoring). Sub-objective: 1.2 (Zero Trust).
+Citation target: Messer video "1.2 - Zero Trust" (confirmed in MESSER_VIDEOS.md L18). Sub-objective: 1.2 (parent objective convention).
 
 ### §1.1 Control types vs control categories (orthogonal axes) — MEDIUM PRIORITY
 
