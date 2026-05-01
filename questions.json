@@ -233,6 +233,58 @@
             "exp": "Directive controls instruct personnel on required behavior through policy.",
             "messerVideo": "1.1 - Security Controls",
             "subObjective": "1.1"
+          },
+          {
+            "q": "Fencing, bollards, and exterior lighting around a corporate campus are examples of which control category?",
+            "opts": [
+              "Managerial",
+              "Technical",
+              "Physical",
+              "Deterrent"
+            ],
+            "a": 2,
+            "exp": "Physical controls are tangible, real-world barriers — fencing, bollards, lighting, locks, fences, mantraps. While these same controls also act as a Deterrent in the Type axis, the question asks for the CATEGORY (Managerial / Operational / Technical / Physical), not the Type (Preventive / Deterrent / Detective / Corrective / Compensating / Directive). Every control sits at the intersection of one Category AND one Type — they are independent axes.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          },
+          {
+            "q": "An organization deploys motion detectors, fingerprint biometric scanners, and an intrusion detection system (IDS) across its facility. These tools are which control category?",
+            "opts": [
+              "Operational",
+              "Technical",
+              "Physical",
+              "Managerial"
+            ],
+            "a": 1,
+            "exp": "Technical controls are electronic or hardware-based systems — motion sensors, biometric readers, IDS/IPS, firewalls, encryption. Operational controls are human-driven processes (guard patrols, change management, incident-response drills). The hardware of an IDS is Technical even when an Operational SOC team monitors its alerts; CompTIA classifies based on the control itself, not the process around it.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          },
+          {
+            "q": "A company's information security policy requires all employees to complete annual security training and to acknowledge the acceptable use policy at hire. These mandates are which control type?",
+            "opts": [
+              "Directive",
+              "Detective",
+              "Managerial",
+              "Preventive"
+            ],
+            "a": 0,
+            "exp": "Directive controls instruct personnel on required behavior through policy, training, and acknowledgements. They are distinct from Preventive (active stops like firewalls or locks) and from Managerial — Managerial is a Category that describes WHO/WHAT the control acts on, while Directive is a Type that describes HOW the control works. A written policy is Managerial in Category AND Directive in Type.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          },
+          {
+            "q": "A facility installs two security cameras: a visibly-mounted dome camera in the lobby ceiling, and a concealed pinhole camera covering a server-room corridor. The two cameras serve which control types, respectively?",
+            "opts": [
+              "Both are Preventive — physically installed cameras stop unauthorized access from occurring",
+              "Visible camera = Detective; concealed camera = Deterrent — both record events, but only the hidden one is preventive",
+              "Both are Detective — cameras only record activity, regardless of whether they are visible or concealed",
+              "Visible camera = Deterrent (it discourages because it's seen); concealed camera = Detective (it records without warning)"
+            ],
+            "a": 3,
+            "exp": "Visible cameras deter — attackers who notice them are discouraged from acting because they expect to be recorded. Concealed cameras detect — they record without warning, so they don't deter (no one knows to be discouraged), but they capture evidence after the fact. The Type assignment depends on whether the camera is announcing its presence. The Category for both is Technical (electronic recording systems).",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
           }
         ],
         "scenarios": [
@@ -311,6 +363,19 @@
             ],
             "a": 1,
             "exp": "Deterrent controls discourage bad behavior by signaling consequences, rather than physically blocking, detecting, or responding. Floodlights and visible surveillance signage are classic deterrents — they make a would-be trespasser choose a softer target without ever touching the attacker. A biometric door lock is preventive (it actually stops entry). Concrete bollards are physical/preventive. A 24/7 camera analyst is detective. Only the signage + lighting combination is primarily a deterrent.",
+            "messerVideo": "1.1 - Security Controls",
+            "subObjective": "1.1"
+          },
+          {
+            "q": "A bank installs a biometric palm-reader at its data-center vestibule. The same device is referenced in two compliance reports: one classifies it as part of the data-center's access-control infrastructure (electronic identity verification), and the other classifies it as a measure that stops unauthorized personnel from reaching the server racks. In CompTIA's SY0-701 framework, which classification pair is correct?",
+            "opts": [
+              "Category = Physical; Type = Deterrent — the device is a tangible wall-mounted unit that discourages approach",
+              "Category = Technical; Type = Preventive — biometrics electronically authenticate AND stop unauthorized entry",
+              "Category = Operational; Type = Detective — the device logs each attempt as part of the security process",
+              "Category = Technical; Type = Detective — biometrics electronically detect and record each entry attempt"
+            ],
+            "a": 1,
+            "exp": "Biometric palm-readers are electronic identity-verification systems (Technical Category) whose primary purpose is to allow or deny entry (Preventive Type). The same device also logs each attempt (a Detective side-effect), but CompTIA classifies controls by their PRIMARY purpose — for access-control devices that's Preventive. Every control sits at the intersection of one Category AND one Type; the two axes are independent.",
             "messerVideo": "1.1 - Security Controls",
             "subObjective": "1.1"
           }
