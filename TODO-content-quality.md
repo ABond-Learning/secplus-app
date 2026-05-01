@@ -6,8 +6,8 @@ distractor-padding scope of Sub-batch 2 (which closed 2026-04-30 via mega-pass
 tentative, lower priority than Task 1e and the practice-test-gap content
 additions, and will likely interleave rather than land as a single ship.
 
-**Total active inventory: 5 items in Section 1 only** (6 resolved 2026-05-01 across 4 commits — Sections 2 and 3 both fully closed)
-- Section 1 — Per-item content fixes (5): substantive question issues requiring pedagogical decisions (4 original + 1 new citation-accuracy item from Convention A batch)
+**Total active inventory: 4 items in Section 1 only** (7 resolved 2026-05-01 across 5 commits — Sections 2 and 3 both fully closed; one Section 1 item resolved as non-issue via transcript verification)
+- Section 1 — Per-item content fixes (4): substantive question issues requiring pedagogical decisions (4 original; the mc-1.3.2-0 citation-accuracy item added during the Convention A batch was resolved as a false positive 2026-05-01 via transcript verification)
 - Section 2 — Per-item padding follow-ups (0 active — FULLY CLOSED 2026-05-01): all distractor-padding follow-ups complete (5 Convention A in `e610491` + 1 scope-omitted multi-pad in `2bdd364`)
 - Section 3 — New content additions (0 active queues + 2 resolved): all 2026-04-30 practice-test gaps closed (§1.2 Zero Trust shipped in `197f4fe`; §1.1 control axes shipped in `610b21d`)
 
@@ -17,7 +17,7 @@ fix sketch. New work should follow the same review cadence as Sub-batch 2
 
 ---
 
-## 1. Per-item content fixes (5 items)
+## 1. Per-item content fixes (4 items)
 
 Substantive question issues — flawed framing, missing dimensions in correct
 answers, weak distractor categorization, stem duplication. Each requires
@@ -90,38 +90,66 @@ Convention B holdback was the correct call within the **distractor-padding scope
 options ARE all short technique names with the structural slash-notation issue on
 correct), but the question itself is weak.
 
-### `mc-1.3.2-0` — citation accuracy: allow-listing vs change-management (flagged 2026-05-01, Convention A batch)
+### ~~`mc-1.3.2-0` — citation accuracy: allow-listing vs change-management~~ — ✓ RESOLVED-NON-ISSUE 2026-05-01
 
-**Stem:** "Which process ensures only approved software versions can execute in production?"
+**Resolution:** False positive. Empirical verification via the cached Messer
+transcripts at `.messer-transcripts/` confirms the existing citation
+(`"1.3 - Technical Change Management"` / subObj `"1.3"`) IS accurate. No code
+change required.
 
-**Current correct (post-Convention A expansion):** "Allow listing — defining an explicit set of approved software versions cleared to execute"
+**Verification details:**
+- `.messer-transcripts/technical-change-management-sy0-701.txt` paragraphs
+  10-14 cover allow-listing as a core technician's-perspective topic in §1.3.
+  Messer introduces it within the first conceptual block of the video,
+  defining both allow lists ("only the applications you've named will be able
+  to run") and deny lists, with antivirus framed as a "very large deny list."
+  This phrasing maps directly to mc-1.3.2-0's stem ("ensures only approved
+  software versions can execute") and to mc-1.3.2-2's discriminative framing.
+- `.messer-transcripts/segmentation-and-access-control-sy0-701.txt` paragraphs
+  6 and 22-26 confirm parallel coverage at §2.5.1 with a different framing
+  (segmentation / access-control mechanism, with Windows-specific
+  implementation detail). The catalogue's existing §2.5.1 allow-listing
+  citations (`mc-2.5.1-3`, `scen-2.5.1-1`) are also accurate.
+- The §1.3.2 (5 items) and §2.5.1 (4 items) parallel clusters reflect
+  intentional dual coverage in both Messer's videos and CompTIA's SY0-701
+  objectives (1.3 lists "Allow lists/deny lists" under Technical implications;
+  2.5 covers Mitigation Techniques). Not a misfile.
 
-**Current citation:** `messerVideo: "1.3 - Technical Change Management"`, `subObjective: "1.3"`
+**Lesson learned:** citation flags raised on intuitive grounds ("topic feels
+like it belongs elsewhere") should be verified against transcripts in
+`.messer-transcripts/` or against CompTIA's official objective listings
+before being treated as fixable problems. The mc-1.3.2-0 case (flagged
+2026-05-01 during Convention A batch, verified false-positive same day) is
+the model: recon-first, transcript-check before authoring any fix.
 
-**Issue:** The cited Messer video is "1.3 - Technical Change Management," which covers
+Original entry preserved below for reference.
+
+---
+
+~~**Stem:** "Which process ensures only approved software versions can execute in production?"~~
+
+~~**Current correct (post-Convention A expansion):** "Allow listing — defining an explicit set of approved software versions cleared to execute"~~
+
+~~**Current citation:** `messerVideo: "1.3 - Technical Change Management"`, `subObjective: "1.3"`~~
+
+~~**Issue:** The cited Messer video is "1.3 - Technical Change Management," which covers
 the change-management process (CAB review, backout plans, maintenance windows, etc.) —
 NOT allow-listing as a software-execution control. Allow-listing is more naturally a
-§2.5 (mitigations) / §4.1 (hardening) / §4.5 (endpoint) topic in Messer's curriculum.
+§2.5 (mitigations) / §4.1 (hardening) / §4.5 (endpoint) topic in Messer's curriculum.~~ — REFUTED 2026-05-01: transcript verification shows §1.3 video DOES cover allow-listing in paragraphs 10-14.
 
-The question itself is well-formed and pedagogically valuable — the issue is purely
+~~The question itself is well-formed and pedagogically valuable — the issue is purely
 citation accuracy. A student following the citation back to "1.3 - Technical Change
-Management" will not find the allow-listing concept covered there.
+Management" will not find the allow-listing concept covered there.~~ — REFUTED.
 
-Discovered during 2026-05-01 Convention A batch (commit `e610491`). Out of scope for
-the mechanical Convention A expansion; needs a pedagogy decision.
+~~Discovered during 2026-05-01 Convention A batch (commit `e610491`). Out of scope for
+the mechanical Convention A expansion; needs a pedagogy decision.~~
 
-**Fix sketch — three options:**
-- (a) Re-cite to a more appropriate Messer video (likely "2.5 - Mitigation Techniques",
-  "4.1 - Hardening Targets", or "4.5 - Endpoint Security" — confirm against
-  MESSER_VIDEOS.md and the actual video content before choosing).
-- (b) Treat as a "concept appears in multiple videos" case and update the citation
-  field to a primary video while noting the concept is reinforced elsewhere.
-- (c) Move the entire question to a different sub-objective if allow-listing is more
-  central to that sub-objective's coverage. (More invasive — would need an array
-  shift; SM-2 keys would stay stable since the question ID would change anyway.)
+~~**Fix sketch — three options:**~~
+- ~~(a) Re-cite to a more appropriate Messer video~~
+- ~~(b) Treat as a "concept appears in multiple videos" case~~
+- ~~(c) Move the entire question to a different sub-objective~~
 
-Recommendation: option (a) is the lightest fix and preserves SM-2 progress on the
-existing item. Aiden's call.
+~~Recommendation: option (a) is the lightest fix~~ — superseded by Approach D (verify-and-close) once transcripts were checked.
 
 ### `mc-3.2.5-1` vs `mc-4.5.1-2` — duplicate WAF stem (flagged 2026-04-30, mega-pass)
 
