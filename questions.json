@@ -1777,7 +1777,7 @@
           {
             "q": "Which process ensures only approved software versions can execute in production?",
             "opts": [
-              "Allow listing",
+              "Allow listing — defining an explicit set of approved software versions cleared to execute",
               "Change management — approving the introduction of new software through CAB review",
               "Vulnerability scanning — checking installed software versions for known CVEs and CVSS scores",
               "Penetration testing — attempting to bypass installed software controls during scheduled engagements"
@@ -10876,7 +10876,7 @@
             "opts": [
               "Installing endpoint protection software on each constrained IoT device's onboard storage",
               "Full disk encryption on every IoT device's flash storage using hardware-rooted keys",
-              "Network segmentation",
+              "Network segmentation — isolating IoT devices on dedicated VLANs",
               "Deploying a host-based firewall directly onto each IoT device's microcontroller stack"
             ],
             "a": 2,
@@ -13593,7 +13593,7 @@
             "q": "SSO (Single Sign-On) improves security by:",
             "opts": [
               "Eliminating the need for passwords entirely by replacing them with hardware-only auth tokens",
-              "Centralizing authentication",
+              "Centralizing authentication into a single identity provider with consistent policy",
               "Removing the need for MFA because a single point of authentication is inherently strong enough",
               "Allowing users to share credentials across teams without compromising the audit trail"
             ],
@@ -13619,7 +13619,7 @@
             "q": "Permission creep is best addressed by:",
             "opts": [
               "Provisioning all new users with administrator rights initially and then revoking them after onboarding",
-              "Regular access reviews",
+              "Regular access reviews where managers certify each user's access is still appropriate",
               "Requiring users to request fresh access daily through the helpdesk ticketing portal",
               "Removing all user permissions every quarter and forcing each user to re-request what they need"
             ],
@@ -14203,7 +14203,7 @@
             "opts": [
               "Automation is always more accurate than humans because the underlying logic never has bugs",
               "Automation is always cheaper than human analysts at every scale of security operations workload",
-              "Speed and consistency",
+              "Speed and consistency — automated tasks execute identically every time",
               "Automated tools need no maintenance because vendor-managed pipelines update playbooks invisibly"
             ],
             "a": 2,
