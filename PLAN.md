@@ -3,7 +3,7 @@
 Single source of truth for in-flight work. Update as state changes.
 See CLAUDE.md for the underlying 3-task plan and quality rules.
 
-Last updated: 2026-04-28
+Last updated: 2026-05-01
 
 ## Status snapshot
 
@@ -17,7 +17,7 @@ Task | State | Notes
 1.5 — Cross-device sync via private Gist | **complete, deployed, verified on 3 devices** | Backup polish + sync engine + sync UI all live. Real-device sync verified across 3 of Aiden's devices post-deploy (joining-device guard holds; bidirectional sync works).
 1b — Content generation | **complete, deployed** | All 5 domains done: Domain 1 scenarios (25), Domain 5 (78), Domain 4 (55), Domain 2 BEST/MOST rewrites (35 across 2 batches). **Total: 193 items added/modified.**
 1c-structural — Citation backfill + grounding/anchor-gap audits | **partially complete; remaining work DEPRIORITIZED** | Citation backfill DONE (728 → 0 legacy-no-citation; 100% catalog coverage). Grounding + anchor-gap audit scripts built but extractor produces noise-dominated output — 30 spot-checks across all 5 domains found zero true misfiles. Extractor tuning pending; lower priority than 1d/1e because grounding side mostly produces negative-confirmation. See "Task 1c — split into structural and experiential" below.
-**1d — Catalogue quality audit + fixes** | **in progress, partially shipped** | Sub-batch 1 (position shuffle + 95 Pattern A length-tell extractions) shipped. Sub-batch 2 (short-distractor padding) shipped on 6 sub-objectives: §1.2/§1.4/§2.3/§2.4/§2.2/§4.5 — 92 items modified + 33 Convention B holdbacks across 125 cohort items. **177 cohort items remain across 21 untouched sub-objectives.** Next planned move: single mega-pass through all 21 remaining sub-objectives, producing one comprehensive review document. 3 future-content-quality TODOs flagged in TODO-content-quality.md (mc-2.4.14-2, scen-2.2.5-0, mc-2.2.5-2).
+**1d — Catalogue quality audit + fixes** | **shipped** | Sub-batch 1 (position shuffle + 95 Pattern A length-tells) and Sub-batch 2 (short-distractor padding) both complete. Sub-batch 2 closed via mega-pass `116cd40` (2026-04-30): **216 mods + 52 Convention B holdbacks across all 27 sub-objectives / 320 cohort items, 53 residual** (all intentional holdbacks + 1 out-of-scope §4.2 item). Validator: 0 errors, 5 warns. **10 follow-up items** captured for a future content-quality pass (Sub-batch 3 tentative, not next priority): 5 Convention A expansions + 2 mega-pass TODOs + 3 prior items already in TODO-content-quality.md.
 **1e — New-content prioritization** | **NEW (2026-04-27)** | App reports "N new things to try" with no way to see/prioritize them. Either separate New mode or have existing modes prioritize unseen-from-watched-videos. Smaller scope than Task 2; ~1-2 hours.
 1c-structural (continuation) — extractor tuning | not started | Tune grounding/anchor-gap extractors to handle `X means:` / `X is used to:` / `X requires:` patterns; multi-word phrases before linking verbs; clause-fragment stripping; stop-word filtering. Bottlenecks both audits.
 1c-experiential — anchor-gap fixes | not started | Generate anchor questions for concepts the audit flags as uncovered. Real pedagogical value once extractor is tuned.
@@ -315,7 +315,7 @@ Triggered by 2026-04-27 study session findings: length-tell distractors (correct
 - `a4405fb` — 95 Pattern A length-tell items: definitional gloss relocated from option to explanation.
 - 1 item (mc-5.5.1-1) held back in `HOLD_BACK` array of `fix-pattern-a-length-tells.mjs`.
 
-#### Sub-batch 2 — short-distractor padding (in progress)
+#### Sub-batch 2 — short-distractor padding (complete, 2026-04-30)
 
 Cohort definition: items with option-length ratio > 1.5× AND at least one distractor < 30 chars. Audit at `scripts/audit-short-distractor-cohort.mjs` (1/2/3 short-distractor categories, source-tagged via git compare against `a4405fb~1`).
 
@@ -339,16 +339,23 @@ Ships to date:
 | §2.4    | 28     | 24       | 4         | `671e80c` |
 | §2.2    | 15     | 10       | 5         | `83b0ef5` |
 | §4.5    | 16     | 16       | 0         | `4e88da0` |
-| **TOTAL** | **125** | **92** | **33**   |        |
+| Mega-pass (21 sub-objs) | 143 | 124    | 19        | `116cd40` |
+| **TOTAL (27 sub-objs)** | **320** | **216** | **52** |        |
 
-**Next planned move:** single mega-pass through all 21 remaining sub-objectives. 177 cohort items remaining across 21 untouched sub-objectives. (The 6 already-shipped sub-objectives also contain 33 Convention B holdbacks, captured in code comments and tracked in the cumulative table — those don't need further work.) One comprehensive review document, one ship. Aiden will kick this off in a future session when ready. The per-sub-objective rhythm worked well for the first 6 batches but is too slow for the remainder.
+Mega-pass at `116cd40` (2026-04-30) closed §1.1, §1.3, §2.1, §2.5, §3.1–§3.4, §4.1, §4.3, §4.4, §4.6–§4.9, §5.1–§5.6 in one comprehensive review document and one ship. The per-sub-objective rhythm of the first 6 batches was preserved as the review-and-author cadence; the ship was consolidated. 53 residual cohort items remaining are all intentional Convention B holdbacks (52) + 1 out-of-scope §4.2 item.
 
-3 items flagged for a separate post-Sub-batch-2 content-quality pass (out of distractor-padding scope) — see `TODO-content-quality.md`:
-- `mc-2.4.14-2` (MOST framing ambiguity)
-- `scen-2.2.5-0` (vishing dimension missing from correct answer)
-- `mc-2.2.5-2` (verbal-only distractors for physical-technique question)
+**10 follow-up items** flagged for a separate content-quality pass (out of distractor-padding scope), tracked in / to be added to `TODO-content-quality.md`:
+- 3 prior items (already in TODO-content-quality.md): `mc-2.4.14-2` (MOST framing ambiguity), `scen-2.2.5-0` (vishing dimension missing from correct answer), `mc-2.2.5-2` (verbal-only distractors for physical-technique question).
+- 2 mega-pass TODOs: `mc-3.2.5-1` vs `mc-4.5.1-2` (duplicate WAF stem), `mc-4.2.1-1` (§4.2 cohort item out of mega-pass scope).
+- 5 deferred Convention A expansions: `mc-1.3.2-0`, `mc-4.1.2-2`, `mc-4.6.1-0`, `mc-4.6.1-2`, `mc-4.7.1-0`.
 
-#### Sub-batch 3 and beyond — TBD after Sub-batch 2 mega-pass completes
+#### Sub-batch 3 — Tentative content-quality follow-up pass (not started; not next priority)
+
+Captures the 10 items deferred from Sub-batch 2 review. Lower priority than Task 1e and the practice-test-gap content additions; will likely interleave rather than land as a single ship.
+
+- **5 Convention A expansions** (deferred during mega-pass for "future content-quality pass" rather than padded in scope): `mc-1.3.2-0` (Allow listing), `mc-4.1.2-2` (IoT segmentation, correct "Network segmentation" 20 chars), `mc-4.6.1-0` (SSO benefit, correct "Centralizing authentication" 27 chars), `mc-4.6.1-2` (Permission creep, correct "Regular access reviews" 22 chars), `mc-4.7.1-0` (Automation benefit, correct "Speed and consistency" 21 chars). All have intrinsically-short correct options that need full TLA-expansion or term-with-tail rework.
+- **2 mega-pass TODOs** (surfaced 2026-04-30): `mc-3.2.5-1` vs `mc-4.5.1-2` — duplicate WAF stem (pick one, repurpose the other); `mc-4.2.1-1` — §4.2 cohort item out of mega-pass scope (1 padding still pending).
+- **3 prior content-quality items** already documented in `TODO-content-quality.md`: `mc-2.4.14-2` (MOST framing ambiguity), `scen-2.2.5-0` (vishing dimension missing from correct answer), `mc-2.2.5-2` (verbal-only distractors for physical-technique question).
 
 ## Task 1e — New-content prioritization (NEW, 2026-04-27)
 
@@ -409,5 +416,5 @@ Docs:
 - **Bundle size**: 942 KB JS chunk because Vite inlines JSON. Acceptable for a personal study app; Task 2 or 3 could move to a dynamic `fetch("/questions.json")` if needed.
 - **Legacy content has no Messer/sub-objective citations** (710 info-level flags). Per user directive, grandfathered as-is. Task 1b adds citations only on new items.
 - **`analyses` ambiguity** (1 hit at §4.1/4.1.5 mc[1].opts[1]): plural noun (same in AmE) vs verb (AmE = "analyzes"). Flagged for manual review during Task 1b or later.
-- **11 BEST/MOST short-distractor warnings** are heuristic, not blocking. Some flagged distractors are legitimate technical terms (Encryption, Hashing, Pass-the-hash). Review during Task 1b. (Down to 4 post-Sub-batch-2.)
+- **11 BEST/MOST short-distractor warnings** are heuristic, not blocking. Some flagged distractors are legitimate technical terms (Encryption, Hashing, Pass-the-hash). Review during Task 1b. (Down to 4 BEST/MOST post-mega-pass; 5 total warnings = 4 BEST/MOST + 1 Spectre spelling — both pre-existing and out of scope.)
 - **Permissions config** (2026-04-28, commit `81b1330`): `.claude/settings.json` added with pre-authorized routine workflow shapes (validators, fix scripts, npm run build, git commit/push origin main, clip.exe pipe). Destructive git ops (force-push, hard-reset, rebase, --no-verify) explicitly denied to override broad existing local-settings allows. Supports unattended runs.
