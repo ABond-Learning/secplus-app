@@ -11469,10 +11469,10 @@
           {
             "q": "Which media sanitization method provides the STRONGEST assurance of data unrecoverability?",
             "opts": [
-              "Overwriting with zeros",
-              "Degaussing",
+              "Overwriting with zeros (single-pass disk wipe)",
+              "Degaussing the drive with a strong magnetic field",
               "Physical destruction (shredding/incineration)",
-              "Formatting"
+              "Formatting the drive from the operating system"
             ],
             "a": 2,
             "exp": "Physical destruction guarantees media cannot be read — used for high-sensitivity data.",
