@@ -1480,7 +1480,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
         <div style={styles.qMeta}>
           {setupMode === "drill" && <span style={{ background: "#ef4444", color: "#fff", borderRadius: 4, padding: "1px 6px", fontSize: 11, marginRight: 6, fontWeight: 700 }}>DRILL</span>}
           {q.isScenario && <span style={{ background: "#7c3aed", color: "#fff", borderRadius: 4, padding: "1px 6px", fontSize: 11, marginRight: 6, fontWeight: 700 }}>SCENARIO</span>}
-          {q.videoId} – {q.videoTitle}
+          {q.videoId}{checked ? ` – ${q.videoTitle}` : ""}
         </div>
         <div style={styles.questionText}>{q.q}</div>
         {(() => {
@@ -2313,7 +2313,7 @@ function ExamTab({ watchedVideos, store, recordResult, recordSession, onDrillWro
       <div style={styles.progressBar}>
         <div style={{ ...styles.progressFill, width: `${((idx + 1) / questions.length) * 100}%` }} />
       </div>
-      <div style={styles.qMeta}>{q.videoId} – {q.videoTitle}</div>
+      <div style={styles.qMeta}>{q.videoId}</div>
       <div style={styles.questionText}>{q.q}</div>
       <div style={{ fontSize: 11, color: "#64748b", marginBottom: 8 }}>
         Shortcuts: <kbd style={kbdStyle}>1</kbd>–<kbd style={kbdStyle}>4</kbd> select ·{" "}
