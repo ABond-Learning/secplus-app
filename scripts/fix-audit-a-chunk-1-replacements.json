@@ -1,0 +1,1570 @@
+[
+  {
+    "id": "mc-1.3.1-2",
+    "videoId": "1.3.1",
+    "kind": "mc",
+    "index": 2,
+    "expectedOldStemPrefix": "Which group reviews and approves significant changes before ",
+    "expectedOldOpts": [
+      "The CISO acting alone — no committee review is required for production changes",
+      "The penetration testing team that validates the security posture of each proposed change",
+      "Help desk staff who escalate changes to the on-call engineer for after-hours review",
+      "Change Advisory Board (CAB)"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "The CISO acting alone — no committee review is required for production changes",
+      "The penetration testing team that validates the security posture of each proposed change",
+      "Help desk staff who escalate changes to the on-call engineer for after-hours review",
+      "Change Advisory Board (CAB) — committee that reviews and approves significant changes"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      78,
+      88,
+      83,
+      85
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "mc-1.4.1-5",
+    "videoId": "1.4.1",
+    "kind": "mc",
+    "index": 5,
+    "expectedOldStemPrefix": "Key escrow means:",
+    "expectedOldOpts": [
+      "Storing a copy of private keys with a trusted third party for recovery purposes",
+      "Destroying old keys after rotation",
+      "Encrypting keys with a master key",
+      "Publicly publishing private keys"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Storing a copy of private keys with a trusted third party for recovery purposes",
+      "Destroying old private keys immediately after rotation so they cannot be used to decrypt anything later",
+      "Wrapping each user's private key under an organization-wide master key so all keys share one root of trust",
+      "Publishing the public certificate to a directory so revoked keys can be detected by relying parties"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      79,
+      103,
+      106,
+      99
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "mc-1.4.4-3",
+    "videoId": "1.4.4",
+    "kind": "mc",
+    "index": 3,
+    "expectedOldStemPrefix": "Which of the following provides the BEST protection for priv",
+    "expectedOldOpts": [
+      "A dedicated HSM",
+      "TPM on each workstation",
+      "Storing keys in an encrypted file on a server",
+      "Keeping keys in a password manager"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "A dedicated HSM — tamper-resistant hardware purpose-built for enterprise key protection",
+      "TPMs deployed per-workstation as the enterprise key store for end-user devices",
+      "An AES-256 encrypted key file on a hardened internal file server",
+      "An enterprise password manager with role-based access controls and audit logging"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      87,
+      78,
+      64,
+      80
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "mc-1.4.5-0",
+    "videoId": "1.4.5",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "Steganography is the practice of:",
+    "expectedOldOpts": [
+      "Encrypting data with a strong key",
+      "Generating digital certificates",
+      "Hashing passwords before storage",
+      "Hiding secret data within ordinary non-secret files such as images or audio"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Encrypting data with a strong symmetric key so the contents are unreadable without it",
+      "Generating digital certificates that bind a public key to a verified identity for trust",
+      "Hashing passwords with a per-user salt before storage so plaintext is never written to disk",
+      "Hiding secret data within ordinary non-secret files such as images or audio"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      85,
+      87,
+      91,
+      75
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "mc-1.4.7-1",
+    "videoId": "1.4.7",
+    "kind": "mc",
+    "index": 1,
+    "expectedOldStemPrefix": "What makes blockchain records tamper-evident?",
+    "expectedOldOpts": [
+      "They are stored with AES-256 encryption",
+      "They use symmetric keys for signing",
+      "Each block contains a hash of the previous block — altering any block invalidates all subsequent blocks",
+      "Records are deleted after 30 days"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "They are stored with AES-256 encryption — altering a record requires breaking the cipher first",
+      "They use symmetric keys for signing — only the symmetric key holder can produce valid signatures",
+      "Each block contains a hash of the previous block — altering any block invalidates all subsequent blocks",
+      "Each block carries a synchronized network timestamp — any backdated modification would be detectable"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      94,
+      96,
+      103,
+      100
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "mc-2.1.1-7",
+    "videoId": "2.1.1",
+    "kind": "mc",
+    "index": 7,
+    "expectedOldStemPrefix": "Shadow IT refers to:",
+    "expectedOldOpts": [
+      "Malware that hides from antivirus software",
+      "Dark web forums used by attackers",
+      "A category of nation-state actor",
+      "Unauthorized hardware or software used inside an organization without IT approval"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Malware that hides from antivirus software using rootkit techniques to evade detection",
+      "Dark web forums where attackers trade stolen credentials and ready-made exploit kits",
+      "A category of nation-state actor specializing in covert long-running cyber operations",
+      "Unauthorized hardware or software used inside an organization without IT approval"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      86,
+      84,
+      85,
+      81
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "scen-2.2.1-3",
+    "videoId": "2.2.1",
+    "kind": "scen",
+    "index": 3,
+    "expectedOldStemPrefix": "A security architect reviewing internet-facing services find",
+    "expectedOldOpts": [
+      "Deploy an IDS to monitor all six services",
+      "Patch the public website and customer portal first",
+      "Disable or remove the legacy FTP server and the unauthenticated Elasticsearch instance — reducing the attack surface",
+      "Require MFA for the RDP server only"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Deploy an IDS to monitor all six services — alerting the SOC on any suspicious activity",
+      "Patch the public website and customer portal first — addressing known CVEs in those services",
+      "Disable or remove the legacy FTP server and the unauthenticated Elasticsearch instance — reducing the attack surface",
+      "Require MFA for the RDP server only — leaving other internet-facing services as configured"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      87,
+      92,
+      116,
+      90
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "scen-2.2.2-4",
+    "videoId": "2.2.2",
+    "kind": "scen",
+    "index": 4,
+    "expectedOldStemPrefix": "Employees at a hospital begin receiving texts claiming the p",
+    "expectedOldOpts": [
+      "Pharming attack — the DNS server needs to be flushed",
+      "Spear phishing — identify which executives were targeted",
+      "Vishing attack — block the phone number used",
+      "Smishing attack"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Pharming attack — flush the DNS cache on the local resolver and notify the network team",
+      "Spear phishing — identify which executives were targeted and reset their passwords",
+      "Vishing attack — block the originating phone number and notify the telco fraud team",
+      "Smishing attack — immediately reset the two compromised passwords and enable MFA"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      87,
+      82,
+      83,
+      80
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "scen-2.2.3-2",
+    "videoId": "2.2.3",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "The CEO posts on LinkedIn that she is attending a conference",
+    "expectedOldOpts": [
+      "Spear phishing via email — SPF on the CEO's personal email would block it",
+      "Vishing pretending to be the CEO — caller ID authentication",
+      "BEC/whaling exploiting public OSINT — a callback verification policy requiring voice confirmation for financial requests above a threshold",
+      "Supply chain attack through the conference organizer"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Spear phishing via email — SPF on the CEO's personal Gmail would have rejected the spoofed message at the inbound gateway",
+      "Vishing pretending to be the CEO — call-line authentication on the corporate VOIP system would block any spoofed caller IDs",
+      "BEC/whaling exploiting public OSINT — a callback verification policy requiring voice confirmation for financial requests above a threshold",
+      "Supply chain attack through the conference organizer — auditing the organizer's email system would have prevented this"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      121,
+      123,
+      138,
+      118
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "scen-2.2.4-1",
+    "videoId": "2.2.4",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A financial firm's SOC detects malware on three analyst work",
+    "expectedOldOpts": [
+      "Ensuring browser and PDF reader plugins were fully patched — the exploit targeted an unpatched browser vulnerability",
+      "Deploying a network IDS to alert on the malicious iframe",
+      "Blocking the financial regulation website entirely",
+      "Implementing DMARC on the company's email domain"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Ensuring browser and PDF reader plugins were fully patched — the exploit targeted an unpatched browser vulnerability",
+      "Deploying a network IDS to alert on the malicious iframe — flagging the traffic for analyst review",
+      "Blocking the financial regulation website entirely — adding it to the corporate proxy's category-deny list",
+      "Implementing DMARC on the company's email domain — rejecting spoofed inbound messages from outside"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      116,
+      98,
+      106,
+      98
+    ],
+    "src": "audit-a-fix-proposal-batch-1.txt"
+  },
+  {
+    "id": "mc-2.3.3-0",
+    "videoId": "2.3.3",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "A race condition vulnerability occurs when:",
+    "expectedOldOpts": [
+      "Two users log in simultaneously",
+      "The security of an operation depends on the timing or sequence of events, which an attacker can manipulate",
+      "A server is overwhelmed with requests",
+      "Encryption is applied incorrectly"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "Two users log in simultaneously and the application accidentally cross-contaminates their session data",
+      "The security of an operation depends on the timing or sequence of events, which an attacker can manipulate",
+      "A server is overwhelmed with simultaneous requests and starts dropping connections under high load",
+      "Encryption is applied incorrectly because the same nonce is reused across multiple message sessions"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      100,
+      106,
+      99,
+      100
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "mc-2.3.4-2",
+    "videoId": "2.3.4",
+    "kind": "mc",
+    "index": 2,
+    "expectedOldStemPrefix": "Which control BEST protects against malicious software updat",
+    "expectedOldOpts": [
+      "Disabling all automatic updates",
+      "Using a VPN for update downloads",
+      "Installing updates immediately without testing",
+      "Verifying digital signatures on updates and using only official update channels"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Disabling all automatic updates and requiring manual installation by IT for every update",
+      "Using a VPN for update downloads to ensure they cannot be intercepted in transit",
+      "Installing all updates immediately without testing to minimize the patch-to-deploy gap",
+      "Verifying digital signatures on updates and using only official update channels"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      92,
+      80,
+      86,
+      79
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "mc-2.3.5-0",
+    "videoId": "2.3.5",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "Privilege escalation means:",
+    "expectedOldOpts": [
+      "Installing additional user accounts",
+      "Logging in to multiple systems simultaneously",
+      "An attacker gaining higher privileges than they were originally granted",
+      "Encrypting operating system files"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Creating additional standard user accounts to log in across multiple systems for testing",
+      "Logging in to multiple systems simultaneously using the same standard user credentials",
+      "An attacker gaining higher privileges than they were originally granted",
+      "Encrypting critical operating system files to deny access until payment is received"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      91,
+      85,
+      71,
+      80
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "mc-2.4.10-0",
+    "videoId": "2.4.10",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "A replay attack works by:",
+    "expectedOldOpts": [
+      "Capturing and retransmitting valid authentication packets to gain access without needing the actual credentials",
+      "Guessing authentication credentials through brute force",
+      "Injecting malicious code into authentication packets",
+      "Cracking encrypted session keys"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Capturing and retransmitting valid authentication packets to gain access without needing the actual credentials",
+      "Guessing authentication credentials through high-speed brute force against the login endpoint",
+      "Injecting malicious payloads into authentication packets so the server executes attacker code",
+      "Cracking encrypted session keys offline using GPU-accelerated cipher analysis to forge tokens"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      92,
+      91,
+      91,
+      111
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "mc-2.4.11-0",
+    "videoId": "2.4.11",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "A web shell is:",
+    "expectedOldOpts": [
+      "A secure remote administration tool",
+      "A firewall configuration for web servers",
+      "A type of cross-site scripting attack",
+      "A malicious script uploaded to a web server that gives an attacker remote command execution through HTTP"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "A secure remote administration tool used by sysadmins to manage web servers off-site",
+      "A firewall configuration that filters HTTP traffic before it reaches the web application",
+      "A type of cross-site scripting attack that affects only the web server's admin interface",
+      "A malicious script uploaded to a web server that gives an attacker remote command execution through HTTP"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      88,
+      87,
+      88,
+      104
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "mc-2.4.11-1",
+    "videoId": "2.4.11",
+    "kind": "mc",
+    "index": 1,
+    "expectedOldStemPrefix": "'Living off the land' (LOLBins) attacks involve:",
+    "expectedOldOpts": [
+      "Installing custom malware tools",
+      "Physical access to victim systems",
+      "Using legitimate, built-in system tools like PowerShell and WMI for malicious purposes to evade detection",
+      "Social engineering via phone calls"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Installing custom malware tools written specifically for the target environment to avoid AV detection",
+      "Requiring physical access to victim systems through tailgating or borrowed credentials",
+      "Using legitimate, built-in system tools like PowerShell and WMI for malicious purposes to evade detection",
+      "Tricking users via phone calls into running attacker-supplied scripts on their workstations"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      99,
+      84,
+      105,
+      92
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "mc-2.4.7-0",
+    "videoId": "2.4.7",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "DNS cache poisoning works by:",
+    "expectedOldOpts": [
+      "Inserting false DNS records into a resolver's cache — causing users to be redirected to attacker-controlled IP addresses",
+      "Flooding a DNS server with requests",
+      "Intercepting DNS traffic with a MITM attack",
+      "Registering similar domain names"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Inserting false DNS records into a resolver's cache — causing users to be redirected to attacker-controlled IP addresses",
+      "Flooding a DNS server with requests until it crashes and stops responding to legitimate lookups",
+      "Intercepting DNS traffic with an on-path attack to read but not modify resolution responses",
+      "Registering similar-looking domain names so users mistype and reach the attacker's site"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      120,
+      97,
+      92,
+      89
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.1-2",
+    "videoId": "2.3.1",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A forensic analyst finds a legitimate antivirus process has ",
+    "expectedOldOpts": [
+      "Thread injection — the attacker injected shellcode into an existing thread of the antivirus process, running malicious code under its trusted identity",
+      "The attacker replaced the antivirus binary with a malicious version",
+      "The antivirus had a buffer overflow vulnerability that was exploited",
+      "The attacker used a rootkit to hide the malicious process"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Thread injection — the attacker injected shellcode into an existing thread of the antivirus process, running malicious code under its trusted identity",
+      "The attacker replaced the antivirus binary with a stealthier version that mimics file-integrity hashes",
+      "The antivirus had an unpatched buffer overflow vulnerability that was exploited to gain code execution",
+      "The attacker used a kernel-mode rootkit to hide an additional malicious process spawned by the antivirus"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      150,
+      106,
+      107,
+      108
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.10-0",
+    "videoId": "2.3.10",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A startup stores customer data in an AWS S3 bucket. A develo",
+    "expectedOldOpts": [
+      "AWS — they should have prevented public bucket configuration",
+      "The customer (startup)",
+      "Split equally between AWS and the customer",
+      "The developer personally, not the organization"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "AWS — they should have prevented public-bucket configuration through stricter defaults",
+      "The customer (startup) — under AWS shared responsibility, customers own configuration",
+      "Split equally between AWS and the customer regardless of who configured the bucket",
+      "The developer personally — the company itself bears no organizational responsibility"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      85,
+      83,
+      80,
+      80
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.10-1",
+    "videoId": "2.3.10",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A security team reviewing cloud posture finds: an S3 bucket ",
+    "expectedOldOpts": [
+      "API Gateway > S3 bucket > IAM role > EC2 security group",
+      "All four findings are equal in priority",
+      "S3 bucket > IAM role > API Gateway > EC2 security group",
+      "EC2 security group (RDP open to internet) and API Gateway (no auth) are critical — immediate exposure to unauthenticated access. IAM role is high (excessive permissions). S3 versioning is medium — important for ransomware resilience but not immediate external exposure"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "API Gateway first, then S3 bucket, then IAM role, then EC2 security group — based on perceived public-facing exposure",
+      "All four findings are equal in priority and should be addressed simultaneously without ranking by exposure or impact",
+      "S3 bucket first, then IAM role, then API Gateway, then EC2 security group — prioritizing data-loss risk over network exposure",
+      "EC2 security group (RDP open) and API Gateway (no auth) are critical — immediate unauthenticated exposure. IAM role high; S3 versioning medium"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      125,
+      117,
+      124,
+      144
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.11-0",
+    "videoId": "2.3.11",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A widely-used open-source library has a critical RCE vulnera",
+    "expectedOldOpts": [
+      "An SBOM lists all components including transitive dependencies — the organization would have known they used the library and could have responded immediately when the vulnerability was announced",
+      "An SBOM would have automatically patched the vulnerability",
+      "An SBOM would have prevented the vulnerable library from being included",
+      "An SBOM is only useful for hardware components"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "An SBOM lists all components including transitive dependencies — the organization would have known they used the library and could have responded immediately when the vulnerability was announced",
+      "An SBOM would have automatically patched the vulnerability by triggering an update of the affected library across all dependent applications",
+      "An SBOM would have prevented the vulnerable library from being included by automatically rejecting any unapproved dependencies at build time",
+      "An SBOM is only useful for hardware components — software supply chain visibility requires a separate specialized inventory and tracking tool"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      194,
+      140,
+      140,
+      141
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.11-1",
+    "videoId": "2.3.11",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "An MSP that manages IT for 200 small businesses is compromis",
+    "expectedOldOpts": [
+      "The RMM software vendor is responsible for all 200 businesses' losses",
+      "MSPs should only be used by large enterprises with dedicated security teams",
+      "All 200 businesses should have run their own RMM software",
+      "MSP compromise is a high-leverage supply chain attack — compromising one provider gives attackers access to all clients simultaneously. Clients should assess MSP security rigorously and limit the scope of MSP access"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "The RMM software vendor is solely responsible for all 200 businesses' losses, since the vulnerability was in their product, not the MSP's configuration",
+      "MSPs should only be used by large enterprises with dedicated in-house security teams who can independently audit every administrative action the MSP performs",
+      "All 200 businesses should have run their own RMM software internally instead of outsourcing to an MSP, even if the operational cost is significantly higher",
+      "MSP compromise is a high-leverage supply chain attack — compromising one provider gives attackers access to all clients simultaneously. Clients should assess MSP security rigorously and limit the scope of MSP access"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      158,
+      158,
+      154,
+      215
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.12-0",
+    "videoId": "2.3.12",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A new IT team member sets up a network switch — configures V",
+    "expectedOldOpts": [
+      "The VLANs were incorrectly configured, creating a security gap",
+      "Failing to change default credentials during initial setup — a device hardening checklist should require credential changes before production deployment",
+      "The switch firmware was unpatched",
+      "The switch should not have had a web admin interface enabled"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "The VLANs were incorrectly configured, creating a security gap that the attacker leveraged to access the management interface",
+      "Failing to change default credentials during initial setup — a device hardening checklist should require credential changes before production deployment",
+      "The switch firmware was unpatched and the attacker exploited a known firmware CVE to bypass authentication entirely",
+      "The switch should not have had a web admin interface enabled at all, since CLI-only management is more secure"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      127,
+      152,
+      105,
+      112
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.12-1",
+    "videoId": "2.3.12",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "An organization fails a PCI DSS audit. The finding states se",
+    "expectedOldOpts": [
+      "A misconfiguration",
+      "A zero-day vulnerability — patch immediately",
+      "A supply chain vulnerability — the TLS library was shipped with weak defaults",
+      "A hardware vulnerability — replace the server network cards"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "A misconfiguration — outdated TLS/cipher settings persisted; remediate by upgrading to TLS 1.2+/AES",
+      "A zero-day vulnerability — apply emergency vendor patches across all servers in the cardholder environment",
+      "A supply chain vulnerability — the TLS library was shipped with weak defaults that nobody changed",
+      "A hardware vulnerability — the network cards' built-in TLS accelerators are responsible for the legacy cipher use"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      99,
+      107,
+      100,
+      115
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.13-1",
+    "videoId": "2.3.13",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "An attacker calls a user's mobile carrier, impersonates the ",
+    "expectedOldOpts": [
+      "Smishing — the user should not respond to unsolicited SMS messages",
+      "A replay attack — the SMS code was captured and reused",
+      "RFID cloning — the SIM card data was physically copied",
+      "SIM swapping"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Smishing — the user should not respond to unsolicited SMS messages from unknown sources",
+      "A replay attack — the SMS verification code was captured and reused after expiry",
+      "SIM cloning — the SIM card data was physically duplicated to a second SIM held by the attacker",
+      "SIM swapping — a phone-number takeover would have been prevented by app-based MFA instead of SMS codes"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      85,
+      80,
+      95,
+      107
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.2-0",
+    "videoId": "2.3.2",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A QA tester sends a packet with a length field claiming 4096",
+    "expectedOldOpts": [
+      "An integer overflow in the length field parsing",
+      "A SQL injection in the packet processing logic",
+      "A race condition between packet receipt and buffer allocation",
+      "A buffer overflow caused by trusting unsanitized input for memory allocation size — reading beyond the allocated buffer"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "An integer overflow in the length-field parser causing wrap-around at boundary values",
+      "A SQL injection in the packet-processing logic exposed by the unsanitized length value",
+      "A race condition between packet receipt and buffer allocation timing in the I/O loop",
+      "A buffer overflow caused by trusting unsanitized input for memory allocation size — reading beyond the allocated buffer"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      83,
+      91,
+      87,
+      119
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.2-1",
+    "videoId": "2.3.2",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A legacy C++ codebase uses sprintf() extensively to format s",
+    "expectedOldOpts": [
+      "sprintf() doesn't check whether the formatted output exceeds the destination buffer size — an attacker controlling format inputs could overflow the buffer and overwrite adjacent memory",
+      "sprintf() is deprecated and produces slower code",
+      "sprintf() is vulnerable to SQL injection when used with database queries",
+      "sprintf() doesn't support Unicode"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "sprintf() doesn't check whether the formatted output exceeds the destination buffer size — an attacker controlling format inputs could overflow the buffer and overwrite adjacent memory",
+      "sprintf() is deprecated and produces measurably slower runtime code than newer printf-family alternatives in modern C/C++ compilers",
+      "sprintf() is vulnerable to SQL injection when its output is concatenated into untrusted database query strings constructed at runtime",
+      "sprintf() doesn't support Unicode strings or modern character encodings, so multi-byte data may corrupt the output buffer in unpredictable ways"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      184,
+      131,
+      133,
+      143
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.2-2",
+    "videoId": "2.3.2",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A buffer overflow vulnerability exists in a Windows service.",
+    "expectedOldOpts": [
+      "ASLR randomizes the memory addresses of the stack, heap, and libraries at each execution — the attacker cannot hardcode a reliable return address to jump to",
+      "ASLR encrypts the process's memory, making shellcode unreadable",
+      "ASLR detects buffer overflows and terminates the process before exploitation",
+      "ASLR prevents writing to the stack"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "ASLR randomizes memory addresses only at install time, so a determined attacker can derive the layout offline",
+      "ASLR randomizes the memory addresses of the stack, heap, and libraries at each execution — the attacker can't hardcode a reliable return address",
+      "ASLR detects buffer overflow attempts and terminates the offending process before exploitation completes",
+      "ASLR prevents writes to the stack memory region by enforcing data execution prevention at runtime"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      111,
+      158,
+      106,
+      107
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.3-0",
+    "videoId": "2.3.3",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A banking application checks a user's account balance before",
+    "expectedOldOpts": [
+      "SQL injection in the transfer processing logic",
+      "An integer overflow in the transaction amount",
+      "A buffer overflow in the balance comparison function",
+      "A TOCTOU race condition — the balance is checked but can change between the check and the debit operation"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "SQL injection in the transfer-processing logic that lets the attacker manipulate the balance check",
+      "An integer overflow in the transaction amount that wraps around at the maximum signed value",
+      "A buffer overflow in the balance comparison function that lets the attacker overwrite the result",
+      "A TOCTOU race condition — the balance is checked but can change between the check and the debit operation"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      90,
+      88,
+      90,
+      105
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.3-1",
+    "videoId": "2.3.3",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "Code creates a temporary file, checks if it's safe to proces",
+    "expectedOldOpts": [
+      "SQL injection — fix: use parameterized queries",
+      "A buffer overflow if the file is too large — fix: limit file size",
+      "An attacker replaces the file with a symlink to a sensitive system file between the safety check and the open() call — fix: use the file descriptor from the initial check rather than re-opening by name",
+      "A race condition in the file system driver — fix: upgrade the OS"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "SQL injection in the file-name parameter — fix: use parameterized queries throughout the file-handling code path to neutralize the input strings",
+      "A buffer overflow if the file is too large — fix: limit the maximum file size at upload time and reject anything over the configured threshold",
+      "An attacker replaces the file with a symlink to a sensitive system file between the safety check and the open() call — fix: use the file descriptor from the initial check rather than re-opening by name",
+      "A race condition in the file-system driver layer — fix: upgrade the OS kernel to a version with stricter atomic file operations and consistent locking"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      144,
+      142,
+      201,
+      150
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.4-0",
+    "videoId": "2.3.4",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A software company's build server is compromised. The attack",
+    "expectedOldOpts": [
+      "A supply chain attack on the build pipeline — the malicious code was added before signing, so the signed binary is authentic but compromised",
+      "A watering hole attack — code signing can't detect web-based injection",
+      "A DLL injection attack — the injected DLL was signed separately",
+      "A zero-day exploit in the compiler itself"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "A supply chain attack on the build pipeline — the malicious code was added before signing, so the signed binary is authentic but compromised",
+      "A watering hole attack — code signing can't detect injection on web pages users visit during work hours",
+      "A DLL injection attack — the injected DLL was signed separately and then chained at install time",
+      "A zero-day exploit in the compiler itself that injects malicious instructions during compilation"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      140,
+      106,
+      105,
+      100
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.5-0",
+    "videoId": "2.3.5",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "An attacker gains access to a Windows workstation as a stand",
+    "expectedOldOpts": [
+      "Vertical privilege escalation via an unpatched third-party application — OS patching alone is insufficient; all installed software must be included in patch management",
+      "That antivirus is ineffective against all attacks",
+      "That standard user accounts provide no security benefit",
+      "That the antivirus vendor should have blocked the exploit"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Vertical privilege escalation via an unpatched third-party application — OS patching alone is insufficient; all installed software must be included in patch management",
+      "That antivirus is ineffective against all attacks targeting third-party applications, regardless of patching state",
+      "That standard user accounts provide no security benefit, since any unpatched application can be used to escalate",
+      "That the antivirus vendor should have blocked the third-party application's exploit through behavioral signatures alone"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      167,
+      114,
+      112,
+      119
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.6-0",
+    "videoId": "2.3.6",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A web application's search passes user input directly to SQL",
+    "expectedOldOpts": [
+      "Cross-site scripting — the search field reflected input without encoding",
+      "CSRF — the attacker forged a search request on behalf of a legitimate user",
+      "A stored XSS attack that persisted in the database",
+      "Union-based SQL injection — the root cause is concatenating unsanitized user input directly into a SQL query rather than using parameterized queries"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Cross-site scripting — the search field reflected attacker input into the response page without HTML encoding",
+      "CSRF — the attacker forged a search request on behalf of a legitimate authenticated user without their knowledge or consent",
+      "A stored XSS attack that persisted in the database and ran whenever any user later viewed the search results",
+      "Union-based SQL injection — the root cause is concatenating unsanitized user input directly into a SQL query rather than using parameterized queries"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      109,
+      123,
+      108,
+      148
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.6-1",
+    "videoId": "2.3.6",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A developer fixes a SQL injection vulnerability by blocking ",
+    "expectedOldOpts": [
+      "The developer used the wrong list of blocked characters",
+      "Single quotes are allowed in legitimate names like O'Brien",
+      "The developer should have used a WAF instead of code changes",
+      "Blocklist-based input filtering is inherently incomplete — attackers can use encoding (hex, Unicode), case variations (SeLeCt), or alternative SQL syntax to bypass it. Parameterized queries are the correct fix"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "The developer used the wrong list of blocked characters — additional characters like parentheses, equals signs, and dashes should also be in the deny-list",
+      "Single quotes are legitimate in names like O'Brien and many real surnames — the filter would reject all valid users with apostrophes in their data",
+      "The developer should have used a WAF instead of code changes — application-layer fixes belong at the network perimeter, not in the source code",
+      "Blocklist-based input filtering is inherently incomplete — attackers can use encoding (hex, Unicode), case variations (SeLeCt), or alternative SQL syntax to bypass it. Parameterized queries are the correct fix"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      154,
+      146,
+      142,
+      209
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.6-2",
+    "videoId": "2.3.6",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A security team finds a blind SQL injection vulnerability in",
+    "expectedOldOpts": [
+      "The attacker asks true/false questions using Boolean conditions and infers database structure from whether results appear — eventually extracting the entire database through many requests",
+      "Blind SQLi cannot be exploited because no data is returned",
+      "The attacker can only cause denial of service, not data exfiltration",
+      "Blind SQLi requires physical access to the database server"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "The attacker asks true/false questions using Boolean conditions and infers database structure from whether results appear — eventually extracting the entire database through many requests",
+      "Blind SQLi cannot be exploited because no data is returned in the response — the attacker has no channel at all to extract anything",
+      "The attacker can only cause denial of service, not data exfiltration, because every probe requires a separate full request roundtrip",
+      "Blind SQLi requires physical access to the database server to read the query log and reconstruct attacker intent from request timing"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      187,
+      131,
+      132,
+      132
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.7-1",
+    "videoId": "2.3.7",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A developer encodes < as &lt; and > as &gt; to fix an XSS vu",
+    "expectedOldOpts": [
+      "Output encoding doesn't work against XSS",
+      "The developer should have used a blocklist of dangerous characters",
+      "Context-specific encoding is required — HTML attribute context requires different encoding than HTML body context. Encoding < and > is insufficient inside attribute values where \" can break out of the attribute",
+      "The image alt text attribute is immune to XSS in all contexts"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Output encoding doesn't reliably work against XSS at all — the only effective remediation is removing all user-supplied content from the response",
+      "The developer should have used a blocklist of dangerous characters including < > \" ' / and the literal word 'script' in any case combination",
+      "Context-specific encoding is required — HTML attribute context requires different encoding than HTML body context. Encoding < and > is insufficient inside attribute values where \" can break out of the attribute",
+      "The image alt text attribute is immune to XSS in all browser contexts because browsers do not interpret HTML markup inside any attribute values"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      145,
+      140,
+      210,
+      140
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.8-0",
+    "videoId": "2.3.8",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A network-attached storage device reached end-of-life two ye",
+    "expectedOldOpts": [
+      "Ignore the vulnerability — the devices have worked fine for two years",
+      "Apply the firmware patch from the vendor's website",
+      "Continue normal operations and purchase cyber insurance to cover the risk",
+      "Since no patch is available for EOL hardware, isolate the devices from the broader network, implement strict firewall rules limiting access, and accelerate replacement planning"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Ignore the vulnerability — the devices have worked fine for two years and a CVE alone doesn't justify the operational cost of replacing them",
+      "Apply the firmware patch from the vendor's website immediately and continue using the devices in their existing network segment",
+      "Continue normal operations and purchase cyber insurance to cover the financial risk if the EOL devices are exploited later",
+      "Since no patch is available for EOL hardware, isolate the devices from the broader network, implement strict firewall rules limiting access, and accelerate replacement planning"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      121,
+      119,
+      124,
+      176
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.8-2",
+    "videoId": "2.3.8",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "During a security audit of new servers, a researcher discove",
+    "expectedOldOpts": [
+      "A firmware vulnerability — patching the server BIOS will remove the chip",
+      "Shadow IT — an employee added the chips after delivery",
+      "A rootkit installed during initial server configuration",
+      "A hardware supply chain attack — malicious components inserted during manufacturing or distribution, before the servers reached the buyer"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "A firmware vulnerability — patching the server BIOS will remove the chip and its reporting behavior",
+      "Shadow IT — an employee added the chips to the motherboards after delivery to bypass official IT procurement",
+      "A rootkit installed during initial server configuration that modifies firmware to add the chips at boot",
+      "A hardware supply chain attack — malicious components inserted during manufacturing or distribution, before the servers reached the buyer"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      99,
+      103,
+      100,
+      137
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.3.9-1",
+    "videoId": "2.3.9",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A security team finds 47 VMs created for projects over 3 yea",
+    "expectedOldOpts": [
+      "High performance risk — idle VMs consume resources unnecessarily",
+      "VM sprawl",
+      "Low risk — unused VMs that aren't doing anything can't be exploited",
+      "VM escape risk — idle VMs are more likely to allow hypervisor escape"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "High performance risk — idle VMs consume resources unnecessarily across the cluster",
+      "VM sprawl — unmanaged VMs accumulate vulnerabilities; recommend inventory + decommission process",
+      "Low risk — unused VMs that aren't actively serving traffic can't be exploited by attackers",
+      "VM escape risk — idle VMs are more likely to allow hypervisor escape because of stale guest tools"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      80,
+      92,
+      86,
+      88
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.1-0",
+    "videoId": "2.4.1",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A hospital's file servers are encrypted by ransomware at 2am",
+    "expectedOldOpts": [
+      "Always pay the ransom — it's faster and insurance covers it",
+      "Never pay the ransom under any circumstances",
+      "The decision depends on",
+      "Pay if the ransom is less than the cost of recovery from backups"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Always pay the ransom — it's faster than restoring from backups and insurance covers it anyway",
+      "Never pay the ransom under any circumstances, regardless of operational impact or regulatory risk",
+      "The decision depends on backup viability, recovery-time tolerance, regulatory rules, and likelihood the attacker actually decrypts",
+      "Pay if the ransom is less than the cost of recovery from backups by any meaningful margin"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      94,
+      97,
+      130,
+      89
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.1-1",
+    "videoId": "2.4.1",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "Six months after deploying EDR, a security analyst notices h",
+    "expectedOldOpts": [
+      "No risk — if the scripts are known to be legitimate, dismissing alerts is correct",
+      "Alert fatigue",
+      "The EDR should be replaced with a solution generating fewer alerts",
+      "PowerShell should be disabled organization-wide"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "No risk — if the scripts are known to be legitimate, dismissing alerts without review is correct practice",
+      "Alert fatigue — better approach: tune the EDR to suppress benign repeating alerts via baseline allow-listing",
+      "The EDR should be replaced with a different solution that generates substantially fewer alerts daily",
+      "PowerShell should be disabled organization-wide to eliminate the source of the alert volume entirely"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      95,
+      100,
+      92,
+      88
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.10-1",
+    "videoId": "2.4.10",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A Windows domain uses NTLM authentication for legacy applica",
+    "expectedOldOpts": [
+      "Credential stuffing — prevented by MFA",
+      "A replay attack on Kerberos tickets — prevented by short ticket lifetimes",
+      "Pass-the-hash",
+      "Mimikatz itself is the vulnerability — prevented by patching Mimikatz signatures in AV"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Credential stuffing — prevented by MFA on the legacy authentication endpoint",
+      "A replay attack on Kerberos tickets — prevented by short ticket lifetimes and key rotation",
+      "Pass-the-hash — prevented architecturally by removing NTLM; require Kerberos/AES and Protected Users group",
+      "Mimikatz itself is the vulnerability — prevented by patching Mimikatz signatures in AV"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      90,
+      102,
+      111,
+      96
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.11-0",
+    "videoId": "2.4.11",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A security analyst reviews web server logs and notices hundr",
+    "expectedOldOpts": [
+      "The web server has a SQL injection vulnerability being exploited",
+      "The web application has a directory traversal vulnerability",
+      "A CSRF attack is manipulating server-side commands",
+      "A web shell has been uploaded to the server — the attacker is executing OS commands through HTTP requests to the malicious script"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "The web server has a SQL injection vulnerability being exploited to execute OS commands via xp_cmdshell",
+      "The web application has a directory traversal vulnerability that exposes /etc/passwd via path manipulation",
+      "A CSRF attack is manipulating server-side commands by forging requests on behalf of the admin user",
+      "A web shell has been uploaded to the server — the attacker is executing OS commands through HTTP requests to the malicious script"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      95,
+      91,
+      88,
+      129
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.12-2",
+    "videoId": "2.4.12",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "Authenticated users can submit support tickets. A researcher",
+    "expectedOldOpts": [
+      "Stored XSS",
+      "Reflected XSS — dangerous because it affects all users who click a crafted link",
+      "DOM-based XSS — dangerous because it bypasses server-side filtering",
+      "CSRF — the ticket submission forges requests on the admin's behalf"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Stored XSS — particularly dangerous because the payload runs for every admin who views the ticket, no per-victim lure required",
+      "Reflected XSS — dangerous because it affects all users who click a crafted link from the attacker",
+      "DOM-based XSS — dangerous because it bypasses server-side filtering and runs entirely client-side",
+      "CSRF — the ticket submission forges requests on the admin's behalf using cached session cookies"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      112,
+      95,
+      88,
+      91
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.13-1",
+    "videoId": "2.4.13",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A TLS connection between a client and server negotiates to T",
+    "expectedOldOpts": [
+      "A downgrade attack",
+      "An SSL stripping attack — prevent by enabling HSTS",
+      "A replay attack on the TLS handshake",
+      "A birthday attack on the RC4 stream cipher"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "A downgrade attack — prevented by enforcing TLS 1.2+/AEAD only on the server and rejecting older negotiations",
+      "An SSL stripping attack — prevented by enabling HSTS with includeSubDomains and a long max-age",
+      "A replay attack on the TLS handshake — prevented by tracking and rejecting reused random nonces",
+      "A birthday attack on the RC4 stream cipher — prevented by rotating session keys after each handshake"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      106,
+      92,
+      90,
+      89
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.14-1",
+    "videoId": "2.4.14",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A SOC team notices in their authentication logs: between 9-1",
+    "expectedOldOpts": [
+      "Password spraying",
+      "A brute-force attack — it's just particularly slow",
+      "Credential stuffing — the attacker has a database of valid credentials",
+      "Dictionary attack — the attacker is working through a password list one entry at a time"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Password spraying — evades brute-force detection because each account sees only one attempt; lockout thresholds never trigger",
+      "A brute-force attack — it's just particularly slow, and would still trip per-account lockout policies",
+      "Credential stuffing — the attacker has a database of valid credentials gathered from a prior breach",
+      "Dictionary attack — the attacker is working through a password list one entry at a time per target account"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      119,
+      93,
+      107,
+      111
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.15-1",
+    "videoId": "2.4.15",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A threat hunter reviews DNS logs and notices an internal wor",
+    "expectedOldOpts": [
+      "Beaconing",
+      "Normal software update checking behavior — no action needed",
+      "A DNS tunneling attack exfiltrating data in the queries themselves",
+      "A botnet scanning behavior"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Beaconing — periodic check-in traffic from C2-infected endpoint; investigate process and isolate",
+      "Normal software update checking behavior — no action needed beyond confirming the destination is benign",
+      "A DNS tunneling attack exfiltrating data in the queries themselves — payload encoded in subdomain labels",
+      "A botnet scanning behavior — automated reconnaissance of network ranges for vulnerable hosts"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      100,
+      88,
+      95,
+      84
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.2-0",
+    "videoId": "2.4.2",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A worm is spreading across an organization's network, exploi",
+    "expectedOldOpts": [
+      "Shut down all affected workstations individually",
+      "Run antivirus scans on all 1,200 workstations simultaneously",
+      "Deploy a patch for the SMBv1 vulnerability to all systems immediately",
+      "Implement network segmentation controls to isolate affected segments and disable SMBv1 on unaffected systems — blocking the propagation vector while containing the spread"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Shut down all affected workstations individually as IT teams reach each one — preventing further spread of the worm process",
+      "Run antivirus scans on all 1,200 workstations simultaneously to detect and quarantine the worm before more endpoints are infected",
+      "Deploy a patch for the SMBv1 vulnerability to all systems immediately, including those already showing infection signs",
+      "Implement network segmentation controls to isolate affected segments and disable SMBv1 on unaffected systems — blocking the propagation vector while containing the spread"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      114,
+      117,
+      114,
+      170
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.3-0",
+    "videoId": "2.4.3",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "An employee installs a free system optimization tool from a ",
+    "expectedOldOpts": [
+      "Ransomware — pay the ransom to restore normal browser function",
+      "A keylogger — immediately change all passwords",
+      "Adware/PUP",
+      "A rootkit — reformat the entire system"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Ransomware — pay the ransom to restore normal browser function and remove the toolbars",
+      "A keylogger — immediately change all passwords used since the optimizer was installed",
+      "Adware/PUP — uninstall via system tools, reset browser settings, and run an anti-malware scan",
+      "A rootkit — reformat the entire system since rootkits cannot be removed reliably otherwise"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      84,
+      82,
+      92,
+      80
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.4-1",
+    "videoId": "2.4.4",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A user reports their computer is extremely slow. Investigati",
+    "expectedOldOpts": [
+      "A legitimate Windows update running in the background",
+      "Ransomware encrypting files — the ransom demand hasn't appeared yet",
+      "A worm propagating across the network",
+      "A cryptominer"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "A legitimate Windows update running in the background — nothing to do beyond letting it complete",
+      "Ransomware encrypting files — the ransom demand hasn't appeared yet because encryption is mid-stream",
+      "A worm propagating across the network using SMB to spread laterally to other workstations",
+      "A cryptominer — the disguised binary uses CPU cycles for unauthorized cryptocurrency mining"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      90,
+      91,
+      87,
+      103
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.7-1",
+    "videoId": "2.4.7",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A security team finds an endpoint making hundreds of DNS que",
+    "expectedOldOpts": [
+      "The endpoint has malware constantly scanning for open ports",
+      "A worm using DNS to propagate through random subdomain generation",
+      "DNS tunneling — the endpoint is exfiltrating data encoded in DNS query subdomains, with responses potentially carrying C2 commands back",
+      "Legitimate CDN behavior generating random subdomain lookups"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "The endpoint has malware constantly scanning for open ports on internal hosts via DNS lookups",
+      "A worm using DNS to propagate by generating random subdomains as it searches for other vulnerable hosts",
+      "DNS tunneling — the endpoint is exfiltrating data encoded in DNS query subdomains, with responses potentially carrying C2 commands back",
+      "Legitimate CDN behavior generating random subdomain lookups for cache-busting and load distribution"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      92,
+      96,
+      135,
+      95
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.8-1",
+    "videoId": "2.4.8",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A wireless penetration tester uses aireplay-ng to send deaut",
+    "expectedOldOpts": [
+      "Performing a WPS PIN attack — WPA3 removes WPS entirely",
+      "Performing a Bluetooth attack — Bluetooth 5.0 addresses the handshake vulnerability",
+      "Capturing a WPA2 4-way handshake via forced deauthentication for offline cracking — WPA3 with SAE (Simultaneous Authentication of Equals) addresses this by providing forward secrecy; even capturing the exchange doesn't enable offline cracking",
+      "Conducting ARP poisoning on the wireless network"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Performing a WPS PIN attack — WPA3 removes WPS entirely so the 8-digit PIN offline brute-force is no longer possible",
+      "Performing a Bluetooth attack — Bluetooth 5.0 addresses the handshake-capture vulnerability via encrypted pairing",
+      "Capturing a WPA2 4-way handshake via forced deauthentication for offline cracking — WPA3 with SAE provides forward secrecy; capturing the exchange doesn't enable cracking",
+      "Conducting ARP poisoning on the wireless network — WPA3 isolation features prevent ARP-level Layer 2 attacks reliably"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      116,
+      113,
+      170,
+      120
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.4.9-1",
+    "videoId": "2.4.9",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A penetration tester sends gratuitous ARP replies claiming t",
+    "expectedOldOpts": [
+      "DNS cache poisoning — DNSSEC prevents this",
+      "IP spoofing — firewall egress filtering prevents this",
+      "ARP poisoning/spoofing",
+      "BGP hijacking — route filtering on border routers prevents this"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "DNS cache poisoning — DNSSEC prevents this through signed-record validation",
+      "IP spoofing — firewall egress filtering at the network boundary prevents this",
+      "ARP poisoning/spoofing — Dynamic ARP Inspection (DAI) on managed switches prevents this",
+      "BGP hijacking — route filtering on border routers prevents this between AS peers"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      80,
+      82,
+      88,
+      80
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.5.1-1",
+    "videoId": "2.5.1",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "An organization deploys application allow-listing permitting",
+    "expectedOldOpts": [
+      "The red team exploited a buffer overflow in the allow-listing software",
+      "The red team used an unsigned binary matching a known-good file hash",
+      "Living-off-the-land (LOLBins)",
+      "The allow-list was misconfigured to allow all Microsoft signed binaries"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "The red team exploited a buffer overflow in the allow-listing software's parser engine",
+      "The red team used an unsigned binary that happened to match a known-good file hash collision",
+      "Living-off-the-land (LOLBins) — detect via behavioral analytics on signed-but-unusual process invocations",
+      "The allow-list was misconfigured to allow all Microsoft-signed binaries, not just the approved subset"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      92,
+      90,
+      112,
+      90
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.5.2-1",
+    "videoId": "2.5.2",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "An analyst receives an alert that a workstation is attemptin",
+    "expectedOldOpts": [
+      "The analyst applied least privilege by revoking the accountant's network permissions",
+      "The analyst applied isolation as a containment technique. Next step: preserve forensic evidence (memory dump before shutdown, network connection state) and begin investigation — what executed, was the user socially engineered, are the 47 IPs scanned already compromised?",
+      "The analyst applied network segmentation by moving the workstation to a guest VLAN",
+      "The analyst applied zero trust by requiring re-authentication"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "The analyst applied least privilege by revoking the accountant's network permissions, since lateral movement requires the accountant's account to keep moving",
+      "The analyst applied isolation as a containment technique. Next step: preserve forensic evidence (memory dump before shutdown, network connection state) and begin investigation — what executed, was the user socially engineered, are the 47 IPs scanned already compromised?",
+      "The analyst applied network segmentation by moving the workstation to a guest VLAN, which adequately limits any further blast radius from the compromise",
+      "The analyst applied zero trust by requiring re-authentication on the workstation, ensuring any future SMB connections come from a freshly-verified identity"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      184,
+      270,
+      185,
+      184
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  },
+  {
+    "id": "scen-2.5.3-1",
+    "videoId": "2.5.3",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "An organization implements Secure Boot on all new laptops. S",
+    "expectedOldOpts": [
+      "Secure Boot doesn't protect against USB boot attacks",
+      "The UEFI firmware has a vulnerability that bypasses Secure Boot",
+      "Secure Boot was configured correctly but the surrounding hardening was incomplete — without a UEFI firmware password and boot order restriction, an attacker can simply disable Secure Boot or reorder to boot USB first. Complete hardening requires: Secure Boot + UEFI password + boot order locked to internal drive only",
+      "The USB drive had a Microsoft-signed bootloader that Secure Boot accepted"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Secure Boot doesn't protect against USB boot attacks at all — the entire premise of Secure Boot is unrelated to boot media",
+      "The UEFI firmware has an undisclosed vulnerability that bypasses Secure Boot — vendor patches will be needed across the fleet",
+      "Secure Boot was configured correctly but surrounding hardening was incomplete — without a UEFI password and boot-order lock, an attacker can disable Secure Boot or boot USB first",
+      "The USB drive had a Microsoft-signed bootloader that Secure Boot accepted, allowing the customized OS to load successfully"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      122,
+      125,
+      178,
+      125
+    ],
+    "src": "audit-a-fix-proposal-batch-2.txt"
+  }
+]
