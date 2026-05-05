@@ -21,7 +21,7 @@ Task | State | Notes
 **1e — New-content prioritization** | **NEW (2026-04-27)** | App reports "N new things to try" with no way to see/prioritize them. Either separate New mode or have existing modes prioritize unseen-from-watched-videos. Smaller scope than Task 2; ~1-2 hours.
 1c-structural (continuation) — extractor tuning | not started | Tune grounding/anchor-gap extractors to handle `X means:` / `X is used to:` / `X requires:` patterns; multi-word phrases before linking verbs; clause-fragment stripping; stop-word filtering. Bottlenecks both audits.
 1c-experiential — anchor-gap fixes | not started | Generate anchor questions for concepts the audit flags as uncovered. Real pedagogical value once extractor is tuned.
-2 — Mode consolidation | sub-batch 0 shipped, sub-batch 1 in flight | 5 modes (Quiz / Flashcards / Review / Drill Wrong / Matching) per design v2 Q-E; 3 top-level tabs (Progress / Study / Exam) per Q-A. Authoritative spec at `docs/task2-design-v2.txt`. Sub-batch 0 (sync hygiene) shipped at `9e94fb9`. SchemaVersion bump NOT required (Q-I).
+2 — Mode consolidation | sub-batches 0 + 1 shipped | 5 modes (Quiz / Flashcards / Review / Drill Wrong / Matching) per design v2 Q-E; 3 top-level tabs (Progress / Study / Exam) per Q-A. Authoritative spec at `docs/task2-design-v2.txt`. Sub-batch 0 (sync hygiene) at `9e94fb9`; Sub-batch 1 (UI scaffold) at `c43ae49`. Sub-batch 2 (buildPool + Customise drawer) is next. SchemaVersion bump NOT required (Q-I).
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
 ## Task 1a — completed
@@ -394,16 +394,40 @@ Sub-batch ledger:
   LOCAL_ONLY; migrateStore invariant comment added. 24-h gate between
   this ship and Sub-batch 4. All 3 devices reloaded the bundle by
   2026-05-05.
-- **1 — UI scaffold** (in flight). Top-level tabs 4→3; new StudyTab with
-  5-mode picker; old 6-card grid hidden via `presetMode` prop on
-  QuizTab (kept reachable in code, removed in Sub-batch 5). Pure UI;
-  no localStorage / sync changes.
+- **1 — UI scaffold** (shipped `c43ae49`, 2026-05-05; preliminary doc
+  cleanup at `a62d378`). Top-level tabs 4→3; new StudyTab with 5-mode
+  picker; old 6-card grid hidden via `presetMode` prop on QuizTab
+  (kept reachable in code, removed in Sub-batch 5). Pure UI; no
+  localStorage / sync changes. Live bundle `index-ByfmWJ4p.js`. 8/8
+  manual click-through PASS. See `docs/task2-sub-batch-1-shipped.md`.
 - **2 — buildPool unification + Customise drawer + diff-test** (next).
 - **3 — Saved presets** (after 2).
 - **4 — Flashcards SM-2 (`cram-*` keys)** (gated on Sub-batch 0 + 24-h
   + manual device reload check; gate satisfied as of 2026-05-05).
 - **5 — Cleanup** (last; removes the orphaned 6-card grid, CramTab, and
   6 startQuiz branches).
+
+### Task 2 — tracked polish items
+
+Surfaced during sub-batch reviews. Not regressions, not on the design
+v2 critical path. Track here so they don't get lost; promote into a
+sub-batch slot or a between-sub-batch small commit when convenient.
+
+- **(2026-05-05, Sub-batch 1 review) Matching UX: option-disappears-when-selected.**
+  Pre-existing behavior, not introduced by Sub-batch 1. When a user
+  picks an option in a matching dropdown, the chosen value disappears
+  from the dropdown's visible state, making it harder to confirm
+  what's already selected without expanding the dropdown again. Fix
+  shape: keep the selected value visible as the dropdown's display
+  text (today the chosen value remains stored in state but the
+  dropdown reverts to placeholder). Likely lands in Sub-batch 5
+  cleanup or as a small standalone commit between sub-batches.
+- **(2026-05-05, Sub-batch 1 review) Per-mode counts on Study tab.**
+  The 5-card picker doesn't show "N items available in this mode" on
+  each card. Sub-batch 2's Customise drawer with live pool preview
+  ("Drawing N items from M videos" per design v2 §3.3) may surface
+  this naturally; if not, a small follow-up commit can add per-card
+  counts to the picker.
 
 ## Task 3 — PBQ system (later)
 
