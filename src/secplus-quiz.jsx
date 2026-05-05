@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef, useMemo } from "react"
 import ALL_SECTIONS from "../questions.json";
 import SyncSettings, { deriveHealth } from "./sync/SyncSettings.jsx";
 import { getStatus as getSyncStatus, subscribe as subscribeSync } from "./sync/sync-engine.js";
+import { buildPool } from "./study/buildPool.js";
 
 // ─── DATA LIVES IN questions.json ──────────────────────────────
 
@@ -1243,6 +1244,52 @@ function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, 
   );
 }
 
+// ─── LEGACY-MODE → buildPool SHIM (Task 2 Sub-batch 2A) ─────────
+// Maps the 6 legacy setupMode strings to the new buildPool() filter shape.
+// 2A keeps user-visible behavior identical to Sub-batch 1 by routing every
+// startQuiz call through buildPool with these legacy-default filters. The
+// drawer in 2B will write filters directly; this shim deletes in 2C
+// alongside the orphaned 6-card grid.
+const LEGACY_SHIM_FOR_MODE = {
+  standard: ({ selectedVids, questionCount }) => ({
+    questionTypes: ["mc"], videoIds: selectedVids, length: questionCount, watchedOnly: true,
+  }),
+  new: ({ questionCount }) => ({
+    questionTypes: ["mc", "scen"], preferUnseen: true, watchedOnly: true, length: questionCount,
+  }),
+  scenario: ({ selectedVids, questionCount }) => ({
+    questionTypes: ["scen"], videoIds: selectedVids, length: questionCount, watchedOnly: true,
+  }),
+  spaced: () => ({
+    questionTypes: ["mc"], dueOnly: true, includeUnseen: true, watchedOnly: true,
+  }),
+  weak: () => ({
+    // legacyVideoLevelWeak preserves today's per-VIDEO scope. 2C swaps to
+    // per-question (belowAccuracy=0.70) per design v2 Q-F. The diff-test
+    // at scripts/test-buildpool-equivalence.mjs prints the divergence.
+    questionTypes: ["mc"], legacyVideoLevelWeak: true, watchedOnly: true,
+  }),
+  matching: ({ selectedVids }) => ({
+    questionTypes: ["match"], videoIds: selectedVids, watchedOnly: true,
+  }),
+};
+
+function legacyToBuildPoolMode(m) {
+  if (m === "spaced") return "review";
+  if (m === "weak") return "drill";
+  if (m === "matching") return "matching";
+  return "quiz";
+}
+
+function legacyEmptyMessage(m, weakRatio) {
+  if (m === "spaced") return "No questions due today! Come back tomorrow or switch to Standard mode.";
+  if (m === "new") return "No new questions! All your watched-video questions have been seen at least once. Mark more videos watched in Progress, or try Spaced Repetition.";
+  if (m === "weak") return `No weak spots detected! All watched videos are at ${Math.round(weakRatio * 100)}%+ accuracy. Try Standard mode instead.`;
+  if (m === "matching") return "Select at least one video with matching pairs.";
+  if (m === "scenario") return "No scenario questions available for selected videos yet. Domain 2 videos have scenarios — try selecting those.";
+  return "Select at least one video.";
+}
+
 // ─── QUIZ TAB ──────────────────────────────────────────────────
 // presetMode (Task 2 Sub-batch 1): when set, drives setupMode imperatively
 //   so the StudyTab picker can route a card click into the right pool-build
@@ -1706,81 +1753,26 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   }
 
   function startQuiz(m) {
-    let pool = [];
-    if (m === "spaced") {
-      const today = todayStr();
-      watchedVideos.forEach(v => {
-        v.questions.forEach((q, qi) => {
-          const key = mcKey(v.id, qi);
-          const rec = store.sm2[key];
-          if (!rec || rec.nextDue <= today) {
-            pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" });
-          }
-        });
-      });
-      if (pool.length === 0) {
-        showAlert("No questions due today! Come back tomorrow or switch to Standard mode.");
-        return;
-      }
-    } else if (m === "new") {
-      // "New" mode: items on watched videos with no SM-2 record yet. Pool
-      // covers MC + scenarios only — matching uses a different running-quiz
-      // UI, so the dashboard's "N new to try" counter (which includes
-      // matching) may report a slightly higher number than this pool size.
-      watchedVideos.forEach(v => {
-        v.questions.forEach((q, qi) => {
-          if (!store.sm2[mcKey(v.id, qi)]) {
-            pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" });
-          }
-        });
-        (v.scenarios || []).forEach((q, qi) => {
-          if (!store.sm2[scenKey(v.id, qi)]) {
-            pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc", isScenario: true });
-          }
-        });
-      });
-      if (pool.length === 0) {
-        showAlert("No new questions! All your watched-video questions have been seen at least once. Mark more videos watched in Progress, or try Spaced Repetition.");
-        return;
-      }
-      pool = shuffle(pool).slice(0, questionCount);
-    } else if (m === "weak") {
-      const weak = watchedVideos.filter(v => {
-        const recs = v.questions.map((_, qi) => store.sm2[mcKey(v.id, qi)]).filter(Boolean);
-        if (recs.length === 0) return true;
-        return recs.reduce((n, r) => n + r.correct / r.total, 0) / recs.length < CONFIG.WEAK_SPOT_RATIO;
-      });
-      if (weak.length === 0) {
-        showAlert(`No weak spots detected! All watched videos are at ${Math.round(CONFIG.WEAK_SPOT_RATIO * 100)}%+ accuracy. Try Standard mode instead.`);
-        return;
-      }
-      weak.forEach(v => v.questions.forEach((q, qi) => pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" })));
-    } else if (m === "matching") {
-      const vids = selectedVids.length ? watchedVideos.filter(v => selectedVids.includes(v.id)) : watchedVideos;
-      vids.forEach(v => {
-        if (v.matching && v.matching.length >= 3) {
-          pool.push({ type: "matching", videoId: v.id, videoTitle: v.title, pairs: v.matching });
-        }
-      });
-      if (pool.length === 0) { showAlert("Select at least one video with matching pairs."); return; }
-    } else if (m === "scenario") {
-      const vids = selectedVids.length ? watchedVideos.filter(v => selectedVids.includes(v.id)) : watchedVideos;
-      if (vids.length === 0) { showAlert("Select at least one video."); return; }
-      vids.forEach(v => {
-        if (v.scenarios) {
-          v.scenarios.forEach((q, qi) => pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc", isScenario: true }));
-        }
-      });
-      if (pool.length === 0) {
-        showAlert("No scenario questions available for selected videos yet. Domain 2 videos have scenarios — try selecting those.");
-        return;
-      }
-      pool = shuffle(pool).slice(0, questionCount);
-    } else {
-      const vids = selectedVids.length ? watchedVideos.filter(v => selectedVids.includes(v.id)) : watchedVideos;
-      if (vids.length === 0) { showAlert("Select at least one video."); return; }
-      vids.forEach(v => v.questions.forEach((q, qi) => pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" })));
-      pool = shuffle(pool).slice(0, questionCount);
+    // Sub-batch 2A: 6-branch pool-build collapsed into a single call to
+    // buildPool() via the LEGACY_SHIM_FOR_MODE table. User-visible
+    // behavior must match Sub-batch 1 — verified by the diff-test at
+    // scripts/test-buildpool-equivalence.mjs (set-equality across all
+    // 6 modes). 2C un-orphans "new"/"scenario" via drawer filters.
+    const today = todayStr();
+    const shim = LEGACY_SHIM_FOR_MODE[m] || LEGACY_SHIM_FOR_MODE.standard;
+    const filters = shim({ selectedVids, questionCount });
+    const pool = buildPool({
+      mode: legacyToBuildPoolMode(m),
+      filters,
+      sections,
+      watchedVideos,
+      store,
+      today,
+    });
+
+    if (pool.length === 0) {
+      showAlert(legacyEmptyMessage(m, CONFIG.WEAK_SPOT_RATIO));
+      return;
     }
 
     setQuizQ(shuffle(pool.map(shuffleOptions)));
