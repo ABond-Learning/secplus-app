@@ -483,7 +483,7 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [storageStatus, setStorageStatus] = useState({ primary: "unknown", fallbackUsed: false, error: null });
   const [importMsg, setImportMsg] = useState(null); // { kind: 'ok'|'err', text }
-  const [tab, setTab] = useState("progress"); // progress | quiz | cram | exam
+  const [tab, setTab] = useState("progress"); // progress | study | exam
   const [view, setView] = useState("main");   // main | sync
   // Backup reminder state — hydrated from localStorage on mount, updated on
   // every successful export. Both stored as ms-epoch numbers; null means
@@ -734,7 +734,7 @@ export default function App() {
           </div>
         </div>
         <nav style={styles.nav}>
-          {[["progress","📊 Progress"],["quiz","❓ Quiz"],["cram","📖 Cram"],["exam","🎓 Exam"]].map(([t,label]) => (
+          {[["progress","📊 Progress"],["study","📚 Study"],["exam","🎓 Exam"]].map(([t,label]) => (
             <button key={t} onClick={() => setTab(t)} style={{...styles.navBtn, ...(tab===t?styles.navBtnActive:{})}}>
               {label}
             </button>
@@ -761,9 +761,9 @@ export default function App() {
             />
           </ErrorBoundary>
         </div>
-        <div style={{ display: tab === "quiz" ? "block" : "none" }}>
-          <ErrorBoundary name="Quiz">
-            <QuizTab
+        <div style={{ display: tab === "study" ? "block" : "none" }}>
+          <ErrorBoundary name="Study">
+            <StudyTab
               sections={ALL_SECTIONS}
               watchedVideos={watchedVideos}
               store={store}
@@ -772,13 +772,6 @@ export default function App() {
               recordSession={recordSession}
               pendingDrill={pendingDrill}
               clearPendingDrill={() => setPendingDrill(null)}
-            />
-          </ErrorBoundary>
-        </div>
-        <div style={{ display: tab === "cram" ? "block" : "none" }}>
-          <ErrorBoundary name="Cram">
-            <CramTab
-              watchedVideos={watchedVideos}
             />
           </ErrorBoundary>
         </div>
@@ -791,7 +784,7 @@ export default function App() {
               recordSession={recordSession}
               onDrillWrongAsQuiz={(wrongQs) => {
                 setPendingDrill(wrongQs);
-                setTab("quiz");
+                setTab("study");
               }}
             />
           </ErrorBoundary>
@@ -1168,8 +1161,98 @@ function DomainAccuracyCard({ sections, store, watchedSet }) {
   );
 }
 
+// ─── STUDY TAB ─────────────────────────────────────────────────
+// 5-mode picker (Task 2 Sub-batch 1). Each card routes to existing
+// pool-build logic via QuizTab's presetMode (or directly to CramTab for
+// Flashcards). Customise drawer + buildPool unification arrives in
+// Sub-batch 2 — Sub-batch 1 is a 1:1 re-skin only.
+//
+// Old → new mapping (per design v2 §6 Sub-batch 1 spec):
+//   Quiz card        → QuizTab presetMode="standard"
+//   Flashcards card  → CramTab (no SM-2 yet — Sub-batch 4)
+//   Review card      → QuizTab presetMode="spaced"
+//   Drill Wrong card → QuizTab presetMode="weak"
+//   Matching card    → QuizTab presetMode="matching"
+//
+// Old "new" + "scenario" modes are temporarily unreachable (orphaned in
+// the hidden 6-card grid inside QuizTab). They become accessible in
+// Sub-batch 2 via Customise drawer filters (preferUnseen, questionTypes
+// = ["scen"]). Brief regression accepted per design line 800–803.
+const STUDY_MODE_CARDS = [
+  ["quiz",       "📝", "Quiz",        "MC + scenarios on watched videos"],
+  ["flashcards", "📖", "Flashcards",  "Cram terms, flip-card review"],
+  ["review",     "🔁", "Review",      "Spaced repetition — items due today"],
+  ["drill",      "⚡", "Drill Wrong", "Items below your accuracy threshold"],
+  ["matching",   "🔗", "Matching",    "Term-to-definition exercises"],
+];
+
+const STUDY_MODE_TO_PRESET = {
+  quiz: "standard",
+  review: "spaced",
+  drill: "weak",
+  matching: "matching",
+  // flashcards routes to CramTab, not QuizTab
+};
+
+function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, pendingDrill, clearPendingDrill }) {
+  const [selectedMode, setSelectedMode] = useState(null);
+
+  // Auto-route into Drill Wrong when ExamTab fires "Drill N Wrong" — preserves
+  // today's post-exam drill-handoff UX. The pendingDrill payload itself flows
+  // through QuizTab's existing useEffect to load the running session.
+  useEffect(() => {
+    if (pendingDrill && pendingDrill.length > 0) {
+      setSelectedMode("drill");
+    }
+  }, [pendingDrill]);
+
+  if (!selectedMode) {
+    return (
+      <div style={styles.card}>
+        <div style={styles.cardTitle}>Study</div>
+        <div style={styles.studyPicker}>
+          {STUDY_MODE_CARDS.map(([id, icon, title, desc]) => (
+            <button key={id} onClick={() => setSelectedMode(id)} style={styles.modeCard}>
+              <div style={{ fontSize: 28 }}>{icon}</div>
+              <div style={{ fontWeight: 700, marginTop: 6 }}>{title}</div>
+              <div style={{ fontSize: 12, color: "#9ca3af", marginTop: 4 }}>{desc}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (selectedMode === "flashcards") {
+    return <CramTab watchedVideos={watchedVideos} onBack={() => setSelectedMode(null)} />;
+  }
+
+  return (
+    <QuizTab
+      sections={sections}
+      watchedVideos={watchedVideos}
+      store={store}
+      recordResult={recordResult}
+      recordRating={recordRating}
+      recordSession={recordSession}
+      pendingDrill={pendingDrill}
+      clearPendingDrill={clearPendingDrill}
+      presetMode={STUDY_MODE_TO_PRESET[selectedMode]}
+      onBack={() => setSelectedMode(null)}
+    />
+  );
+}
+
 // ─── QUIZ TAB ──────────────────────────────────────────────────
-function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, pendingDrill, clearPendingDrill }) {
+// presetMode (Task 2 Sub-batch 1): when set, drives setupMode imperatively
+//   so the StudyTab picker can route a card click into the right pool-build
+//   logic. Changing presetMode resets the running session so picking a
+//   different mode-card from the picker is always a fresh setup.
+//   The internal 6-mode grid (line ~1338) is hidden when presetMode is set —
+//   it's orphaned in code, removed in Sub-batch 5 cleanup.
+// onBack: when set, renders a "← Back to modes" button on the setup view so
+//   users can return to the picker.
+function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, pendingDrill, clearPendingDrill, presetMode, onBack }) {
   const [mode, setMode] = useState(null); // null | "setup" | "running" | "results"
   const [dialog, setDialog] = useState(null); // modal state: { title?, body, actions } | null
   const showAlert = (body, title) => setDialog({
@@ -1177,7 +1260,25 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
     body,
     actions: <button onClick={() => setDialog(null)} style={styles.modalBtnPrimary}>OK</button>,
   });
-  const [setupMode, setSetupMode] = useState("standard");
+  const [setupMode, setSetupMode] = useState(presetMode || "standard");
+
+  // Sub-batch 1: when StudyTab routes a fresh mode-card click here, reset
+  // the running session and switch setupMode. Skipped on first mount (the
+  // useState initializer already used presetMode).
+  const lastPresetRef = useRef(presetMode);
+  useEffect(() => {
+    if (!presetMode) return;
+    if (presetMode === lastPresetRef.current) return;
+    lastPresetRef.current = presetMode;
+    setSetupMode(presetMode);
+    setMode(null);
+    setQuizQ([]);
+    setIdx(0);
+    setAnswers({});
+    setShowExp(false);
+    setShowResults(false);
+    setResultData(null);
+  }, [presetMode]);
   const [selectedVids, setSelectedVids] = useState([]);
   const [questionCount, setQuestionCount] = useState(20);
   const [quizQ, setQuizQ] = useState([]);
@@ -1321,10 +1422,19 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   }
 
   if (!mode) {
+    const setupTitle = presetMode
+      ? ({ standard: "Quiz", spaced: "Review", weak: "Drill Wrong", matching: "Matching", scenario: "Scenario", new: "New" }[presetMode] || "Quiz")
+      : "Quiz Mode";
     return (
       <>
       <div style={styles.card}>
-        <div style={styles.cardTitle}>Quiz Mode</div>
+        {onBack && (
+          <button onClick={onBack} style={styles.backBtn}>← Back to modes</button>
+        )}
+        <div style={styles.cardTitle}>{setupTitle}</div>
+        {/* Sub-batch 1: 6-card mode grid is hidden when StudyTab is driving via
+            presetMode. Kept in code for now (orphaned), removed in Sub-batch 5. */}
+        {!presetMode && (
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 24 }}>
           {[
             ["standard","📝 Standard","Choose topics & count"],
@@ -1341,6 +1451,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
             </button>
           ))}
         </div>
+        )}
 
         {(setupMode === "standard" || setupMode === "matching" || setupMode === "scenario") && (
           <div>
@@ -1813,7 +1924,10 @@ function ResultsView({ data, quizQ, answers, onReset, onDrillWrong }) {
 }
 
 // ─── CRAM TAB ──────────────────────────────────────────────────
-function CramTab({ watchedVideos }) {
+// onBack (Task 2 Sub-batch 1): renders a "← Back to modes" button when
+//   StudyTab is hosting CramTab as the Flashcards mode. Same prop pattern
+//   as QuizTab.
+function CramTab({ watchedVideos, onBack }) {
   const [selected, setSelected] = useState(watchedVideos[0]?.id || null);
   const [flipped, setFlipped] = useState({});
 
@@ -1832,6 +1946,9 @@ function CramTab({ watchedVideos }) {
   if (watchedVideos.length === 0) {
     return (
       <div style={styles.emptyState}>
+        {onBack && (
+          <button onClick={onBack} style={{ ...styles.backBtn, alignSelf: "flex-start" }}>← Back to modes</button>
+        )}
         <div style={{ fontSize: 48 }}>🔒</div>
         <div style={{ fontSize: 20, fontWeight: 700, marginTop: 12 }}>Watch a video first</div>
       </div>
@@ -1843,7 +1960,10 @@ function CramTab({ watchedVideos }) {
   return (
     <div>
       <div style={styles.card}>
-        <div style={styles.cardTitle}>Cram Sheets</div>
+        {onBack && (
+          <button onClick={onBack} style={styles.backBtn}>← Back to modes</button>
+        )}
+        <div style={styles.cardTitle}>Flashcards</div>
         <select value={selected || ""} onChange={e => { setSelected(e.target.value); setFlipped({}); }}
           style={styles.select}>
           {watchedVideos.map(v => <option key={v.id} value={v.id}>{v.id} – {v.title}</option>)}
@@ -2502,6 +2622,8 @@ const styles = {
   filterBtnActive: { background: "#1d4ed8", border: "1px solid #3b82f6", color: "#fff" },
   modeCard: { background: "#0f172a", border: "2px solid #334155", borderRadius: 12, padding: "16px", cursor: "pointer", textAlign: "left", color: "#e2e8f0" },
   modeCardActive: { borderColor: "#3b82f6", background: "#1e3a5f" },
+  backBtn: { background: "none", border: "none", color: "#94a3b8", cursor: "pointer", padding: "0 0 12px 0", fontSize: 13, fontWeight: 600 },
+  studyPicker: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 },
   formLabel: { fontSize: 13, color: "#94a3b8", marginBottom: 6, fontWeight: 600 },
   vidChip: { background: "#0f172a", border: "1px solid #334155", color: "#64748b", borderRadius: 6, padding: "3px 8px", fontSize: 12, cursor: "pointer" },
   vidChipActive: { background: "#1d4ed8", border: "1px solid #3b82f6", color: "#fff" },
