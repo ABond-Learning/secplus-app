@@ -408,14 +408,26 @@ Sub-batch ledger:
     PASS, weak divergence INFO, drill BYPASS. Live bundle
     `index-CCpUiDk4.js` (+1.40 kB / +0.10%). Validator baseline-equal.
     See `docs/task2-sub-batch-2a-shipped.md`.
-  - **2B** (next) — Customise drawer UI + `secplus-v4-customise-last`
-    persistence per design v2 §3.3 / D5 / D6 / D8. Active recall
-    relocates from QuizTab session state to drawer (Q-G).
-  - **2C** (after 2B) — un-orphan "new"/"scenario" via drawer
-    filters; switch Drill card to per-question `belowAccuracy`
-    (Q-F behavior change — flag explicitly in 2C commit + ship
-    report per Aiden's risk-handling addition to D3); remove
-    `presetMode` bridge.
+  - **2B** (shipped `0c00620`, 2026-05-05) — Customise drawer +
+    `secplus-v4-customise-last` per-mode persistence. New modules
+    `src/study/CustomiseDrawer.jsx` (~390 LOC) +
+    `src/study/drawer-state.js` (~120 LOC); secplus-quiz.jsx
+    shrinks 141 LOC net (inline setup view + 6-card grid +
+    presetMode useEffect + startQuiz + dialog/showAlert all
+    deleted). StudyTab is now session orchestrator. Active recall
+    relocates from QuizTab session state to drawer state via
+    props-driven kbdRef pattern (Risk #5 mitigation). Live bundle
+    `index-Bu7UvPei.js` (1350.84 kB; +8.59 kB / +0.64% over 2A).
+    Validator baseline-equal; 34 sync-engine tests PASS; diff-test
+    PASS. Status doc at `docs/task2-sub-batch-2b-shipped.md`.
+  - **2C** (next) — un-orphan via cleanup: delete
+    `LEGACY_SHIM_FOR_MODE` / `legacyToBuildPoolMode` /
+    `legacyEmptyMessage` / `presetMode` prop / `STUDY_MODE_TO_DRAWER`
+    + the orphan 6-card grid; switch Drill card to per-question
+    `belowAccuracy: 0.70` (Q-F behavior change — flag explicitly
+    in 2C commit + ship report per Aiden's risk-handling addition
+    to D3) + ungrey the drawer slider; idempotent migration of
+    any persisted `drill` slot to drop `legacyVideoLevelWeak`.
 - **3 — Saved presets** (after 2).
 - **4 — Flashcards SM-2 (`cram-*` keys)** (gated on Sub-batch 0 + 24-h
   + manual device reload check; gate satisfied as of 2026-05-05).
