@@ -21,7 +21,7 @@ Task | State | Notes
 **1e — New-content prioritization** | **NEW (2026-04-27)** | App reports "N new things to try" with no way to see/prioritize them. Either separate New mode or have existing modes prioritize unseen-from-watched-videos. Smaller scope than Task 2; ~1-2 hours.
 1c-structural (continuation) — extractor tuning | not started | Tune grounding/anchor-gap extractors to handle `X means:` / `X is used to:` / `X requires:` patterns; multi-word phrases before linking verbs; clause-fragment stripping; stop-word filtering. Bottlenecks both audits.
 1c-experiential — anchor-gap fixes | not started | Generate anchor questions for concepts the audit flags as uncovered. Real pedagogical value once extractor is tuned.
-2 — Mode consolidation | not started | Bigger UX redesign. Naturally folds in any other UX issues identified during study. Touches localStorage migration; see SCHEMA.md. Will need a `schemaVersion` bump in the sync engine if payload shape changes.
+2 — Mode consolidation | sub-batch 0 shipped, sub-batch 1 in flight | 5 modes (Quiz / Flashcards / Review / Drill Wrong / Matching) per design v2 Q-E; 3 top-level tabs (Progress / Study / Exam) per Q-A. Authoritative spec at `docs/task2-design-v2.txt`. Sub-batch 0 (sync hygiene) shipped at `9e94fb9`. SchemaVersion bump NOT required (Q-I).
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
 ## Task 1a — completed
@@ -370,12 +370,40 @@ Triggered by 2026-04-27 study session: app currently surfaces a "N new things to
 
 **Done when:** the daily "N new things to try" count actually translates into Aiden seeing those N things in his next session without manual hunting.
 
-## Task 2 — Mode consolidation (later)
+## Task 2 — Mode consolidation (in flight)
 
-Collapse to 4 modes: Quiz / Flashcards / Review / Drill Wrong. Unified Quiz with
-Customise drawer. Saved presets. **localStorage migration is the risky part** —
-SCHEMA.md "localStorage compatibility" section is the contract. Question IDs and
-array order must remain stable to keep SM-2 progress intact.
+Authoritative spec: `docs/task2-design-v2.txt` (recovered from JSONL on
+2026-05-05; original authored 2026-05-01 alongside the Sub-batch 0 ship).
+Top-level tabs collapse from 4 to 3 (Progress / Study / Exam — sync via
+footer per Q-A / Q-J). Inside Study, 5 mode cards: Quiz / Flashcards /
+Review / Drill Wrong / Matching (Matching standalone per Q-E). Customise
+drawer with last-used persistence, visible filter summary, and preset
+saveability lands in Sub-batch 2.
+
+The risky part turns out NOT to be SM-2 key migration (all SM-2 keys are
+PRESERVED per design v2 §5.1) but cross-device sync-engine prefix
+registration for the new `cram-` SM-2 family. That's mitigated by the
+hygiene-first protocol: Sub-batch 0 ships sync prefix changes alone with
+a 24-hour gate before Sub-batch 4 (which actually starts writing
+`cram-*` keys).
+
+Sub-batch ledger:
+
+- **0 — Sync engine hygiene** (shipped `9e94fb9`, 2026-05-01). cram-
+  added to TRACKED_PREFIXES; secplus-v4-exam-session added to
+  LOCAL_ONLY; migrateStore invariant comment added. 24-h gate between
+  this ship and Sub-batch 4. All 3 devices reloaded the bundle by
+  2026-05-05.
+- **1 — UI scaffold** (in flight). Top-level tabs 4→3; new StudyTab with
+  5-mode picker; old 6-card grid hidden via `presetMode` prop on
+  QuizTab (kept reachable in code, removed in Sub-batch 5). Pure UI;
+  no localStorage / sync changes.
+- **2 — buildPool unification + Customise drawer + diff-test** (next).
+- **3 — Saved presets** (after 2).
+- **4 — Flashcards SM-2 (`cram-*` keys)** (gated on Sub-batch 0 + 24-h
+  + manual device reload check; gate satisfied as of 2026-05-05).
+- **5 — Cleanup** (last; removes the orphaned 6-card grid, CramTab, and
+  6 startQuiz branches).
 
 ## Task 3 — PBQ system (later)
 

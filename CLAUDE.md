@@ -112,10 +112,10 @@ These rules apply to EVERY new or modified question. A question that fails any o
 
 ### Task 2 — Mode Consolidation + Unified Quiz
 
-- Collapse existing modes into 4: Quiz / Flashcards / Review / Drill Wrong
-- Unified Quiz has a "Customise" drawer (domain checkboxes with exam-weighted defaults, format checkboxes, length slider, reveal-options toggle)
-- Saved presets for old mode use cases
-- Migrate existing SM-2 localStorage keys — must not reset user progress
+- Collapse existing modes into 5: Quiz / Flashcards / Review / Drill Wrong / Matching (Matching kept standalone per design v2 Q-E)
+- Customise drawer applies per-mode (mode-specific defaults; domain/format/length/SM-2 filter controls; last-used persistence; preset-saveable). See `docs/task2-design-v2.txt` §3.3 for the authoritative spec.
+- Saved presets stored as a single array under `secplus-v4-presets` per Q-C. See `docs/task2-design-v2.txt` §3.4.
+- All SM-2 keys preserved (§5.1 of design v2). Cross-device risk is sync-prefix registration; addressed by Sub-batch 0 hygiene-first protocol (already shipped).
 - Commit
 
 ### Task 3 — PBQ System + Exam Simulation

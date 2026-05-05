@@ -1,0 +1,1272 @@
+TASK 2 DESIGN — Mode Consolidation (Phase 0, recon-and-plan only)
+===================================================================
+
+Date: 2026-05-01
+Status: Phase 0. NO code changes. NO commits. Authoritative reference
+        for the multi-session implementation that follows.
+Replaces: earlier draft with the same filename. This version goes
+          deeper on §4 (old→new mapping), §5 (migration), and §6
+          (decomposition with self-critique) per Aiden's feedback that
+          those sections compound across the multi-session
+          implementation.
+
+═══════════════════════════════════════════════════════════════════════════
+1. EXECUTIVE SUMMARY
+═══════════════════════════════════════════════════════════════════════════
+
+Task 2 collapses 6 quiz sub-modes (Standard / New / Scenario / Spaced /
+Weak / Matching) and the per-tab Cram into 4 mode-cards (Quiz /
+Flashcards / Review / Drill Wrong) under a unified Study tab, with a
+Customise drawer for filters and saved presets for recall. User
+benefit: every study intent the old modes captured is reachable from
+one place, with new compositions (e.g., "scenarios from D4 only,
+prefer unseen, 30 questions") that the old hardcoded modes couldn't
+express. Technical risk centers on cross-device migration ordering
+(NOT on SM-2 key restructuring — the SM-2 keys are mode-agnostic and
+stay as-is). The genuinely hard part is that adding "cram-" to
+TRACKED_PREFIXES creates a transition window where old-version
+devices can wipe new-version devices' cram progress unless we deploy
+sync-engine prefix changes BEFORE any cram-prefixed keys exist
+anywhere. This drives a "hygiene-first" decomposition with a
+mandatory pre-batch (Sub-batch 0) before the feature work. Total
+estimated scope: 6 sub-batches across 4-5 sessions. Sub-batches 0-2
+are low-risk; sub-batches 3-4 carry medium risk because of sync
+behavior; sub-batch 5 is cleanup.
+
+═══════════════════════════════════════════════════════════════════════════
+2. CURRENT STATE CATALOGUE
+═══════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────
+2.1. Existing top-level tabs
+────────────────────────────────────────────────────────────────────────
+
+  progress  | dashboard (videos watched, due/new counts, domain accuracy,
+            | backup/restore, recent sessions, section tree)
+  quiz      | mode picker w/ 6 sub-modes (see §2.2); running quiz UI
+  cram      | per-video flashcard flipping; no SM-2; dropdown selector
+  exam      | 90q/90m simulation, domain-weighted, resumable, drill-handoff
+  (sync)    | overlay surface for sync settings; not a tab
+
+────────────────────────────────────────────────────────────────────────
+2.2. QuizTab sub-modes (6 — the actual consolidation surface)
+────────────────────────────────────────────────────────────────────────
+
+State: `setupMode` (line 1175). Pool-build branches in `startQuiz(m)`
+(line 1562+).
+
+  standard | All MC questions on selected watched videos (or all
+           | watched), shuffle, slice to count.
+           | Reads: store.watched, sm2 (via recordRating)
+           | Writes: sm2 via recordRating
+  new      | (Shipped today, 23a460c.) MC + scenarios on watched
+           | videos where !sm2[key]. Hides per-video selector.
+  scenario | Scenarios only on selected watched videos. Same SM-2
+           | flow as standard but isScenario flag routes to scenKey.
+  spaced   | MC where rec.nextDue<=today OR no record yet. All
+           | watched videos. NOT sliced.
+  weak     | All MC on watched videos whose AVG MC accuracy <
+           | WEAK_SPOT_RATIO (0.70). Per-VIDEO accuracy filter, not
+           | per-question. NOT sliced.
+  matching | Matching exercises only (need ≥3 pairs/video). Different
+           | running-quiz UI: MatchingQuestion component, dropdown
+           | selects, per-pair SM-2 via matchKey.
+
+Plus a "drill" pseudo-mode (line 1199-1213): when ExamTab fires
+"Drill Wrong", QuizTab loads pendingDrill into a session with
+setupMode="drill" (label only). Not in the mode-card array.
+
+Active recall toggle (line 1187, 1373-1388) is per-quiz-session.
+Orthogonal to mode.
+
+────────────────────────────────────────────────────────────────────────
+2.3. Existing localStorage shape (full inventory)
+────────────────────────────────────────────────────────────────────────
+
+  Key                             | Synced? | Owner / contents
+  ────────────────────────────────|─────────|──────────────────────
+  secplus-v4                      | YES *   | Umbrella store (one
+                                  |         | JSON blob: version=2,
+                                  |         | watched, sm2, history,
+                                  |         | streak, lastStudy)
+  mc-{vid}-{qi}                   | YES     | SM-2 per MC
+  scen-{vid}-{qi}                 | YES     | SM-2 per scenario
+  match-{vid}-{pairIdx}           | YES     | SM-2 per matching pair
+  secplus-v4-exam-session         | YES**   | In-progress exam state
+  secplus-last-backup-at          | NO      | Per-device timestamp
+  secplus-backup-banner-snooze-   | NO      | Per-device snooze
+    until                         |         |
+  secplus-sync-config             | NO      | PAT, Gist ID, deviceId
+  secplus-sync-meta               | NO      | Engine runtime (etag,
+                                  |         | localTs, lastSuccessAt)
+
+  *  secplus-v4 is a single JSON blob, synced as-a-whole. Per-key
+     timestamp resolves the BLOB, not its sub-fields.
+  ** secplus-v4-exam-session matches "secplus-" prefix and is NOT in
+     LOCAL_ONLY → currently sync'd cross-device. Pre-existing bug
+     surfaced during recon. Mid-exam state on Device A leaks to
+     Device B.
+
+────────────────────────────────────────────────────────────────────────
+2.4. Sync engine constants
+────────────────────────────────────────────────────────────────────────
+
+  TRACKED_PREFIXES = ["mc-", "scen-", "match-", "secplus-"]
+  LOCAL_ONLY = [
+    { kind: "prefix", value: "secplus-sync-" },
+    { kind: "exact",  value: "secplus-last-backup-at" },
+    { kind: "exact",  value: "secplus-backup-banner-snooze-until" },
+  ]
+  PAYLOAD_SCHEMA_VERSION = 1
+
+  STORE_KEY internal version: 2 (already migrated v1→v2 once for
+  SM-2 prefix scheme; migrateStore handles both versions gracefully).
+
+  Two version numbers are independent:
+   - secplus-v4's `version: 2` lives INSIDE the JSON blob; managed by
+     migrateStore.
+   - PAYLOAD_SCHEMA_VERSION lives in the Gist wrapper; bumping
+     requires a sync-engine code change.
+
+────────────────────────────────────────────────────────────────────────
+2.5. UI surfaces summary
+────────────────────────────────────────────────────────────────────────
+
+  Tab nav  | Progress | Quiz | Cram | Exam
+  Footer   | ⚙ Sync settings (overlays main when clicked)
+  Header   | Watched count, streak, Backup btn, sync status pill
+
+═══════════════════════════════════════════════════════════════════════════
+3. TARGET STATE DESIGN
+═══════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────
+3.1. The 4 modes
+────────────────────────────────────────────────────────────────────────
+
+  Quiz       | Active study session: stem → answer → check → SM-2
+             | rate. The "throw me questions and grade me" mode.
+             | Replaces today's standard, scenario, new, drill.
+             | User flow: pick filters → start → answer 5-50 questions
+             | → see results → optional drill-wrong follow-up.
+
+  Flashcards | Term/concept recall via card-flip UI. Front shows term
+             | (or stem); back shows definition (or full answer + exp).
+             | Optional rating panel after flip for SM-2 progress.
+             | Replaces today's cram, plus matching as a sub-format.
+             | User flow: pick filters → start → flip cards → optional
+             | rate → next card.
+
+  Review     | Spaced-repetition queue. Items where nextDue <= today,
+             | optionally including never-seen items. Ordered by
+             | overdue-ness (most-overdue first).
+             | Replaces today's spaced.
+             | User flow: pick filters → start → drill until queue
+             | empty.
+
+  Drill Wrong| Targeted weakness practice. Items below an accuracy
+             | threshold OR recently-missed (last N sessions).
+             | Replaces today's weak + post-exam drill-handoff.
+             | User flow: pick threshold → start → drill weak items.
+
+────────────────────────────────────────────────────────────────────────
+3.2. The Customise drawer
+────────────────────────────────────────────────────────────────────────
+
+A side drawer on the Study tab, attached to whichever mode is
+currently selected. Filter controls compose with AND semantics
+(e.g., "D4 + scenarios + below-70%-accuracy" = items satisfying all
+three). Mode-specific defaults pre-fill (e.g., Drill Wrong's accuracy
+slider defaults to 70%; Review's dueOnly defaults to true).
+
+Filter / scope:
+  - Domain checkboxes (D1-D5), default checked, exam-weighted info.
+  - Sub-objective filter (shown when one domain selected).
+  - Specific-videos filter (searchable list).
+  - Watched-videos-only toggle (default ON).
+
+Format / type:
+  - questionTypes: { mc, scen, match, cram } — checkboxes.
+  - Mode-specific defaults: Quiz {mc, scen}; Flashcards {cram};
+    Review {mc, scen}; Drill Wrong {mc, scen}.
+
+Length / pacing:
+  - Length slider (5-50 for Quiz, 10-100 for Flashcards, "all" for
+    Review/Drill).
+  - activeRecall toggle.
+  - revealOptions toggle.
+
+Quality / SM-2 filter:
+  - preferUnseen toggle (subsumes today's New mode).
+  - belowAccuracy threshold slider (subsumes today's Weak mode).
+  - dueOnly toggle (Review default ON; subsumes Spaced).
+
+Pool preview shows live count: "Drawing N items from M videos"
+updates as filters change.
+
+────────────────────────────────────────────────────────────────────────
+3.3. Saved presets
+────────────────────────────────────────────────────────────────────────
+
+A preset is a named drawer configuration plus mode selection.
+
+Concrete shape:
+
+  {
+    "id": "01HXY8K4...",          // ULID/UUID
+    "name": "D4 weak spots",
+    "mode": "drill",              // quiz | flashcards | review | drill
+    "filters": {
+      "domains": ["4"],
+      "subObjectives": [],
+      "videoIds": [],
+      "watchedOnly": true,
+      "questionTypes": ["mc", "scen"],
+      "preferUnseen": false,
+      "belowAccuracy": 0.70,
+      "dueOnly": false,
+      "length": 25,
+      "activeRecall": false,
+      "revealOptions": true
+    },
+    "createdAt": "2026-05-02T12:34:56Z",
+    "lastUsedAt": "2026-05-03T09:21:11Z"
+  }
+
+Storage: a single localStorage key holding an array of presets.
+Storage shape choice (Q-C below): single-array vs per-preset-key.
+Recommendation: single-array under `secplus-v4-presets` for the
+v1 implementation. Last-write-wins on the array; race window is
+small (~5s sync debounce + user creating multiple presets in that
+window).
+
+Synced via TRACKED_PREFIXES "secplus-" automatically. No engine
+changes needed for presets alone.
+
+User management UI: preset list in drawer header, "Save current as
+preset" button, per-preset Apply/Rename/Delete actions.
+
+────────────────────────────────────────────────────────────────────────
+3.4. Top-level tab structure (target)
+────────────────────────────────────────────────────────────────────────
+
+  Progress | Study | Exam | (Sync via footer)
+
+  Study tab houses the 4-mode picker + Customise drawer + presets +
+  pool preview + Start button. Exam stays separate (its timer/one-shot
+  framing is too different from study sessions to belong in the same
+  picker — see Q-J).
+
+═══════════════════════════════════════════════════════════════════════════
+4. OLD → NEW MAPPING (HEAVY SECTION)
+═══════════════════════════════════════════════════════════════════════════
+
+For each of the 6 current quiz modes plus Cram tab, this section
+walks through every user intent that can be expressed today (not just
+the obvious one), maps it to a concrete Customise drawer config in
+the new world, and flags any intent that DOESN'T map cleanly.
+
+Notation:
+  drawer_config = { mode, filters: { ... } }
+  An intent that can't be expressed gets a ⚠ flag with three proposed
+  resolutions: (a) accept loss, (b) extend drawer, (c) re-evaluate.
+
+────────────────────────────────────────────────────────────────────────
+4.1. STANDARD mode → Quiz
+────────────────────────────────────────────────────────────────────────
+
+INTENT 1: "20-question MC quiz across all my watched videos"
+  drawer_config = {
+    mode: "quiz",
+    filters: { questionTypes: ["mc"], length: 20,
+               watchedOnly: true,
+               domains: ["1","2","3","4","5"] }
+  }
+  ✓ Direct mapping.
+
+INTENT 2: "Quiz me only on §1.2.5 Zero Trust"
+  drawer_config = {
+    mode: "quiz",
+    filters: { questionTypes: ["mc"], length: 20,
+               domains: ["1"], subObjectives: ["1.2.5"] }
+  }
+  ✓ Drawer's sub-objective filter handles this. Today this is done
+    via the per-video chip selector picking "1.2.5" specifically.
+
+INTENT 3: "Quiz across just two videos I picked"
+  drawer_config = {
+    mode: "quiz",
+    filters: { videoIds: ["1.2.5", "1.4.3"], length: 20 }
+  }
+  ✓ Drawer's videoIds filter handles this.
+
+INTENT 4: "Long quiz session — 50 questions"
+  drawer_config = { mode: "quiz", filters: { length: 50, ... } }
+  ✓ Length slider preserved.
+
+INTENT 5: "Active recall: hide options until I'm ready"
+  drawer_config = { mode: "quiz", filters: { activeRecall: true, ... } }
+  ✓ Active recall toggle preserved (moves from per-session toggle to
+    drawer).
+
+EDGE CASE: "Quiz that includes scenarios mixed with MCs"
+  drawer_config = {
+    mode: "quiz",
+    filters: { questionTypes: ["mc", "scen"], ... }
+  }
+  ✓ The new world makes this EASIER than today — today's standard
+    mode is MC-only; getting mixed MC+scen requires switching modes
+    or running back-to-back. Net gain.
+
+────────────────────────────────────────────────────────────────────────
+4.2. NEW mode → Quiz with preferUnseen
+────────────────────────────────────────────────────────────────────────
+
+INTENT 1: "Show me items on watched videos that I haven't tried yet"
+  drawer_config = {
+    mode: "quiz",
+    filters: { questionTypes: ["mc","scen"], preferUnseen: true,
+               watchedOnly: true, length: 20 }
+  }
+  ✓ Direct mapping. NEW mode itself becomes a drawer toggle
+    (preferUnseen) on Quiz mode rather than a top-level mode card.
+
+INTENT 2: "Empty state when no unseen left"
+  Today's New mode shows: "No new questions! Mark more videos
+  watched, or try Spaced Repetition."
+  ✓ The pool-preview "Drawing 0 items" is the new equivalent. The
+    Start button can be disabled with a hover tooltip explaining why.
+    OR an explicit empty-state alert when pool is empty at start
+    time. Recommendation: pool-preview live update + disable Start
+    button + tooltip — less interruption than today's modal alert.
+
+────────────────────────────────────────────────────────────────────────
+4.3. SCENARIO mode → Quiz with type=scen
+────────────────────────────────────────────────────────────────────────
+
+INTENT 1: "Scenario practice across all watched videos"
+  drawer_config = {
+    mode: "quiz",
+    filters: { questionTypes: ["scen"], length: 20, watchedOnly: true }
+  }
+  ✓ Direct mapping.
+
+INTENT 2: "Scenarios only from D2 (where the catalogue is densest)"
+  drawer_config = {
+    mode: "quiz",
+    filters: { questionTypes: ["scen"], domains: ["2"], length: 20 }
+  }
+  ✓ Drawer composition (type AND domain) handles this trivially.
+    Today this is "switch to scenario mode → pick D2 videos
+    individually" — net gain in usability.
+
+EDGE CASE: "Scenario session size — today's mode slices to
+            questionCount"
+  drawer_config respects length slider — same behavior preserved.
+
+────────────────────────────────────────────────────────────────────────
+4.4. SPACED mode → Review
+────────────────────────────────────────────────────────────────────────
+
+INTENT 1: "What's due for review today?"
+  drawer_config = {
+    mode: "review",
+    filters: { dueOnly: true, watchedOnly: true,
+               questionTypes: ["mc","scen"] }
+  }
+  ✓ Direct mapping. Pool size is "all due" (no length slice).
+
+INTENT 2: "Spaced session including unseen items" (today's spaced
+           ALREADY does this — !rec || rec.nextDue <= today)
+  drawer_config = {
+    mode: "review",
+    filters: { dueOnly: false, ... } // dueOnly off so unseen items
+                                     // also surface
+  }
+  OR
+  drawer_config = {
+    mode: "review",
+    filters: { dueOnly: true, preferUnseen: true, ... }
+  }
+  ⚠ AMBIGUOUS: today's spaced mode mixes due AND unseen by default.
+    The drawer has TWO toggles (dueOnly, preferUnseen) that interact
+    in ways that need explicit definition:
+      - dueOnly=true, preferUnseen=false  → only items with SM-2
+        records that are due today
+      - dueOnly=true, preferUnseen=true   → only items where the
+        record is due AND the item is unseen (impossible — unseen
+        items have no record)
+      - dueOnly=false, preferUnseen=false → all watched-video items
+        (basically Quiz with no filter)
+      - dueOnly=false, preferUnseen=true  → unseen-only (=== New mode)
+    Today's spaced is NONE of these — it's "items where !rec OR
+    rec.nextDue<=today" = "due-or-new."
+
+  Resolutions:
+    (a) Accept loss: ditch the "due OR new" combined behavior.
+        Force user to pick due-only or unseen-only. NEUTRAL: today's
+        spaced behavior is convenient but not essential.
+    (b) Extend drawer: add a third toggle "includeUnseen" that, when
+        on, includes items without SM-2 records alongside the
+        due-filtered items. EXPLICIT.
+    (c) Re-evaluate: rename Review mode to "Daily Practice" and
+        define its semantics as "due OR unseen" by default. Implicit
+        behavior; presets can override.
+  Recommendation flagged for Aiden; my pick is (b) — explicit
+  composition is cleaner than implicit "due OR unseen" defaulting.
+
+INTENT 3: "Spaced restricted to my weak items" (i.e., compose with
+           weak-mode threshold)
+  drawer_config = {
+    mode: "review",
+    filters: { dueOnly: true, belowAccuracy: 0.70, ... }
+  }
+  ✓ Drawer composition handles this. Today, you cannot do this in
+    one session — today's modes are mutually exclusive. Net gain.
+
+────────────────────────────────────────────────────────────────────────
+4.5. WEAK mode → Drill Wrong
+────────────────────────────────────────────────────────────────────────
+
+INTENT 1: "Drill items from my below-70% videos"
+  drawer_config = {
+    mode: "drill",
+    filters: { belowAccuracy: 0.70, watchedOnly: true,
+               questionTypes: ["mc","scen"] }
+  }
+  ⚠ SEMANTIC SHIFT: today's weak mode operates at the VIDEO level
+    (videos whose AVERAGE accuracy is below 70%, then ALL questions
+    from those videos enter the pool). The new "belowAccuracy"
+    drawer filter could operate at:
+      (a) VIDEO level (today's behavior — preserves identity)
+      (b) PER-QUESTION level (filter to individual questions whose
+          own accuracy is below threshold; needs per-question
+          accuracy tracking that we have via SM-2.correct/total)
+      (c) BOTH levels (drawer toggle: "accuracy scope: video |
+          question")
+    Today's per-video logic surfaces "videos I'm struggling with"
+    holistically; per-question would surface "specific items I
+    repeatedly miss" more granularly. Both are useful pedagogically.
+
+  Resolutions:
+    (a) Accept video-level only — preserves today's behavior, no new
+        capability.
+    (b) Accept per-question only — more granular, loses "this whole
+        video is shaky" view.
+    (c) Both — drawer toggle. Adds complexity but neither is lost.
+
+  Recommendation: (c) with default = per-question. Today's video-
+  level was a workaround for the absence of granular SM-2 tracking
+  in the original simple-quiz design; we now have per-question SM-2
+  records, so per-question filtering is the more powerful default.
+  Video-level can be exposed as an advanced toggle.
+
+INTENT 2: "Drill the items from my last exam I got wrong" (post-exam
+           handoff)
+  This is NOT a Customise-drawer flow. The Exam tab's "Drill N Wrong"
+  button programmatically loads a specific question set into Quiz
+  mode (today: setupMode="drill"). In the new world, this becomes:
+  "Open Drill Wrong mode with a preloaded question list, bypassing
+  the drawer." A separate code path.
+  ✓ Preserved as a special invocation. Drawer still expressible
+    after the drill ends (user can save the explicit list as a
+    preset? — probably not; the question list isn't a filter
+    expression).
+
+────────────────────────────────────────────────────────────────────────
+4.6. MATCHING mode → ??? (HARD CASE)
+────────────────────────────────────────────────────────────────────────
+
+Today's matching mode has a DISTINCT running-quiz UI:
+MatchingQuestion component, dropdown selects per prompt, "Check
+Answers" button, partial-credit per pair, no rating panel (binary
+correct/wrong via recordResult, not recordRating).
+
+INTENT: "Practice term-to-definition matching for video X"
+
+Where does this fit in the new world?
+
+OPTION 1: Quiz mode with questionTypes=["match"] filter.
+  - Pro: matching exercises are "questions" in the same study session.
+  - Con: the UI flow is jarringly different from MC (dropdown vs
+    radio-button, Check Answers vs check-and-rate). Mid-session
+    switching between MC and matching cards is disruptive.
+
+OPTION 2: Flashcards mode with questionTypes=["match"] filter.
+  - Pro: matching is conceptually "flip-and-recall"-style — you see
+    prompts and have to associate them with answers, similar to
+    flashcards.
+  - Con: matching's UI is MORE structured than flashcards (multi-
+    pair structure, partial credit, all-at-once Check), not really
+    flip-style.
+
+OPTION 3: Matching as its own first-class fifth mode.
+  - Pro: preserves today's distinct UI without trying to shoehorn it
+    elsewhere. Clean.
+  - Con: 5 modes instead of 4 — undermines the consolidation
+    narrative.
+
+OPTION 4: Matching as a sub-mode under Flashcards, with a separate
+           "Matching" tab inside the Flashcards mode picker.
+  - Pro: Flashcards becomes "term-recall" surface; matching is one
+    of two sub-formats (single-card flashcards + multi-pair matching
+    grids).
+  - Con: nested mode picker adds a layer.
+
+OPTION 5: Embed matching INSIDE Quiz mode but render
+           MatchingQuestion as a "panel-style" card that doesn't
+           interleave with MC.
+  - Pro: 4-mode story preserved.
+  - Con: pool-build still needs to know whether to interleave or
+    cluster matching items. Complexity moves from UI to pool logic.
+
+⚠ RESOLUTION REQUIRED — Aiden's call.
+Recommendation: OPTION 1 (Quiz mode with type filter) BUT with
+question-type clustering: matching items render as a contiguous
+block at the start or end of the session, not interleaved. This
+keeps the 4-mode story while preserving matching's distinct flow.
+Alternative: OPTION 3 — accept 5 modes. Cleaner conceptually if
+4-mode framing is flexible.
+
+────────────────────────────────────────────────────────────────────────
+4.7. CRAM tab → Flashcards
+────────────────────────────────────────────────────────────────────────
+
+INTENT 1: "Flip through cram cards for §1.4.1 PKI"
+  drawer_config = {
+    mode: "flashcards",
+    filters: { questionTypes: ["cram"], videoIds: ["1.4.1"] }
+  }
+  ✓ Direct mapping. Today's per-video dropdown becomes the videoIds
+    filter.
+
+INTENT 2: "Flashcards across all D1 videos in one session"
+  drawer_config = {
+    mode: "flashcards",
+    filters: { questionTypes: ["cram"], domains: ["1"] }
+  }
+  ✓ NET GAIN: today's CramTab is single-video only (dropdown).
+    Multi-video session is a NEW capability the consolidation enables.
+
+INTENT 3: "Just flip cards, don't grade me" (today's no-pressure
+           cram experience)
+  drawer_config = {
+    mode: "flashcards",
+    filters: { questionTypes: ["cram"], showRatingPanel: false }
+  }
+  ⚠ DEPENDS ON Q-B (Cram SM-2 default). If rating is ALWAYS-ON, this
+    intent is lost. If rating is OPT-OUT (default on, toggle to
+    disable), this intent is preserved with a toggle. If OPT-IN,
+    today's no-pressure experience is the default and you opt into
+    grading.
+
+  Resolutions:
+    (a) Accept loss: rating is always-on. Cram becomes graded.
+    (b) Extend drawer: showRatingPanel toggle (default OFF) preserves
+        today's no-pressure experience. RECOMMENDED.
+    (c) Re-evaluate: keep CramTab as separate from Flashcards mode;
+        Flashcards becomes a graded variant. UNDERMINES
+        consolidation.
+
+INTENT 4: "Cram across videos I haven't watched yet" (pre-watch
+           skim)
+  Today's CramTab limits the dropdown to watched videos. Should
+  Flashcards mode allow unwatched videos for pre-watch skimming?
+  ⚠ NEW CAPABILITY decision. Not part of "preserve old behavior" but
+    worth raising. Today's `watchedVideos` filter is hardcoded; if
+    drawer's watchedOnly toggle defaults true, user can flip it off
+    to pre-skim. Acceptable to expose; default ON preserves today's
+    safety against half-baked study.
+
+────────────────────────────────────────────────────────────────────────
+4.8. DRILL WRONG (post-exam) → Drill Wrong with preload
+────────────────────────────────────────────────────────────────────────
+
+The Exam tab's "Drill {N} Wrong Answers" button currently navigates
+to QuizTab via the pendingDrill prop. In the new world, the same
+button navigates to Study tab with mode=drill and the question list
+preloaded. The drawer doesn't need to be opened — the question list
+IS the input.
+
+✓ Preserved as a programmatic entry point. Same UX from user's
+  perspective.
+
+────────────────────────────────────────────────────────────────────────
+4.9. Summary of intents that DON'T cleanly map
+────────────────────────────────────────────────────────────────────────
+
+  Intent                                | Resolution status
+  ──────────────────────────────────────|─────────────────────────
+  Spaced "due OR new" combined behavior | ⚠ Q (4.4 INTENT 2)
+  Weak per-VIDEO vs per-QUESTION scope  | ⚠ Q (4.5 INTENT 1)
+  Matching mode placement               | ⚠ Q (4.6) — major
+  Cram no-rating experience             | ⚠ Q (4.7 INTENT 3) → Q-B
+
+All four require Aiden decisions before implementation starts.
+None block the design — each has multiple acceptable resolutions
+sketched.
+
+═══════════════════════════════════════════════════════════════════════════
+5. MIGRATION PLAN — RISK ASSESSMENT (HEAVY SECTION)
+═══════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────
+5.1. localStorage diff — per-key classification
+────────────────────────────────────────────────────────────────────────
+
+  Key                          | Class       | Notes
+  ─────────────────────────────|─────────────|─────────────────────
+  secplus-v4                   | PRESERVED * | * Possibly SHAPE-
+                               |             |   ADDITIVE (see below)
+  mc-{vid}-{qi}                | PRESERVED   | SM-2 keys are mode-
+                               |             |   agnostic; no rename
+  scen-{vid}-{qi}              | PRESERVED   | Same
+  match-{vid}-{pairIdx}        | PRESERVED   | Same
+  secplus-v4-exam-session      | PRESERVED   | Pre-existing key;
+                               |             |   sync behavior changes
+                               |             |   (LOCAL_ONLY add)
+  secplus-last-backup-at       | PRESERVED   | No change
+  secplus-backup-banner-...    | PRESERVED   | No change
+  secplus-sync-config          | PRESERVED   | No change
+  secplus-sync-meta            | PRESERVED   | No change
+  ─────────────────────────────|─────────────|─────────────────────
+  secplus-v4-presets           | NEW         | Saved presets array
+  cram-{vid}-{cardIdx}         | NEW         | Per-card SM-2
+                               |             |   (Q-B dependent)
+
+What's NOT in the table:
+  - No RENAMED keys.
+  - No SHAPE-CHANGED keys (with one possible exception below).
+  - No REMOVED keys.
+
+POSSIBLE SHAPE-ADDITIVE on secplus-v4:
+  If we add a `lastUsedPresetId` field to the umbrella store (so the
+  Study tab opens with the most-recent preset pre-applied), that's an
+  ADDITIVE shape change. migrateStore's spread (`{ ...DEFAULT_STORE,
+  ...data, version: SCHEMA_VERSION }`) preserves unknown fields, so
+  V_old reading a V_new store doesn't lose this field. However, if
+  we rely on this field's presence for behavior, we need to handle
+  V_old → V_new transition (V_new reads a store that lacks the
+  field; default to first preset or "no preset selected").
+
+  Recommendation: AVOID adding fields to secplus-v4 in Task 2 unless
+  necessary. Use new top-level keys instead. Keeps the umbrella
+  store stable.
+
+────────────────────────────────────────────────────────────────────────
+5.2. Migration strategy per non-PRESERVED key
+────────────────────────────────────────────────────────────────────────
+
+(Only NEW keys exist post-Task-2; the migration story is therefore
+much simpler than PLAN.md implied.)
+
+KEY: secplus-v4-presets (NEW)
+  When does migration run? On first read after Sub-batch 3 deploys.
+  Read returns null/undefined → default to empty array `[]` → write
+  back next time user creates a preset. Idempotent.
+  Reversible? Yes. Revert removes the read code; key orphans
+  harmlessly in localStorage.
+  Partial-completion concern? None — single-write atomicity.
+  SM-2 risk? None — separate keyspace from SM-2 records.
+
+KEY: cram-{vid}-{cardIdx} (NEW, Q-B dependent)
+  When does migration run? On first rating action by user. Until
+  then, no cram-* keys exist.
+  Reversible? Removing cram-* records resets cram SM-2 progress but
+  not MC/scenario/matching SM-2.
+  Partial-completion concern? None — per-key atomic writes.
+  SM-2 risk? Adds a NEW SM-2 family; doesn't affect existing.
+
+  TRACKED_PREFIXES change: requires adding `"cram-"` to
+  TRACKED_PREFIXES on the sync engine. THIS IS THE RISKY PART (see
+  5.4 cross-device ordering).
+
+LOCAL_ONLY change: adding `secplus-v4-exam-session` to LOCAL_ONLY.
+  When does the change take effect? Immediately on Sub-batch 0 deploy
+  (sync-engine recompile).
+  Reversible? Yes. Removing the LOCAL_ONLY entry resumes syncing.
+  Existing data impact? After deploy, exam-session is no longer
+  synced; existing exam-session data on each device persists locally
+  but stops cross-replicating. No corruption.
+  SM-2 risk? None — exam-session isn't SM-2 data.
+
+────────────────────────────────────────────────────────────────────────
+5.3. schemaVersion bump decision
+────────────────────────────────────────────────────────────────────────
+
+There are TWO version numbers; analyze both.
+
+(A) STORE_KEY internal version (currently 2):
+    Bumping this triggers migrateStore's version-guarded code path.
+    Should we bump?
+      - If we add `lastUsedPresetId` (or similar) to umbrella store:
+        NO bump needed; spread preserves unknown fields.
+      - If we change the SHAPE of an existing field (e.g., history[]
+        items gain new fields): NO bump needed; additive changes
+        are safe because of the spread.
+      - If we REMOVE a field or change its semantics: BUMP — but
+        Task 2 doesn't require this.
+    DECISION: NO bump. Stay at version 2. Confirms PLAN.md's
+    expectation.
+
+(B) PAYLOAD_SCHEMA_VERSION (currently 1):
+    Bumping this changes the Gist wrapper shape. The wrapper is
+    `{ schemaVersion, deviceId, lastWriteAt, entries: { ... } }`.
+    Adding new keys to `entries` does NOT change the wrapper shape.
+    DECISION: NO bump. Stay at PAYLOAD_SCHEMA_VERSION = 1.
+    Confirms PLAN.md's expectation.
+
+NEITHER VERSION NEEDS BUMPING. The "migration" is purely additive:
+new keys, new prefixes, new LOCAL_ONLY entries. All of which old
+code naturally either ignores (new keys) or fails to filter (new
+prefixes — see 5.4 below for the data-loss scenario this enables).
+
+────────────────────────────────────────────────────────────────────────
+5.4. CROSS-DEVICE MIGRATION ORDERING (DEDICATED — the genuinely
+     tricky part)
+────────────────────────────────────────────────────────────────────────
+
+Setup: Aiden has 3 devices. They sync via Gist. Each device runs
+the bundled JS shipped at the time it last loaded the page. Unless
+the user actively reloads, a device may run V_old after V_new ships.
+
+The transition window is "between the moment V_new is deployed and
+the moment all 3 devices have loaded V_new." During this window,
+some devices run V_old and some run V_new simultaneously.
+
+Walk-through per migration class:
+
+────────────
+(a) RENAMED keys
+────────────
+
+Task 2 has NO renamed keys (per 5.1). This scenario doesn't apply.
+
+────────────
+(b) SHAPE-CHANGED keys
+────────────
+
+Task 2 has NO shape-changed keys (per 5.1; possibly additive on
+secplus-v4 but not changed semantics).
+
+For ADDITIVE-ONLY shape changes (e.g., adding `lastUsedPresetId`
+to secplus-v4):
+
+  Step 1: V_new on Device A writes secplus-v4 with lastUsedPresetId
+          field added.
+  Step 2: V_new pushes to Gist. Gist's secplus-v4 entry now has the
+          new field embedded in its JSON value.
+  Step 3: V_old on Device B pulls. V_old's loadStore reads the
+          payload. migrateStore does
+          `{ ...DEFAULT_STORE, ...data, version: SCHEMA_VERSION }`.
+          The lastUsedPresetId field passes through the spread
+          UNTOUCHED (DEFAULT_STORE doesn't have it; data does).
+          V_old then writes back via saveStore — the field is
+          preserved across the round-trip.
+  Step 4: V_old pushes the same secplus-v4 (with the field
+          preserved). Gist content is unchanged.
+  Step 5: V_new on Device A pulls. Gets same data back. No conflict.
+
+  ✓ ADDITIVE SHAPE CHANGES are safe across the V_old/V_new transition
+    AS LONG AS V_old's migrateStore preserves unknown fields. The
+    current migrateStore does (line 80 in secplus-quiz.jsx).
+
+  ⚠ Future-proofing: any change to migrateStore that DROPS unknown
+    fields would break this safety. Comment the assumption in the
+    code.
+
+────────────
+(c) Pure new keys (presets)
+────────────
+
+KEY: secplus-v4-presets
+
+  Step 1: V_new on Device A writes the key.
+  Step 2: V_new pushes. Gist's entries[] now has secplus-v4-presets.
+  Step 3: V_old on Device B pulls. V_old's TRACKED_PREFIXES does
+          include "secplus-" (it's the same engine), so isTracked()
+          returns true for secplus-v4-presets. Merge passes the key
+          through. applyMergedEntries writes it to V_old's
+          localStorage.
+  Step 4: V_old reads localStorage on next page load — its UI doesn't
+          read secplus-v4-presets. Key sits unused in localStorage.
+  Step 5: V_old pushes (after a normal write). Push payload is built
+          from V_old's localStorage scan (scanTrackedKeys) — which
+          INCLUDES secplus-v4-presets (V_old wrote it via
+          applyMergedEntries in step 3). Gist content unchanged.
+
+  ✓ Pure new keys with the EXISTING "secplus-" prefix are safe.
+    V_old happily passes them through without understanding them.
+
+────────────
+(d) NEW PREFIX added to TRACKED_PREFIXES (cram-*)
+────────────
+
+THIS IS WHERE IT GETS DANGEROUS. Walk through carefully.
+
+PREMISE: Sub-batch 4 adds "cram-" to TRACKED_PREFIXES on V_new's
+sync-engine.js. V_old's sync-engine.js doesn't have it.
+
+  Step 1: V_new on Device A writes cram-1.4.1-0 record.
+  Step 2: V_new pushes. Gist's entries[] now has cram-1.4.1-0.
+          Gist's wrapper schemaVersion still = 1 (no bump).
+  Step 3: V_old on Device B pulls.
+          - parsePayload accepts (schemaVersion match).
+          - mergeEntries iterates over local + remote keys.
+          - For key "cram-1.4.1-0": V_old's isTracked() checks
+            "cram-" against V_old's TRACKED_PREFIXES = ["mc-", "scen-",
+            "match-", "secplus-"]. NO MATCH.
+          - Line 78: `if (!isTracked(k)) continue;` — the key is
+            DROPPED from the merged set.
+          - applyMergedEntries doesn't write it to V_old's
+            localStorage.
+  Step 4: V_old (after a normal user action that modifies a tracked
+          key) builds its own push payload via buildLocalEntries
+          → scanTrackedKeys.
+          - V_old's localStorage doesn't contain cram-1.4.1-0
+            (because step 3 dropped it).
+          - V_old's push payload OMITS cram-* keys.
+  Step 5: V_old PATCHes the gist with `{ files: { "secplus-sync.json":
+          { content } } }`. The PATCH replaces the file content.
+          Gist now has V_old's payload — WHICH DOES NOT INCLUDE
+          cram-1.4.1-0. **DEVICE A'S CRAM PROGRESS IS WIPED FROM
+          THE GIST.**
+  Step 6: V_new on Device A pulls.
+          - mergeEntries: local has cram-1.4.1-0; remote doesn't.
+          - merge function: `if (!r) { out[k] = l; continue; }` —
+            local survives.
+          - applyMergedEntries writes the merged set to A's
+            localStorage. cram-1.4.1-0 is preserved on Device A.
+  Step 7: V_new pushes the merged set. Gist has cram-1.4.1-0 again.
+  Step 8: V_old on Device B pulls again. SAME LOOP — drops the key,
+          pushes without it, wipes the gist.
+
+  STEADY-STATE: cram-* keys oscillate between gist and localStorage
+  on Device A, getting wiped and re-pushed every time Device B is
+  active. Device A never LOSES local data, but the gist is unstable.
+
+  ⚠ DATA-LOSS SCENARIO:
+    Step X: Device A's localStorage is cleared (browser cache wipe,
+            new device, fresh login).
+    Step X+1: Device A V_new pulls gist. Gist currently has no
+              cram-* keys (last push was V_old's payload).
+    Step X+2: Merge: local empty + remote no cram-* → no cram-* in
+              merged set.
+    Step X+3: applyMergedEntries writes merged set to A's
+              localStorage. cram-* keys are NOT restored.
+    Step X+4: User loses all cram SM-2 progress. UNRECOVERABLE
+              without the user manually exporting before clear.
+
+THIS IS WHY THE HYGIENE-FIRST DECOMPOSITION IS NECESSARY.
+
+────────────
+PROTOCOL: hygiene-first deployment
+────────────
+
+To safely add "cram-" to TRACKED_PREFIXES, we need to first ensure
+ALL devices know to pass "cram-" through the merge filter. The
+sequence:
+
+  PHASE H (Hygiene): Deploy a sync-engine update that ONLY adds
+                     "cram-" to TRACKED_PREFIXES (and adds
+                     secplus-v4-exam-session to LOCAL_ONLY for the
+                     pre-existing bug). NO cram-* keys are written
+                     yet — the new prefix is just registered.
+
+                     Validation: all 3 of Aiden's devices reload to
+                     the new bundle. Sync indicator shows "Synced"
+                     on each. (No data difference yet because no
+                     cram-* keys exist.)
+
+  PHASE F (Feature): After all 3 devices show V_hygiene loaded,
+                     deploy the cram SM-2 feature. cram-* keys begin
+                     to be written when user rates cards. All
+                     devices' sync-engines now know to pass these
+                     keys through merge.
+
+  Verification of Phase H completion: Aiden manually checks the
+  sync status pill on each of his 3 devices. The pill shows the
+  bundle hash (or last sync time) — sufficient proxy for "this
+  device has loaded the new bundle."
+
+  Risk if Phase F deploys before Phase H is verified on all
+  devices: see step 6 of (d) above. Device that's still on
+  V_hygiene-minus (i.e., V_old) drops cram-* keys on merge and
+  potentially wipes progress.
+
+────────────
+SECONDARY PROTOCOL: dual-write during the hygiene window?
+────────────
+
+Could V_new also write old-format data during the transition? For
+cram-* this doesn't apply (no old format exists — cram is a new
+feature). For RENAMED keys (which we don't have), dual-write would
+be the standard approach.
+
+For the exam-session LOCAL_ONLY change: V_new stops syncing
+secplus-v4-exam-session. V_old continues to sync it. During the
+transition, V_old's pulls receive V_new's exam-session writes (via
+the existing TRACKED_PREFIXES match — exam-session is still
+syncable from V_old's perspective). After all devices are on
+V_new+LOCAL_ONLY, the key stops syncing. Net effect: a brief
+asymmetric window where V_old might leak in-progress exam state to
+V_new before V_new updates. Acceptable; exam-session leakage was
+the pre-existing bug being fixed.
+
+────────────────────────────────────────────────────────────────────────
+5.5. Rollback
+────────────────────────────────────────────────────────────────────────
+
+Per-sub-batch rollback paths:
+
+Sub-batch 0 (hygiene): revert deploy. cram-* prefix unregistered;
+  exam-session resumes syncing. No data loss because no cram-*
+  data exists yet.
+
+Sub-batch 1 (UI scaffold): revert deploy. Old tab structure
+  returns. No data touched.
+
+Sub-batch 2 (Customise drawer): revert deploy. Drawer UI gone;
+  modes return to hardcoded behavior. No data touched.
+
+Sub-batch 3 (presets): revert deploy. Preset UI gone. presets data
+  in localStorage orphans harmlessly.
+
+Sub-batch 4 (Flashcards SM-2): MORE COMPLEX.
+  If reverted AFTER users have rated cards:
+    - cram-* keys exist in localStorage and gist.
+    - Reverted code's TRACKED_PREFIXES no longer includes "cram-".
+    - This RECREATES the data-loss scenario from 5.4(d) for the
+      duration of the rollback.
+  Mitigation: don't revert Sub-batch 4 lightly. If we must revert,
+  also revert Sub-batch 0 simultaneously (both removing cram- from
+  TRACKED_PREFIXES AND the cram-rating UI), so the next deploy is a
+  clean re-do.
+  Alternative mitigation: SOFT-revert — hide the rating UI but keep
+  the data-layer changes. Users can't add new cram ratings; existing
+  ratings stay intact and synced.
+
+Sub-batch 5 (cleanup): revert deploy. Old code returns. No user
+  impact.
+
+User-facing recovery path: the existing Backup feature (Task 1.5a)
+exports all of localStorage to a JSON file. If a user is concerned
+about migration, they can backup before any sub-batch deploy and
+restore if anything goes wrong. The backup file format includes the
+version field, so a v2 backup restored on v2 code works fine.
+
+═══════════════════════════════════════════════════════════════════════════
+6. SUB-BATCH DECOMPOSITION (HEAVY — with self-critique)
+═══════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────
+6.1. Critique of the candidate decomposition from the prompt
+────────────────────────────────────────────────────────────────────────
+
+The candidate decomposition was:
+
+  2.1 UI scaffold (no behavior changes)
+  2.2 Customise drawer
+  2.3 Saved presets
+  2.4 localStorage migration
+  2.5 Old mode removal
+
+Critiques:
+
+(1) "localStorage migration" as a single sub-batch is overloaded.
+    Per §5.1 the migration is mostly NEW keys, with one TRACKED_
+    PREFIXES change and one LOCAL_ONLY change. The TRACKED_PREFIXES
+    change is the ONLY part with cross-device ordering risk (§5.4),
+    and it requires a hygiene-first deploy. Putting all of this in
+    Sub-batch 4 means Sub-batch 4 would itself need a sub-sub-batch
+    structure — better to lift the hygiene out as Sub-batch 0.
+
+(2) The Customise drawer (2.2) is large (~300-500 LOC). Conceptually
+    it has two layers:
+      (a) drawer UI (controls, layout, state)
+      (b) pool unification (replace per-mode startQuiz branches with
+          unified buildPool({mode, filters}))
+    These are coupled — drawer is meaningless without pool unification.
+    But pool unification is a deeper internal change that should
+    have validation independent of drawer UX. Splitting them:
+      2.2a — buildPool unification: replace the 6 startQuiz
+             branches with buildPool({mode, filters}) where mode
+             is derived from setupMode and filters from existing
+             selectedVids/questionCount/etc. ZERO user-visible
+             change. Internal refactor, validation criterion =
+             "behavior unchanged across all 6 modes."
+      2.2b — Customise drawer UI: now that buildPool exists, build
+             the drawer that drives it.
+    This is cleaner but adds a sub-batch. Trade-off: 6 sub-batches
+    total vs 5.
+
+(3) "Old mode removal" (2.5) as a separate sub-batch leaves dead
+    code lying around for a session between Sub-batch 4 and 5.
+    Could be folded into Sub-batch 4 or its successor without losing
+    safety, since by Sub-batch 5 the new code has been live and
+    presumed working for sessions.
+
+(4) The Sub-batch order doesn't account for the hygiene-first
+    requirement (§5.4 protocol). Sub-batch 4 (sync engine changes)
+    needs the hygiene deploy to land FIRST and verify on all devices
+    BEFORE the cram-* feature deploys.
+
+────────────────────────────────────────────────────────────────────────
+6.2. Revised decomposition
+────────────────────────────────────────────────────────────────────────
+
+Six sub-batches. Hygiene-first protocol baked into the sequence.
+
+============================================================================
+SUB-BATCH 0 — Sync engine hygiene (PRE-FEATURE; mandatory first)
+============================================================================
+Ships:
+  - Add "cram-" to TRACKED_PREFIXES in src/sync/sync-engine.js.
+  - Add { kind: "exact", value: "secplus-v4-exam-session" } to
+    LOCAL_ONLY.
+  - No other changes. No new feature work.
+  - No new keys WRITTEN — just registered for future use.
+
+localStorage changes: None (yet).
+Sync engine implications: TRACKED_PREFIXES expanded; LOCAL_ONLY
+  expanded. Existing keys unaffected.
+Estimated session count: 0.5 (small, focused commit).
+Risk: LOW. Pure prefix registration; no data flow changes.
+Validation criterion:
+  (a) All 3 of Aiden's devices reload to the new bundle.
+     Manually verified via the sync status pill OR by checking the
+     bundle hash served on each device.
+  (b) Sync round-trip test: change a tracked key on Device A, verify
+     it appears on Device B. (Confirms the engine still works after
+     the prefix list changes.)
+  (c) Exam-session test: start an exam on Device A; verify Device B
+     does NOT see the in-progress state. (Confirms LOCAL_ONLY entry
+     works.)
+
+This sub-batch unblocks Sub-batch 4 by ensuring all devices can
+pass cram-* keys through merge.
+
+============================================================================
+SUB-BATCH 1 — UI scaffold (Study tab + 4-mode picker)
+============================================================================
+Ships:
+  - New top-level Study tab; remove or hide Quiz and Cram tabs.
+  - Inside Study: 4 mode cards (Quiz / Flashcards / Review / Drill
+    Wrong). Each card, when selected, ROUTES to existing pool-build
+    logic for the closest old mode (Quiz card → standard mode logic;
+    Flashcards card → cram logic; Review card → spaced logic; Drill
+    Wrong card → weak logic).
+  - Old QuizTab's mode-card grid removed; the new picker is at the
+    Study tab level.
+  - Exam tab unchanged.
+  - The 6 old quiz sub-modes' code paths still exist internally —
+    they're just not user-visible as separate cards.
+
+localStorage changes: None.
+Sync engine implications: None.
+Estimated session count: 1.
+Risk: LOW. Pure UI re-skinning. Existing behavior preserved.
+Validation criterion: clicking each new mode card produces the same
+  pool as the corresponding old mode (Quiz=standard, Flashcards=cram,
+  etc.). No SM-2 progress affected.
+
+============================================================================
+SUB-BATCH 2 — buildPool unification + Customise drawer (basic)
+============================================================================
+Ships:
+  - Refactor: replace the 6 startQuiz branches with a single
+    buildPool({mode, filters}) function. The function takes the
+    NEW filter shape (domains, subObjectives, videoIds, watchedOnly,
+    questionTypes, preferUnseen, belowAccuracy, dueOnly, length,
+    activeRecall, revealOptions) and returns the same pool shape.
+  - For each old-mode card, derive a default filter set that
+    reproduces the old behavior. (e.g., Quiz mode card with no
+    Customise → filters that match standard mode.)
+  - Customise drawer UI: filter controls (domains, sub-objectives,
+    videos, types, length, watched-only, prefer-unseen, accuracy
+    threshold, due-only, active recall, reveal options).
+  - Drawer state lives in component-local React state; not yet
+    persisted (presets are Sub-batch 3).
+  - Pool preview ("Drawing N items from M videos") live-updates as
+    drawer changes.
+
+localStorage changes: None.
+Sync engine implications: None.
+Estimated session count: 1-1.5.
+Risk: MEDIUM. The buildPool refactor is the deepest internal change
+  in Task 2. Bugs here surface as wrong-pool composition (subtle).
+  Heavy testing required: for each old mode, confirm that the new
+  buildPool with the equivalent default filters produces an
+  IDENTICAL pool to the old hardcoded branch. Diff-testing tool
+  recommended (run buildPool output through JSON.stringify; compare
+  to old startQuiz output).
+Validation criterion: every intent in §4 produces the expected
+  pool. No SM-2 regressions.
+
+============================================================================
+SUB-BATCH 3 — Saved presets (data shape, sync, UI)
+============================================================================
+Ships:
+  - secplus-v4-presets key (single-array shape, see §3.3).
+  - "Save current as preset" button in drawer.
+  - Preset list in drawer header with Apply / Rename / Delete.
+  - Persistence: array stored under secplus-v4-presets, synced via
+    "secplus-" prefix (no engine changes needed).
+
+localStorage changes: NEW key secplus-v4-presets.
+Sync engine implications: None — handled by existing "secplus-"
+  prefix.
+Estimated session count: 0.5-1.
+Risk: LOW. Pure additive; clean rollback (key orphans harmlessly).
+Validation criterion: create preset on Device A, sync, verify
+  preset appears on Device B's drawer. Apply preset; verify drawer
+  state and pool match.
+
+============================================================================
+SUB-BATCH 4 — Flashcards SM-2 (cram-* keys; depends on Sub-batch 0)
+============================================================================
+Ships:
+  - Per-cram-card SM-2 records under cram-{vid}-{cardIdx} key
+    family.
+  - Optional rating panel in Flashcards mode (Q-B determines
+    default ON / OFF / opt-in).
+  - showRatingPanel filter in Customise drawer (ties to Q-B).
+  - Updates buildPool to handle questionTypes=["cram"] correctly,
+    pulling cram cards from selected videos.
+  - Multi-video Flashcards sessions (NEW capability, not present in
+    today's CramTab).
+
+localStorage changes: NEW key family cram-{vid}-{cardIdx}.
+Sync engine implications: cram-* keys flow through TRACKED_PREFIXES
+  (registered in Sub-batch 0). Per-key sync, same as mc-/scen-/
+  match-.
+Estimated session count: 1.
+Risk: MEDIUM. Sync-engine changes already shipped in Sub-batch 0;
+  this sub-batch starts WRITING cram-* keys. If any device is still
+  on V_pre-hygiene (older than Sub-batch 0), the data-loss scenario
+  from §5.4(d) applies. Mitigation: validate Sub-batch 0 across all
+  devices BEFORE deploying Sub-batch 4.
+Validation criterion:
+  (a) Rate a cram card on Device A. Verify cram-* key appears in
+      localStorage. Verify sync push succeeds.
+  (b) Verify cram-* key appears on Device B's localStorage after
+      sync round-trip.
+  (c) Verify rating affects Flashcards mode pool ordering on subsequent
+      Flashcards sessions.
+  (d) Edge case: clear browser storage on Device A, reload. Verify
+      cram-* keys are restored from gist (this is the data-recovery
+      path that the §5.4(d) data-loss scenario would break if
+      Sub-batch 0 hadn't shipped).
+
+============================================================================
+SUB-BATCH 5 — Cleanup (old code removal)
+============================================================================
+Ships:
+  - Remove the legacy QuizTab mode-card grid (already hidden by
+    Sub-batch 1).
+  - Remove CramTab component (replaced by Flashcards mode).
+  - Remove the 6 old startQuiz branches (already replaced by
+    buildPool in Sub-batch 2).
+  - Update PLAN.md to mark Task 2 complete.
+  - Update memory: add a Task 2 closure note.
+
+localStorage changes: None.
+Sync engine implications: None.
+Estimated session count: 0.5.
+Risk: LOW. By Sub-batch 5, the new code paths have been live for
+  several sub-batches. Removal is safe internal cleanup.
+Validation criterion: build clean; no behavior change; ~−200 to
+  −400 LOC.
+
+────────────────────────────────────────────────────────────────────────
+6.3. Dependency graph
+────────────────────────────────────────────────────────────────────────
+
+  0 (hygiene) ──→ 4 (Flashcards SM-2)
+                      ↑
+  1 (scaffold) ──→ 2 (buildPool + drawer) ──→ 3 (presets) ──→ 5 (cleanup)
+
+Sub-batch 0 is a HARD prerequisite for Sub-batch 4. The two paths
+(0→4 and 1→2→3→5) are otherwise independent — Sub-batch 0 can ship
+ANY TIME (today, even — it's a pure hygiene fix), without
+dependencies on the feature work.
+
+Recommended ship order:
+  0 → 1 → 2 → 3 → 4 → 5  (linear, conservative)
+
+Alternative: 0 ships immediately as hygiene; 1-2-3-5 ship as a
+feature track in parallel with Sub-batch 0 verification on devices.
+4 ships only AFTER 0 is verified everywhere.
+
+────────────────────────────────────────────────────────────────────────
+6.4. Validation criteria summary
+────────────────────────────────────────────────────────────────────────
+
+  Sub-batch | Validation
+  ──────────|──────────────────────────────────────────────────────
+  0         | All 3 devices on new bundle; sync round-trip works;
+            | exam-session no longer leaks
+  1         | Each new mode card produces same pool as old mode
+  2         | buildPool diff-equivalent to old startQuiz across
+            | all 6 modes
+  3         | Preset round-trips A→B; Apply restores filters
+  4         | Cram rating writes cram-* key; round-trips A→B;
+            | empty-localStorage Device A recovers from gist
+  5         | Build clean; no user-visible change
+
+═══════════════════════════════════════════════════════════════════════════
+7. OPEN QUESTIONS FOR AIDEN (capture; don't answer)
+═══════════════════════════════════════════════════════════════════════════
+
+  Q-A. Tab structure: 4 tabs (Progress / Study / Exam / Sync via
+       footer)?
+  Q-B. Cram SM-2 default: always-on, opt-out, or opt-in?
+  Q-C. Saved-preset storage: single array vs per-preset key?
+  Q-D. Default Customise filters for Quiz mode (no preset): old-
+       standard-equivalent, exam-weighted-fresh, or last-used?
+  Q-E. Matching mode placement: Quiz with type filter (interleaved
+       or clustered)? Flashcards? Standalone fifth mode?
+  Q-F. Drill Wrong scope: video-level accuracy (today's), per-
+       question accuracy, or both with toggle?
+  Q-G. Active recall toggle scope: per-session, drawer-level
+       (preset-saveable), or both?
+  Q-H. Pre-existing exam-session sync bug: ship LOCAL_ONLY fix in
+       Sub-batch 0 (recommended), or as separate one-line hygiene
+       commit outside Task 2?
+  Q-I. SchemaVersion bump: confirm "no bump needed" interpretation
+       given the analysis in §5.3?
+  Q-J. Exam tab: stays separate (recommended), or folds into Study
+       as a 5th mode?
+  Q-K. Spaced "due OR new" combined behavior: accept loss,
+       includeUnseen toggle, or implicit "due OR unseen" semantics
+       on Review mode?
+  Q-L. Cram pre-watch flashcards: should Flashcards mode allow
+       unwatched videos for pre-watch skim, or stay watched-only?
+  Q-M. Sub-batch 0 deployment validation: how does Aiden confirm
+       all 3 devices have loaded V_hygiene before Sub-batch 4
+       ships? (Manual reload check? Bundle-hash check via DevTools?
+       Forced cache-bust?)
+  Q-N. buildPool diff-testing: is a small test script (compare
+       buildPool output to old startQuiz output for all 6 modes)
+       worth authoring as part of Sub-batch 2, or do we trust
+       manual smoke-testing?
+  Q-O. Sub-batch sequencing: linear (0→1→2→3→4→5) or parallel
+       (0 hygiene + feature track)?
+
+═══════════════════════════════════════════════════════════════════════════
+8. ESTIMATED TOTAL SCOPE
+═══════════════════════════════════════════════════════════════════════════
+
+Total: 6 sub-batches across 4-5 sessions. Net LOC delta ~+600 to
++900 (insertions in Sub-batches 1-4; deletions in Sub-batch 5).
+Highest-risk sub-batch is 4 (sync-engine change consequences);
+lowest-risk are 0, 3, 5. Sub-batch 0 must ship and verify before
+Sub-batch 4. The buildPool refactor in Sub-batch 2 is the deepest
+internal change and benefits most from explicit diff-testing
+against the old code paths. Overall risk rating: MEDIUM —
+contained, well-understood, with concrete mitigations for the one
+genuinely tricky concern (cross-device migration of cram-*
+prefix). PLAN.md's "localStorage migration is the risky part"
+framing was correct in spirit but actually points at sync-engine
+prefix registration rather than SM-2 key restructuring (which
+isn't happening).
