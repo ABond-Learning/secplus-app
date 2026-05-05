@@ -6855,10 +6855,10 @@
           {
             "q": "A wireless penetration tester uses aireplay-ng to send deauthentication frames to clients, forcing them to reconnect. The tester captures the 4-way handshake and takes it offline for dictionary attack. What is the tester doing, and what wireless standard was designed to address the handshake capture vulnerability?",
             "opts": [
-              "Performing a WPS PIN attack — WPA3 removes WPS entirely",
-              "Performing a Bluetooth attack — Bluetooth 5.0 addresses the handshake vulnerability",
-              "Capturing a WPA2 4-way handshake via forced deauthentication for offline cracking — WPA3 with SAE (Simultaneous Authentication of Equals) addresses this by providing forward secrecy; even capturing the exchange doesn't enable offline cracking",
-              "Conducting ARP poisoning on the wireless network"
+              "Performing a WPS PIN attack — WPA3 removes WPS entirely so the 8-digit PIN offline brute-force is no longer possible",
+              "Performing a Bluetooth attack — Bluetooth 5.0 addresses the handshake-capture vulnerability via encrypted pairing protocols",
+              "Capturing a WPA2 4-way handshake via forced deauthentication for offline cracking — WPA3 with SAE provides forward secrecy; capturing the exchange doesn't enable cracking",
+              "Conducting ARP poisoning on the wireless network — WPA3 isolation features prevent ARP-level Layer 2 attacks reliably"
             ],
             "a": 2,
             "exp": "WPA2 handshake capture: deauth forces reauthentication, the 4-way handshake contains enough information for offline password cracking. WPA3's SAE replaces the PSK exchange — it's a zero-knowledge proof that prevents offline cracking even with a full capture of the authentication exchange.",
@@ -7958,10 +7958,10 @@
           {
             "q": "An analyst receives an alert that a workstation is attempting to connect to 47 different internal IP addresses on port 445 (SMB) within 5 minutes. The workstation belongs to an accountant with no IT duties. The analyst isolates the workstation. What is the NEXT step?",
             "opts": [
-              "The analyst applied least privilege by revoking the accountant's network permissions",
+              "The analyst applied least privilege by revoking the accountant's network permissions, since lateral movement typically requires a compromised account to keep moving sideways through the corporate network",
               "The analyst applied isolation as a containment technique. Next step: preserve forensic evidence (memory dump before shutdown, network connection state) and begin investigation — what executed, was the user socially engineered, are the 47 IPs scanned already compromised?",
-              "The analyst applied network segmentation by moving the workstation to a guest VLAN",
-              "The analyst applied zero trust by requiring re-authentication"
+              "The analyst applied network segmentation by moving the workstation to a guest VLAN, which adequately limits any further blast radius from the compromise across the broader corporate network",
+              "The analyst applied zero trust by requiring re-authentication on the workstation, ensuring any future SMB connections come from a freshly-verified user identity rather than a stale session token"
             ],
             "a": 1,
             "exp": "Isolation stops the spread (the SMB scanning is consistent with worm behavior or ransomware propagation). But isolation before forensics destroys evidence — the memory dump captures running malware and encryption keys that disappear on shutdown. Then investigate: the 47 IPs scanned may already be compromised.",
@@ -9982,10 +9982,10 @@
           {
             "q": "A company's DLP solution alerts that an employee attempted to email a file containing 47 credit card numbers to a personal Gmail account. The DLP blocked the email and logged the event. The security team investigates and finds the employee is leaving the company next week. What is the appropriate response, and what does this scenario demonstrate about DLP effectiveness?",
             "opts": [
-              "Investigate as a potential insider threat data exfiltration attempt: review all the employee's recent data access and egress activity, check for other exfiltration attempts via alternative channels (USB, cloud upload, personal email), preserve evidence, notify HR and legal, and consider whether offboarding should be accelerated with immediate access revocation. The DLP alert demonstrates detection capability but also highlights that a single blocked attempt may be one of multiple exfiltration channels",
-              "No response needed — the DLP blocked the email successfully",
-              "The employee should be immediately arrested",
-              "Block all email for the employee until their last day"
+              "Investigate as potential insider-threat exfiltration: review recent data access and egress activity, check other channels (USB, cloud upload, personal email), preserve evidence, notify HR and legal, and consider accelerated offboarding",
+              "No response needed — the DLP blocked the email successfully, so there's no remaining risk; the system worked exactly as designed and intended without need for investigation",
+              "The employee should be immediately arrested for attempted credit card theft — the volume of cards alone warrants criminal-justice escalation by the company and prosecution",
+              "Block all email for the employee until their last day at the company — the rest of the response can wait until after the formal termination process is fully complete"
             ],
             "a": 0,
             "exp": "DLP as detection trigger, not complete protection: one blocked attempt may indicate a pattern. The employee may have already successfully exfiltrated data via other channels (USB, personal cloud, printing). The appropriate response is investigation of all channels, not just addressing the one caught. The imminent departure context elevates the insider threat risk — proactive access review and potentially accelerated offboarding are warranted.",
@@ -11928,10 +11928,10 @@
           {
             "q": "A company conducts an annual penetration test that finds the same 12 critical vulnerabilities year after year. The CISO argues the penetration test program is broken. The security team argues they've been patching but the vulnerabilities reappear. What does this pattern indicate, and what root cause should be investigated?",
             "opts": [
-              "The penetration testing firm is incompetent — hire a new firm",
-              "The recurring findings indicate a systemic remediation failure: either (1) patching is applied to discovered instances but not to the root cause (e.g., the vulnerable software version is in a base image and every new deployment creates new instances), (2) the change management process isn't capturing all systems in scope for patching, or (3) the vulnerability is being marked as remediated without verification. Root cause analysis should examine: why are these vulnerabilities recurring — is it a build/deployment process issue, a patch management gap, or a false closure process?",
-              "The vulnerabilities are unfixable — accept them as residual risk",
-              "Switch from annual pen testing to quarterly scanning only"
+              "The penetration testing firm is incompetent at finding new vulnerability classes — hire a different firm with broader testing methodology and tooling overall",
+              "Recurring findings indicate systemic remediation failure: patching applied to instances but not root cause (vulnerable software in base image), incomplete change management, or false closure of findings without verification",
+              "The vulnerabilities are unfixable in the current system architecture — accept them as documented residual risk and continue with normal operations as-is",
+              "Switch from annual penetration testing to quarterly automated vulnerability scanning only — the recurring findings will surface much more quickly that way"
             ],
             "a": 1,
             "exp": "Recurring pen test findings as process indicators: the same vulnerabilities year after year indicate a systemic issue, not just a patching backlog. Common causes: vulnerable base images (new deployments start vulnerable), patch management not covering all systems, or inadequate remediation validation. Root cause analysis of recurring findings is more valuable than the findings themselves — fix the process, not just the instances.",
