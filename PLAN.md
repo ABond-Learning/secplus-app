@@ -400,7 +400,22 @@ Sub-batch ledger:
   (kept reachable in code, removed in Sub-batch 5). Pure UI; no
   localStorage / sync changes. Live bundle `index-ByfmWJ4p.js`. 8/8
   manual click-through PASS. See `docs/task2-sub-batch-1-shipped.md`.
-- **2 — buildPool unification + Customise drawer + diff-test** (next).
+- **2 — buildPool unification + Customise drawer + diff-test** (split
+  into 2A/2B/2C per Aiden's D1 sign-off; 2A shipped).
+  - **2A** (shipped `b42fef7`, 2026-05-05) — `src/study/buildPool.js`
+    + `scripts/test-buildpool-equivalence.mjs` + 6→1 startQuiz
+    branch collapse via `LEGACY_SHIM_FOR_MODE`. Diff-test: 6 modes
+    PASS, weak divergence INFO, drill BYPASS. Live bundle
+    `index-CCpUiDk4.js` (+1.40 kB / +0.10%). Validator baseline-equal.
+    See `docs/task2-sub-batch-2a-shipped.md`.
+  - **2B** (next) — Customise drawer UI + `secplus-v4-customise-last`
+    persistence per design v2 §3.3 / D5 / D6 / D8. Active recall
+    relocates from QuizTab session state to drawer (Q-G).
+  - **2C** (after 2B) — un-orphan "new"/"scenario" via drawer
+    filters; switch Drill card to per-question `belowAccuracy`
+    (Q-F behavior change — flag explicitly in 2C commit + ship
+    report per Aiden's risk-handling addition to D3); remove
+    `presetMode` bridge.
 - **3 — Saved presets** (after 2).
 - **4 — Flashcards SM-2 (`cram-*` keys)** (gated on Sub-batch 0 + 24-h
   + manual device reload check; gate satisfied as of 2026-05-05).
