@@ -1,0 +1,1738 @@
+[
+  {
+    "id": "mc-4.5.5-3",
+    "videoId": "4.5.5",
+    "kind": "mc",
+    "index": 3,
+    "expectedOldStemPrefix": "A security analyst is asked which email authentication stand",
+    "expectedOldOpts": [
+      "SPF alone — protects against any sender-spoofing of the visible From header; DKIM alone — protects against email tampering in transit; DMARC alone — protects against phishing attempts overall",
+      "SPF, DKIM, and DMARC are equivalent — any one alone provides the same protection as the others",
+      "SPF alone",
+      "None of the three protects against any form of email spoofing — they are all advisory standards with no enforcement effect at receiving mail servers"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "SPF — protects the visible From header; DKIM — protects against in-transit tampering; DMARC — protects against phishing broadly",
+      "SPF, DKIM, and DMARC are functionally equivalent — any one of them alone provides the same protection as the others combined",
+      "SPF alone — protects against unauthorized servers using your domain in the envelope-from header on outbound mail",
+      "None of the three protects against any email spoofing — they are advisory standards with no enforcement effect at receiving mail servers"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      127,
+      124,
+      112,
+      136
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.5.1-2",
+    "videoId": "4.5.1",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A web application firewall is deployed in front of an e-comm",
+    "expectedOldOpts": [
+      "Disable the WAF during sale events and re-enable afterwards",
+      "Replace the WAF with a network firewall that doesn't inspect application layer content",
+      "Move the credit card processing outside the WAF protection",
+      "The WAF has a false positive rule — likely a pattern matching rule that flags numeric sequences similar to credit card numbers as potential data exfiltration or injection attempts. The correct resolution: identify the specific WAF rule triggering on legitimate input, tune the rule to exclude the false positive pattern (either narrow the rule's match pattern or create an exception for the checkout endpoint's credit card fields), test the tuned rule in a staging environment, then deploy. Do not disable the WAF — tune it. The checkout endpoint is exactly the highest-value target that needs WAF protection"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Disable the WAF during sale events and re-enable it afterwards once the sale-related transaction volume has fully subsided to a normal operating baseline level",
+      "Replace the WAF with a network firewall that doesn't inspect any application-layer content, since the application layer is the source of all the noise observed here in this case",
+      "Move the credit card processing flow outside the WAF protection boundary so legitimate card numbers aren't pattern-matched as suspicious during checkout flows",
+      "The WAF has a false positive rule — likely a pattern matching numeric sequences that look like credit card numbers as exfiltration. Tune the rule (or scope an exception for the checkout endpoint), test, then deploy. Don't disable the WAF"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      159,
+      177,
+      158,
+      237
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.5.2-0",
+    "videoId": "4.5.2",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "An employee connects their work laptop to a hotel's public W",
+    "expectedOldOpts": [
+      "The corporate proxy automatically intercepts all traffic on any network",
+      "The corporate proxy enforces policy only when the laptop is on the corporate network or connected via VPN — on public WiFi without VPN, web traffic goes directly to the internet bypassing the proxy entirely. The employee can visit any website including those blocked by corporate policy, and no browsing logs are captured. This is a gap that cloud-delivered web security (SASE/cloud proxy with a lightweight agent) addresses — policy follows the device regardless of network location",
+      "Hotel networks automatically redirect all traffic through corporate proxies",
+      "The employee's laptop firewall enforces web filtering regardless of network"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "The corporate proxy automatically intercepts all traffic on any network that the laptop is connected to, including public WiFi and home networks via captive portals",
+      "The corporate proxy enforces policy only on the corporate network or VPN — on public WiFi without VPN, traffic bypasses the proxy entirely. Cloud-delivered web security (SASE with a lightweight agent) addresses this — policy follows the device",
+      "Hotel networks automatically redirect all corporate traffic through corporate proxies via captive-portal handshakes that include policy enforcement for managed devices",
+      "The employee's laptop firewall enforces web-filtering rules regardless of the network the device is currently connected to at any moment in time during operation today"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      164,
+      243,
+      167,
+      167
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.5.3-1",
+    "videoId": "4.5.3",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A Windows domain administrator needs to perform routine user",
+    "expectedOldOpts": [
+      "Using a Domain Admin account for routine tasks and web browsing on a domain controller exposes DA credentials to credential theft from any web-based attack (browser exploit, phishing, malware from a malicious website) that occurs during the session. Mimikatz can extract DA credentials from LSASS memory. The correct practice: use a dedicated Privileged Access Workstation (PAW) for administrative tasks, with a separate standard user account for email/web, and implement just-in-time privilege elevation for administrative actions rather than maintaining persistent DA session",
+      "Domain controllers should not have web browsers installed",
+      "Domain controllers should not have internet access — this is the only issue",
+      "Using Domain Admin credentials for Active Directory management is appropriate and expected"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Using a Domain Admin account for routine work and web browsing on a domain controller exposes DA credentials to credential theft (browser exploit, phishing). Use a dedicated Privileged Access Workstation with a separate standard account for email/web",
+      "Domain controllers should not have any web browsers installed at all — that is the only meaningful issue with the administrator's setup here in this domain controller environment under any conditions",
+      "Domain controllers should not have internet access at all — restricting outbound network connectivity is the only fix needed for this scenario today and going forward into the future for the company",
+      "Using Domain Admin credentials for Active Directory management tasks is the appropriate and expected pattern for any administrator with the role assigned to them by the IT director directly"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      250,
+      199,
+      198,
+      189
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.5.4-1",
+    "videoId": "4.5.4",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A compliance auditor reviews a company's network management ",
+    "expectedOldOpts": [
+      "The management network isolation does fully address all three findings",
+      "The management network isolation is sufficient — no changes are needed",
+      "An isolated management network reduces external exposure but doesn't address: (1) internal threats — an insider or a compromised device on the management network can sniff FTP credentials and SNMP strings, (2) lateral movement — if an attacker reaches any device on the management network, all devices are exposed via known SNMP community strings and FTP credentials, (3) regulatory compliance — many frameworks require encrypted management traffic regardless of network isolation. Encryption of management protocols provides defense-in-depth that isolation alone doesn't: FTP→SFTP/SCP, SNMPv1/v2→SNMPv3, unencrypted syslog→TLS syslog",
+      "Only the FTP issue needs addressing — SNMP and syslog are not management protocols"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "The management network isolation does fully address all three of the auditor's findings since restricting network access alone is sufficient to satisfy any compliance review requirements at all",
+      "The management network isolation alone is sufficient — no encryption changes are needed for routine network device administration on isolated control-plane networks at all",
+      "Isolation reduces external exposure but doesn't address: insider threats (sniffing FTP credentials/SNMP strings), lateral movement on the management network, and regulatory requirements for encrypted management. Use SFTP/SCP, SNMPv3, TLS syslog",
+      "Only the FTP issue needs addressing — SNMP and syslog are not management protocols and don't fall under the scope of any management security control or compliance review at all"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      193,
+      171,
+      244,
+      176
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.5.5-0",
+    "videoId": "4.5.5",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A company's email gateway is configured with SPF, DKIM, and ",
+    "expectedOldOpts": [
+      "The email authentication was misconfigured — it should have blocked this",
+      "SPF, DKIM, and DMARC authenticate the SENDING DOMAIN — they verify that email from company.com was actually sent by company.com. They do not verify that the sending domain is one the recipient should trust. 'company-security.com' has valid SPF, DKIM, and DMARC for its own domain. The attacker registered a plausible-looking domain that passes authentication. This is why user training to check the full sender domain (not just the display name) and anti-phishing controls that flag lookalike domains are required alongside email authentication",
+      "DMARC should have blocked emails from unrecognized domains",
+      "The email gateway vendor has a bug — report it"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "The email authentication was misconfigured — proper SPF/DKIM/DMARC configuration would have blocked this lookalike domain attack at the gateway before it reached the inbox of any employee user",
+      "SPF, DKIM, and DMARC authenticate the SENDING DOMAIN — they verify mail from company.com was sent by company.com. They don't verify that the domain is one to trust. 'company-security.com' has valid records of its own. User training and lookalike-detection are needed",
+      "DMARC should have blocked emails from unrecognized domains automatically — that is the entire purpose of having a published DMARC policy in place at the email gateway for inbound mail",
+      "The email gateway vendor has a bug somewhere in their authentication pipeline — open a ticket with vendor support to file a defect report formally and request a patch be issued in the near term"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      192,
+      266,
+      183,
+      193
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.5.6-1",
+    "videoId": "4.5.6",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A security team implements USB port blocking via endpoint ma",
+    "expectedOldOpts": [
+      "USB blocking is the most important DLP control — the email channel must be a secondary priority",
+      "USB blocking addresses one exfiltration vector. A comprehensive DLP strategy must address all egress channels simultaneously: email (content inspection of outbound email), web upload (proxy inspection of file uploads), cloud sync clients (blocking or monitoring OneDrive personal, Dropbox, Google Drive personal), print, and removable media. An attacker who is motivated will use whichever uncontrolled channel is available. Single-vector DLP provides false confidence — the measurement is data that can leave without detection, not just data that can leave via USB",
+      "USB blocking should be removed since it didn't prevent the exfiltration",
+      "The employee found a technical bypass for the USB blocking — patch it"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "USB blocking is the most important DLP control — the email channel must be a secondary priority that gets addressed in the next budget cycle once the team has more available headcount and additional vendor licensing budget",
+      "USB blocks one vector. Comprehensive DLP must cover all egress channels: email content inspection, web upload, cloud sync (OneDrive/Dropbox/Drive personal), print, removable media. Motivated attackers use whatever uncontrolled channel is available. Single-vector DLP gives false confidence",
+      "USB blocking should be removed since it didn't prevent the data exfiltration in this incident — the control proved itself ineffective in practice and operational overhead isn't justified by results",
+      "The employee found a technical bypass for the USB blocking enforcement — patch the bypass and continue with single-vector DLP for now until the team has time to evaluate broader DLP controls in the future"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      222,
+      289,
+      197,
+      204
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.5.7-0",
+    "videoId": "4.5.7",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "An organization deploys EDR on all endpoints with default co",
+    "expectedOldOpts": [
+      "Investigate all 47,000 alerts by hiring more analysts",
+      "Replace the EDR with one that generates fewer alerts",
+      "Disable high-volume detection rules entirely",
+      "Tune the EDR detection rules to reduce false positive volume: analyze the uninvestigated alerts by category, identify rule categories with high noise and low true positive rates, work with the EDR vendor to tighten those rules for the organization's environment, and create custom detection rules for the organization's specific threat profile. After tuning, each alert has higher signal value — analysts investigate more alerts at higher confidence. The measure of success is not alert count but true positive rate and mean time to detect real threats"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Investigate all 47,000 alerts by hiring more analysts to staff up the SOC team — every alert deserves a full forensic investigation in principle and budget should be reallocated to support full triage coverage",
+      "Replace the EDR with one that generates fewer alerts overall, since the current product is producing far too much noise to be operationally useful for the SOC team in their daily triage workflow at any time",
+      "Disable high-volume detection rules entirely so the alert count drops to a level the existing analyst team can fully investigate every day during normal business hours and on-call shifts after hours too",
+      "Tune EDR detection rules to reduce false positives: analyze uninvestigated alerts by category, identify high-noise/low-true-positive categories, work with the vendor to tighten rules, create custom rules for the org's threat profile. Success measure: true positive rate, not alert count"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      209,
+      206,
+      202,
+      286
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.5.7-1",
+    "videoId": "4.5.7",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A security team is evaluating whether to use NAC (Network Ac",
+    "expectedOldOpts": [
+      "Deploy NAC in a tiered model: compliant devices (meeting all security requirements — patched, AV running, disk encrypted) get full network access; partially compliant devices (some requirements met) get limited access (internet only, no access to corporate resources) with a remediation portal explaining what's needed; non-compliant devices (personal devices, unmanaged) get guest network access only. This provides security segmentation without completely blocking users — non-compliant devices can be remediated through self-service, and the impact is network access limitation rather than complete block",
+      "Deploy NAC to block all non-compliant devices permanently",
+      "Deploy NAC only for new devices — grandfather all existing devices indefinitely",
+      "Don't deploy NAC — the helpdesk call risk is too high"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Deploy NAC tiered: compliant (patched, AV, encryption) gets full network access; partially compliant gets limited access (internet only) with a remediation portal; non-compliant gets guest network only. Provides segmentation without complete blocks; impact is access limitation, not full block",
+      "Deploy NAC to block all non-compliant devices permanently, with no remediation pathway — devices either meet posture requirements or remain disconnected entirely from any corporate network access at any tier of access",
+      "Deploy NAC only for new devices going forward — grandfather all existing devices indefinitely under the previous network access rules to avoid disruption to currently-active devices and existing user workflows",
+      "Don't deploy NAC at all — the helpdesk call risk during enforcement transitions is too high relative to the marginal security benefit it offers in the long run for the existing managed-device fleet"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      293,
+      217,
+      209,
+      197
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-4.6.2-1",
+    "videoId": "4.6.2",
+    "kind": "mc",
+    "index": 1,
+    "expectedOldStemPrefix": "MAC differs from DAC in that:",
+    "expectedOldOpts": [
+      "MAC is more common in enterprises",
+      "MAC allows resource owners to control access",
+      "The OS enforces access based on sensitivity labels — even administrators cannot override MAC policy",
+      "MAC is only used for network devices"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "MAC is more common in enterprises than DAC because vendors ship it as default",
+      "MAC allows resource owners to control access to their files individually",
+      "The OS enforces access based on sensitivity labels — even administrators cannot override MAC policy",
+      "MAC is only used for network device access — not for file or application controls"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      77,
+      72,
+      99,
+      81
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-4.6.2-3",
+    "videoId": "4.6.2",
+    "kind": "mc",
+    "index": 3,
+    "expectedOldStemPrefix": "A large enterprise with 50,000 users and 15,000 resources is",
+    "expectedOldOpts": [
+      "RBAC scales well at moderate scale and is easier to audit ('who has role X?'); ABAC scales better when fine-grained, context-dependent rules are needed but is harder to reason about and audit; many large enterprises combine the two (RBAC for coarse-grained, ABAC for fine-grained policies on top)",
+      "ABAC is always the better choice because it is more flexible — RBAC has been deprecated by NIST for enterprise use",
+      "RBAC is always the better choice because it is simpler — large organizations should accept the role count as a cost of clarity",
+      "RBAC and ABAC are functionally identical — the difference is only naming convention used by different vendors"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "RBAC scales well at moderate size and is easier to audit ('who has role X?'); ABAC scales better for fine-grained, context-dependent rules but is harder to reason about; many large enterprises combine the two (RBAC coarse + ABAC fine)",
+      "ABAC is always the better choice because it is more flexible than RBAC — RBAC has been deprecated by NIST as obsolete for any enterprise use case at any scale of identity management infrastructure today",
+      "RBAC is always the better choice because it is simpler than ABAC — large organizations should accept the role count itself as a small operational cost relative to the implementation simplicity gained",
+      "RBAC and ABAC are functionally identical mechanisms — the difference between them is only the naming convention used by different access-control vendors with no real architectural distinction at all"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      234,
+      202,
+      199,
+      198
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-4.6.3-1",
+    "videoId": "4.6.3",
+    "kind": "mc",
+    "index": 1,
+    "expectedOldStemPrefix": "An MFA fatigue attack works by:",
+    "expectedOldOpts": [
+      "Cracking MFA codes through brute force",
+      "Phishing for MFA codes via email",
+      "Sending repeated push authentication notifications until the user approves one out of confusion or frustration",
+      "Exploiting bugs in MFA applications"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Cracking MFA codes through brute force across many simultaneous parallel sessions",
+      "Phishing for MFA codes via email that mimics the authentication provider's UI",
+      "Sending repeated push authentication notifications until the user approves one out of confusion or frustration",
+      "Exploiting bugs in MFA applications to bypass code generation entirely on devices"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      81,
+      77,
+      110,
+      81
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-4.6.4-2",
+    "videoId": "4.6.4",
+    "kind": "mc",
+    "index": 2,
+    "expectedOldStemPrefix": "A password manager improves security by:",
+    "expectedOldOpts": [
+      "Generating and storing unique, complex passwords for each site — eliminating password reuse across services",
+      "Sharing passwords across team members",
+      "Storing passwords in the cloud insecurely",
+      "Simplifying login with a single password for all sites"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Generating and storing unique, complex passwords for each site — eliminating password reuse across services",
+      "Sharing passwords across team members through a centralized vault interface",
+      "Storing passwords in the cloud insecurely so any device can sync them quickly",
+      "Simplifying login with a single password used uniformly across all sites and services"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      107,
+      75,
+      77,
+      85
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.6.1-0",
+    "videoId": "4.6.1",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A company uses a single Active Directory account for both da",
+    "expectedOldOpts": [
+      "The employee should have used a stronger password",
+      "Domain admin accounts should have different passwords than standard accounts — password rotation is the fix",
+      "The company should have used a password manager for the DA account",
+      "Dual-account separation was violated: the same person performing both daily work (browsing, email) and administrative tasks (domain management) in the same session exposes DA credentials to any threat that executes in that context. The correct architecture: a standard account for daily work (email, web, documents) and a separate privileged account used ONLY for administrative tasks from a dedicated Privileged Access Workstation (PAW) with no internet access. Credentials are not mixed between security contexts"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "The employee should have used a stronger password for the Domain Admin account — credential strength is the underlying issue here, not the architecture or the credential-handling processes used by the IT team for admin accounts",
+      "Domain admin accounts should have different passwords than standard accounts — password rotation is the fix needed for the issue at hand and the current single-account architecture remains acceptable as designed",
+      "The company should have used a password manager for the DA account — managed credentials would have prevented this incident from occurring entirely under any reasonable threat model considered",
+      "Dual-account separation was violated: same person performing daily work and admin tasks in the same session exposes DA credentials to any threat in that context. Use a standard account for daily work and a separate privileged account from a Privileged Access Workstation"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      227,
+      211,
+      192,
+      270
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.6.2-2",
+    "videoId": "4.6.2",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "An organization implements a PAM (Privileged Access Manageme",
+    "expectedOldOpts": [
+      "PAM is required by compliance frameworks — the CISO is correct but for the wrong reason",
+      "PAM provides no real security benefit beyond compliance checkbox",
+      "Session recording is the primary benefit — credential protection is secondary",
+      "Just-in-time privilege (JIT) eliminates standing privileged access — there are no persistent admin credentials that can be stolen and used freely. Temporary credentials expire after 2 hours, limiting the window for stolen credential misuse. Session recording provides a complete audit trail of what privileged users did — essential for incident investigation and detecting insider threats. The combination prevents: credential theft (no standing creds to steal), insider abuse (all actions are recorded), and privilege escalation persistence (attacker cannot maintain privileged access after the 2-hour window). The overhead is the price of eliminating the highest-risk attack vector"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "PAM is required by compliance frameworks — the CISO is correct to deploy it but for the wrong underlying security reason here in this particular case at this organization right now under the current regulatory regime",
+      "PAM provides no real security benefit beyond compliance checkbox satisfaction — it adds operational overhead without measurable risk reduction across the threat models that affect this organization",
+      "Session recording is the primary benefit of PAM — credential protection is a secondary concern compared to the audit-trail value for compliance reviews and forensic investigation purposes after incidents",
+      "JIT eliminates standing privileged access — no persistent admin credentials to steal. Temporary credentials expire (e.g. 2 hours), limiting misuse window. Session recording provides a complete audit trail. Together: prevents credential theft, insider abuse, and persistence"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      216,
+      197,
+      203,
+      273
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.6.2-3",
+    "videoId": "4.6.2",
+    "kind": "scen",
+    "index": 3,
+    "expectedOldStemPrefix": "A company implements Just-in-Time (JIT) elevation for produc",
+    "expectedOldOpts": [
+      "The developer is given standing production database admin access at hire so they can debug at any time without delay or approval steps",
+      "The developer requests elevation via the JIT system → request routes to the approver(s) (manager + on-call security) → approval grants time-bound access (e.g. 4 hours) to the production database role → session is logged and recorded → access auto-expires at the end of the window with no manual revocation needed",
+      "The developer emails an admin who manually toggles the developer's account from 'developer' to 'admin' for the day, then forgets to revoke it after the work is finished",
+      "JIT elevation does not require approval — any developer can self-elevate at any time as long as they document the reason in a wiki page after the fact"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "The developer is given standing production database admin access at hire so they can debug at any time without delay or approval steps in any case during the day or night for any reason at any frequency",
+      "Developer requests elevation via the JIT system → request routes to approver(s) (manager + on-call security) → approval grants time-bound access (4 hours) → session is logged and recorded → access auto-expires at the end of the window",
+      "The developer emails an admin who manually toggles the developer's account from 'developer' to 'admin' for the day, then forgets to revoke it after the work is finished and the developer no longer needs the access",
+      "JIT elevation does not require approval — any developer can self-elevate at any time as long as they document the reason in a wiki page after the fact and notify the team via Slack"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      202,
+      234,
+      213,
+      180
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.6.3-2",
+    "videoId": "4.6.3",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A company currently uses TOTP-based MFA (Google Authenticato",
+    "expectedOldOpts": [
+      "FIDO2 codes are 8 digits instead of 6, so they are harder to type into a phishing site quickly",
+      "FIDO2 codes refresh every 10 seconds instead of every 30 seconds, narrowing the phishing window for an attacker",
+      "FIDO2 authenticators perform cryptographic origin checks — they will not produce a valid signature for a relying party origin (domain) that does not match the registered one, so the authenticator does not respond to a phishing site even if the user attempts to authenticate",
+      "FIDO2 is end-to-end encrypted on the wire while TOTP is plaintext over HTTPS, so the codes cannot be intercepted"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "FIDO2 codes are 8 digits instead of 6, so they are harder to type into a phishing site quickly under user time pressure during the time window the phishing site remains active",
+      "FIDO2 codes refresh every 10 seconds instead of every 30 seconds, narrowing the phishing window for an attacker substantially compared to the older TOTP-based authentication scheme",
+      "FIDO2 authenticators perform cryptographic origin checks — they will not produce a valid signature for a relying-party origin (domain) that doesn't match the registered one, so the authenticator doesn't respond to a phishing site",
+      "FIDO2 is end-to-end encrypted on the wire while TOTP is plaintext over HTTPS, so the codes cannot be intercepted in flight even by an attacker with a man-in-the-middle position"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      175,
+      180,
+      229,
+      176
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.6.4-0",
+    "videoId": "4.6.4",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A company's password policy requires: minimum 8 characters, ",
+    "expectedOldOpts": [
+      "The policy is working correctly — all passwords meet the requirements",
+      "Increase the rotation frequency to 30 days to force more changes",
+      "The passwords reveal that complexity requirements with forced rotation produce predictable, policy-compliant-but-weak passwords: users create the minimum viable password (one uppercase, one number, one special character, dictionary word as base) and increment the number or season each rotation. The policy is driving behavior that creates exploitable patterns. NIST SP 800-63B's recommended changes: (1) increase minimum length to 12+ characters (passphrases are more resistant), (2) remove forced 90-day rotation (it drives the predictable increment behavior), (3) check passwords against known-breached lists (reject 'Password1!' at creation), (4) enable MFA — longer passwords with MFA are far stronger than complex 8-character passwords without",
+      "Add more character type requirements — require at least 3 special characters"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "The policy is working correctly — all passwords meet the requirements as documented and there is no actionable concern from the current state of password use across the user population over time",
+      "Increase the rotation frequency to 30 days to force more frequent password changes — the increased rotation cadence will disrupt attacker pattern recognition more effectively than the current 90-day cadence",
+      "Complexity + forced rotation produces predictable patterns: users create minimum-viable passwords (one cap, one number, one special, dictionary base) and increment per rotation. Per NIST 800-63B: increase length to 12+, drop forced rotation, check breached lists, enable MFA",
+      "Add more character type requirements — require at least 3 special characters in every password to defeat any pattern-matching attempts based on simpler templates used by current attackers in their wordlist generation"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      194,
+      206,
+      274,
+      216
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-4.7.1-2",
+    "videoId": "4.7.1",
+    "kind": "mc",
+    "index": 2,
+    "expectedOldStemPrefix": "DevSecOps integrates security into CI/CD pipelines by:",
+    "expectedOldOpts": [
+      "Replacing developers with security analysts",
+      "Adding security testing (SAST, DAST, SCA) at every stage of the software development pipeline — finding vulnerabilities early",
+      "Removing all automated testing",
+      "Running penetration tests only at release"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "Replacing developers with security analysts during the software development cycle entirely",
+      "Adding security testing (SAST, DAST, SCA) at every stage of the software development pipeline — finding vulnerabilities early",
+      "Removing all automated testing from the CI/CD pipeline to reduce build delays and developer friction",
+      "Running penetration tests only at release time, after all development is fully complete"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      90,
+      125,
+      100,
+      87
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-4.7.1-3",
+    "videoId": "4.7.1",
+    "kind": "mc",
+    "index": 3,
+    "expectedOldStemPrefix": "A security team is comparing automation and orchestration in",
+    "expectedOldOpts": [
+      "Automation and orchestration are different vendor names for the same concept; they can be used interchangeably",
+      "Automation runs on-premises; orchestration runs in the cloud",
+      "Automation refers to a single-task script (e.g. reset a password, run a vulnerability scan, block an IP); orchestration refers to a multi-system workflow that combines multiple automated tasks across several tools (e.g. when SIEM alerts, isolate the endpoint via EDR, capture a forensic image, open a ticket, notify on-call) into a coordinated process",
+      "Automation is for security operations only; orchestration is for IT operations only — they apply to different teams"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Automation and orchestration are different vendor names for the same concept; they can be used interchangeably with no real distinction between them in any product literature or training",
+      "Automation runs on-premises; orchestration runs in the cloud — they are deployment models for the same fundamental capability of scripted task execution across security operations workflows",
+      "Automation = single-task script (reset password, run scan, block IP); orchestration = multi-system workflow combining automated tasks across tools (when SIEM alerts, isolate endpoint via EDR, capture forensic image, open ticket, notify on-call)",
+      "Automation is for security operations only; orchestration is for IT operations only — they apply to different teams within an organization with no overlap in tooling or shared workflow definitions"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      186,
+      189,
+      244,
+      196
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.7.1-0",
+    "videoId": "4.7.1",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A security team's SOAR playbook automatically blocks IP addr",
+    "expectedOldOpts": [
+      "SOAR automation is too dangerous and should be replaced with manual processes",
+      "The threat intelligence feed provider is responsible for this incident",
+      "Automated response actions require safeguards for high-impact actions: automatic IP blocking without review is appropriate for clearly malicious, low-profile IPs but requires human approval or an exception list for high-profile IPs (major cloud providers, CDN ranges, partner networks) where false positives have major business impact. The incident reveals a missing safeguard: the SOAR should have flagged this block for human review because the IP belongs to a known major provider, rather than auto-blocking. Automation accelerates response but must include appropriate guardrails for high-impact actions",
+      "All SOAR actions should require manual approval — automation is the problem"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "SOAR automation is too dangerous and should be replaced with manual processes — the cost of an incorrect automated action outweighs response speed gains in the SOC across all known scenarios analyzed",
+      "The threat intelligence feed provider is responsible for this incident — they sent a bad indicator and the SOC's automation acted as expected on it without any local-context evaluation by the SOC",
+      "Automated response requires safeguards for high-impact actions: auto-blocking is appropriate for clearly malicious low-profile IPs, but high-profile IPs (cloud providers, CDN, partners) need human approval or an exception list. Automation needs guardrails for high-impact actions",
+      "All SOAR actions should require manual approval — automation is the entire problem and removing the automation step eliminates this class of incident permanently from the SOC operational risk register"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      199,
+      195,
+      279,
+      200
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.7.1-2",
+    "videoId": "4.7.1",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A SOC team is automating endpoint isolation in response to h",
+    "expectedOldOpts": [
+      "No guardrails — the automation should run as fast as possible to maximize containment speed; any false positives can be reverted manually after the fact without consequence",
+      "Disable EDR API access entirely so the automation cannot run at all and no risk of cascade exists in the environment",
+      "Run the automation only quarterly so any cascade is naturally rate-limited by the long delay between executions of the playbook",
+      "Validation (require the alert severity to match a strict rule, log the planned action), rate-limiting (cap the number of isolations per hour), approval gates for high-impact targets (require human approval before isolating servers tagged 'production critical'), and rollback (auto-revert the isolation if a follow-up signal indicates false positive within X minutes)"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "No guardrails — the automation should run as fast as possible to maximize containment speed; any false positives can be reverted manually after the fact without consequence to the SOC operations posture",
+      "Disable EDR API access entirely so the automation cannot run at all and no risk of cascade exists in the environment under any circumstances now or in the future once the API is fully turned off at the platform level",
+      "Run the automation only quarterly so any cascade is naturally rate-limited by the long delay between successive playbook executions in the SOC and the operational risk is contained by the long delay between runs",
+      "Validation (require alert severity match, log the planned action), rate-limiting (cap isolations per hour), approval gates for high-impact targets (servers tagged 'production critical'), and rollback (auto-revert if a follow-up signal indicates false positive within X minutes)"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      202,
+      216,
+      211,
+      277
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-4.8.2-1",
+    "videoId": "4.8.2",
+    "kind": "mc",
+    "index": 1,
+    "expectedOldStemPrefix": "A DRP (Disaster Recovery Plan) is a subset of BCP because:",
+    "expectedOldOpts": [
+      "DRP specifically covers IT system recovery",
+      "DRP covers all business functions including HR, facilities, communications, and supply chain",
+      "BCP is only for large organizations with multi-site footprints and dedicated continuity teams",
+      "They are the same plan with different titles used by different industry verticals interchangeably"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "DRP specifically covers IT system recovery; BCP covers all business operations including non-IT",
+      "DRP covers all business functions including HR, facilities, communications, and supply chain",
+      "BCP is only for large organizations with multi-site footprints and dedicated continuity teams",
+      "They are the same plan with different titles used by different industry verticals interchangeably"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      95,
+      92,
+      93,
+      97
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-4.8.2-3",
+    "videoId": "4.8.2",
+    "kind": "mc",
+    "index": 3,
+    "expectedOldStemPrefix": "An incident response team is conducting a post-mortem and is",
+    "expectedOldOpts": [
+      "The three frameworks are equivalent and interchangeable — the choice is purely team preference with no methodological difference between them",
+      "5 Whys: ask 'why' iteratively (5 times is a heuristic, not a strict count) until reaching a root cause that, if fixed, prevents recurrence; Fishbone (Ishikawa): categorical cause-mapping organized into branches (people, process, technology, environment, etc.) for visual exploration; Apollo: a more structured causal-chain method that links each effect to its causal conditions and actions",
+      "5 Whys is for technical incidents only; Fishbone is for process incidents only; Apollo is for cultural incidents only — they are not interchangeable across categories",
+      "All three frameworks yield the same root cause when applied correctly — they differ only in visual presentation style and report formatting"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "The three frameworks are equivalent and interchangeable — the choice is purely team preference with no methodological difference between them in practice for any incident category being analyzed",
+      "5 Whys: ask 'why' iteratively until reaching a root cause whose fix prevents recurrence; Fishbone (Ishikawa): categorical cause-mapping (people, process, technology, environment) for visual exploration; Apollo: structured causal-chain method linking effect to causal conditions",
+      "5 Whys is for technical incidents only; Fishbone is for process incidents only; Apollo is for cultural incidents only — they are not interchangeable across categories of incidents analyzed",
+      "All three frameworks yield the same root cause when applied correctly — they differ only in visual presentation style and report formatting for the post-mortem document published afterward"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      194,
+      277,
+      188,
+      188
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.8.1-0",
+    "videoId": "4.8.1",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "At 3am, a SOC analyst receives an alert that a server is gen",
+    "expectedOldOpts": [
+      "The junior analyst is correct — stop the exfiltration immediately by any means",
+      "The alert is likely a false positive — no action should be taken at 3am",
+      "Exfiltration should be allowed to continue to gather more intelligence about the attacker",
+      "Immediate shutdown is tempting but destroys forensic evidence: volatile data in RAM (running malware code, encryption keys, active network connections, credentials in memory) is lost permanently on shutdown. The correct containment sequence: (1) isolate the server from the network (block outbound traffic at the firewall/switch level — stops exfiltration without destroying the server state); (2) while isolated, collect volatile forensic evidence (memory dump, network connection state, running processes); (3) then proceed with eradication and recovery. Network isolation achieves the same containment goal as shutdown while preserving evidence for investigation"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "The junior analyst is correct — stop the exfiltration immediately by any means available, including hard shutdown of the affected server regardless of any forensic preservation considerations at this point in the incident",
+      "The alert is likely a false positive — no action should be taken at 3am until the senior analyst can review the alert in the morning during normal business hours after coffee and a full inbox review",
+      "Exfiltration should be allowed to continue temporarily to gather more intelligence about the attacker's methodology and infrastructure for future defensive countermeasures and threat-intelligence sharing",
+      "Shutdown destroys forensic evidence: volatile data in RAM (malware code, encryption keys, active connections, in-memory credentials) is lost. Sequence: (1) network-isolate to stop exfiltration without destroying state; (2) collect volatile evidence; (3) eradicate"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      221,
+      198,
+      203,
+      263
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.8.1-1",
+    "videoId": "4.8.1",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "An organization suffers a ransomware attack. The IR team fol",
+    "expectedOldOpts": [
+      "The IR playbook was fine — ransomware recovery always takes longer than expected",
+      "The ransomware was particularly sophisticated — no playbook would have helped",
+      "The IR team improvised well — 4x RTO is an acceptable outcome for ransomware",
+      "IR playbook maintenance failure"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "The IR playbook was fine — ransomware recovery always takes longer than expected",
+      "The ransomware was particularly sophisticated — no playbook would have helped",
+      "The IR team improvised well — 4x RTO is an acceptable outcome for ransomware",
+      "IR playbook maintenance failure — playbook references systems and people no longer in place"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      80,
+      77,
+      76,
+      91
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.8.2-0",
+    "videoId": "4.8.2",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A company's IR plan states that in the event of a significan",
+    "expectedOldOpts": [
+      "The communication plan has single points of failure: it designates specific individuals without specifying alternates or escalation chains. A robust communication plan includes: (1) primary and at least two backup contacts for each notification role; (2) clear escalation chains — if CISO unavailable for 30 minutes, contact CTO; (3) authority matrix — who is authorized to make which notifications in whose absence; (4) out-of-band communication methods (satellite phone, prearranged backup contacts) for key personnel. A plan that only works when the primary person is available is not a plan — it's a single dependency",
+      "The CISO should never take vacations during critical periods",
+      "The board should have been monitoring security news directly",
+      "Communication plans are not necessary for organizations with experienced security teams"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "The plan has single points of failure: it designates specific individuals without alternates or escalation. A robust plan: primary + 2 backup contacts per role, escalation chains (if X unavailable for 30 min → contact Y), authority matrix, out-of-band methods",
+      "The CISO should never take vacations during critical periods — communication continuity should be guaranteed by ensuring senior leaders remain available during high-risk windows",
+      "The board should have been monitoring security news directly — they could have learned of the breach independently and pursued action without waiting for formal notification",
+      "Communication plans are not necessary for organizations with experienced security teams — informal notification networks within an experienced team work effectively in incidents"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      259,
+      177,
+      173,
+      177
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.8.3-1",
+    "videoId": "4.8.3",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A company's legal team instructs the security team to preser",
+    "expectedOldOpts": [
+      "Hash values are optional for forensic evidence — this is not an issue",
+      "The network share storage is the problem — forensic images must be on tape",
+      "Without a hash value recorded at the time of image creation, there is no way to prove that the forensic image currently stored on the network share is identical to the data that was on the workstation at the time of imaging. Anyone with access to the network share could have modified the image, and there is no baseline to compare against. In legal proceedings, opposing counsel can challenge the integrity of the evidence — if the hash cannot be verified, the entire forensic image may be inadmissible or its value significantly diminished. Proper forensic procedure: hash the original device (write-blocker in place), hash the forensic image immediately after creation, document both hashes, and re-verify the image hash at each step of handling",
+      "Hash values only matter for criminal investigations, not civil lawsuits"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Hash values are optional for forensic evidence — this is not an issue and the image's network-share storage location is sufficient for legal admissibility under any chain-of-custody rules used in court today",
+      "The network share storage is the problem — forensic images must be stored on tape media to satisfy any criminal or civil chain-of-custody legal requirements that come up during litigation discovery proceedings",
+      "Without a hash recorded at image creation, there's no proof the stored image matches the original. Anyone with share access could modify it. Procedure: hash the original (write-blocker), hash the image immediately, document both, re-verify at each handling step",
+      "Hash values only matter for criminal investigations, not civil lawsuits — civil discovery rules don't impose chain-of-custody hashing requirements on either party in any common jurisdiction in the country"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      207,
+      209,
+      261,
+      204
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-4.9.1-3",
+    "videoId": "4.9.1",
+    "kind": "mc",
+    "index": 3,
+    "expectedOldStemPrefix": "A SIEM team is normalizing log formats from three different ",
+    "expectedOldOpts": [
+      "All three formats are equivalent and interchangeable — the SIEM treats them identically with no parser configuration needed",
+      "CEF is a deprecated format that should not be used; syslog and JSON are the only modern formats supported by current SIEM products",
+      "CEF (Common Event Format)",
+      "JSON is impossible to ingest into a SIEM because it is too verbose; CEF and syslog are the only practical formats for any high-volume SIEM ingestion"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "All three formats are equivalent and interchangeable — the SIEM treats them identically with no parser configuration needed",
+      "CEF is a deprecated format that should not be used; syslog and JSON are the only modern formats supported by current SIEM products",
+      "CEF (Common Event Format) — the appliance vendor's structured key-value format consumed by most SIEMs natively",
+      "JSON is impossible to ingest into a SIEM because it is too verbose; CEF and syslog are the only practical formats for any high-volume SIEM ingestion"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      123,
+      130,
+      110,
+      148
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.9.1-0",
+    "videoId": "4.9.1",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A SOC analyst is investigating a suspected compromise of a W",
+    "expectedOldOpts": [
+      "The pattern (unusual hour logon + cmd.exe spawned by unusual parent) suggests an attacker used stolen administrator credentials for lateral movement, then executed commands via a spawned shell. Investigation steps: (1) check the source workstation's Security Event Log — was there a logon event there first that explains how credentials were obtained? (2) pull the Network Event Log for connections from the workstation to the server around 2:45am — confirms the lateral movement; (3) examine what commands were executed after cmd.exe spawned (process tree from EDR or Sysmon Event ID 4688 with command line logging); (4) check if the workstation was actually on (power state logs) — if it was 'shut down', the logon from it is physically impossible and suggests credential theft with IP spoofing or a remote service account",
+      "The events are normal — administrators sometimes work late",
+      "Enable account lockout for the administrator account and close the investigation",
+      "The 2:47am logon is within normal variation — no action needed"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Pattern (unusual hour + cmd.exe spawned by unusual parent) suggests stolen-credential lateral movement. Investigate: source workstation's logon events, Network Event Log around 2:45am, command-line logging from spawned cmd.exe, workstation power state at the time",
+      "The events are normal — administrators sometimes work late; flag for friendly check-in but no security action needed for the documented logon and process events given the trust placed in the administrator account",
+      "Enable account lockout for the administrator account and close the investigation since the account-lockout control will deter any future credential-misuse attempts going forward across the organization",
+      "The 2:47am logon is within normal variation — no action needed beyond confirming the administrator was actually working at that hour for routine reasons that explain the late-night activity adequately"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      263,
+      212,
+      201,
+      200
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.9.1-1",
+    "videoId": "4.9.1",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A company's SIEM ingests logs from their firewalls, servers,",
+    "expectedOldOpts": [
+      "The SIEM has all necessary data — check the firewall logs for the phishing site connection",
+      "Email investigations require the email vendor to conduct the investigation, not the SOC",
+      "The firewall log will show the outbound connection to the phishing site — this is sufficient",
+      "The SIEM's log sources determine what questions it can answer. Without email gateway logs: cannot determine when the email arrived or was opened. Without endpoint browser logs or EDR data: cannot determine which process loaded the phishing URL. Without proxy logs: cannot determine what URL was visited or what data was sent. The SIEM is only as useful as the log sources feeding it. This incident reveals a log coverage gap — the organization's log collection strategy didn't include email gateway and web proxy, leaving blind spots in exactly the attack vectors (email phishing → web credential theft) they most need to investigate"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "The SIEM has all necessary data — check the firewall logs for the phishing site connection and the rest of the investigation can proceed from there once the connection metadata is reviewed by the analyst",
+      "Email investigations require the email vendor to conduct the investigation, not the SOC — escalate the case to the email provider's security operations team and let them handle the inbound mail aspect of the investigation",
+      "The firewall log will show the outbound connection to the phishing site — this is sufficient evidence to confirm the phishing path used in the original attack against the targeted user account",
+      "SIEM is only as useful as its log sources. Without email gateway: can't confirm when the email arrived/opened. Without endpoint browser/EDR: can't determine which process loaded the URL. Without proxy: can't see what URL was visited. Log coverage gap"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      203,
+      221,
+      192,
+      250
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.9.1-2",
+    "videoId": "4.9.1",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "An organization's incident responders are correlating events",
+    "expectedOldOpts": [
+      "The timeline is impossible — one of the systems has been tampered with",
+      "Process creation always precedes network connection — the timeline confirms the process is the cause of the connection",
+      "The EDR system is malfunctioning — replace it",
+      "The timeline is likely coherent with a small amount of clock skew between systems: the process starting 16 seconds before the connection is physically possible (process initializes, then makes the connection). The authentication 33 seconds after the connection is consistent with the malware contacting C2 first, then authenticating to an internal service. However, if any system's clock is off by even 30 seconds, the apparent sequence changes dramatically. The first investigation step: check NTP synchronization on all three systems. If the endpoint's clock is 30 seconds fast, the events may all be simultaneous. Clock skew is the most common cause of apparently incoherent timelines in multi-source investigations"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "The timeline is impossible — one of the three systems has been tampered with to alter timestamps and the investigation should treat any one of them as compromised pending further forensic analysis on the affected hosts",
+      "Process creation always precedes any network connection — the timeline confirms the process is the cause of the connection regardless of any apparent skew between systems on the network and the data is reliable as-is",
+      "The EDR system is malfunctioning — replace it with a different vendor's product since this one is producing apparently inconsistent timeline data on one endpoint and cannot be trusted for future investigations",
+      "Likely small clock skew: process starting 16s before connection is plausible; auth 33s after connection fits malware-then-authenticate. Clock-skew of even 30s changes apparent sequence. First step: check NTP sync on all three systems before any deeper analysis"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      218,
+      216,
+      209,
+      260
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "scen-4.9.1-5",
+    "videoId": "4.9.1",
+    "kind": "scen",
+    "index": 5,
+    "expectedOldStemPrefix": "A company is designing a log retention policy. They need to ",
+    "expectedOldOpts": [
+      "No retention policy — the SIEM auto-deletes old logs and the legal team handles legal holds informally if a matter arises requiring it",
+      "Single retention period of 30 days for everything — short retention reduces storage cost and breach exposure across the board",
+      "Single retention period of 7 years for everything — the longest applicable requirement applied uniformly is operationally simplest to implement",
+      "Three-tier design: operational retention (30-90 days, full SIEM searchable, supports active investigation); compliance retention (1-7 years per regulation, archived to lower-cost cold storage, supports audits and breach investigation); legal hold (indefinite, applies to specific subjects under litigation, overrides normal retention deletion)"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "No retention policy — the SIEM auto-deletes old logs and the legal team handles legal holds informally if a matter arises requiring it later through email coordination with the SOC team after the fact",
+      "Single retention period of 30 days for everything — short retention reduces storage cost and breach exposure across the board, with simple operations and minimal vendor licensing cost overhead in the SIEM platform",
+      "Single retention period of 7 years for everything — the longest applicable requirement applied uniformly is operationally simplest to implement and the vendor storage cost is acceptable for the simplicity gained",
+      "Three-tier: operational (30-90 days, full SIEM searchable, supports active investigation); compliance (1-7 years per regulation, archived to cold storage, supports audits); legal hold (indefinite, per-subject under litigation, overrides normal retention)"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      200,
+      213,
+      211,
+      254
+    ],
+    "src": "audit-a-fix-proposal-batch-4b.txt"
+  },
+  {
+    "id": "mc-5.1.2-1",
+    "videoId": "5.1.2",
+    "kind": "mc",
+    "index": 1,
+    "expectedOldStemPrefix": "PCI DSS and HIPAA are examples of:",
+    "expectedOldOpts": [
+      "Internal organizational standards developed and ratified by a single company's compliance team",
+      "External standards imposed by regulation",
+      "Optional best-practice frameworks adopted voluntarily without legal or contractual consequence",
+      "Security policies signed by an executive sponsor inside one organization for internal governance"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "Internal organizational standards developed and ratified by a single company's compliance team",
+      "External standards imposed by regulators that organizations must comply with or face legal or contractual penalties from auditors",
+      "Optional best-practice frameworks adopted voluntarily without legal or contractual consequence",
+      "Security policies signed by an executive sponsor inside one organization for internal governance"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      94,
+      129,
+      94,
+      96
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "mc-5.1.3-0",
+    "videoId": "5.1.3",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "An offboarding procedure is critical for security because:",
+    "expectedOldOpts": [
+      "It ensures the employee's final paycheck is processed",
+      "It ensures all access is immediately revoked — preventing departed employees from accessing systems or data after separation",
+      "It provides a positive departure experience",
+      "It transfers knowledge to replacement staff"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "It ensures the employee's final paycheck is processed and that the HR system reflects the departure for payroll administration purposes",
+      "It ensures all access is immediately revoked — preventing departed employees from accessing systems or data after separation",
+      "It provides a positive departure experience for the employee, which supports the company's reputation in future hiring and recruitment efforts",
+      "It transfers institutional knowledge to replacement staff so that productivity does not collapse during the transition between outgoing and incoming employees"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      135,
+      124,
+      142,
+      158
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "mc-5.1.5-2",
+    "videoId": "5.1.5",
+    "kind": "mc",
+    "index": 2,
+    "expectedOldStemPrefix": "A data custodian's role is best described as:",
+    "expectedOldOpts": [
+      "Setting data classification policies",
+      "Determining data processing purposes",
+      "Technical responsibility for storing, protecting, and managing the infrastructure that holds the data",
+      "Representing data subjects' interests"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Setting data classification policies and determining how each category of organizational data should be handled across the enterprise",
+      "Determining the purposes for which data is processed and the legal basis under which processing activities are conducted",
+      "Technical responsibility for storing, protecting, and managing the infrastructure that holds the data",
+      "Representing the interests of data subjects whose personal information is held by the organization across all systems and processes"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      133,
+      120,
+      101,
+      131
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.1.1-1",
+    "videoId": "5.1.1",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A company's acceptable use policy (AUP) was last updated in ",
+    "expectedOldOpts": [
+      "Employees are clearly in violation — the AUP's general provisions cover all technology use",
+      "The 2019 AUP is legally binding regardless of technology changes",
+      "Only the Dropbox use is a policy violation — social media and AI are personal decisions",
+      "If the AUP doesn't explicitly address these behaviors, disciplinary action for policy violation is on weak ground — employees can reasonably claim they didn't know the behavior was prohibited. From a security standpoint, unaddressed behaviors in the AUP create ungoverned risk: company data in personal AI tools, unauthorized cloud sync, and client information on social media all expose sensitive data without explicit policy prohibition or employee awareness. The AUP must be updated to address current technology use and re-acknowledged by all employees before enforcement can begin"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Employees are clearly in violation — the AUP's general provisions cover all technology use, so HR can proceed with disciplinary action against employees using ChatGPT, personal Dropbox, and LinkedIn",
+      "The 2019 AUP is legally binding regardless of technology changes, so any behavior that the policy doesn't explicitly authorize is automatically prohibited and treated as a sanctionable employee policy violation",
+      "Only the Dropbox use is a policy violation — social media posts and AI tool use are personal decisions outside the scope of any reasonable acceptable use policy and not the company's concern at all",
+      "If the AUP doesn't explicitly address these behaviors, disciplinary action is on weak ground — employees can claim they didn't know the activity was prohibited. Update the AUP to cover cloud, AI, and remote work, then have all employees re-acknowledge before enforcement begins."
+    ],
+    "newA": 3,
+    "finalLengths": [
+      198,
+      210,
+      197,
+      278
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.1.1-2",
+    "videoId": "5.1.1",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A manufacturing company has a detailed security policy for I",
+    "expectedOldOpts": [
+      "Policy scope failure",
+      "The CISO failed to implement good technical controls",
+      "Engineering should have known to apply IT security policies to OT systems",
+      "OT systems cannot be secured — this is an unavoidable risk"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Policy scope failure — the IT security policy did not cover OT systems, leaving them outside any security governance framework",
+      "The CISO failed to implement good technical controls on the OT environment, and the ransomware spread because firewalls and endpoint protection were missing on the plant floor",
+      "Engineering should have known to apply IT security policies to OT systems on their own initiative without needing the CISO to extend formal policy coverage to those systems",
+      "OT systems cannot be secured — this is an unavoidable industrial-control risk that any manufacturer must simply accept as a cost of operating production lines"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      126,
+      175,
+      172,
+      158
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.1.3-0",
+    "videoId": "5.1.3",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A company's offboarding procedure requires IT to disable Act",
+    "expectedOldOpts": [
+      "The 24-hour SLA in the procedure is insufficient for high-risk terminations (for cause, access to sensitive data). The notification channel (email) is asynchronous and not monitored outside business hours. Process improvements: (1) for any termination, HR triggers account disablement through an automated identity management system integration — not an email to IT; (2) for terminations for cause or roles with access to sensitive data, account disablement occurs simultaneously with or before the employee is notified of termination; (3) establish an on-call IT contact for urgent offboarding outside business hours. Procedural gaps at the human handoff point (HR to IT via email) are a common identity management failure",
+      "The employee committed a crime — the process failure is irrelevant",
+      "The 24-hour SLA is reasonable — weekend incidents are unforeseeable",
+      "IT should monitor email 24/7 to prevent this type of incident"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "The 24-hour email-based SLA is inadequate for high-risk terminations. For sensitive-data roles, disable accounts simultaneously with employee notification via automated identity-management integration — not asynchronous email to IT — and establish on-call coverage for after-hours events.",
+      "The employee committed a crime — the process failure is irrelevant, the breach sits with the former employee, and the existing offboarding procedure with a 24-hour email-based SLA is fundamentally adequate as designed for routine terminations",
+      "The 24-hour SLA is reasonable — weekend incidents are an unforeseeable edge case, and the existing email-based notification procedure works for the vast majority of routine terminations and should not be redesigned because of one weekend incident",
+      "IT should monitor email 24/7 to prevent this type of incident; staffing the IT inbox around the clock is the appropriate operational fix and avoids needing to redesign the HR-to-IT handoff or the underlying offboarding procedure itself"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      288,
+      242,
+      246,
+      235
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.1.4-2",
+    "videoId": "5.1.4",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A company is building a new customer analytics platform that",
+    "expectedOldOpts": [
+      "The marketing team is correct — PIAs are only required for sensitive health or financial data",
+      "PIAs are optional best practices — the marketing team can proceed without one",
+      "The PIA should proceed. Location data and behavioral data are personal data under GDPR and many other privacy regulations — 'just marketing data' understates the sensitivity. A PIA (or DPIA — Data Protection Impact Assessment under GDPR) is required when processing is likely to result in high risk to data subjects' rights, which behavioral profiling and location tracking typically trigger. The 6-week investment identifies privacy risks before launch (when they're cheap to fix) rather than after (when they're expensive, may involve regulatory enforcement, and require product redesign). Privacy by design requires embedding privacy assessment into the development process, not retrofitting it after launch",
+      "PIAs are only required for government agencies, not commercial organizations"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "The marketing team is correct — PIAs are only required for sensitive health or financial data, so aggregated location and behavioral data used for marketing personalization fall well outside the scope of any privacy assessment requirement",
+      "PIAs are optional best practices — the marketing team can proceed without one, and the privacy team can review the analytics platform after launch as part of routine post-deployment privacy posture monitoring activities",
+      "The PIA should proceed. Location and behavioral data are personal data under GDPR; profiling typically triggers DPIA requirements. A 6-week investment finds privacy risks before launch when they are cheap to fix, not after — privacy by design embeds assessment into development.",
+      "PIAs are only required for government agencies, not commercial organizations operating in the private sector, so the analytics platform is exempt from any formal privacy review obligations under any current or proposed privacy regulation"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      238,
+      219,
+      278,
+      237
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.1.5-0",
+    "videoId": "5.1.5",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A company's CRM system contains customer data. The VP of Sal",
+    "expectedOldOpts": [
+      "The VP of Sales is the data owner in the governance sense — not because of budget authority, but because they determine the purpose and use of the customer data (what data is collected, how it's used, who can access it, retention periods). The IT director is the data custodian — technically responsible for the storage, protection, and system management, but acting on the owner's behalf. The data owner's responsibilities include: classifying the data, approving access, setting retention policy, and authorizing who can use the data for what purposes. This distinction matters for compliance: regulators look to data owners for accountability",
+      "The IT director — whoever manages the system owns the data",
+      "The data privacy team — they are responsible for all data governance",
+      "Whoever approved the data collection in the marketing plan"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "The VP of Sales is the data owner — not because of budget authority, but because they determine the purpose and use of the data. The IT director is the data custodian (storage, protection, infrastructure). Owners classify, approve access, and set retention; custodians act on owner direction.",
+      "The IT director — whoever manages the system owns the data; infrastructure responsibility is what defines data ownership in any modern enterprise governance model and is the appropriate accountability anchor for any compliance regime",
+      "The data privacy team — they are responsible for all data governance, classification, access decisions, and retention rules across the entire organization regardless of which business function actually uses the data day to day operationally",
+      "Whoever approved the data collection in the marketing plan is the data owner because they signed off on the original purpose, and ownership flows from initial approval rather than from ongoing decisions about how the data is used by other teams"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      292,
+      233,
+      240,
+      244
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.1.5-1",
+    "videoId": "5.1.5",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "Under GDPR, a company (TechCo) collects employee data and sh",
+    "expectedOldOpts": [
+      "Both are data controllers since they both handle the data",
+      "GDPR doesn't apply to employment data",
+      "TechCo is the data processor since it collects the data first",
+      "TechCo is the data controller — it determines the purpose (paying employees) and means of processing. PayrollCo is the data processor — it processes personal data on behalf of and under the instructions of TechCo. This relationship requires a Data Processing Agreement (DPA) under GDPR Article 28, which must specify: what data is processed, for what purpose, the processor's security obligations, data breach notification requirements, sub-processor restrictions, and data deletion/return obligations. Without a DPA, TechCo is in violation of GDPR regardless of PayrollCo's actual security practices"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "Both are data controllers since they both handle the data — every entity that touches personal data in any capacity is a controller under GDPR and the relationship between TechCo and PayrollCo is therefore a joint-controller arrangement of equals",
+      "GDPR doesn't apply to employment data because employer-employee relationships fall outside the consumer-protection scope of the regulation, so neither TechCo nor PayrollCo has any obligations to formalize this processing arrangement contractually",
+      "TechCo is the data processor since it collects the data first and then sends it to PayrollCo, which becomes the controller because it generates the actual paychecks; the role of controller follows whichever party performs the final data action in the workflow",
+      "TechCo is the data controller — it determines the purpose. PayrollCo is the data processor — it acts on TechCo's instructions only. GDPR Article 28 requires a Data Processing Agreement specifying the data, purpose, security obligations, breach notification, sub-processor restrictions, and deletion."
+    ],
+    "newA": 3,
+    "finalLengths": [
+      246,
+      246,
+      259,
+      299
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.2.1-0",
+    "videoId": "5.2.1",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A company's security team completes a risk assessment and id",
+    "expectedOldOpts": [
+      "The distinction doesn't matter — inherent risk is the relevant figure",
+      "The board needs residual risk, not inherent risk, to make informed decisions. Inherent risk is the theoretical maximum exposure — it tells you how bad things could be with no controls. Residual risk is what actually remains after controls are applied — it's what the organization is actually accepting. Presenting only inherent risk to the board overstates actual risk (which may prompt unnecessary spend) or sets unrealistic expectations (if inherent risk is very high but residual risk after existing controls is low). Residual risk is the actionable figure: it's what drives the decision to accept, transfer, or further mitigate. The gap between inherent and residual is the value the security program is delivering",
+      "Inherent risk is always presented to boards — residual risk is a technical calculation",
+      "Residual risk can only be calculated after all controls are implemented"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "The distinction doesn't matter — inherent risk is the relevant figure for the board because it represents the maximum theoretical exposure and that is the most conservative number for executive risk-based decision-making",
+      "The board needs residual risk, not inherent. Inherent risk = theoretical maximum exposure with no controls; residual risk = what remains after controls are applied. Residual is the actionable figure for accept/transfer/mitigate decisions; the gap between inherent and residual is the security program's measurable value.",
+      "Inherent risk is always presented to boards — residual risk is a technical calculation that belongs in the security team's working documents and is not appropriate to share with executives or board-level stakeholders during oversight reviews",
+      "Residual risk can only be calculated after all controls are implemented and verified, so the team must finish the implementation work first before producing any residual figure for the board's accept-or-treat decisions on this register"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      220,
+      320,
+      241,
+      235
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.2.1-1",
+    "videoId": "5.2.1",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A financial services firm's risk register shows a risk: 'Unp",
+    "expectedOldOpts": [
+      "Risk escalation",
+      "The CISO is overstepping — risk ownership belongs to the VP of Technology",
+      "The CISO should wait longer before escalating — 8 months is not unusual for complex patches",
+      "The risk should be reclassified as accepted to clear it from the register"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Risk escalation — the CISO is bringing an unmitigated High/High risk to the appropriate authority for an explicit accept-or-treat decision",
+      "The CISO is overstepping — risk ownership belongs to the VP of Technology and the board has no role until the risk owner formally requests escalation",
+      "The CISO should wait longer before escalating — 8 months is not unusual for complex patches and the risk register's mitigation-in-progress status is the correct interim state",
+      "The risk should be reclassified as accepted to clear it from the register since the organization has clearly tolerated it for 8 months without remediation activity"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      138,
+      149,
+      174,
+      163
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.2.2-0",
+    "videoId": "5.2.2",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A company's asset inventory shows their e-commerce web serve",
+    "expectedOldOpts": [
+      "ALE = $2,000,000 × 0.5 = $1,000,000; the WAF cannot be justified on this alone",
+      "SLE = Asset Value × Exposure Factor = $2,000,000 × 0.5 = $1,000,000. ARO (before controls) = 2 attempts × 0.25 success rate = 0.5 successful attacks per year. ALE = SLE × ARO = $1,000,000 × 0.5 = $500,000 per year expected loss. If the WAF reduces the successful attack rate from 0.25 to near 0 (essentially eliminating SQLi risk), the WAF justification: $500,000 annual expected loss prevented vs $50,000 WAF cost = a 10:1 return on security investment. Any control costing less than the ALE it prevents is financially justified",
+      "ALE = $2,000,000 × 2 = $4,000,000; any investment under this amount is justified",
+      "ALE calculations are only valid for physical asset losses — not data breaches"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "ALE = $2,000,000 × 0.5 = $1,000,000; the WAF cannot be justified on this figure alone, since a single-loss expectancy tells you exposure per event but provides no annualized basis for comparing against an annual control cost",
+      "SLE = Asset Value × Exposure Factor = $2,000,000 × 0.5 = $1,000,000. ARO before controls = 2 attempts × 0.25 success = 0.5/yr. ALE = SLE × ARO = $500,000/yr. WAF justification: $500K annual loss prevented vs $50K cost = 10:1 ROI. Any control under the ALE it prevents is financially justified.",
+      "ALE = $2,000,000 × 2 = $4,000,000; any investment under this amount is justified, since multiplying the asset value by the number of attempts produces the figure used to size the annual control budget for this asset",
+      "ALE calculations are only valid for physical asset losses — not data breaches, since data has no replacement cost and quantitative risk methodology cannot be applied to information-asset exposures in any defensible way analytically"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      224,
+      293,
+      215,
+      231
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.2.2-1",
+    "videoId": "5.2.2",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A qualitative risk assessment rates a 'ransomware infection'",
+    "expectedOldOpts": [
+      "Qualitative risk analysis (High/Medium/Low ratings) is faster, requires less data, and works well for relative prioritization — ranking which risks need attention first — and for communicating risk to non-technical stakeholders. It's appropriate when historical loss data isn't available or when a rapid, broad risk assessment is needed. Quantitative analysis (SLE, ARO, ALE) provides financial figures that justify specific control investments and enable cost-benefit analysis, but requires reliable data on asset values, attack frequencies, and loss magnitudes — which is often unavailable or expensive to obtain. Most organizations use qualitative for prioritization and quantitative for major investment decisions where the analysis effort is justified by the decision size",
+      "Quantitative is always superior — qualitative analysis should never be used",
+      "Qualitative is always sufficient — quantitative is only used in academic settings",
+      "Quantitative should replace qualitative entirely once sufficient data is available"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Qualitative (High/Med/Low) is faster, needs less data, and works for relative prioritization and non-technical stakeholder communication. Quantitative (SLE/ARO/ALE) produces financial figures that justify specific control investments but requires reliable loss data. Most orgs use qualitative for prioritization, quantitative for major investments.",
+      "Quantitative is always superior — qualitative analysis should never be used in a mature security program because High/Med/Low ratings cannot drive specific investment decisions and provide no actionable basis for executive choices about budget or controls",
+      "Qualitative is always sufficient — quantitative is only used in academic settings and adds analytical overhead that real organizations cannot afford to bear given the data-collection effort quantitative analysis demands for any single risk being assessed",
+      "Quantitative should replace qualitative entirely once sufficient data is available, since qualitative methods are a temporary substitute used until enough loss-history data has been collected to support proper quantitative ALE calculations across the entire risk register"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      348,
+      255,
+      254,
+      271
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.2.2-2",
+    "videoId": "5.2.2",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "An organization's risk register has 12 risks marked as 'Acce",
+    "expectedOldOpts": [
+      "Undocumented risk acceptance has multiple governance failures: (1) no accountability — without a named risk owner, nobody is responsible for the accepted risk or for monitoring if conditions change; (2) no rationale — future decision-makers don't know why the risk was accepted, making it impossible to reassess when circumstances change; (3) no review date — accepted risks may no longer be appropriate to accept as the threat landscape evolves but without a review trigger they persist indefinitely; (4) regulatory exposure — regulators and auditors treat undocumented risk acceptance as evidence of negligence rather than deliberate governance. Risk acceptance must be: documented, owned, justified, time-limited, and reviewed. 'Accepted' without documentation is indistinguishable from 'ignored'",
+      "Documentation is optional for accepted risks — acceptance is self-explanatory",
+      "The board member is overstepping — risk acceptance decisions are management prerogatives",
+      "Accepted risks don't need documentation since no action is required"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Undocumented acceptance fails on multiple governance grounds: no accountability (no named owner), no rationale (future decision-makers can't reassess), no review date (acceptance persists indefinitely as conditions change), and regulatory exposure (auditors treat it as negligence). Acceptance must be documented, owned, justified, time-limited, and reviewed.",
+      "Documentation is optional for accepted risks — acceptance is self-explanatory once the status is recorded, and adding owner, rationale, and review-date fields just creates bureaucratic overhead that does not change the underlying risk decision in any meaningful operational way",
+      "The board member is overstepping — risk acceptance decisions are management prerogatives that the board need not second-guess, and questioning each individual entry undermines the executive team's authority to manage risk on behalf of shareholders going forward",
+      "Accepted risks don't need documentation since no action is required, and once a risk has been accepted the organization has effectively closed out its analysis obligations and has nothing further to record about that particular risk in any operational governance system"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      359,
+      277,
+      261,
+      269
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.2.3-1",
+    "videoId": "5.2.3",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A manufacturing company performs a risk assessment and ident",
+    "expectedOldOpts": [
+      "Yes — the cost of patching exceeds the expected loss, so acceptance is clearly correct",
+      "Yes — the financial analysis is complete; no additional steps are needed",
+      "The financial analysis supports acceptance ($800K ALE vs $4.2M patch cost) but risk acceptance must be accompanied by: (1) formal documentation signed by the appropriate authority (VP Operations or higher given the risk level), (2) compensating controls implemented to reduce the actual exposure (network isolation of the PLC, enhanced monitoring, access restrictions to reduce the ARO), (3) a defined review trigger (if ALE increases or patch becomes available without production shutdown), and (4) the risk entered in the risk register with an owner and review date. Acceptance without compensating controls and documentation is negligence; acceptance with a documented rationale and mitigating measures is legitimate risk management",
+      "No — any vulnerability in an OT system must be patched regardless of cost"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Yes — the cost of patching exceeds the expected loss, so acceptance is clearly correct and the team can simply note the decision in the risk register without further documentation, compensating controls, or an explicit review trigger going forward in time",
+      "Yes — the financial analysis is complete; no additional steps are needed because the ALE-vs-patch-cost comparison is the only governance test that matters, and once the math justifies acceptance the formal risk-acceptance process is effectively concluded for this risk",
+      "Acceptance is supported financially ($800K ALE vs $4.2M patch cost), but must include: formal documentation signed by appropriate authority, compensating controls (network isolation, enhanced monitoring, access restrictions to lower the ARO), a defined review trigger, and an entry in the risk register with owner and review date — not bare acceptance.",
+      "No — any vulnerability in an OT system must be patched regardless of cost, because OT systems are too critical to leave with known firmware vulnerabilities and ALE-based financial analysis cannot be applied to industrial-control systems where production continuity is paramount"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      255,
+      268,
+      352,
+      277
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.2.3-2",
+    "videoId": "5.2.3",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A company purchases cyber insurance with a $5M policy coveri",
+    "expectedOldOpts": [
+      "The CISO is correct — cyber insurance fully transfers ransomware risk",
+      "The CISO should have purchased a higher policy limit to fully transfer the risk",
+      "The CISO's characterization is partially correct but overstated. Cyber insurance transfers the FINANCIAL impact of a breach up to the policy limit — it doesn't transfer the operational risk (production downtime, reputational damage, customer loss), the regulatory risk (fines under GDPR, HIPAA are not typically insurable and may exceed the policy), or the residual risk above the $5M limit. Ransomware attacks can cause losses far exceeding $5M for a mid-size company (operational downtime, recovery costs, regulatory fines, legal fees). The technical risk (probability of attack, impact on operations) remains entirely with the organization — insurance is financial risk transfer, not operational risk elimination. The board is right to probe this distinction",
+      "Ransomware cannot be insured — the board is correct to question the policy"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "The CISO is correct — cyber insurance fully transfers ransomware risk because the policy provides financial coverage for breach costs, and the existence of a $5M policy means the organization is no longer exposed to ransomware risk in any practical sense whatsoever",
+      "The CISO should have purchased a higher policy limit to fully transfer the risk, but the structure of using cyber insurance as the risk-transfer mechanism is sound — the only remediation needed is to negotiate a higher coverage limit with the carrier on policy renewal",
+      "Cyber insurance transfers the FINANCIAL impact of a breach up to the policy limit — it does not transfer operational risk (downtime, reputation, customer loss), regulatory risk (GDPR/HIPAA fines may not be insurable), or losses above the $5M limit. Technical risk stays with the organization; insurance is financial transfer, not operational elimination.",
+      "Ransomware cannot be insured — the board is correct to question the policy because insurers exclude ransomware events from coverage entirely, and the CISO has misrepresented the protections actually available to the organization through this particular insurance instrument"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      265,
+      268,
+      354,
+      273
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.2.4-0",
+    "videoId": "5.2.4",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A hospital conducts a Business Impact Analysis for its clini",
+    "expectedOldOpts": [
+      "The RTO and MTD should be equal — there is an error in the BIA",
+      "The MTD should always be less than the RTO — the BIA has the relationship backwards",
+      "The MTD is the maximum time the business can survive without the system before unacceptable consequences occur — 4 hours. The RTO is the target recovery time, which must be LESS than the MTD to provide a safety margin. Setting RTO = MTD means any delay in recovery immediately breaches the tolerable limit with no buffer. Setting RTO at 2 hours means: even if recovery takes longer than targeted, there is a 2-hour window before reaching the MTD. RTO drives the technical architecture (what recovery capability is needed to achieve 2-hour recovery). MTD is the business requirement; RTO is the technical target derived from it with a safety margin",
+      "RTO and MTD are the same concept with different names"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "The RTO and MTD should be equal — there is an error in the BIA, and the recovery target should always be aligned exactly with the maximum tolerable downtime so that recovery effort is sized to the precise duration the business can survive without the system",
+      "The MTD should always be less than the RTO — the BIA has the relationship backwards, since the maximum tolerable downtime represents what is technically achievable and the recovery target reflects the longer business-acceptable window the organization is willing to operate under",
+      "MTD is the maximum the business can survive without the system before unacceptable consequences (4 hours). RTO is the recovery target, set BELOW MTD to give a safety margin — if RTO=MTD, any delay in recovery breaches the tolerable limit immediately. RTO drives the technical recovery architecture; MTD is the business requirement it must satisfy.",
+      "RTO and MTD are the same concept with different names; the security industry uses one term and the disaster-recovery industry uses the other, but the underlying meaning is identical and the BIA author was likely just mixing up two equivalent terminology variants from different professional traditions"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      257,
+      279,
+      347,
+      301
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "mc-5.3.1-0",
+    "videoId": "5.3.1",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "A right-to-audit clause in a vendor contract allows:",
+    "expectedOldOpts": [
+      "The organization to assess the vendor's security controls — either directly or through an independent third party",
+      "The vendor to audit the organization",
+      "Unlimited access to vendor systems at any time",
+      "Automatic termination if the vendor fails an audit"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "The organization to assess the vendor's security controls — either directly or through an independent third party",
+      "The vendor to audit the organization's security controls for compliance with the vendor's contractual security obligations",
+      "Unlimited access to vendor systems at any time without notice or scheduling, including production data and live operations",
+      "Automatic termination of the vendor contract if the vendor fails an audit, with no remediation period or right of cure"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      113,
+      122,
+      122,
+      118
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "mc-5.3.1-2",
+    "videoId": "5.3.1",
+    "kind": "mc",
+    "index": 2,
+    "expectedOldStemPrefix": "Third-party risk management should be:",
+    "expectedOldOpts": [
+      "A one-time assessment at contract signing",
+      "Only necessary for vendors with direct network access",
+      "Performed only when a vendor requests it",
+      "Continuous — vendors must be monitored throughout the relationship as their security posture can change"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "A one-time assessment at contract signing, with no further review of the vendor's security posture during the contract term",
+      "Only necessary for vendors with direct network access to the organization's internal infrastructure or production systems",
+      "Performed only when a vendor explicitly requests it as part of their internal compliance or sales-enablement process",
+      "Continuous — vendors must be monitored throughout the relationship as their security posture can change over time"
+    ],
+    "newA": 3,
+    "finalLengths": [
+      123,
+      121,
+      116,
+      113
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "mc-5.3.2-0",
+    "videoId": "5.3.2",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "An SLA (Service Level Agreement) is important for security b",
+    "expectedOldOpts": [
+      "It establishes minimum acceptable service levels and the remedies if not met — ensuring vendor accountability for availability",
+      "It defines encryption standards",
+      "It replaces the need for cyber insurance",
+      "It defines technical security controls"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "It establishes minimum acceptable service levels and the remedies if not met — ensuring vendor accountability for availability",
+      "It defines the encryption standards the vendor must implement when handling the customer's data at rest and in transit",
+      "It replaces the need for cyber insurance because the contractual remedies fully indemnify the organization for any service-related losses",
+      "It defines the technical security controls the vendor must implement, including specific tools, configurations, and audit logging"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      126,
+      118,
+      137,
+      129
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "mc-5.3.2-1",
+    "videoId": "5.3.2",
+    "kind": "mc",
+    "index": 1,
+    "expectedOldStemPrefix": "An NDA (Non-Disclosure Agreement) protects organizations by:",
+    "expectedOldOpts": [
+      "Defining minimum service levels",
+      "Preventing parties from disclosing confidential information shared during a business relationship",
+      "Establishing interconnection security requirements",
+      "Defining breach notification timelines"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "Defining the minimum service levels the vendor must meet during normal business operations under the agreement",
+      "Preventing parties from disclosing confidential information shared during a business relationship",
+      "Establishing interconnection security requirements between the two organizations' technical environments and access controls",
+      "Defining breach notification timelines that the vendor must meet when reporting a security incident to the customer"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      110,
+      97,
+      124,
+      115
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.3.1-2",
+    "videoId": "5.3.1",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "A company enters a contract with a cloud provider. The contr",
+    "expectedOldOpts": [
+      "The 99.9% SLA is insufficient — they should have negotiated 99.99%",
+      "Multiple critical omissions: (1) No right-to-audit — the company cannot verify the cloud provider's security claims independently; (2) No breach notification — the company may not learn of a breach until it appears in the news, missing their regulatory notification windows (GDPR 72 hours, various state laws); (3) No geographic restriction — data may be stored in jurisdictions with different legal environments, creating data sovereignty and compliance issues. The SLA uptime is a performance metric; the missing security provisions represent fundamental governance and compliance gaps. The security team should have been involved in contract review before signing — post-signing remediation requires renegotiation",
+      "The 99.9% SLA gap (8.7 hours/year) is the primary concern",
+      "The contract is acceptable — cloud providers are responsible for their own security"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "The 99.9% SLA is insufficient — they should have negotiated 99.99%, since the additional uptime guarantee is the most material protection a customer can extract from a cloud provider in any contract negotiation cycle going forward in time",
+      "Multiple critical omissions: no right-to-audit (can't verify the provider's security claims independently); no breach notification (may miss GDPR's 72-hour window); no geographic restriction (data sovereignty and compliance gaps). The SLA is a performance metric, not a security control — security should review contracts before signing.",
+      "The 99.9% SLA gap (8.7 hours/year) is the primary concern, and the missing security clauses are minor in comparison since uptime is the only contractual protection that translates directly into operational impact for the customer using the service",
+      "The contract is acceptable — cloud providers are responsible for their own security under the shared-responsibility model, so the customer does not need explicit right-to-audit, breach-notification, or data-sovereignty clauses to be adequately protected against losses"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      238,
+      337,
+      247,
+      268
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "mc-5.4.1-0",
+    "videoId": "5.4.1",
+    "kind": "mc",
+    "index": 0,
+    "expectedOldStemPrefix": "Compliance monitoring involves:",
+    "expectedOldOpts": [
+      "Meeting compliance requirements once at audit time",
+      "Continuously verifying that security controls remain effective and requirements are being met — not just at audit time",
+      "Only responding to regulator requests",
+      "Outsourcing all compliance to a third party"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "Meeting compliance requirements once at audit time and treating compliance as a point-in-time event rather than as an ongoing program",
+      "Continuously verifying that security controls remain effective and requirements are being met — not just at audit time",
+      "Only responding to regulator requests when they arrive, and otherwise relying on inertia until prompted by an external authority",
+      "Outsourcing all compliance to a third-party assessor who handles regulatory engagement and remediation work on behalf of the firm"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      133,
+      118,
+      128,
+      129
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.4.1-1",
+    "videoId": "5.4.1",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A company must comply with GDPR (EU data protection), CCPA (",
+    "expectedOldOpts": [
+      "Four separate programs is more thorough — each regulation gets dedicated attention",
+      "The CISO's argument for a unified framework: most regulations share common control requirements (encryption, access control, audit logging, incident response, vendor management). A unified framework implements each control once and maps it to multiple regulatory requirements — avoiding duplicate effort and ensuring consistency. Four separate programs risk: (1) conflicting controls (one regulation's requirement contradicts another's); (2) inefficiency (encrypting data four times for four programs when once meets all requirements); (3) audit fatigue (four separate audit programs with similar but differently-worded controls); (4) coverage gaps (controls required by one regulation not visible to teams managing another). A controls framework (such as a unified control matrix mapping to GDPR, CCPA, HIPAA, PCI DSS simultaneously) is the mature approach",
+      "Separate programs are legally required — regulations cannot be combined",
+      "The CISO's approach reduces compliance assurance by diluting focus"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "Four separate programs is more thorough — each regulation gets dedicated attention from a team focused exclusively on that regulation, and the duplicated effort is the price of regulatory rigor and audit defensibility for any organization operating across multiple regimes",
+      "Most regulations share common controls (encryption, access control, audit logging, incident response, vendor management). A unified framework implements each control once and maps it to multiple regulations. Four separate programs risk conflicting requirements, duplicated effort, audit fatigue, and coverage gaps.",
+      "Separate programs are legally required — regulations cannot be combined into a unified framework because each regulator demands its own dedicated compliance program with its own controls catalog, its own staffing, and its own reporting cadence to the executive team",
+      "The CISO's approach reduces compliance assurance by diluting focus across regimes, since one set of unified controls cannot adequately satisfy the specific demands of any individual regulator and the result is a controls program that fails every audit it touches"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      272,
+      314,
+      265,
+      262
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.4.2-2",
+    "videoId": "5.4.2",
+    "kind": "scen",
+    "index": 2,
+    "expectedOldStemPrefix": "An EU citizen's personal data was processed by a US company ",
+    "expectedOldOpts": [
+      "US privacy law supersedes GDPR for US companies processing data in the US",
+      "Privacy Shield invalidation only affected government data transfers, not commercial ones",
+      "EU DPAs have no jurisdiction over US companies",
+      "GDPR's data transfer restrictions (Chapter V) apply based on the data subject's location, not the processor's. When personal data of EU residents leaves the EEA to a third country (like the US), GDPR requires an approved transfer mechanism: Standard Contractual Clauses (SCCs), Binding Corporate Rules, or adequacy decision. Compliance with US law is necessary but not sufficient — the transfer must also satisfy GDPR's transfer requirements. The US company's US law compliance is irrelevant to the GDPR violation. This illustrates that organizations processing EU residents' data must understand and comply with both their local law AND GDPR's extraterritorial requirements"
+    ],
+    "expectedOldA": 3,
+    "newOpts": [
+      "US privacy law supersedes GDPR for US companies processing data in the US, since the principal place of business and the location where the data is processed determine which regulatory regime applies — and GDPR has no extraterritorial reach for US-based processing operations",
+      "Privacy Shield invalidation only affected government data transfers, not commercial ones, so commercial cross-border processing arrangements remain valid under their pre-Schrems II structures and the EU resident has no basis to file a complaint with their data protection authority",
+      "EU DPAs have no jurisdiction over US companies because the company has no presence in the EU and is governed exclusively by US law, so the complaint will be dismissed by the DPA on jurisdictional grounds without proceeding to any substantive review",
+      "GDPR transfer restrictions apply based on the data subject's location, not the processor's. Personal data of EU residents leaving the EEA requires an approved mechanism: SCCs, Binding Corporate Rules, or an adequacy decision. US-law compliance alone doesn't satisfy GDPR's extraterritorial requirements."
+    ],
+    "newA": 3,
+    "finalLengths": [
+      275,
+      281,
+      248,
+      303
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.5.1-0",
+    "videoId": "5.5.1",
+    "kind": "scen",
+    "index": 0,
+    "expectedOldStemPrefix": "A company's internal audit team conducts a security audit an",
+    "expectedOldOpts": [
+      "The CISO acted correctly — internal audit findings should be handled internally",
+      "Internal audit reporting independence was compromised: internal audit findings — particularly control deficiencies — must be reported to the audit committee directly, not just to the function being audited. When the CISO (head of the function being audited) is also the internal audit's reporting line, internal audit loses independence — findings can be suppressed or managed without audit committee visibility. Internal audit's value is its independent reporting line to the board/audit committee. The 23 deficiencies known to the CISO but not reported to the audit committee is exactly the oversight failure internal audit is designed to prevent — not perpetuate",
+      "The external auditors duplicated the internal audit — that is the real problem",
+      "The CISO acted correctly by managing remediation before escalating to the board"
+    ],
+    "expectedOldA": 1,
+    "newOpts": [
+      "The CISO acted correctly — internal audit findings should be handled internally and remediated quietly, so the board is not distracted with operational details about how each control deficiency is being worked through by the team responsible for that area",
+      "Internal audit reporting independence was compromised: control deficiencies must be reported to the audit committee directly, not just the function audited. When the CISO heads the audited function and is also internal audit's reporting line, findings can be suppressed without audit-committee visibility.",
+      "The external auditors duplicated the internal audit — that is the real problem, since paying two audit teams to find the same deficiencies wastes professional fees and the board should be questioning the budget for redundant audit activities, not the reporting structure",
+      "The CISO acted correctly by managing remediation before escalating to the board, since the standard practice is to bring closed findings (with the deficiency already addressed) to the audit committee rather than open findings that the team is still actively working through"
+    ],
+    "newA": 1,
+    "finalLengths": [
+      255,
+      305,
+      270,
+      273
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.5.2-1",
+    "videoId": "5.5.2",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "After a penetration test engagement, the testing firm delive",
+    "expectedOldOpts": [
+      "Accept all findings as reported — penetration test reports are always accurate",
+      "Immediately remediate all 48 findings before responding to the testing firm",
+      "The CISO should: (1) formally respond to each finding with a disposition — confirmed and will remediate (with timeline), confirmed finding but documented accepted risk (reference the risk register entry), or disputed (request clarification/evidence from the testing firm for the apparently mis-rated finding); (2) work with the testing firm to reissue the report with accurate severity ratings for the disputed finding; (3) challenge the 'poor posture' characterization in the executive summary if the supporting evidence doesn't justify it — one confirmed critical finding doesn't necessarily mean 'poor posture.' Penetration test findings require security team validation and disposition, not blind acceptance. The risk register entry is the organization's documented position on that specific risk",
+      "The penetration test firm's characterization cannot be challenged — accept the report as final"
+    ],
+    "expectedOldA": 2,
+    "newOpts": [
+      "Accept all findings as reported — penetration test reports are always accurate because the testing firm has expertise in assessing severity, and disputing any finding undermines the integrity of the engagement and signals the customer is more interested in defending the report than improving security",
+      "Immediately remediate all 48 findings before responding to the testing firm, since prompt remediation of every reported issue regardless of severity rating is the correct security posture and there is no business value in disputing severity classifications or referencing the existing risk register at any time",
+      "The CISO should: (1) formally disposition each finding (confirmed/will-remediate, accepted-with-risk-register reference, or disputed); (2) work with the testing firm to reissue the report with corrected severity ratings; (3) challenge the 'poor posture' summary if the evidence does not support it. Pen-test findings require security-team validation, not blind acceptance.",
+      "The penetration test firm's characterization cannot be challenged — accept the report as final, since the testing firm is the engaged expert and any pushback by the security team will be interpreted by auditors and regulators as defensive posturing rather than legitimate technical disagreement on findings"
+    ],
+    "newA": 2,
+    "finalLengths": [
+      301,
+      310,
+      372,
+      306
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "mc-5.6.1-2",
+    "videoId": "5.6.1",
+    "kind": "mc",
+    "index": 2,
+    "expectedOldStemPrefix": "Which metric BEST demonstrates the effectiveness of a securi",
+    "expectedOldOpts": [
+      "Reduction in phishing simulation click rates and increase in suspicious email reporting over multiple assessment periods",
+      "Number of security policies published",
+      "Amount spent on security training",
+      "Number of training courses completed"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Reduction in phishing simulation click rates and increase in suspicious email reporting over multiple assessment periods",
+      "Number of security policies published over the same period across the organization, regardless of staff awareness or actual behavior change",
+      "Amount spent on security awareness training across the organization, since program spending is a direct proxy for awareness effectiveness over time",
+      "Number of training courses completed by employees during the period, regardless of any measured behavior change in their security choices"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      120,
+      139,
+      147,
+      137
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  },
+  {
+    "id": "scen-5.6.1-1",
+    "videoId": "5.6.1",
+    "kind": "scen",
+    "index": 1,
+    "expectedOldStemPrefix": "A company's security awareness program sends monthly phishin",
+    "expectedOldOpts": [
+      "Both are partially right: extreme caution is better than falling for real phishing, but operational disruption from employees refusing to click legitimate links is a real problem with business impact. The punitive design (manager notification, mandatory remediation) may be creating fear rather than informed judgment. Adjustments: (1) make simulations learning opportunities rather than punitive events — don't notify managers of individual failures (this creates shame-based culture, not security culture); (2) focus on teaching employees how to VERIFY suspicious links (hover to see URL, call the sender, use reporting tools) rather than to never click anything; (3) celebrate employees who report suspicious emails correctly; (4) ensure legitimate business emails follow design standards that make them distinguishable (consistent formatting, known sender domains) to reduce false positives",
+      "The security team is correct — extreme caution is always the right outcome",
+      "The HR team is overreacting — link refusal is always the correct security behavior",
+      "Add more phishing simulations to increase employee vigilance further"
+    ],
+    "expectedOldA": 0,
+    "newOpts": [
+      "Both are partially right: extreme caution beats real phishing, but disruption from refusing legitimate links is a real cost. Adjustments: drop manager notification of individual failures (creates fear, not security culture); teach verification (hover URL, call sender, use reporting tools); celebrate correct reporting; standardize legitimate-email design so they're distinguishable.",
+      "The security team is correct — extreme caution is always the right outcome regardless of operational impact, since any click on a malicious link can lead to a ransomware incident or credential theft, and the cost of operational disruption from over-cautious behavior is always lower than the cost of any breach",
+      "The HR team is overreacting — link refusal is always the correct security behavior, since employees who refuse to click any link in any email are providing the maximum protection and the operational disruption is a misperception of normal security-conscious behavior that HR should be reframing rather than reporting",
+      "Add more phishing simulations to increase employee vigilance further, since the current monthly cadence isn't generating enough fear of clicking and weekly or daily simulations would drive the failure rate even lower while reinforcing the existing punitive feedback loop the organization has in place currently"
+    ],
+    "newA": 0,
+    "finalLengths": [
+      383,
+      310,
+      316,
+      310
+    ],
+    "src": "audit-a-fix-proposal-batch-5.txt"
+  }
+]
