@@ -3,6 +3,7 @@ import ALL_SECTIONS from "../questions.json";
 import SyncSettings, { deriveHealth } from "./sync/SyncSettings.jsx";
 import { getStatus as getSyncStatus, subscribe as subscribeSync } from "./sync/sync-engine.js";
 import { buildPool } from "./study/buildPool.js";
+import CustomiseDrawer from "./study/CustomiseDrawer.jsx";
 
 // ─── DATA LIVES IN questions.json ──────────────────────────────
 
@@ -1187,25 +1188,45 @@ const STUDY_MODE_CARDS = [
   ["matching",   "🔗", "Matching",    "Term-to-definition exercises"],
 ];
 
-const STUDY_MODE_TO_PRESET = {
-  quiz: "standard",
-  review: "spaced",
-  drill: "weak",
+// Sub-batch 2B: StudyTab routes mode-card clicks to the drawer's mode key.
+// Flashcards still routes to CramTab (no drawer per D10 / D7). The
+// STUDY_MODE_TO_PRESET name from Sub-batch 1 retired alongside the
+// presetMode bridge — drawer-mode is now the single routing key.
+const STUDY_MODE_TO_DRAWER = {
+  quiz: "quiz",
+  review: "review",
+  drill: "drill",
   matching: "matching",
-  // flashcards routes to CramTab, not QuizTab
+  // flashcards: omitted — handled directly by StudyTab via CramTab
 };
 
+// Sub-batch 2B: StudyTab is now the session orchestrator.
+//   - Mode picker (no card selected) → renders 5-card grid.
+//   - Flashcards card → CramTab (unchanged; cram lands in Sub-batch 4 per D7/D10).
+//   - Other 4 cards → CustomiseDrawer until user clicks Start, then QuizTab
+//     with a session prop carrying the pre-built pool + activeRecall +
+//     revealOptions + drawer mode.
+//   - Post-exam drill handoff bypasses the drawer entirely: pendingDrill
+//     payload becomes the session.pool directly. Same UX as Sub-batch 1.
 function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, pendingDrill, clearPendingDrill }) {
   const [selectedMode, setSelectedMode] = useState(null);
+  const [session, setSession] = useState(null);
 
-  // Auto-route into Drill Wrong when ExamTab fires "Drill N Wrong" — preserves
-  // today's post-exam drill-handoff UX. The pendingDrill payload itself flows
-  // through QuizTab's existing useEffect to load the running session.
   useEffect(() => {
-    if (pendingDrill && pendingDrill.length > 0) {
-      setSelectedMode("drill");
-    }
-  }, [pendingDrill]);
+    if (!pendingDrill || pendingDrill.length === 0) return;
+    // Normalise exam question shape to the MC quiz shape and shuffle options
+    const normalised = pendingDrill.map(q => shuffleOptions({ ...q, type: "mc" }));
+    setSelectedMode("drill");
+    setSession({
+      id: `drill-${Date.now()}`,
+      mode: "drill",
+      pool: shuffle(normalised),
+      activeRecall: false,
+      revealOptions: true,
+      isPreloaded: true,
+    });
+    clearPendingDrill && clearPendingDrill();
+  }, [pendingDrill, clearPendingDrill]);
 
   if (!selectedMode) {
     return (
@@ -1213,7 +1234,7 @@ function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, 
         <div style={styles.cardTitle}>Study</div>
         <div style={styles.studyPicker}>
           {STUDY_MODE_CARDS.map(([id, icon, title, desc]) => (
-            <button key={id} onClick={() => setSelectedMode(id)} style={styles.modeCard}>
+            <button key={id} onClick={() => { setSelectedMode(id); setSession(null); }} style={styles.modeCard}>
               <div style={{ fontSize: 28 }}>{icon}</div>
               <div style={{ fontWeight: 700, marginTop: 6 }}>{title}</div>
               <div style={{ fontSize: 12, color: "#9ca3af", marginTop: 4 }}>{desc}</div>
@@ -1228,28 +1249,60 @@ function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, 
     return <CramTab watchedVideos={watchedVideos} onBack={() => setSelectedMode(null)} />;
   }
 
+  const drawerMode = STUDY_MODE_TO_DRAWER[selectedMode];
+
+  if (!session) {
+    if (watchedVideos.length === 0) {
+      return (
+        <div style={styles.emptyState}>
+          <button onClick={() => setSelectedMode(null)} style={{ ...styles.backBtn, alignSelf: "flex-start" }}>← Back to modes</button>
+          <div style={{ fontSize: 48 }}>🔒</div>
+          <div style={{ fontSize: 20, fontWeight: 700, marginTop: 12 }}>No videos watched yet</div>
+          <div style={{ color: "#9ca3af", marginTop: 8 }}>Go to Progress and mark videos as watched to unlock questions</div>
+        </div>
+      );
+    }
+    return (
+      <CustomiseDrawer
+        mode={drawerMode}
+        sections={sections}
+        watchedVideos={watchedVideos}
+        store={store}
+        onBack={() => { setSelectedMode(null); setSession(null); }}
+        onStart={(filters, pool) => setSession({
+          id: `${drawerMode}-${Date.now()}`,
+          mode: drawerMode,
+          pool,
+          activeRecall: !!filters.activeRecall,
+          revealOptions: !!filters.revealOptions,
+        })}
+      />
+    );
+  }
+
   return (
     <QuizTab
+      key={session.id}
       sections={sections}
       watchedVideos={watchedVideos}
       store={store}
       recordResult={recordResult}
       recordRating={recordRating}
       recordSession={recordSession}
-      pendingDrill={pendingDrill}
-      clearPendingDrill={clearPendingDrill}
-      presetMode={STUDY_MODE_TO_PRESET[selectedMode]}
-      onBack={() => setSelectedMode(null)}
+      session={session}
+      onBack={() => setSession(null)}
     />
   );
 }
 
-// ─── LEGACY-MODE → buildPool SHIM (Task 2 Sub-batch 2A) ─────────
-// Maps the 6 legacy setupMode strings to the new buildPool() filter shape.
-// 2A keeps user-visible behavior identical to Sub-batch 1 by routing every
-// startQuiz call through buildPool with these legacy-default filters. The
-// drawer in 2B will write filters directly; this shim deletes in 2C
-// alongside the orphaned 6-card grid.
+// ─── LEGACY-MODE → buildPool SHIM (Task 2 Sub-batch 2A; ORPHANED in 2B) ──
+// Originally routed setupMode → buildPool filters in 2A. In 2B the drawer
+// owns filters directly via MODE_DEFAULTS in src/study/drawer-state.js,
+// which mirrors the same legacy values. This block is no longer called by
+// any code path — kept here as the seed-of-record for 2C cleanup, then
+// deleted alongside the 6-card grid (per design v2 §6 Sub-batch 5 + the
+// 2C cleanup of LEGACY_SHIM_FOR_MODE / legacyToBuildPoolMode /
+// legacyEmptyMessage).
 const LEGACY_SHIM_FOR_MODE = {
   standard: ({ selectedVids, questionCount }) => ({
     questionTypes: ["mc"], videoIds: selectedVids, length: questionCount, watchedOnly: true,
@@ -1291,53 +1344,28 @@ function legacyEmptyMessage(m, weakRatio) {
 }
 
 // ─── QUIZ TAB ──────────────────────────────────────────────────
-// presetMode (Task 2 Sub-batch 1): when set, drives setupMode imperatively
-//   so the StudyTab picker can route a card click into the right pool-build
-//   logic. Changing presetMode resets the running session so picking a
-//   different mode-card from the picker is always a fresh setup.
-//   The internal 6-mode grid (line ~1338) is hidden when presetMode is set —
-//   it's orphaned in code, removed in Sub-batch 5 cleanup.
-// onBack: when set, renders a "← Back to modes" button on the setup view so
-//   users can return to the picker.
-function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, pendingDrill, clearPendingDrill, presetMode, onBack }) {
-  const [mode, setMode] = useState(null); // null | "setup" | "running" | "results"
-  const [dialog, setDialog] = useState(null); // modal state: { title?, body, actions } | null
-  const showAlert = (body, title) => setDialog({
-    title,
-    body,
-    actions: <button onClick={() => setDialog(null)} style={styles.modalBtnPrimary}>OK</button>,
-  });
-  const [setupMode, setSetupMode] = useState(presetMode || "standard");
+// Sub-batch 2B: QuizTab is running-only. Setup is owned by CustomiseDrawer
+// in StudyTab; QuizTab receives a `session` prop carrying:
+//   { id, mode, pool, activeRecall, revealOptions, [isPreloaded] }
+// The pool is already buildPool()-output (filters applied, options
+// shuffled). QuizTab initializes its quiz state from session.pool on mount
+// (StudyTab forces a remount per-session via key={session.id}, so no
+// reset-on-prop-change useEffect is needed).
+//
+// `presetMode` parameter is retained as an orphaned signature element from
+// Sub-batch 1 — StudyTab no longer passes it; deletes in 2C cleanup.
+function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, session, onBack, presetMode }) {
+  const sessionMode = session?.mode || "quiz";
+  const sessionActiveRecall = !!session?.activeRecall;
 
-  // Sub-batch 1: when StudyTab routes a fresh mode-card click here, reset
-  // the running session and switch setupMode. Skipped on first mount (the
-  // useState initializer already used presetMode).
-  const lastPresetRef = useRef(presetMode);
-  useEffect(() => {
-    if (!presetMode) return;
-    if (presetMode === lastPresetRef.current) return;
-    lastPresetRef.current = presetMode;
-    setSetupMode(presetMode);
-    setMode(null);
-    setQuizQ([]);
-    setIdx(0);
-    setAnswers({});
-    setShowExp(false);
-    setShowResults(false);
-    setResultData(null);
-  }, [presetMode]);
-  const [selectedVids, setSelectedVids] = useState([]);
-  const [questionCount, setQuestionCount] = useState(20);
-  const [quizQ, setQuizQ] = useState([]);
+  const [mode, setMode] = useState(session ? "running" : null);
+  const [quizQ, setQuizQ] = useState(() => session?.pool ? shuffle(session.pool.map(shuffleOptions)) : []);
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showExp, setShowExp] = useState(false);
   const [matchAnswers, setMatchAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
   const [resultData, setResultData] = useState(null);
-  // Active recall: when true, options are hidden until user clicks "Show Options".
-  // `optionsRevealed` tracks per-question reveal state — cleared on next question.
-  const [activeRecall, setActiveRecall] = useState(false);
   const [optionsRevealed, setOptionsRevealed] = useState(false);
 
   // Active recall: whenever the question changes, re-hide the options so the
@@ -1346,32 +1374,13 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
     setOptionsRevealed(false);
   }, [idx]);
 
-  // If a pending drill arrives from the Exam tab (user clicked "Drill Wrong"
-  // on their exam results), load it as a quiz drill session and clear the
-  // pending marker so navigating away and back doesn't re-trigger it.
-  useEffect(() => {
-    if (!pendingDrill || pendingDrill.length === 0) return;
-    // Normalise exam question shape to the MC quiz shape and shuffle options
-    const normalised = pendingDrill.map(q => shuffleOptions({ ...q, type: "mc" }));
-    setQuizQ(shuffle(normalised));
-    setIdx(0);
-    setAnswers({});
-    setShowExp(false);
-    setMatchAnswers({});
-    setShowResults(false);
-    setResultData(null);
-    setSetupMode("drill");
-    setMode("running");
-    clearPendingDrill && clearPendingDrill();
-  }, [pendingDrill, clearPendingDrill]);
-
   // Keyboard shortcuts for the quiz running view:
   //   1-4  = select answer option OR rate card (depending on state)
   //   Enter= check answer when one is selected
   //   N / →= next question (after rating, but rating auto-advances, so N is a fallback)
   // Refs keep the listener callback reading current state without re-subscribing.
   const kbdRef = useRef({});
-  kbdRef.current = { mode, quizQ, idx, answers, showExp, setupMode, activeRecall, optionsRevealed };
+  kbdRef.current = { mode, quizQ, idx, answers, showExp, sessionMode, activeRecall: sessionActiveRecall, optionsRevealed };
   useEffect(() => {
     function handler(e) {
       const ctx = kbdRef.current;
@@ -1434,23 +1443,13 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (watchedVideos.length === 0) {
-    return (
-      <div style={styles.emptyState}>
-        <div style={{ fontSize: 48 }}>🔒</div>
-        <div style={{ fontSize: 20, fontWeight: 700, marginTop: 12 }}>No videos watched yet</div>
-        <div style={{ color: "#9ca3af", marginTop: 8 }}>Go to Progress and mark videos as watched to unlock questions</div>
-      </div>
-    );
-  }
-
   if (showResults && resultData) {
     return (
       <ResultsView
         data={resultData}
         quizQ={quizQ}
         answers={answers}
-        onReset={() => { setShowResults(false); setMode(null); }}
+        onReset={() => { setShowResults(false); onBack && onBack(); }}
         onDrillWrong={(wrongQs) => {
           if (!wrongQs || wrongQs.length === 0) return;
           setQuizQ(shuffle(wrongQs.map(shuffleOptions)));
@@ -1460,138 +1459,23 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
           setMatchAnswers({});
           setShowResults(false);
           setResultData(null);
-          // Flag the session mode so the result header can say "Drill"
-          setSetupMode("drill");
           setMode("running");
         }}
       />
     );
   }
 
-  if (!mode) {
-    const setupTitle = presetMode
-      ? ({ standard: "Quiz", spaced: "Review", weak: "Drill Wrong", matching: "Matching", scenario: "Scenario", new: "New" }[presetMode] || "Quiz")
-      : "Quiz Mode";
+  if (!mode || quizQ.length === 0) {
+    // Sub-batch 2B: QuizTab is invoked via a session prop; if for any
+    // reason there is no session and no quiz queue, surface an explicit
+    // back-to-modes affordance rather than a blank screen.
     return (
-      <>
-      <div style={styles.card}>
+      <div style={styles.emptyState}>
         {onBack && (
-          <button onClick={onBack} style={styles.backBtn}>← Back to modes</button>
+          <button onClick={onBack} style={{ ...styles.backBtn, alignSelf: "flex-start" }}>← Back to modes</button>
         )}
-        <div style={styles.cardTitle}>{setupTitle}</div>
-        {/* Sub-batch 1: 6-card mode grid is hidden when StudyTab is driving via
-            presetMode. Kept in code for now (orphaned), removed in Sub-batch 5. */}
-        {!presetMode && (
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 24 }}>
-          {[
-            ["standard","📝 Standard","Choose topics & count"],
-            ["new","📥 New","Unseen on watched videos"],
-            ["scenario","🎯 Scenario","Real-world situation questions"],
-            ["spaced","🔁 Spaced Repetition","Questions due today"],
-            ["weak","⚡ Weak Spots","Your lowest-scoring topics"],
-            ["matching","🔗 Matching Exercise","Term-to-definition matching"],
-          ].map(([m, title, desc]) => (
-            <button key={m} onClick={() => setSetupMode(m)} style={{ ...styles.modeCard, ...(setupMode === m ? styles.modeCardActive : {}) }}>
-              <div style={{ fontSize: 24 }}>{title.split(" ")[0]}</div>
-              <div style={{ fontWeight: 700, marginTop: 4 }}>{title.slice(2)}</div>
-              <div style={{ fontSize: 12, color: "#9ca3af", marginTop: 4 }}>{desc}</div>
-            </button>
-          ))}
-        </div>
-        )}
-
-        {(setupMode === "standard" || setupMode === "matching" || setupMode === "scenario") && (
-          <div>
-            <div style={styles.formLabel}>Select videos:</div>
-            {sections.map(sec => {
-              const available = sec.videos.filter(v => store.watched.includes(v.id));
-              if (available.length === 0) return null;
-              return (
-                <div key={sec.id} style={{ marginBottom: 8 }}>
-                  <div style={{ color: "#94a3b8", fontSize: 13, marginBottom: 4 }}>{sec.label}</div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {available.map(v => (
-                      <button key={v.id} onClick={() => setSelectedVids(s => s.includes(v.id) ? s.filter(x => x !== v.id) : [...s, v.id])}
-                        style={{ ...styles.vidChip, ...(selectedVids.includes(v.id) ? styles.vidChipActive : {}) }}>
-                        {v.id}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-            <div style={{ marginTop: 12 }}>
-              <button onClick={() => setSelectedVids(watchedVideos.map(v => v.id))} style={styles.linkBtn}>Select all</button>
-              <button onClick={() => setSelectedVids([])} style={styles.linkBtn}>Clear</button>
-            </div>
-            {setupMode === "standard" && (
-              <div style={{ marginTop: 12 }}>
-                <div style={styles.formLabel}>Questions: {questionCount}</div>
-                <input type="range" min={5} max={50} value={questionCount} onChange={e => setQuestionCount(+e.target.value)}
-                  style={{ width: "100%" }} />
-              </div>
-            )}
-          </div>
-        )}
-
-        {setupMode === "new" && (() => {
-          // "New" mode preamble: count unseen MC + scenarios across all watched
-          // videos. Matching items are excluded from the pool because matching
-          // uses a different running-quiz UI; the dashboard's "N new to try"
-          // counter includes matching, so its number may be slightly higher
-          // than the count shown here. Accepted gap.
-          let unseenCount = 0;
-          watchedVideos.forEach(v => {
-            v.questions.forEach((_q, qi) => {
-              if (!store.sm2[mcKey(v.id, qi)]) unseenCount++;
-            });
-            (v.scenarios || []).forEach((_q, qi) => {
-              if (!store.sm2[scenKey(v.id, qi)]) unseenCount++;
-            });
-          });
-          return (
-            <div>
-              <div style={{ padding: "10px 12px", background: "#1e293b", borderRadius: 6, marginBottom: 12, fontSize: 13, color: "#cbd5e1" }}>
-                Drawing from {watchedVideos.length} watched video{watchedVideos.length === 1 ? "" : "s"} · <strong style={{ color: "#10b981" }}>{unseenCount}</strong> new question{unseenCount === 1 ? "" : "s"}
-              </div>
-              <div style={{ marginTop: 12 }}>
-                <div style={styles.formLabel}>Questions: {questionCount}</div>
-                <input type="range" min={5} max={50} value={questionCount} onChange={e => setQuestionCount(+e.target.value)}
-                  style={{ width: "100%" }} />
-              </div>
-            </div>
-          );
-        })()}
-
-        {setupMode !== "matching" && (
-          <label style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 16, padding: "10px 12px", background: "#1e293b", borderRadius: 6, cursor: "pointer", border: activeRecall ? "1px solid #3b82f6" : "1px solid #334155" }}>
-            <input
-              type="checkbox"
-              checked={activeRecall}
-              onChange={e => setActiveRecall(e.target.checked)}
-              style={{ marginTop: 2, cursor: "pointer" }}
-            />
-            <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "#e2e8f0" }}>🧠 Active recall mode</div>
-              <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2, lineHeight: 1.4 }}>
-                Hide the answer options until you're ready. Read the question, think of the answer in your head, then reveal the options to pick from. Stronger learning, slower pace.
-              </div>
-            </div>
-          </label>
-        )}
-
-        <button onClick={() => startQuiz(setupMode)} style={styles.startBtn}>
-          Start {setupMode === "spaced" ? "Spaced Repetition" : setupMode === "weak" ? "Weak Spots" : setupMode === "matching" ? "Matching" : setupMode === "scenario" ? "Scenario Quiz" : setupMode === "new" ? "New Questions" : "Quiz"}
-        </button>
+        <div style={{ color: "#9ca3af", marginTop: 8 }}>No active session.</div>
       </div>
-      <Modal
-        open={!!dialog}
-        title={dialog && dialog.title}
-        body={dialog && dialog.body}
-        actions={dialog && dialog.actions}
-        onClose={() => setDialog(null)}
-      />
-      </>
     );
   }
 
@@ -1636,7 +1520,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
           <div style={{ ...styles.progressFill, width: `${((idx + 1) / quizQ.length) * 100}%` }} />
         </div>
         <div style={styles.qMeta}>
-          {setupMode === "drill" && <span style={{ background: "#ef4444", color: "#fff", borderRadius: 4, padding: "1px 6px", fontSize: 11, marginRight: 6, fontWeight: 700 }}>DRILL</span>}
+          {sessionMode === "drill" && <span style={{ background: "#ef4444", color: "#fff", borderRadius: 4, padding: "1px 6px", fontSize: 11, marginRight: 6, fontWeight: 700 }}>DRILL</span>}
           {q.isScenario && <span style={{ background: "#7c3aed", color: "#fff", borderRadius: 4, padding: "1px 6px", fontSize: 11, marginRight: 6, fontWeight: 700 }}>SCENARIO</span>}
           {q.videoId}{checked ? ` – ${q.videoTitle}` : ""}
         </div>
@@ -1645,7 +1529,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
           // Active recall gating: hide options until user reveals them.
           // `showExp` means the answer has already been checked, so options
           // must always be visible at that point (they are the feedback UI).
-          const hideOptions = activeRecall && !optionsRevealed && !showExp;
+          const hideOptions = sessionActiveRecall && !optionsRevealed && !showExp;
           return (
             <>
               <div style={{ fontSize: 11, color: "#64748b", marginBottom: 8 }}>
@@ -1752,36 +1636,11 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
     );
   }
 
-  function startQuiz(m) {
-    // Sub-batch 2A: 6-branch pool-build collapsed into a single call to
-    // buildPool() via the LEGACY_SHIM_FOR_MODE table. User-visible
-    // behavior must match Sub-batch 1 — verified by the diff-test at
-    // scripts/test-buildpool-equivalence.mjs (set-equality across all
-    // 6 modes). 2C un-orphans "new"/"scenario" via drawer filters.
-    const today = todayStr();
-    const shim = LEGACY_SHIM_FOR_MODE[m] || LEGACY_SHIM_FOR_MODE.standard;
-    const filters = shim({ selectedVids, questionCount });
-    const pool = buildPool({
-      mode: legacyToBuildPoolMode(m),
-      filters,
-      sections,
-      watchedVideos,
-      store,
-      today,
-    });
-
-    if (pool.length === 0) {
-      showAlert(legacyEmptyMessage(m, CONFIG.WEAK_SPOT_RATIO));
-      return;
-    }
-
-    setQuizQ(shuffle(pool.map(shuffleOptions)));
-    setIdx(0);
-    setAnswers({});
-    setShowExp(false);
-    setMatchAnswers({});
-    setMode("running");
-  }
+  // startQuiz removed in Sub-batch 2B — pool comes pre-built from
+  // CustomiseDrawer via the session prop. The 2A shim implementation is
+  // still referenced by LEGACY_SHIM_FOR_MODE / legacyToBuildPoolMode /
+  // legacyEmptyMessage at module scope above; those orphan helpers
+  // delete in 2C cleanup.
 
   function finishQuiz() {
     // Use quizQ index directly - indexOf breaks when question objects are structurally identical
@@ -1791,7 +1650,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
       total++;
       if (answers[qIdx] === q.a) correct++;
     });
-    recordSession(correct, total || 1, setupMode);
+    recordSession(correct, total || 1, sessionMode);
     setResultData({ correct, total });
     setShowResults(true);
   }
