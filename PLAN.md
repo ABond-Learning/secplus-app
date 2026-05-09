@@ -3,7 +3,7 @@
 Single source of truth for in-flight work. Update as state changes.
 See CLAUDE.md for the underlying 3-task plan and quality rules.
 
-Last updated: 2026-05-01
+Last updated: 2026-05-09
 
 ## Status snapshot
 
@@ -455,6 +455,124 @@ sub-batch slot or a between-sub-batch small commit when convenient.
   ("Drawing N items from M videos" per design v2 §3.3) may surface
   this naturally; if not, a small follow-up commit can add per-card
   counts to the picker.
+
+### Task 2 — proposed metacognitive features (deferred — re-evaluate after Task 2 ships + 3-5 study sessions)
+
+Five features in priority order. **Source:** separate
+study-strategy conversation with another Claude, 2026-05-05. That
+conversation evaluated the current app against an evidence-based
+daily loop (Messer video → handwritten Feynman summary → quiz
+with active recall → spaced repetition next day) and found most
+high-utility techniques already implemented. The five items below
+are the remaining gaps, all clustered around metacognition.
+
+**Status:** all five DEFERRED until Task 2 ships entirely
+(Sub-batches 2C, 3, 4, 5 complete) AND 3-5 study sessions have
+run on the new daily loop with the post-Task-2 app. Re-evaluate
+priorities then; do NOT pull any of these into Task 2 mid-flight.
+
+#### 1. Confidence rating before checking answer (highest leverage)
+
+- Three-button row between option-select and Check Answer:
+  certain / probably / guessing.
+- Stored on the SM-2 record alongside correctness (additive
+  field; no schemaVersion bump per Q-I; spread-merge invariant
+  preserved).
+- Cross-reference produces calibration data:
+  - confident-and-wrong → misconception (knowing something
+    incorrectly; no other tool surfaces this).
+  - guessing-and-right → coverage gap masquerading as competence.
+- New "calibration" card on Progress tab.
+- Strongest single recommendation per source conversation.
+- Schema impact: low (additive). Sync impact: rides existing
+  prefix. Risk: low.
+
+#### 2. Why-wrong tag on incorrect answers
+
+- Optional dropdown when a question is missed: confused with
+  similar concept / didn't recognize term / misread question /
+  never seen before / other (free-text fallback).
+- Feeds Weak Spots — group/filter by reason. Different reasons
+  warrant different remediation paths.
+- Pairs with #1: wrong-and-confident → "what did you confuse
+  it with?"
+- Concern: friction at point of failure. Design as
+  optional/skippable, not required.
+
+#### 3. Within-session re-test of wrong answers
+
+- Verify first whether this already exists. Current evidence
+  suggests not — drill-at-end exists, within-session retry
+  does not.
+- Wrong items reappear ~5-10 questions later in the same
+  session.
+- Test effect strongest when retry happens while the item is
+  still cool but not cold.
+- Affects pool ordering during a session, not pool composition.
+- Could be a drawer toggle ("retry wrong items mid-session")
+  with a reasonable default.
+
+#### 4. Audit scenario question difficulty against real SY0-701 PBQ format
+
+- Content/research work, not feature work.
+- Pull 5-10 existing scenario questions, compare against
+  Chapple/Seidl PBQ examples.
+- If a gap exists, the fix is content (chained two-stage
+  scenarios) more than infrastructure.
+- May warrant a new question type — possibly Task 3 territory
+  (CLAUDE.md: "PBQ system + exam simulation").
+- Deferred until #1 and #2 produce data informing whether this
+  is needed.
+
+#### 5. Typed Feynman summary per video on Progress tab
+
+- 2-3 line text field, complements (not replaces) the
+  handwritten notebook.
+- Research favors handwritten for initial synthesis.
+- Useful as a searchable index later.
+- Lowest leverage of the five.
+
+#### Recommended sequence (per source conversation)
+
+1 → 3 (if absent) → 2 → 4 → 5
+
+Metacognitive infrastructure (#1, #2) before content depth
+(#4). Data from #1 and #2 informs whether #4 is needed.
+
+If only one ships: **#1**. Clearest unique capability; the
+others mostly complement existing functionality.
+
+#### Out of scope (per source conversation)
+
+- Real-world-hook notes on cram cards (handled in handwritten
+  notebook).
+- In-app daily session pacing (behavioral; risks feeling
+  patronizing).
+- Anything that duplicates the notebook for techniques where
+  research favors handwriting.
+
+#### Decision criteria for re-evaluation
+
+Re-evaluate priorities after:
+- Task 2 ships entirely (Sub-batches 2C, 3, 4, 5 complete).
+- 3-5 study sessions on the new daily loop with the post-Task-2
+  app.
+
+Specifically check whether actual study experience confirms
+the priority order or surfaces something none of these
+proposals anticipate. **Audit A precedent:** the Smishing
+question that triggered the entire structural-consistency
+audit was found during a study session, not during audit
+design. Real study reveals what theory misses.
+
+#### Schema slot (informational)
+
+Features #1 and #2 are SM-2 record additions. The natural slot
+is alongside or after Sub-batch 4 (which adds `cram-{vid}-{idx}`
+keys for Flashcards SM-2). By Sub-batch 4 ship, the SM-2 schema
+changes will have flowed through Sub-batch 0's hygiene gate, so
+adding additional fields fits the same migrateStore invariant
+without further sync hygiene work.
 
 ## Task 3 — PBQ system (later)
 
