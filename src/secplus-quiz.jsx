@@ -1290,7 +1290,7 @@ function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, 
       recordRating={recordRating}
       recordSession={recordSession}
       session={session}
-      onBack={() => setSession(null)}
+      onCancel={() => { setSelectedMode(null); setSession(null); }}
     />
   );
 }
@@ -1354,7 +1354,7 @@ function legacyEmptyMessage(m, weakRatio) {
 //
 // `presetMode` parameter is retained as an orphaned signature element from
 // Sub-batch 1 — StudyTab no longer passes it; deletes in 2C cleanup.
-function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, session, onBack, presetMode }) {
+function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, session, onCancel, presetMode }) {
   const sessionMode = session?.mode || "quiz";
   const sessionActiveRecall = !!session?.activeRecall;
 
@@ -1380,7 +1380,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   //   N / →= next question (after rating, but rating auto-advances, so N is a fallback)
   // Refs keep the listener callback reading current state without re-subscribing.
   const kbdRef = useRef({});
-  kbdRef.current = { mode, quizQ, idx, answers, showExp, sessionMode, activeRecall: sessionActiveRecall, optionsRevealed };
+  kbdRef.current = { mode, quizQ, idx, answers, showExp, sessionMode, activeRecall: sessionActiveRecall, optionsRevealed, onCancel };
   useEffect(() => {
     function handler(e) {
       const ctx = kbdRef.current;
@@ -1388,6 +1388,16 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
       // Don't intercept when user is typing in an input (matching dropdowns etc.)
       const tag = e.target && e.target.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+      // Esc cancels the session, regardless of question type or active-recall
+      // hidden-options state. Handled before the q.type and optionsHidden
+      // guards so it works in matching mode and during active-recall hiding.
+      if (e.key === "Escape") {
+        e.preventDefault();
+        if (ctx.onCancel) ctx.onCancel();
+        return;
+      }
+
       const q = ctx.quizQ[ctx.idx];
       if (!q || q.type !== "mc") return; // matching has no keyboard flow
       const key = e.key;
@@ -1449,7 +1459,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
         data={resultData}
         quizQ={quizQ}
         answers={answers}
-        onReset={() => { setShowResults(false); onBack && onBack(); }}
+        onReset={() => { setShowResults(false); onCancel && onCancel(); }}
         onDrillWrong={(wrongQs) => {
           if (!wrongQs || wrongQs.length === 0) return;
           setQuizQ(shuffle(wrongQs.map(shuffleOptions)));
@@ -1471,8 +1481,8 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
     // back-to-modes affordance rather than a blank screen.
     return (
       <div style={styles.emptyState}>
-        {onBack && (
-          <button onClick={onBack} style={{ ...styles.backBtn, alignSelf: "flex-start" }}>← Back to modes</button>
+        {onCancel && (
+          <button onClick={onCancel} style={{ ...styles.backBtn, alignSelf: "flex-start" }}>← Back to modes</button>
         )}
         <div style={{ color: "#9ca3af", marginTop: 8 }}>No active session.</div>
       </div>
@@ -1491,6 +1501,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
           matchAnswers={matchAnswers}
           setMatchAnswers={setMatchAnswers}
           showExp={showExp}
+          onCancel={onCancel}
           onCheck={() => setShowExp(true)}
           onNext={() => {
             // Partial credit: record each pair as its own SM-2 card so
@@ -1516,6 +1527,12 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
     const checked = showExp;
     return (
       <div style={styles.card}>
+        {onCancel && (
+          <div style={{ marginBottom: 8 }}>
+            <button onClick={onCancel} style={{ ...styles.backBtn, padding: 0, marginBottom: 2 }}>End session</button>
+            <div style={{ fontSize: 11, color: "#64748b", fontStyle: "italic" }}>Your answer ratings are saved · <kbd style={kbdStyle}>Esc</kbd> ends session</div>
+          </div>
+        )}
         <div style={styles.progressBar}>
           <div style={{ ...styles.progressFill, width: `${((idx + 1) / quizQ.length) * 100}%` }} />
         </div>
@@ -1658,7 +1675,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   return null;
 }
 
-function MatchingQuestion({ q, matchAnswers, setMatchAnswers, showExp, onCheck, onNext }) {
+function MatchingQuestion({ q, matchAnswers, setMatchAnswers, showExp, onCheck, onNext, onCancel }) {
   const prompts = q.pairs.map(p => p.prompt);
   // Memoised so selecting a dropdown doesn't trigger a re-shuffle mid-exercise.
   // Key by the joined answer list so two matching questions from the same
@@ -1670,6 +1687,12 @@ function MatchingQuestion({ q, matchAnswers, setMatchAnswers, showExp, onCheck, 
 
   return (
     <div style={styles.card}>
+      {onCancel && (
+        <div style={{ marginBottom: 8 }}>
+          <button onClick={onCancel} style={{ ...styles.backBtn, padding: 0, marginBottom: 2 }}>End session</button>
+          <div style={{ fontSize: 11, color: "#64748b", fontStyle: "italic" }}>Your answer ratings are saved · <kbd style={kbdStyle}>Esc</kbd> ends session</div>
+        </div>
+      )}
       <div style={styles.qMeta}>{q.videoId} – {q.videoTitle} — Matching</div>
       <div style={styles.questionText}>Match each item to its correct answer:</div>
       <div style={{ display: "grid", gap: 8, marginBottom: 16 }}>
