@@ -1164,22 +1164,9 @@ function DomainAccuracyCard({ sections, store, watchedSet }) {
 }
 
 // ─── STUDY TAB ─────────────────────────────────────────────────
-// 5-mode picker (Task 2 Sub-batch 1). Each card routes to existing
-// pool-build logic via QuizTab's presetMode (or directly to CramTab for
-// Flashcards). Customise drawer + buildPool unification arrives in
-// Sub-batch 2 — Sub-batch 1 is a 1:1 re-skin only.
-//
-// Old → new mapping (per design v2 §6 Sub-batch 1 spec):
-//   Quiz card        → QuizTab presetMode="standard"
-//   Flashcards card  → CramTab (no SM-2 yet — Sub-batch 4)
-//   Review card      → QuizTab presetMode="spaced"
-//   Drill Wrong card → QuizTab presetMode="weak"
-//   Matching card    → QuizTab presetMode="matching"
-//
-// Old "new" + "scenario" modes are temporarily unreachable (orphaned in
-// the hidden 6-card grid inside QuizTab). They become accessible in
-// Sub-batch 2 via Customise drawer filters (preferUnseen, questionTypes
-// = ["scen"]). Brief regression accepted per design line 800–803.
+// Session orchestrator. Renders the 5-mode picker, then either CramTab
+// (Flashcards) or CustomiseDrawer (Quiz/Review/Drill/Matching). On
+// Start, hands a pre-built pool to QuizTab via the session prop.
 const STUDY_MODE_CARDS = [
   ["quiz",       "📝", "Quiz",        "MC + scenarios on watched videos"],
   ["flashcards", "📖", "Flashcards",  "Cram terms, flip-card review"],
@@ -1188,26 +1175,6 @@ const STUDY_MODE_CARDS = [
   ["matching",   "🔗", "Matching",    "Term-to-definition exercises"],
 ];
 
-// Sub-batch 2B: StudyTab routes mode-card clicks to the drawer's mode key.
-// Flashcards still routes to CramTab (no drawer per D10 / D7). The
-// STUDY_MODE_TO_PRESET name from Sub-batch 1 retired alongside the
-// presetMode bridge — drawer-mode is now the single routing key.
-const STUDY_MODE_TO_DRAWER = {
-  quiz: "quiz",
-  review: "review",
-  drill: "drill",
-  matching: "matching",
-  // flashcards: omitted — handled directly by StudyTab via CramTab
-};
-
-// Sub-batch 2B: StudyTab is now the session orchestrator.
-//   - Mode picker (no card selected) → renders 5-card grid.
-//   - Flashcards card → CramTab (unchanged; cram lands in Sub-batch 4 per D7/D10).
-//   - Other 4 cards → CustomiseDrawer until user clicks Start, then QuizTab
-//     with a session prop carrying the pre-built pool + activeRecall +
-//     revealOptions + drawer mode.
-//   - Post-exam drill handoff bypasses the drawer entirely: pendingDrill
-//     payload becomes the session.pool directly. Same UX as Sub-batch 1.
 function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, pendingDrill, clearPendingDrill }) {
   const [selectedMode, setSelectedMode] = useState(null);
   const [session, setSession] = useState(null);
@@ -1249,8 +1216,6 @@ function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, 
     return <CramTab watchedVideos={watchedVideos} onBack={() => setSelectedMode(null)} />;
   }
 
-  const drawerMode = STUDY_MODE_TO_DRAWER[selectedMode];
-
   if (!session) {
     if (watchedVideos.length === 0) {
       return (
@@ -1264,14 +1229,14 @@ function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, 
     }
     return (
       <CustomiseDrawer
-        mode={drawerMode}
+        mode={selectedMode}
         sections={sections}
         watchedVideos={watchedVideos}
         store={store}
         onBack={() => { setSelectedMode(null); setSession(null); }}
         onStart={(filters, pool) => setSession({
-          id: `${drawerMode}-${Date.now()}`,
-          mode: drawerMode,
+          id: `${selectedMode}-${Date.now()}`,
+          mode: selectedMode,
           pool,
           activeRecall: !!filters.activeRecall,
           revealOptions: !!filters.revealOptions,
@@ -1295,66 +1260,12 @@ function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, 
   );
 }
 
-// ─── LEGACY-MODE → buildPool SHIM (Task 2 Sub-batch 2A; ORPHANED in 2B) ──
-// Originally routed setupMode → buildPool filters in 2A. In 2B the drawer
-// owns filters directly via MODE_DEFAULTS in src/study/drawer-state.js,
-// which mirrors the same legacy values. This block is no longer called by
-// any code path — kept here as the seed-of-record for 2C cleanup, then
-// deleted alongside the 6-card grid (per design v2 §6 Sub-batch 5 + the
-// 2C cleanup of LEGACY_SHIM_FOR_MODE / legacyToBuildPoolMode /
-// legacyEmptyMessage).
-const LEGACY_SHIM_FOR_MODE = {
-  standard: ({ selectedVids, questionCount }) => ({
-    questionTypes: ["mc"], videoIds: selectedVids, length: questionCount, watchedOnly: true,
-  }),
-  new: ({ questionCount }) => ({
-    questionTypes: ["mc", "scen"], preferUnseen: true, watchedOnly: true, length: questionCount,
-  }),
-  scenario: ({ selectedVids, questionCount }) => ({
-    questionTypes: ["scen"], videoIds: selectedVids, length: questionCount, watchedOnly: true,
-  }),
-  spaced: () => ({
-    questionTypes: ["mc"], dueOnly: true, includeUnseen: true, watchedOnly: true,
-  }),
-  weak: () => ({
-    // legacyVideoLevelWeak preserves today's per-VIDEO scope. 2C swaps to
-    // per-question (belowAccuracy=0.70) per design v2 Q-F. The diff-test
-    // at scripts/test-buildpool-equivalence.mjs prints the divergence.
-    questionTypes: ["mc"], legacyVideoLevelWeak: true, watchedOnly: true,
-  }),
-  matching: ({ selectedVids }) => ({
-    questionTypes: ["match"], videoIds: selectedVids, watchedOnly: true,
-  }),
-};
-
-function legacyToBuildPoolMode(m) {
-  if (m === "spaced") return "review";
-  if (m === "weak") return "drill";
-  if (m === "matching") return "matching";
-  return "quiz";
-}
-
-function legacyEmptyMessage(m, weakRatio) {
-  if (m === "spaced") return "No questions due today! Come back tomorrow or switch to Standard mode.";
-  if (m === "new") return "No new questions! All your watched-video questions have been seen at least once. Mark more videos watched in Progress, or try Spaced Repetition.";
-  if (m === "weak") return `No weak spots detected! All watched videos are at ${Math.round(weakRatio * 100)}%+ accuracy. Try Standard mode instead.`;
-  if (m === "matching") return "Select at least one video with matching pairs.";
-  if (m === "scenario") return "No scenario questions available for selected videos yet. Domain 2 videos have scenarios — try selecting those.";
-  return "Select at least one video.";
-}
-
 // ─── QUIZ TAB ──────────────────────────────────────────────────
-// Sub-batch 2B: QuizTab is running-only. Setup is owned by CustomiseDrawer
-// in StudyTab; QuizTab receives a `session` prop carrying:
-//   { id, mode, pool, activeRecall, revealOptions, [isPreloaded] }
-// The pool is already buildPool()-output (filters applied, options
-// shuffled). QuizTab initializes its quiz state from session.pool on mount
-// (StudyTab forces a remount per-session via key={session.id}, so no
-// reset-on-prop-change useEffect is needed).
-//
-// `presetMode` parameter is retained as an orphaned signature element from
-// Sub-batch 1 — StudyTab no longer passes it; deletes in 2C cleanup.
-function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, session, onCancel, presetMode }) {
+// Running-only. Receives a session prop ({ id, mode, pool, activeRecall,
+// revealOptions, [isPreloaded] }) from StudyTab; the pool is already
+// buildPool()-output. StudyTab forces a remount per-session via
+// key={session.id}, so no reset-on-prop-change useEffect is needed.
+function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, session, onCancel }) {
   const sessionMode = session?.mode || "quiz";
   const sessionActiveRecall = !!session?.activeRecall;
 
@@ -1652,12 +1563,6 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
       </div>
     );
   }
-
-  // startQuiz removed in Sub-batch 2B — pool comes pre-built from
-  // CustomiseDrawer via the session prop. The 2A shim implementation is
-  // still referenced by LEGACY_SHIM_FOR_MODE / legacyToBuildPoolMode /
-  // legacyEmptyMessage at module scope above; those orphan helpers
-  // delete in 2C cleanup.
 
   function finishQuiz() {
     // Use quizQ index directly - indexOf breaks when question objects are structurally identical
@@ -2495,7 +2400,6 @@ const styles = {
   filterBtn: { background: "#0f172a", border: "1px solid #334155", color: "#64748b", borderRadius: 6, padding: "4px 12px", fontSize: 12, cursor: "pointer" },
   filterBtnActive: { background: "#1d4ed8", border: "1px solid #3b82f6", color: "#fff" },
   modeCard: { background: "#0f172a", border: "2px solid #334155", borderRadius: 12, padding: "16px", cursor: "pointer", textAlign: "left", color: "#e2e8f0" },
-  modeCardActive: { borderColor: "#3b82f6", background: "#1e3a5f" },
   backBtn: { background: "none", border: "none", color: "#94a3b8", cursor: "pointer", padding: "0 0 12px 0", fontSize: 13, fontWeight: 600 },
   studyPicker: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 },
   formLabel: { fontSize: 13, color: "#94a3b8", marginBottom: 6, fontWeight: 600 },

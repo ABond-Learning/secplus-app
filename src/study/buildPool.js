@@ -1,23 +1,7 @@
-// src/study/buildPool.js — Task 2 Sub-batch 2A
+// src/study/buildPool.js
 //
-// Unifies the 6 startQuiz pool-build branches in secplus-quiz.jsx into
-// a single filter-driven function. This is the deepest internal change
-// of Task 2 (per design v2 §6 Sub-batch 2). The diff-test at
-// scripts/test-buildpool-equivalence.mjs is the contract — it asserts
-// buildPool() with legacy-shim filters returns the same SET of items as
-// the legacyStartQuizPool() copy of today's branches.
-//
-// Module shape:
-//   - tiny key/shuffle helpers inlined (5-line redundancy with the JSX —
-//     intentional, removed in Sub-batch 5 cleanup once everything routes
-//     through this module).
-//   - legacyStartQuizPool: verbatim copy of today's startQuiz pool-build
-//     logic, with side effects stripped (no setState, no showAlert).
-//     Lives only during the migration window; deleted in Sub-batch 5
-//     alongside the orphaned 6-card grid in QuizTab.
-//   - buildPool: filter-driven, mode-agnostic. Production calls this via
-//     a legacy-shim in startQuiz (2A). Drawer wires real filters in 2B.
-//   - seededRng: deterministic shuffle for the diff-test only.
+// Filter-driven, mode-agnostic question pool builder. Used by the
+// Customise drawer (live preview) and StudyTab (Start handoff).
 //
 // Filter shape (see design v2 §3.3):
 //   {
@@ -32,13 +16,10 @@
 //     dueOnly?: boolean,        // default false
 //     includeUnseen?: boolean,  // default false; composes with dueOnly
 //     length?: number|null,     // null = no slice; number = shuffle+slice
-//     legacyVideoLevelWeak?: boolean, // 2A-only shim; removed in 2C
 //   }
 
-// ─── tiny inline helpers (mirror src/secplus-quiz.jsx) ─────────────
 const mcKey = (videoId, qi) => `mc-${videoId}-${qi}`;
 const scenKey = (videoId, qi) => `scen-${videoId}-${qi}`;
-const matchKey = (videoId, idx) => `match-${videoId}-${idx}`;
 
 function shuffle(arr, rng = Math.random) {
   const a = [...arr];
@@ -49,99 +30,7 @@ function shuffle(arr, rng = Math.random) {
   return a;
 }
 
-// mulberry32 — 5-line seeded PRNG; only used by the diff-test for
-// reproducible shuffle output. Production never passes a seeded rng
-// (and so never invokes this).
-export function seededRng(seed) {
-  let s = seed >>> 0;
-  return function () {
-    s = (s + 0x6D2B79F5) >>> 0;
-    let t = s;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
 
-// Re-exported so the diff-test can construct stable Set keys.
-export const keyHelpers = { mcKey, scenKey, matchKey };
-
-// ─── legacy reference implementation ────────────────────────────────
-// Verbatim copy of secplus-quiz.jsx startQuiz pool-build branches as of
-// commit 9b6bc47 (Sub-batch 1 ship). Side effects (showAlert, setState)
-// stripped. The diff-test treats this as ground truth for the migration.
-// Removed in Sub-batch 5.
-export function legacyStartQuizPool({
-  m,
-  watchedVideos,
-  store,
-  selectedVids = [],
-  questionCount = 20,
-  today,
-  rng = Math.random,
-  slice = true,
-}) {
-  const WEAK_RATIO = 0.70;
-  let pool = [];
-
-  if (m === "spaced") {
-    watchedVideos.forEach(v => {
-      v.questions.forEach((q, qi) => {
-        const key = mcKey(v.id, qi);
-        const rec = store.sm2[key];
-        if (!rec || rec.nextDue <= today) {
-          pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" });
-        }
-      });
-    });
-  } else if (m === "new") {
-    watchedVideos.forEach(v => {
-      v.questions.forEach((q, qi) => {
-        if (!store.sm2[mcKey(v.id, qi)]) {
-          pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" });
-        }
-      });
-      (v.scenarios || []).forEach((q, qi) => {
-        if (!store.sm2[scenKey(v.id, qi)]) {
-          pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc", isScenario: true });
-        }
-      });
-    });
-    if (slice) pool = shuffle(pool, rng).slice(0, questionCount);
-  } else if (m === "weak") {
-    const weak = watchedVideos.filter(v => {
-      const recs = v.questions.map((_, qi) => store.sm2[mcKey(v.id, qi)]).filter(Boolean);
-      if (recs.length === 0) return true;
-      return recs.reduce((n, r) => n + r.correct / r.total, 0) / recs.length < WEAK_RATIO;
-    });
-    weak.forEach(v => v.questions.forEach((q, qi) =>
-      pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" })));
-  } else if (m === "matching") {
-    const vids = selectedVids.length ? watchedVideos.filter(v => selectedVids.includes(v.id)) : watchedVideos;
-    vids.forEach(v => {
-      if (v.matching && v.matching.length >= 3) {
-        pool.push({ type: "matching", videoId: v.id, videoTitle: v.title, pairs: v.matching });
-      }
-    });
-  } else if (m === "scenario") {
-    const vids = selectedVids.length ? watchedVideos.filter(v => selectedVids.includes(v.id)) : watchedVideos;
-    vids.forEach(v => {
-      if (v.scenarios) {
-        v.scenarios.forEach((q, qi) => pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc", isScenario: true }));
-      }
-    });
-    if (slice) pool = shuffle(pool, rng).slice(0, questionCount);
-  } else { // standard
-    const vids = selectedVids.length ? watchedVideos.filter(v => selectedVids.includes(v.id)) : watchedVideos;
-    vids.forEach(v => v.questions.forEach((q, qi) =>
-      pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" })));
-    if (slice) pool = shuffle(pool, rng).slice(0, questionCount);
-  }
-
-  return pool;
-}
-
-// ─── unified buildPool ─────────────────────────────────────────────
 export function buildPool({
   mode,        // "quiz" | "flashcards" | "review" | "drill" | "matching"
   filters = {},
@@ -163,7 +52,6 @@ export function buildPool({
     dueOnly: false,
     includeUnseen: false,
     length: null,
-    legacyVideoLevelWeak: false,
     ...filters,
   };
 
@@ -182,19 +70,6 @@ export function buildPool({
     const sectionByVideo = new Map();
     sections.forEach(sec => sec.videos.forEach(sv => sectionByVideo.set(sv.id, sec.id)));
     scope = scope.filter(v => allowed.has(sectionByVideo.get(v.id)));
-  }
-
-  // 2A shim: video-level weak scope (Q-F drops this in 2C). Filters scope
-  // BEFORE per-type aggregation so the questionTypes:["mc"] branch picks
-  // up only weak-video MCs. Removed in 2C alongside the Drill card's
-  // belowAccuracy wiring.
-  if (f.legacyVideoLevelWeak) {
-    const WEAK_RATIO = 0.70;
-    scope = scope.filter(v => {
-      const recs = v.questions.map((_, qi) => store.sm2[mcKey(v.id, qi)]).filter(Boolean);
-      if (recs.length === 0) return true;
-      return recs.reduce((n, r) => n + r.correct / r.total, 0) / recs.length < WEAK_RATIO;
-    });
   }
 
   // ─── Step 2: aggregate items per type ────────────────────────────

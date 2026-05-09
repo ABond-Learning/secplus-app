@@ -63,18 +63,18 @@ export const MODE_DEFAULTS = {
     revealOptions: true,
   },
   drill: {
-    // 2B preserves legacy video-level scope via legacyVideoLevelWeak.
-    // 2C swaps to belowAccuracy:0.70 per Q-F (intentional behavior
-    // change documented in 2C commit + ship report).
+    // Per-question accuracy scope per design v2 Q-F. The previous
+    // video-level scope (legacyVideoLevelWeak) was retired in 2C; any
+    // 2B-persisted drill slot is migrated on first load — see
+    // loadDrawerState below.
     domains: ["1", "2", "3", "4", "5"],
     subObjectives: [],
     videoIds: [],
     watchedOnly: true,
     questionTypes: ["mc", "scen"],
     preferUnseen: false,
-    belowAccuracy: null,
+    belowAccuracy: 0.70,
     minAttempts: 2,
-    legacyVideoLevelWeak: true,
     dueOnly: false,
     includeUnseen: false,
     length: null,
@@ -118,6 +118,13 @@ function safeWriteJSON(key, value) {
 // Spread-merge: persisted state overrides defaults at field granularity.
 // For Matching, defensively re-lock questionTypes to ["match"] in case
 // a corrupted persisted state has wrong types (R-2B-7).
+//
+// Drill 2B→2C migration: a 2B-persisted drill slot has
+// {legacyVideoLevelWeak:true, belowAccuracy:null}. With the 2C buildPool
+// no longer honoring legacyVideoLevelWeak, that combination would yield
+// an unfiltered Drill pool. Drop the legacy flag and lock belowAccuracy
+// to 0.70 if currently null. Idempotent: writes only when something
+// changed; subsequent loads no-op.
 export function loadDrawerState(mode) {
   const raw = safeReadJSON(DRAWER_STATE_KEY);
   const defaults = MODE_DEFAULTS[mode];
@@ -125,6 +132,18 @@ export function loadDrawerState(mode) {
   const persisted = (raw && raw[mode] && typeof raw[mode] === "object") ? raw[mode] : null;
   const merged = persisted ? { ...defaults, ...persisted } : { ...defaults };
   if (mode === "matching") merged.questionTypes = ["match"];
+  if (mode === "drill" && persisted) {
+    let dirty = false;
+    if (Object.prototype.hasOwnProperty.call(merged, "legacyVideoLevelWeak")) {
+      delete merged.legacyVideoLevelWeak;
+      dirty = true;
+    }
+    if (merged.belowAccuracy == null) {
+      merged.belowAccuracy = 0.70;
+      dirty = true;
+    }
+    if (dirty) saveDrawerState(mode, merged);
+  }
   return merged;
 }
 

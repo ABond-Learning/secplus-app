@@ -96,7 +96,6 @@ function summaryChipText(mode, filters) {
   if (filters.dueOnly && mode !== "review") parts.push("due only");
   if (filters.includeUnseen && mode === "review" && filters.dueOnly) parts.push("+ unseen");
   if (filters.belowAccuracy != null) parts.push(`< ${Math.round(filters.belowAccuracy * 100)}%`);
-  if (mode === "drill" && filters.legacyVideoLevelWeak) parts.push("video-level (legacy)");
 
   return parts.join(" · ");
 }
@@ -407,7 +406,7 @@ export default function CustomiseDrawer({ mode, sections, watchedVideos, store, 
               {showBelowAccuracy && (
                 <div style={drawerStyles.fieldRow}>
                   <div style={drawerStyles.formLabel}>
-                    Per-question accuracy threshold {filters.legacyVideoLevelWeak ? "(disabled — 2B uses video-level scope)" : `< ${Math.round((filters.belowAccuracy || 0) * 100)}%`}
+                    Per-question accuracy threshold &lt; {Math.round((filters.belowAccuracy || 0) * 100)}%
                   </div>
                   <input
                     type="range"
@@ -416,12 +415,8 @@ export default function CustomiseDrawer({ mode, sections, watchedVideos, store, 
                     step={5}
                     value={Math.round((filters.belowAccuracy || 0.70) * 100)}
                     onChange={e => patch("belowAccuracy", +e.target.value / 100)}
-                    disabled={!!filters.legacyVideoLevelWeak}
-                    style={{ ...drawerStyles.rangeInput, opacity: filters.legacyVideoLevelWeak ? 0.4 : 1 }}
+                    style={drawerStyles.rangeInput}
                   />
-                  <div style={{ fontSize: 11, color: "#64748b", marginTop: 4, lineHeight: 1.4 }}>
-                    2B preserves legacy video-level Drill scope (whole video pulled if its average accuracy is below 70%). 2C swaps to per-question per Q-F — slider lights up then.
-                  </div>
                 </div>
               )}
             </div>
