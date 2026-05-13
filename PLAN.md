@@ -3,7 +3,7 @@
 Single source of truth for in-flight work. Update as state changes.
 See CLAUDE.md for the underlying 3-task plan and quality rules.
 
-Last updated: 2026-05-09
+Last updated: 2026-05-13
 
 ## Status snapshot
 
@@ -11,17 +11,20 @@ Priority order reflects the 2026-04-27 reorder triggered by study-session findin
 
 **2026-04-28 reframe (authoritative):** There is no fixed exam date. Aiden is currently early in the syllabus (only watched videos up to Cryptography). Quality > speed. Prior CLAUDE.md "8 weeks / late June 2026" framing was incorrect; treat catalogue quality as the binding constraint, not calendar pressure.
 
+**2026-05-13 reframe (authoritative):** A study-blocking content-grounding issue surfaced 2026-05-10 (§2.3.3 matching/cram test mutex + atomic operation as concurrency primitives; neither appears in the Messer 2.3.3 transcript or the SY0-701 2.3 objective text — multiple unflagged instances confirmed). Scoped as **Task 1f — Audit D** on 2026-05-13 with eight decisions signed off (see `docs/audit-d-scoping.md`). Audit D is ordered **ahead of Task 2 Sub-batches 3, 4, 5**: source quality > UX polish when source quality is broken. Exception clause: if Audit D drags 2-3 weeks, Sub-batch 4 (cram in buildPool) may interleave. Default is Audit D first through closure. Audit B (semantic coherence) is subsumed into D; Audit C (length-ratio re-run) is deferred indefinitely; Task 1c-structural is superseded by D.
+
 Task | State | Notes
 --- | --- | ---
 1a — Foundations + spelling pass | **complete, deployed** | All phases shipped. Live bundle verified clean.
 1.5 — Cross-device sync via private Gist | **complete, deployed, verified on 3 devices** | Backup polish + sync engine + sync UI all live. Real-device sync verified across 3 of Aiden's devices post-deploy (joining-device guard holds; bidirectional sync works).
 1b — Content generation | **complete, deployed** | All 5 domains done: Domain 1 scenarios (25), Domain 5 (78), Domain 4 (55), Domain 2 BEST/MOST rewrites (35 across 2 batches). **Total: 193 items added/modified.**
-1c-structural — Citation backfill + grounding/anchor-gap audits | **partially complete; remaining work DEPRIORITIZED** | Citation backfill DONE (728 → 0 legacy-no-citation; 100% catalog coverage). Grounding + anchor-gap audit scripts built but extractor produces noise-dominated output — 30 spot-checks across all 5 domains found zero true misfiles. Extractor tuning pending; lower priority than 1d/1e because grounding side mostly produces negative-confirmation. See "Task 1c — split into structural and experiential" below.
+1c-structural — Citation backfill + grounding/anchor-gap audits | **citation backfill complete; grounding/anchor-gap audits SUPERSEDED BY AUDIT D (2026-05-13)** | Citation backfill DONE (728 → 0 legacy-no-citation on MC + scen; matching/cram have no per-item citation by design). Prior keyword-extractor grounding work (April 27) was noise-dominated on MC + scen and never scanned matching/cram — exactly where the §2.3.3 mutex case lives. Audit D (Task 1f) is the spiritual successor with LLM-as-judge methodology; see `docs/audit-d-scoping.md`.
 **1d — Catalogue quality audit + fixes** | **shipped** | Sub-batch 1 (position shuffle + 95 Pattern A length-tells) and Sub-batch 2 (short-distractor padding) both complete. Sub-batch 2 closed via mega-pass `116cd40` (2026-04-30): **216 mods + 52 Convention B holdbacks across all 27 sub-objectives / 320 cohort items, 53 residual** (all intentional holdbacks + 1 out-of-scope §4.2 item). Validator: 0 errors, 5 warns. **10 follow-up items** captured for a future content-quality pass (Sub-batch 3 tentative, not next priority): 5 Convention A expansions + 2 mega-pass TODOs + 3 prior items already in TODO-content-quality.md.
 **1e — New-content prioritization** | **NEW (2026-04-27)** | App reports "N new things to try" with no way to see/prioritize them. Either separate New mode or have existing modes prioritize unseen-from-watched-videos. Smaller scope than Task 2; ~1-2 hours.
-1c-structural (continuation) — extractor tuning | not started | Tune grounding/anchor-gap extractors to handle `X means:` / `X is used to:` / `X requires:` patterns; multi-word phrases before linking verbs; clause-fragment stripping; stop-word filtering. Bottlenecks both audits.
-1c-experiential — anchor-gap fixes | not started | Generate anchor questions for concepts the audit flags as uncovered. Real pedagogical value once extractor is tuned.
-2 — Mode consolidation | sub-batches 0 + 1 shipped | 5 modes (Quiz / Flashcards / Review / Drill Wrong / Matching) per design v2 Q-E; 3 top-level tabs (Progress / Study / Exam) per Q-A. Authoritative spec at `docs/task2-design-v2.txt`. Sub-batch 0 (sync hygiene) at `9e94fb9`; Sub-batch 1 (UI scaffold) at `c43ae49`. Sub-batch 2 (buildPool + Customise drawer) is next. SchemaVersion bump NOT required (Q-I).
+1c-structural (continuation) — extractor tuning | **superseded by Audit D (2026-05-13)** | Keyword-extractor approach abandoned in favor of LLM-as-judge. See Task 1f.
+1c-experiential — anchor-gap fixes | not started; **scope may overlap with Audit D** | Generate anchor questions for concepts not yet tested. Distinct from Audit D's "is tested content in source?" question, but the underlying transcript-driven analysis pipeline could be shared. Re-evaluate after Audit D closure.
+**1f — Audit D: citation grounding** | **NEW (2026-05-13)**, scoped, execution pending | Hybrid keyword pre-screen + LLM-as-judge + Aiden arbitration. Scope: 1,251 un-audited matching + cram items + 30-item calibration sample (must include MC + scen). Calibration must flag §2.3.3 mutex / atomic operation as known-positive or pipeline is broken. Detailed plan at `docs/audit-d-scoping.md`. Subsumes Audit B; defers Audit C indefinitely; supersedes Task 1c-structural.
+2 — Mode consolidation | **sub-batches 0 + 1 + 2A + 2B + 2C shipped; 3, 4, 5 deferred behind Audit D (2026-05-13)** | 5 modes (Quiz / Flashcards / Review / Drill Wrong / Matching) per design v2 Q-E; 3 top-level tabs (Progress / Study / Exam) per Q-A. Authoritative spec at `docs/task2-design-v2.txt`. Sub-batches 0–2C complete (latest: 5ed2cbe). Sub-batches 3 (saved presets), 4 (Flashcards SM-2), 5 (cleanup) deferred until Audit D match + cram fixes ship. SchemaVersion bump NOT required (Q-I).
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
 ## Task 1a — completed
@@ -370,6 +373,59 @@ Triggered by 2026-04-27 study session: app currently surfaces a "N new things to
 
 **Done when:** the daily "N new things to try" count actually translates into Aiden seeing those N things in his next session without manual hunting.
 
+## Task 1f — Audit D: citation grounding (NEW, 2026-05-13, **highest priority**)
+
+Detailed plan: **`docs/audit-d-scoping.md`** (committed `78b3a3c`).
+This section is a pointer; do not duplicate the scoping doc here.
+
+**Trigger:** Sunday 2026-05-10 study session. §2.3.3 (Race Conditions)
+matching tests "Mutex" and "Atomic operation" as concurrency
+primitives. Verified absent from `.messer-transcripts/race-conditions-sy0-701.txt`
+(which covers race condition + TOCTOU with bank-transfer / Mars
+Spirit / Tesla Pwn2Own examples) and from the SY0-701 2.3 objective
+text. The §2.3.3 cram set has the same content. Aiden has confirmed
+multiple unflagged instances exist beyond this example.
+
+**Why this fills a real gap:** the April 27 grounding audit ran on
+867 MC + scen items and found zero true misfiles in 30 spot-checks
+— that finding is still correct for the audited corpus. But matching
+(580 items) and cram (671 items) carry no per-item citation, were
+out of scope for that audit, and have **never been grounded**.
+Audit D fills that specific gap with corrected methodology
+(LLM-as-judge with transcript-as-context, not keyword extraction).
+
+**Eight decisions signed off 2026-05-13** (full text in scoping doc):
+
+- **D1** Method: hybrid keyword pre-screen + LLM-as-judge + Aiden arbitration.
+- **D2** Corpus: match + cram, with 30-item calibration including some MC + scen to re-verify April 27 cleanness.
+- **D3** Source-authority hierarchy: CompTIA → Messer → Sybex → secondary (NIST / ISO / OWASP).
+- **D4** Decomposition: pre-flight PLAN.md amendment → Sub-batch 0 calibration → per-domain verdict sub-batches → per-cluster fix sub-batches → closure.
+- **D5** Order vs Task 2: Audit D first; Sub-batches 3-5 deferred. Exception: if Audit D drags 2-3 weeks, Sub-batch 4 may interleave.
+- **D6** Verdict shape: 6-way split (in-source / partial-depth / partial-adjacent / out-of-source / out-of-syllabus / ambiguous-call) + confidence + fix-direction tags (rewrite-to-source / move-to-correct-video / remove-from-catalog / mark-for-Sybex-arbitration / keep-as-enrichment).
+- **D7** Keyword-screen scope: parent-video only.
+- **D8** Cram handling: verdict-as-data inclusive, advisory-only fixes.
+
+**Three additions (Aiden, 2026-05-13)** baked into the scoping doc:
+
+1. **Calibration smoke test.** The 30-item calibration MUST flag the §2.3.3 mutex / atomic case as out-of-source. If it doesn't, the pipeline is broken; do not expand scope.
+2. **R7 mitigation (audit-study collision).** Aiden is currently studying. Strategy A (ship fixes during study breaks aligned to current domain) vs Strategy B (single end-of-audit ship over a non-study weekend); decision point after calibration.
+3. **R8 enrichment-vs-misfile distinction.** Out-of-source verdicts do NOT auto-route to remove-from-catalog; they route to Aiden, who may pick `keep-as-enrichment` for content like mutex/atomic that he added deliberately.
+
+**Relationships to other planned work:**
+
+- Audit A (structural option consistency): shipped 2026-05-04 to 2026-05-05. Out of scope here.
+- Audit B (semantic coherence): **subsumed into Audit D**. Partial-depth + out-of-source verdicts capture semantic coherence failures.
+- Audit C (length-ratio re-run): **deferred indefinitely**. Re-trigger only if Aiden surfaces length-tell complaints during study.
+- Task 1c-structural (grounding/anchor-gap audits): **superseded by Audit D**.
+- Metacognitive feature #4 (PBQ format audit, tracked 2026-05-10): **kept separate**. Different shape (format vs content). Run after Audit D.
+- Task 2 Sub-batches 3, 4, 5: **deferred behind Audit D** per D5.
+- Task 3 (PBQ system): runs after Audit D so PBQ authoring operates on a content-correct corpus.
+
+**Next execution step:** Sub-batch 0 — calibration tooling + 30-item
+calibration run, including the §2.3.3 mutex / atomic ground-truth
+case. Surface calibration design to Aiden before authoring. No
+`questions.json` changes in Sub-batch 0.
+
 ## Task 2 — Mode consolidation (in flight)
 
 Authoritative spec: `docs/task2-design-v2.txt` (recovered from JSONL on
@@ -420,19 +476,20 @@ Sub-batch ledger:
     `index-Bu7UvPei.js` (1350.84 kB; +8.59 kB / +0.64% over 2A).
     Validator baseline-equal; 34 sync-engine tests PASS; diff-test
     PASS. Status doc at `docs/task2-sub-batch-2b-shipped.md`.
-  - **2C** (next) — un-orphan via cleanup: delete
-    `LEGACY_SHIM_FOR_MODE` / `legacyToBuildPoolMode` /
-    `legacyEmptyMessage` / `presetMode` prop / `STUDY_MODE_TO_DRAWER`
-    + the orphan 6-card grid; switch Drill card to per-question
-    `belowAccuracy: 0.70` (Q-F behavior change — flag explicitly
-    in 2C commit + ship report per Aiden's risk-handling addition
-    to D3) + ungrey the drawer slider; idempotent migration of
-    any persisted `drill` slot to drop `legacyVideoLevelWeak`.
-- **3 — Saved presets** (after 2).
-- **4 — Flashcards SM-2 (`cram-*` keys)** (gated on Sub-batch 0 + 24-h
-  + manual device reload check; gate satisfied as of 2026-05-05).
-- **5 — Cleanup** (last; removes the orphaned 6-card grid, CramTab, and
-  6 startQuiz branches).
+  - **2C** (shipped `5ed2cbe`, 2026-05-09) — cleanup +
+    per-question weak scope. Deleted `LEGACY_SHIM_FOR_MODE` /
+    `legacyToBuildPoolMode` / `legacyEmptyMessage` / `presetMode`
+    prop / `STUDY_MODE_TO_DRAWER` + the orphan 6-card grid;
+    switched Drill card to per-question `belowAccuracy: 0.70`
+    (Q-F behavior change flipped on; flagged in commit + ship
+    report per Aiden's risk-handling addition to D3); ungreyed
+    the drawer slider; idempotent migration of any persisted
+    `drill` slot drops `legacyVideoLevelWeak`. Status doc at
+    `docs/task2-sub-batch-2c-shipped.md`. Live bundle
+    `index-D1M-q5i7.js`.
+- **3 — Saved presets** — **deferred behind Audit D (2026-05-13)**. Resume after Audit D closure.
+- **4 — Flashcards SM-2 (`cram-*` keys)** — **deferred behind Audit D (2026-05-13)**. Sub-batch 0 hygiene + 24-h gate satisfied 2026-05-05, but the fix sequence runs after Audit D match + cram fixes ship. Exception clause per D5: if Audit D drags 2-3 weeks, may interleave since it touches the cram data path.
+- **5 — Cleanup** — **deferred behind Audit D (2026-05-13)**. Final orphan removal pass.
 
 ### Task 2 — tracked polish items
 
@@ -523,6 +580,10 @@ priorities then; do NOT pull any of these into Task 2 mid-flight.
   (CLAUDE.md: "PBQ system + exam simulation").
 - Deferred until #1 and #2 produce data informing whether this
   is needed.
+- **(2026-05-13)** Kept **separate** from Audit D per the Audit D
+  scoping decision (different shape: format vs content). Runs
+  after Audit D content corrections so PBQ-format work operates
+  on a content-correct corpus.
 
 #### 5. Typed Feynman summary per video on Progress tab
 
