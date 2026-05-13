@@ -78,6 +78,8 @@ These rules apply to EVERY new or modified question. A question that fails any o
 
 6. **Ask before making destructive changes.** Deleting questions, renaming components, changing public URLs — flag these before doing them.
 
+7. **Write a session report after every completed task.** Save to `Reports/Report-#NNNN.md` (zero-padded 4-digit sequence number; first is `Report-#0001.md`). Number monotonically increasing; never reuse or backdate. The report must cover what was asked, what was done, files changed, commits made, decisions reached, boundaries honored, and what's next. Check the highest existing `Report-#NNNN.md` in `Reports/` and increment from there. The report is part of the work product — commit it alongside the task changes (or in a follow-up commit if the task was already committed). This rule applies to ALL tasks, including documentation-only and scoping-only sessions. (Established 2026-05-13.)
+
 ## Files and Their Roles
 
 - `src/secplus-quiz.jsx` — the React app. Should become ~500 lines (UI only) once question data is extracted.
@@ -91,6 +93,7 @@ These rules apply to EVERY new or modified question. A question that fails any o
 - `PLAN.md` — living task tracker (to be created in Task 1).
 - `SCHEMA.md` — question schema documentation (to be created in Task 1).
 - `CLAUDE.md` — this file.
+- `Reports/` — per-task session reports, named `Report-#NNNN.md`. See Workflow Rule #7.
 
 ## The 3-Task Plan
 
