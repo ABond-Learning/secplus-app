@@ -243,6 +243,52 @@ Aiden decides per-term. Cram is a low-stakes study-flashcard
 format; the verdict tells him which cards may be enrichment
 beyond Messer, but the keep/remove call is his.
 
+## Revision 2026-05-13 (mid-Sub-batch-0): calibration blind reviewer = supervisor-Claude
+
+The original scoping implicitly assumed Aiden would be the second
+reader for the calibration sample (blind-pass review against the
+LLM-as-judge script's verdicts). This is wrong on two grounds:
+
+1. The calibration question is **"is the app's content grounded in
+   its cited Messer transcripts?"** — a text-vs-text source-grounding
+   question, not a pedagogical-judgment question. Aiden's role in
+   this project is the **user**, not a second LLM check. He has
+   already flagged real misalignment instances during study; asking
+   him to grade individual items as a manual second reader isn't a
+   good use of his time.
+2. **Two independent LLM readers** (the script's Sonnet via
+   Anthropic API + a separate "supervisor-Claude" conversation on
+   Claude.ai) measuring agreement is still a valid methodology
+   validation. It measures whether the audit pipeline's verdicts
+   hold up to a second-reader review under the same item + source
+   conditions.
+
+**Revised procedure for calibration blind pass:**
+
+- The pipeline generates `.audit-working/audit-d-calibration/supervisor-claude-review-packet.md`
+  containing all 30 items, with the full cited transcript inline
+  per item. The packet leaks no script LLM verdicts and no keyword
+  screen results (S-R4 blind-pass invariant extended to the second
+  reader).
+- Aiden opens a fresh Claude.ai conversation, pastes the packet,
+  and supervisor-Claude returns a JSON array of 30 verdicts in the
+  same 6-way schema.
+- Aiden pastes the JSON array back to this CC session; the audit
+  pipeline ingests it, computes agreement rate against the script's
+  Sonnet verdicts, and produces the Sub-batch 0 closure summary.
+
+**What this revision does NOT change:**
+
+- **Sub-batches 1+ human arbiter role remains Aiden's.** When the
+  full-corpus audit produces HIGH flags requiring source-authority
+  arbitration (CompTIA PDF + Sybex book + Aiden's own study
+  experience), Aiden remains the final reviewer for those calls.
+  Calibration is a methodology check; full-corpus HIGH-flag
+  arbitration is a user-judgment task. These are different roles.
+- **R7 (audit-study collision) mitigation strategies** still apply
+  to Sub-batches 1+ ship cadence; calibration itself is not the
+  study-disruptive phase.
+
 ## Three additions to the plan (Aiden, 2026-05-13)
 
 ### Addition 1 — Calibration smoke test

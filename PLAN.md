@@ -23,7 +23,7 @@ Task | State | Notes
 **1e — New-content prioritization** | **NEW (2026-04-27)** | App reports "N new things to try" with no way to see/prioritize them. Either separate New mode or have existing modes prioritize unseen-from-watched-videos. Smaller scope than Task 2; ~1-2 hours.
 1c-structural (continuation) — extractor tuning | **superseded by Audit D (2026-05-13)** | Keyword-extractor approach abandoned in favor of LLM-as-judge. See Task 1f.
 1c-experiential — anchor-gap fixes | not started; **scope may overlap with Audit D** | Generate anchor questions for concepts not yet tested. Distinct from Audit D's "is tested content in source?" question, but the underlying transcript-driven analysis pipeline could be shared. Re-evaluate after Audit D closure.
-**1f — Audit D: citation grounding** | **NEW (2026-05-13)**, scoped, execution pending | Hybrid keyword pre-screen + LLM-as-judge + Aiden arbitration. Scope: 1,251 un-audited matching + cram items + 30-item calibration sample (must include MC + scen). Calibration must flag §2.3.3 mutex / atomic operation as known-positive or pipeline is broken. Detailed plan at `docs/audit-d-scoping.md`. Subsumes Audit B; defers Audit C indefinitely; supersedes Task 1c-structural.
+**1f — Audit D: citation grounding** | **Sub-batch 0 SHIPPED 2026-05-13; Sub-batch 1 pre-flight gate (prompt tuning + micro-recalibration)** | Hybrid keyword pre-screen + LLM-as-judge + Aiden arbitration. Sub-batch 0: tooling (5 scripts) + 30-item calibration; smoke test PASSED both stages; strict 76.7% / collapsed 86.7% agreement vs supervisor-Claude → "prompt tuning needed but methodology sound". Calibration cost $0.32 / $5 budget. Closure doc `docs/audit-d-calibration-summary.md`; report `Reports/Report-#0002.md`. **Next: prompt tuning (4 specific recommendations) + ~10-item micro-recalibration + Aiden sign-off before Sub-batch 1 full-corpus run.** Subsumes Audit B; defers Audit C indefinitely; supersedes Task 1c-structural.
 2 — Mode consolidation | **sub-batches 0 + 1 + 2A + 2B + 2C shipped; 3, 4, 5 deferred behind Audit D (2026-05-13)** | 5 modes (Quiz / Flashcards / Review / Drill Wrong / Matching) per design v2 Q-E; 3 top-level tabs (Progress / Study / Exam) per Q-A. Authoritative spec at `docs/task2-design-v2.txt`. Sub-batches 0–2C complete (latest: 5ed2cbe). Sub-batches 3 (saved presets), 4 (Flashcards SM-2), 5 (cleanup) deferred until Audit D match + cram fixes ship. SchemaVersion bump NOT required (Q-I).
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
@@ -411,6 +411,8 @@ Audit D fills that specific gap with corrected methodology
 2. **R7 mitigation (audit-study collision).** Aiden is currently studying. Strategy A (ship fixes during study breaks aligned to current domain) vs Strategy B (single end-of-audit ship over a non-study weekend); decision point after calibration.
 3. **R8 enrichment-vs-misfile distinction.** Out-of-source verdicts do NOT auto-route to remove-from-catalog; they route to Aiden, who may pick `keep-as-enrichment` for content like mutex/atomic that he added deliberately.
 
+**Mid-sub-batch revision (2026-05-13, during Sub-batch 0):** the calibration blind reviewer is **supervisor-Claude** (a separate Claude.ai conversation), not Aiden. Two independent LLM readers measuring agreement is the methodology check. Aiden's role for Sub-batches 1+ as human arbiter on HIGH flags (CompTIA PDF + Sybex book + study perspective) is unchanged. See scoping doc § "Revision 2026-05-13".
+
 **Relationships to other planned work:**
 
 - Audit A (structural option consistency): shipped 2026-05-04 to 2026-05-05. Out of scope here.
@@ -421,10 +423,33 @@ Audit D fills that specific gap with corrected methodology
 - Task 2 Sub-batches 3, 4, 5: **deferred behind Audit D** per D5.
 - Task 3 (PBQ system): runs after Audit D so PBQ authoring operates on a content-correct corpus.
 
-**Next execution step:** Sub-batch 0 — calibration tooling + 30-item
-calibration run, including the §2.3.3 mutex / atomic ground-truth
-case. Surface calibration design to Aiden before authoring. No
-`questions.json` changes in Sub-batch 0.
+**Sub-batch 0 SHIPPED 2026-05-13.** Tooling built (5 scripts:
+`audit-d-sample.mjs`, `audit-d-keyword-screen.mjs`,
+`audit-d-llm-judge.mjs`, `audit-d-build-review.mjs`,
+`audit-d-ingest-supervisor.mjs`), 30-item calibration run
+executed at $0.32 / $5 budget, smoke test PASSED at both
+stages (§2.3.3 mutex+atomic flagged out-of-source by both
+readers). Two independent LLM readers: script (Sonnet 4.5 via
+API) + supervisor-Claude (separate Claude.ai conversation per
+mid-sub-batch revision). **Strict 6-way agreement 76.7% (below
+85%); collapsed agreement 86.7% (above 85%).** Per Aiden's
+spec, this supports the "prompt tuning needed but methodology
+sound" interpretation. Outcome doc at
+`docs/audit-d-calibration-summary.md`; session report at
+`Reports/Report-#0002.md`.
+
+**Sub-batch 1 pre-flight gate:** prompt tuning required before
+scope expansion. Script's prompt biases toward `out-of-source`
+when `partial-adjacent` is more accurate (3 collapsed-resolved
+disagreements) and under-uses `partial-depth` for "concept
+named but shallow" cases (3 of 4 true mismatches). Four specific
+prompt-tuning recommendations documented in the summary.
+Sequence: tune `audit-d-llm-judge.mjs` SYSTEM_PROMPT →
+micro-recalibration (~10 items, ~$0.10) → Aiden sign-off →
+broader-scope decision (match+cram-only vs add MC+scen — 4
+MC/scen items in the calibration sample were flagged
+not-in-cited-transcript by both readers, suggesting April 27
+cleanness no longer fully holds) → Sub-batch 1 full corpus.
 
 ## Task 2 — Mode consolidation (in flight)
 
