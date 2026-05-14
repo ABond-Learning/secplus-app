@@ -23,7 +23,7 @@ Task | State | Notes
 **1e — New-content prioritization** | **NEW (2026-04-27)** | App reports "N new things to try" with no way to see/prioritize them. Either separate New mode or have existing modes prioritize unseen-from-watched-videos. Smaller scope than Task 2; ~1-2 hours.
 1c-structural (continuation) — extractor tuning | **superseded by Audit D (2026-05-13)** | Keyword-extractor approach abandoned in favor of LLM-as-judge. See Task 1f.
 1c-experiential — anchor-gap fixes | not started; **scope may overlap with Audit D** | Generate anchor questions for concepts not yet tested. Distinct from Audit D's "is tested content in source?" question, but the underlying transcript-driven analysis pipeline could be shared. Re-evaluate after Audit D closure.
-**1f — Audit D: citation grounding** | **Sub-batch 0 SHIPPED 2026-05-13; Sub-batch 1 pre-flight gate (prompt tuning + micro-recalibration)** | Hybrid keyword pre-screen + LLM-as-judge + Aiden arbitration. Sub-batch 0: tooling (5 scripts) + 30-item calibration; smoke test PASSED both stages; strict 76.7% / collapsed 86.7% agreement vs supervisor-Claude → "prompt tuning needed but methodology sound". Calibration cost $0.32 / $5 budget. Closure doc `docs/audit-d-calibration-summary.md`; report `Reports/Report-#0002.md`. **Next: prompt tuning (4 specific recommendations) + ~10-item micro-recalibration + Aiden sign-off before Sub-batch 1 full-corpus run.** Subsumes Audit B; defers Audit C indefinitely; supersedes Task 1c-structural.
+**1f — Audit D: citation grounding** | **SB0 SHIPPED 2026-05-13 `111be1f`; SB1 pre-flight SHIPPED 2026-05-14 `aa32fad` (iter 1 of N: Recs 2 + 4 landed, Rec 1 deferred to SB1.5)** | Hybrid keyword pre-screen + LLM-as-judge + Aiden arbitration. SB0: 5 scripts + 30-item calibration, $0.32; smoke PASSED; strict 76.7% / collapsed 86.7%. SB1 pre-flight: tuned prompt + cache + verbatim-retry; Rec 2 partial-depth examples landed (3/3 targeted shifts); Rec 4 verbatim-retry landed (paraphrase 27%→8.3%); Rec 1 partial-adjacent attempted in iter1 (reorder + decision-tree + consistency check) but broke smoke + 10/23 regressions → rolled back; Rec 3 confidence accepted as limitation. Pass-criteria 5/7 PASS, 2 FAIL (both Rec 1 not biting). Spend $0.97; API credit topped up to ~$53.71. **Next: SB1.5 — post-process script (~5 lines, no LLM call) flipping category to partial-adjacent when fix_direction=move-to-correct-video; then SB1 full corpus.** Closure docs `docs/audit-d-calibration-summary.md` (SB0), `Reports/Report-#0002.md` (SB0), `Reports/Report-#0003.md` (SB1 pre-flight). Subsumes Audit B; defers Audit C indefinitely; supersedes Task 1c-structural.
 2 — Mode consolidation | **sub-batches 0 + 1 + 2A + 2B + 2C shipped; 3, 4, 5 deferred behind Audit D (2026-05-13)** | 5 modes (Quiz / Flashcards / Review / Drill Wrong / Matching) per design v2 Q-E; 3 top-level tabs (Progress / Study / Exam) per Q-A. Authoritative spec at `docs/task2-design-v2.txt`. Sub-batches 0–2C complete (latest: 5ed2cbe). Sub-batches 3 (saved presets), 4 (Flashcards SM-2), 5 (cleanup) deferred until Audit D match + cram fixes ship. SchemaVersion bump NOT required (Q-I).
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
@@ -438,18 +438,23 @@ sound" interpretation. Outcome doc at
 `docs/audit-d-calibration-summary.md`; session report at
 `Reports/Report-#0002.md`.
 
-**Sub-batch 1 pre-flight gate:** prompt tuning required before
-scope expansion. Script's prompt biases toward `out-of-source`
-when `partial-adjacent` is more accurate (3 collapsed-resolved
-disagreements) and under-uses `partial-depth` for "concept
-named but shallow" cases (3 of 4 true mismatches). Four specific
-prompt-tuning recommendations documented in the summary.
-Sequence: tune `audit-d-llm-judge.mjs` SYSTEM_PROMPT →
-micro-recalibration (~10 items, ~$0.10) → Aiden sign-off →
-broader-scope decision (match+cram-only vs add MC+scen — 4
-MC/scen items in the calibration sample were flagged
-not-in-cited-transcript by both readers, suggesting April 27
-cleanness no longer fully holds) → Sub-batch 1 full corpus.
+**Sub-batch 1 pre-flight SHIPPED 2026-05-14 at `aa32fad` (iteration 1 of N).** Tuned `audit-d-llm-judge.mjs` (255→461 lines) per the 4 recommendations from the calibration summary + 5 new scripts (microrecal-sample / supervisor-packet / metrics / regression-sample / regression-metrics) + `Reports/Report-#0003.md`. Spend $0.97 this session; cumulative Audit D $1.29 of $53.71 (~2.4%; API credit topped up mid-session). Six API runs across iter0 (12 items) + iter1 (12 items) + iter1 regression (23 items) + iter0 regression (23 items).
+
+Outcomes per Rec:
+- **Rec 2 partial-depth a/b/c examples** — LANDED. 3/3 targeted Subset 1 shifts (rows 5 DHE, 11 PCI DSS, 30 PCI pen test). Minor over-shift on 2 regression items (in tolerance).
+- **Rec 4 verbatim-quote rule + ambiguous-call escape, single-retry mode 2** — LANDED. Paraphrase rate 27% (SB0 baseline) → 8.3% (iter0 micro-recal). Retry budget cap (+30%) never approached.
+- **Prompt cache** (cache_control: ephemeral on system block) — LANDED. 100% hit rate after first call across micro-recal + regression. D-E caveat verified.
+- **Rec 1 partial-adjacent strengthening** — DEFERRED to Sub-batch 1.5. iter0 produced 0 partial-adjacent verdicts. iter1 (reorder + decision-tree + consistency check) lifted to 4/12 but broke smoke test (3/4 §2.3.3 mutex/atomic items shifted) and caused 10/23 strict regressions on the regression-sample → rolled back. Architectural insight: LLM's `fix_direction` is a more reliable intent signal than `category` label (3 iter0 verdicts had `category: out-of-source` + `fix_direction: move-to-correct-video` — the LLM understands partial-adjacent but training prior overrides at category-stamping). Future: post-process script flips category to partial-adjacent when fix_direction is move-to-correct-video — separates LLM judgment from category-label mechanics. ~5 lines, no LLM call.
+- **Rec 3 confidence calibration** — ACCEPTED AS LIMITATION. 12/12 high on iter0; soft prompt instructions don't bite; hard quotas would distort signal. Revisit only if full corpus surfaces real problems.
+
+Pass-criteria status (iter0 shipping):
+- PASS regression strict 2/23, smoke held, paraphrase 8.3%, cache 100%, Subset 2 strict 3/5
+- FAIL Subset 1 strict 3/6 (need ≥5/6) — Rec 1 not biting
+- FAIL Subset 2 collapsed 3/5 (need ≥4/5) — Rec 1 not biting
+
+**Sub-batch 1.5 (next session, ~1 hour, <$0.01).** Author `scripts/audit-d-postprocess-verdicts.mjs`; apply to iter0 verdicts; re-compute micro-recal metrics. Expected: Subset 1 strict 3/6 → 5/6 or 6/6 (rows 10, 19, 24 flip cleanly; row 18 D-H still excluded). Row 5 CCPA stays partial-depth (its fix-direction wasn't move-to-correct-video) — residual for Aiden review. Aiden sign-off, then plan Sub-batch 1 full-corpus run.
+
+**Sub-batch 1 full corpus (after SB1.5 closure).** Scope decision: match+cram only (1,251 items, $15-25) or +MC+scen (~2,200 items, $35-50). Model decision: sonnet-4-5 vs sonnet-4-6. Bump HARD_CAP. Apply post-process. Aiden review of move-to-correct-video verdicts.
 
 ## Task 2 — Mode consolidation (in flight)
 
