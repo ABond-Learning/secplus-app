@@ -257,20 +257,64 @@ Produce the JSON verdict per the schema.`;
 const sample = JSON.parse(readFileSync(SAMPLE_PATH, "utf8"));
 mkdirSync(SAMPLE_DIR, { recursive: true });
 
+// ─── Resume support (added 2026-05-18 after SB1 travel halt) ─────────
+// If VERDICTS_PATH already exists, treat it as a partial run: load its
+// verdicts[], rebuild the done-set keyed by item location (NOT array
+// index — order-independent), and the main loop below skips any
+// sample.items entry whose location is already in the set. Periodic
+// flushOutput() calls below also write incrementally every 50 verdicts
+// so a future halt loses at most ~50 items of work. Carries forward
+// errors and prior session_history for cumulative cost visibility.
+// Pure ops/infra — model, prompt, HARD_CAP, retry logic all unchanged.
+const locKey = (l) => `${l.section}|${l.video}|${l.type}|${l.index}`;
+const verdicts = [];
+const doneLocations = new Set();
+let priorMetadata = null;
+if (existsSync(VERDICTS_PATH)) {
+  const prior = JSON.parse(readFileSync(VERDICTS_PATH, "utf8"));
+  if (Array.isArray(prior.verdicts)) {
+    for (const v of prior.verdicts) {
+      verdicts.push(v);
+      if (v.location) doneLocations.add(locKey(v.location));
+    }
+    priorMetadata = prior.metadata || null;
+  }
+}
+const priorErrors = [];
+if (existsSync(ERRORS_PATH)) {
+  try {
+    const e = JSON.parse(readFileSync(ERRORS_PATH, "utf8"));
+    if (Array.isArray(e)) priorErrors.push(...e);
+  } catch { /* malformed errors.json — start fresh */ }
+}
+
 let totalCalls = 0;
 let totalCost = 0;
 let retryCount = 0;
 const cacheStats = [];
-const verdicts = [];
 const errors = [];
 
 const retryBudget = Math.max(5, Math.ceil(sample.items.length * RETRY_BUDGET_RATIO));
+const FLUSH_EVERY = 50;
+let sinceLastFlush = 0;
+const sessionStartedAt = new Date().toISOString();
+const initialDoneCount = doneLocations.size;
 
 console.log(`Starting LLM-as-judge: ${sample.items.length} items, model=${MODEL}, hard cap=${HARD_CAP}.`);
 console.log(`Input:        ${SAMPLE_PATH}`);
 console.log(`Output:       ${VERDICTS_PATH}`);
 console.log(`Retry budget: ${retryBudget} (verbatim retries)`);
 console.log(`Prompt cache: enabled (system block has cache_control: ephemeral)`);
+console.log(`Flush every:  ${FLUSH_EVERY} verdicts`);
+if (initialDoneCount > 0) {
+  const remaining = sample.items.length - initialDoneCount;
+  const priorCum = priorMetadata?.cumulative_cost_usd
+    ?? (priorMetadata?.session_history || []).reduce((s, x) => s + (x.session_cost_usd || 0), 0)
+    ?? priorMetadata?.total_cost_usd
+    ?? 0;
+  console.log(`RESUME: ${initialDoneCount} prior verdicts loaded; ${remaining} items remaining.`);
+  console.log(`        Prior cumulative cost: $${(+priorCum).toFixed(4)}`);
+}
 console.log("");
 
 for (const item of sample.items) {
@@ -282,6 +326,10 @@ for (const item of sample.items) {
     console.error(`!! RETRY BUDGET EXCEEDED (${retryCount}>${retryBudget}). Aborting before remaining items.`);
     break;
   }
+
+  // Resume: skip items already in the prior verdicts file. Location is
+  // section|video|type|index — order-independent.
+  if (doneLocations.has(locKey(item))) continue;
 
   const tpath = resolve(repo, item.transcript_path);
   if (!existsSync(tpath)) {
@@ -406,63 +454,114 @@ for (const item of sample.items) {
       timestamp: new Date().toISOString(),
     },
   });
+  doneLocations.add(locKey(item));
 
   const flagStr = structural_flag ? ` [${structural_flag}]` : "";
   const retryStr = usageRecords.length > 1 ? " (retried)" : "";
   const itemCost = usageRecords.reduce((s, r) => s + r.cost, 0);
   console.log(`  [${totalCalls}] §${item.video} ${item.type}[${item.index}] → ${verdict.category} (${verdict.confidence})${flagStr}${retryStr} — $${itemCost.toFixed(4)} (running $${totalCost.toFixed(4)})`);
+
+  sinceLastFlush++;
+  if (sinceLastFlush >= FLUSH_EVERY) {
+    flushOutput();
+    sinceLastFlush = 0;
+    console.log(`  [flush at ${verdicts.length}/${sample.items.length} verdicts; session $${totalCost.toFixed(4)}]`);
+  }
 }
 
-// ─── Cache hit-rate computation ─────────────────────────────────────
-const callsAfterFirst = cacheStats.slice(1);
-const cacheHitsAfterFirst = callsAfterFirst.filter(c => c.cache_read > 0).length;
-const cacheHitRate = callsAfterFirst.length > 0
-  ? cacheHitsAfterFirst / callsAfterFirst.length
-  : 0;
-
-const cacheSummary = {
-  total_writes:              cacheStats.reduce((s, c) => s + c.cache_creation, 0),
-  total_reads:               cacheStats.reduce((s, c) => s + c.cache_read,     0),
-  calls_with_cache_write:    cacheStats.filter(c => c.cache_creation > 0).length,
-  calls_with_cache_read:     cacheStats.filter(c => c.cache_read     > 0).length,
-  cache_hit_rate_after_first: +cacheHitRate.toFixed(4),
-  per_call: cacheStats,
-};
-
-// ─── Write output ───────────────────────────────────────────────────
-const output = {
-  metadata: {
-    model: MODEL,
-    sample_size: sample.items.length,
-    total_calls: totalCalls,
-    verdicts_produced: verdicts.length,
-    retry_calls: retryCount,
-    retry_budget: retryBudget,
-    total_cost_usd: +totalCost.toFixed(6),
-    hard_cap: HARD_CAP,
-    timestamp: new Date().toISOString(),
-    input_path: SAMPLE_PATH,
-    output_path: VERDICTS_PATH,
-    prompt_cache_enabled: true,
-    cache_stats: cacheSummary,
-  },
-  verdicts,
-};
-
-writeFileSync(VERDICTS_PATH, JSON.stringify(output, null, 2));
-
-if (errors.length) {
-  writeFileSync(ERRORS_PATH, JSON.stringify(errors, null, 2));
+// ─── Cache hit-rate computation (session-only) ───────────────────────
+// Cache stats reflect the current process only — each restart is a
+// fresh prompt-cache write, so cumulative cache rate across sessions
+// would be misleading.
+function buildCacheSummary() {
+  const callsAfterFirst = cacheStats.slice(1);
+  const cacheHitsAfterFirst = callsAfterFirst.filter(c => c.cache_read > 0).length;
+  const rate = callsAfterFirst.length > 0 ? cacheHitsAfterFirst / callsAfterFirst.length : 0;
+  return {
+    summary: {
+      total_writes:              cacheStats.reduce((s, c) => s + c.cache_creation, 0),
+      total_reads:               cacheStats.reduce((s, c) => s + c.cache_read,     0),
+      calls_with_cache_write:    cacheStats.filter(c => c.cache_creation > 0).length,
+      calls_with_cache_read:     cacheStats.filter(c => c.cache_read     > 0).length,
+      cache_hit_rate_after_first: +rate.toFixed(4),
+      per_call: cacheStats,
+    },
+    rate,
+    hits: cacheHitsAfterFirst,
+    after_first_total: callsAfterFirst.length,
+  };
 }
+
+// ─── Output builder (used by periodic flush AND final write) ─────────
+function buildOutput() {
+  const cs = buildCacheSummary();
+  const sessionEntry = {
+    started_at: sessionStartedAt,
+    last_flush_at: new Date().toISOString(),
+    items_in_sample: sample.items.length,
+    items_skipped_already_done: initialDoneCount,
+    session_calls: totalCalls,
+    session_retries: retryCount,
+    session_cost_usd: +totalCost.toFixed(6),
+    cache_hit_rate_after_first: cs.summary.cache_hit_rate_after_first,
+  };
+  const prior_history = priorMetadata?.session_history || [];
+  // Idempotent: if a flush already wrote this session's entry, replace it.
+  const matchingIdx = prior_history.findIndex(x => x.started_at === sessionStartedAt);
+  const session_history = matchingIdx >= 0
+    ? [...prior_history.slice(0, matchingIdx), sessionEntry, ...prior_history.slice(matchingIdx + 1)]
+    : [...prior_history, sessionEntry];
+  const cumulative_cost_usd = +session_history.reduce((s, x) => s + (x.session_cost_usd || 0), 0).toFixed(6);
+  return {
+    metadata: {
+      model: MODEL,
+      sample_size: sample.items.length,
+      // Top-level fields reflect THIS session (preserves prior shape so
+      // audit-d-build-review.mjs / audit-d-microrecal-metrics.mjs and
+      // similar downstream consumers continue to work). Across-session
+      // totals are surfaced via cumulative_cost_usd + session_history.
+      total_calls: totalCalls,
+      verdicts_produced: verdicts.length,
+      retry_calls: retryCount,
+      retry_budget: retryBudget,
+      total_cost_usd: +totalCost.toFixed(6),
+      cumulative_cost_usd,
+      hard_cap: HARD_CAP,
+      timestamp: new Date().toISOString(),
+      input_path: SAMPLE_PATH,
+      output_path: VERDICTS_PATH,
+      prompt_cache_enabled: true,
+      cache_stats: cs.summary,
+      session_started_at: sessionStartedAt,
+      items_skipped_already_done: initialDoneCount,
+      session_history,
+    },
+    verdicts,
+  };
+}
+
+function flushOutput() {
+  writeFileSync(VERDICTS_PATH, JSON.stringify(buildOutput(), null, 2));
+  if (errors.length || priorErrors.length) {
+    writeFileSync(ERRORS_PATH, JSON.stringify([...priorErrors, ...errors], null, 2));
+  }
+}
+
+// ─── Final flush ────────────────────────────────────────────────────
+flushOutput();
 
 // ─── Summary printout ──────────────────────────────────────────────
+const cs = buildCacheSummary();
 console.log("");
-console.log(`Done. ${totalCalls} API calls (${verdicts.length} verdicts + ${retryCount} verbatim retries), $${totalCost.toFixed(4)} total, ${errors.length} errors.`);
-console.log(`Cache stats:`);
-console.log(`  Total cache writes: ${cacheSummary.total_writes} tokens across ${cacheSummary.calls_with_cache_write} call(s)`);
-console.log(`  Total cache reads:  ${cacheSummary.total_reads} tokens across ${cacheSummary.calls_with_cache_read} call(s)`);
-console.log(`  Cache hit rate (calls after first): ${cacheHitsAfterFirst}/${callsAfterFirst.length} = ${(cacheHitRate*100).toFixed(1)}%`);
+console.log(`Done. ${totalCalls} API calls (${verdicts.length} verdicts + ${retryCount} verbatim retries), $${totalCost.toFixed(4)} total, ${errors.length} errors this session.`);
+console.log(`Skipped (already done from prior session): ${initialDoneCount}`);
+const out = buildOutput();
+console.log(`Cumulative cost across all sessions: $${out.metadata.cumulative_cost_usd.toFixed(4)}`);
+console.log(`Cache stats (this session only):`);
+console.log(`  Total cache writes: ${cs.summary.total_writes} tokens across ${cs.summary.calls_with_cache_write} call(s)`);
+console.log(`  Total cache reads:  ${cs.summary.total_reads} tokens across ${cs.summary.calls_with_cache_read} call(s)`);
+console.log(`  Cache hit rate (calls after first): ${cs.hits}/${cs.after_first_total} = ${(cs.rate*100).toFixed(1)}%`);
 
-if (callsAfterFirst.length >= 2 && cacheHitRate < 0.9) {
-  console.error(`!! WARNING: cache hit rate ${(cacheHitRate*100).toFixed(1)}% is below 90% — prompt caching may not be working as intended. Inspect cache_stats.per_call in the output JSON before scaling.`);
+if (cs.after_first_total >= 2 && cs.rate < 0.9) {
+  console.error(`!! WARNING: cache hit rate ${(cs.rate*100).toFixed(1)}% is below 90% — prompt caching may not be working as intended. Inspect cache_stats.per_call in the output JSON before scaling.`);
 }
