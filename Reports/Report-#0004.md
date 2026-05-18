@@ -129,6 +129,24 @@ Subset 2 collapsed remains FAIL — that's the two residuals Report-#0003 predic
 
 The two new "strict regressions" introduced by postprocess (§2.3.9 hypervisor / §2.3.2 integer overflow) are collapsed-OK, and the iter0 prose on each explicitly identifies partial-adjacent reasoning. They read as the post-process surfacing genuine SB0-supervisor conservatism rather than script error. The other two strict regressions (rows 17, 27) are the Rec 2 over-shifts that were already present in iter0 raw.
 
+#### Methodology framing for the 2 regression-sample flips (added 2026-05-18 at supervisor sign-off)
+
+These 2 flips are **method improvements over the SB0 supervisor baseline, not regressions of the post-process approach.** SB0 supervisor (a Claude.ai session) was applying the same "concept-not-here → out-of-source" training prior that the script's iter0 prompt also exhibited on these rows — both readers stamped out-of-source while the iter0 prose explicitly reasoned in partial-adjacent terms ("belongs in a different Messer video" / "likely belongs in a different vulnerability-types video"). The post-process corrects both readers consistently by trusting `fix_direction` as the cleaner intent channel.
+
+The SB0 supervisor verdicts are **NOT to be retroactively edited.** Moving the ground truth to match a later method is methodology corruption — the SB0 verdicts are the calibration baseline as-of 2026-05-13 and must remain frozen. The correct framing is: the post-process is a documented method improvement; the diff-rate against SB0 supervisor is the audit-trail of what got flipped; reviewers can evaluate the method on its own merits without contaminating the baseline.
+
+Practical implication for SB1 full corpus: apply post-process by default, treat fix_direction → category consistency as the architectural fix, and ship the diff-rate (raw vs postprocessed) as part of SB1 closure so the audit trail captures every flip.
+
+#### Supervisor sign-off
+
+**Sub-batch 1.5 PASS** received from supervisor-Claude via Aiden's paste-relay, 2026-05-18 evening. Conditions noted:
+- Subset 1 strict 6/6 at upper bound of Report-#0003 prediction.
+- Subset 2 strict 3/5 PASS at threshold; collapsed 3/5 FAIL at threshold — predicted, two known-unreachable residuals (HMAC + CCPA), documented limitation not blocker.
+- Smoke test HELD confirms post-process is safer than further prompt iteration (the iter1 lesson).
+- Diagnostic metrics clean: inconsistent verdicts 3 → 0, paraphrase 8.3%, cache 100%.
+- Regression-sample 2 flips treated as method improvement (above).
+- Decisions deferred to next session: D-SB1-scope (match+cram only vs +MC+scen), D-SB1-model (sonnet-4-5 vs sonnet-4-6 small-N comparison first), D-SB1-schedule. Likely move supervisor role to a Claude.ai Project for SB1 full corpus (separate workflow discussion).
+
 ## Files changed
 
 ### New (committed)
