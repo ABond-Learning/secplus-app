@@ -118,8 +118,13 @@ if (!process.env.ANTHROPIC_API_KEY) {
 }
 
 const client = new Anthropic();
+// SB1 full-corpus lock (2026-05-18): model fixed to sonnet-4-5 per Aiden
+// directive (no SB1.5 supervisor cross-run with sonnet-4-6 — straight to
+// full corpus on the SB1.5-validated model). HARD_CAP raised from 100 to
+// 3000 to cover N=2128 full-corpus items + up to 30% verbatim retries
+// (max ~2767 total calls) with headroom.
 const MODEL = "claude-sonnet-4-5";
-const HARD_CAP = 100;
+const HARD_CAP = 3000;
 const RETRY_BUDGET_RATIO = 0.3;
 
 // ─── Pricing (USD per 1M tokens) for sonnet-4-5 standard tier ─────────
