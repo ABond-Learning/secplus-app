@@ -3,7 +3,7 @@
 Single source of truth for in-flight work. Update as state changes.
 See CLAUDE.md for the underlying 3-task plan and quality rules.
 
-Last updated: 2026-05-13
+Last updated: 2026-05-18
 
 ## Status snapshot
 
@@ -542,6 +542,30 @@ sub-batch slot or a between-sub-batch small commit when convenient.
   ("Drawing N items from M videos" per design v2 §3.3) may surface
   this naturally; if not, a small follow-up commit can add per-card
   counts to the picker.
+- **(2026-05-18, surfaced during weekend study) Matching items
+  expose section/video name during quiz.** Pre-existing behaviour,
+  not introduced by recent sub-batches. The MatchingQuestion header
+  shows the section + video title (e.g. "2.3 — Common Attack Types
+  · Malware Variants"), where MC and scenario items mask the video
+  title until after the answer is checked (see `e5fb838`
+  "hide sub-objective title during running quiz to prevent answer
+  leakage"). Effect: matching items leak topic context that MC/scen
+  carefully suppress. Fix shape: gate the matching header label
+  behind `showExp` the same way `qMeta` does at
+  `src/secplus-quiz.jsx:1453`. **Open design question:** anonymise
+  in study mode (current quiz flow) but keep visible in any future
+  exam-simulation mode (Task 3), since CompTIA's UI does expose
+  the objective context. Confirm before flipping.
+- **(2026-05-18, surfaced during weekend study) Matching items
+  lack a progress bar.** MC + scenario render the running quiz's
+  progress bar (`src/secplus-quiz.jsx:1447`) but the
+  MatchingQuestion component doesn't, so mixed quizzes that hit
+  a matching item appear to lose position-feedback for that turn.
+  Fix shape: lift the progress bar JSX out of the MC branch into
+  a shared header rendered for both q.type values, OR add the
+  same `<div style={styles.progressBar}>…</div>` block inside
+  MatchingQuestion. Trivial; bundle into the next matching-area
+  polish commit or alongside the header-leak fix above.
 
 ### Task 2 — proposed metacognitive features (deferred — re-evaluate after Task 2 ships + 3-5 study sessions)
 
