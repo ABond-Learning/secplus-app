@@ -15,7 +15,7 @@ instructions to match.
 
 ## Current state
 
-**Last commit:** `c99a6a1` (Mon 2026-05-18, Reports/Report-#0004.md: SB1.5 supervisor sign-off + methodology framing)
+**Last commit:** `a4a30c3` (Mon 2026-05-18, SB1 ops: resume support for audit-d-llm-judge) — plus the docs-update commit that introduced this paragraph (see `git log -1` for hash).
 
 **Branch:** main, working tree clean except 3 pre-existing untracked
 Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
@@ -26,39 +26,28 @@ Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
 - ✅ Sub-batch 1 pre-flight iter0 (Thu 2026-05-14, `aa32fad`) —
   partial pass, Rec 1 deferred to post-process
 - ✅ Sub-batch 1.5 post-process (Mon 2026-05-18, `a26d42c` + `becaac9` + `dd6b0da` + `c99a6a1`) — PASS with supervisor sign-off recorded in Report-#0004
-- ⏸ Sub-batch 1 full-corpus run (next major work)
+- ⏸ Sub-batch 1 full-corpus run — **ATTEMPTED 2026-05-18, HALTED at call #688 / $7.42 due to laptop travel.** Pre-flight signed off (scope=match+cram+MC+scen, N=2128, model=sonnet-4-5, HARD_CAP=3000, projection $30 mid / $45 stretch). Original script wrote verdicts only at end → $7.42 sunk. **Resume patch landed same day (`a4a30c3`):** `scripts/audit-d-llm-judge.mjs` now reads existing `--output`, skips done locations by `section|video|type|index`, flushes every 50 verdicts. Smoke-tested with fake 2128-verdict file → 0 API calls; cumulative cost preserved. Sample builder `scripts/audit-d-build-sub-batch-1-sample.mjs` shipped in `1a5798c`. **Restart tomorrow in a fresh CC session.**
 - ⏸ Sub-batches 2-N fix runs
 - ⏸ Closure sub-batch
 
-## Pending decisions for Sub-batch 1 full-corpus
+## Sub-batch 1 full-corpus — decisions LOCKED 2026-05-18
 
-These were deferred at Sub-batch 1.5 sign-off. Need to be resolved
-before the full-corpus run kicks off.
+All three previously-pending decisions were resolved at this session's
+pre-flight sign-off:
 
-**D-SB1-scope:** match+cram only vs add MC+scen
-- Match+cram only: ~1,251 items, $15-25 projected, original D2 scope
-- Add MC+scen: ~2,128 items, $35-50 projected, expands beyond D2
-  default
-- Rationale for expansion: 4 MC+scen items in Sub-batch 0 calibration
-  flagged not-in-source by both readers. April 27 "MC+scen are clean"
-  finding holds for keyword methodology but not LLM judgment.
-- Default per D2: match+cram only. Aiden can choose to expand.
+**D-SB1-scope:** match + cram + MC + scen — full 2128 items
+(sample-sampled from `questions.json`: mc=532, scen=345, match=580,
+cram=671 across 28 sections / 120 videos).
 
-**D-SB1-model:** sonnet-4-5 (calibrated) vs sonnet-4-6 (newer)
-- Sonnet 4.5 was used in all of Sub-batch 0 + 1 pre-flight.
-  Methodology calibrated against it.
-- Sonnet 4.6 is newer; using it introduces model drift on top of
-  the prompt tune.
-- Recommended approach: small N=5 comparison on sonnet-4-5 vs
-  sonnet-4-6 with iter0 prompt before committing to model upgrade
-  for full corpus. ~$0.20 to run.
+**D-SB1-model:** sonnet-4-5 (locked). No SB1.5 supervisor cross-run
+with sonnet-4-6 — straight to full corpus on the SB1.5-validated
+model. Rationale: methodology calibrated against 4.5; SB1.5 passed on
+4.5; introducing model drift now would invalidate the validation.
 
-**D-SB1-schedule:** when to run
-- Continuous CC time + cost burst (cache benefits from continuous
-  run)
-- Probably weekend or large weekday block
-- Aiden's study cadence is the constraint (R7 audit-study collision
-  mitigation)
+**D-SB1-schedule:** today (2026-05-18) — halted at call #688 due to
+travel; resumes tomorrow in a fresh CC session using the resume-
+capable script (`a4a30c3`). Resume-on-restart means a future halt
+loses at most ~50 items of work (the periodic-flush interval).
 
 ## Sub-batch 1.5 sign-off annotations (carry forward)
 
@@ -141,12 +130,14 @@ workflow course-corrected.
 
 ## Budget state
 
-- $5 free credit, ~$3.71 remaining
+- $5 free credit, ~$3.71 remaining at session start
 - $50 paid credit added Thu 2026-05-14
-- Total available: ~$52.42
-- Cumulative Audit D spend: $1.29 (~2.4%)
-- Sub-batch 1 full-corpus projection: $15-50 depending on scope
-- Plenty of runway for Audit D end-to-end + future audits
+- Total available pre-session: ~$53.71
+- Sub-batch 1 partial-run spend 2026-05-18: $7.42 (halted at call #688, no on-disk verdicts — sunk)
+- Total available now: **~$46.29**
+- Cumulative Audit D spend: $1.29 prior + $7.42 today = **$8.71**
+- Sub-batch 1 full-corpus REMAINING projection: ~$30 mid / ~$45 stretch on a fresh restart (the resume-patched script doesn't recover the $7.42, but tomorrow's fresh run uses the same projection as today's pre-flight). Cumulative across both attempts: $37 mid / $52 stretch — still under the $60 hard ceiling.
+- Plenty of runway for Audit D end-to-end + future audits, but $7.42 of slack is gone
 
 ## Tasks deferred behind Audit D
 
