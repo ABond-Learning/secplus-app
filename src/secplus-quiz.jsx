@@ -859,8 +859,12 @@ function ProgressTab({ sections, store, watchedSet, toggleWatched, onExport, onI
       (v.scenarios || []).forEach((_q, qi) => {
         if (!store.sm2[scenKey(v.id, qi)]) newToPractice++;
       });
-      if (v.matching && v.matching.length > 0 && !store.sm2[`match-${v.id}`]) {
-        newToPractice++;
+      if (v.matching && v.matching.length > 0) {
+        // "Unseen" = no pair has been practiced yet. Matching writes per-pair
+        // keys `match-{videoId}-{pi}` since the partial-credit era; the legacy
+        // single-record key `match-{videoId}` is no longer written.
+        const anyPracticed = v.matching.some((_p, pi) => store.sm2[matchKey(v.id, pi)]);
+        if (!anyPracticed) newToPractice++;
       }
     });
   });
@@ -1278,6 +1282,11 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   const [showResults, setShowResults] = useState(false);
   const [resultData, setResultData] = useState(null);
   const [optionsRevealed, setOptionsRevealed] = useState(false);
+  // Per-item snapshot of matching-pair scores captured at onNext, keyed by
+  // quizQ index: { [idx]: { correct, total } }. A ref (not state) because
+  // finishQuiz needs to read the latest score synchronously after onNext
+  // schedules state updates — a state setter would still be pending.
+  const matchScoresRef = useRef({});
 
   // Active recall: whenever the question changes, re-hide the options so the
   // user has to consciously reveal them again. Show is sticky per-question.
@@ -1378,6 +1387,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
           setAnswers({});
           setShowExp(false);
           setMatchAnswers({});
+          matchScoresRef.current = {};
           setShowResults(false);
           setResultData(null);
           setMode("running");
@@ -1419,12 +1429,15 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
             // consistently-missed pairs surface in weak spots. New writes
             // use `match-${videoId}-${pairIdx}`; legacy `${videoId}-m` and
             // `${videoId}-m-${pairIdx}` records are converted on load.
+            let correct = 0;
             q.pairs.forEach((p, pairIdx) => {
               const pairKey = matchKey(q.videoId, pairIdx);
               const chosen = matchAnswers[p.prompt];
               const wasCorrect = chosen === p.answer;
+              if (wasCorrect) correct++;
               recordResult(pairKey, wasCorrect);
             });
+            matchScoresRef.current[idx] = { correct, total: q.pairs.length };
             setMatchAnswers({});
             setShowExp(false);
             if (idx + 1 >= quizQ.length) finishQuiz();
@@ -1565,9 +1578,15 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   }
 
   function finishQuiz() {
-    // Use quizQ index directly - indexOf breaks when question objects are structurally identical
+    // Use quizQ index directly - indexOf breaks when question objects are structurally identical.
+    // Matching items contribute per-pair partial credit captured at onNext.
     let correct = 0, total = 0;
     quizQ.forEach((q, qIdx) => {
+      if (q.type === "matching") {
+        const s = matchScoresRef.current[qIdx];
+        if (s) { correct += s.correct; total += s.total; }
+        return;
+      }
       if (q.type !== "mc") return;
       total++;
       if (answers[qIdx] === q.a) correct++;

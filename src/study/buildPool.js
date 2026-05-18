@@ -20,6 +20,7 @@
 
 const mcKey = (videoId, qi) => `mc-${videoId}-${qi}`;
 const scenKey = (videoId, qi) => `scen-${videoId}-${qi}`;
+const matchKey = (videoId, pi) => `match-${videoId}-${pi}`;
 
 function shuffle(arr, rng = Math.random) {
   const a = [...arr];
@@ -100,9 +101,18 @@ export function buildPool({
   // cram: deferred to Sub-batch 4 (depends on cram-* SM-2 keys).
 
   // ─── Step 3: SM-2 filters ────────────────────────────────────────
+  // Matching items are a single pool unit per video but their SM-2 records
+  // live one-per-pair under `match-{videoId}-{pi}`. Each filter below
+  // consults the per-pair records rather than treating matching as a
+  // free pass (which was the pre-fix behaviour and corrupted study signal:
+  // preferUnseen always passed matching, dueOnly always passed matching,
+  // belowAccuracy always passed matching).
   if (f.preferUnseen) {
     pool = pool.filter(item => {
-      if (item.type === "matching") return true;
+      if (item.type === "matching") {
+        // Unseen iff no pair has any record yet.
+        return !item.pairs.some((_p, pi) => store.sm2[matchKey(item.videoId, pi)]);
+      }
       const k = item.isScenario ? scenKey(item.videoId, item.qi) : mcKey(item.videoId, item.qi);
       return !store.sm2[k];
     });
@@ -110,7 +120,17 @@ export function buildPool({
 
   if (f.dueOnly) {
     pool = pool.filter(item => {
-      if (item.type === "matching") return true;
+      if (item.type === "matching") {
+        // Block is due if any pair is due. If no pair has a record at all,
+        // include only when includeUnseen is on (parity with MC/scen path).
+        const anyDue = item.pairs.some((_p, pi) => {
+          const rec = store.sm2[matchKey(item.videoId, pi)];
+          return rec && rec.nextDue <= today;
+        });
+        if (anyDue) return true;
+        const anyRec = item.pairs.some((_p, pi) => store.sm2[matchKey(item.videoId, pi)]);
+        return !anyRec && f.includeUnseen;
+      }
       const k = item.isScenario ? scenKey(item.videoId, item.qi) : mcKey(item.videoId, item.qi);
       const rec = store.sm2[k];
       if (!rec) return f.includeUnseen;
@@ -121,7 +141,16 @@ export function buildPool({
   if (f.belowAccuracy != null) {
     const min = f.minAttempts ?? 2;
     pool = pool.filter(item => {
-      if (item.type === "matching") return true;
+      if (item.type === "matching") {
+        // Include the block if any single pair meets minAttempts AND is
+        // below the accuracy threshold. Drill Wrong intent is "specific
+        // cards you're missing"; for matching the cards are pairs.
+        return item.pairs.some((_p, pi) => {
+          const rec = store.sm2[matchKey(item.videoId, pi)];
+          if (!rec || rec.total < min) return false;
+          return (rec.correct / rec.total) < f.belowAccuracy;
+        });
+      }
       const k = item.isScenario ? scenKey(item.videoId, item.qi) : mcKey(item.videoId, item.qi);
       const rec = store.sm2[k];
       if (!rec) return false;
