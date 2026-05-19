@@ -1,4 +1,4 @@
-# Where Things Stand — 2026-05-18
+# Where Things Stand — 2026-05-19
 
 Handoff document for supervisor-Claude continuity. Captures
 institutional knowledge that isn't in the formal docs (PLAN.md,
@@ -15,7 +15,7 @@ instructions to match.
 
 ## Current state
 
-**Last commit:** `a4a30c3` (Mon 2026-05-18, SB1 ops: resume support for audit-d-llm-judge) — plus the docs-update commit that introduced this paragraph (see `git log -1` for hash).
+**Last commit:** `25764ea` (Tue 2026-05-19, docs: CLAUDE.md Workflow Rule #8 — resume support for long-running API scripts) — plus the Report-#0005 commit and the docs-update commit that introduced this paragraph (see `git log -3` for hashes).
 
 **Branch:** main, working tree clean except 3 pre-existing untracked
 Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
@@ -26,28 +26,46 @@ Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
 - ✅ Sub-batch 1 pre-flight iter0 (Thu 2026-05-14, `aa32fad`) —
   partial pass, Rec 1 deferred to post-process
 - ✅ Sub-batch 1.5 post-process (Mon 2026-05-18, `a26d42c` + `becaac9` + `dd6b0da` + `c99a6a1`) — PASS with supervisor sign-off recorded in Report-#0004
-- ⏸ Sub-batch 1 full-corpus run — **ATTEMPTED 2026-05-18, HALTED at call #688 / $7.42 due to laptop travel.** Pre-flight signed off (scope=match+cram+MC+scen, N=2128, model=sonnet-4-5, HARD_CAP=3000, projection $30 mid / $45 stretch). Original script wrote verdicts only at end → $7.42 sunk. **Resume patch landed same day (`a4a30c3`):** `scripts/audit-d-llm-judge.mjs` now reads existing `--output`, skips done locations by `section|video|type|index`, flushes every 50 verdicts. Smoke-tested with fake 2128-verdict file → 0 API calls; cumulative cost preserved. Sample builder `scripts/audit-d-build-sub-batch-1-sample.mjs` shipped in `1a5798c`. **Restart tomorrow in a fresh CC session.**
-- ⏸ Sub-batches 2-N fix runs
+- ✅ Sub-batch 1 full-corpus — **SHIPPED 2026-05-19.** 2,128 verdicts produced (zero data loss), $25.9170 spent, 100% cache hit rate after first call. Postprocess flipped 412 verdicts (19.4%) to `partial-adjacent` — SB1.5 architectural fix validated at scale. **Spot-check PASS at 75% strict agreement (30/40)** on the supervisor-reviewed stratified packet (matches SB0's 76.7%). Methodology validated; no catastrophic finding. Session report: Report-#0005. *Note: the original 2026-05-18 attempt halted at call #688 / $7.42 sunk; that sunk cost is included in the $34.63 cumulative figure but the SB1 verdicts on disk are entirely from the 2026-05-19 fresh run on the resume-capable script.*
+- ⏸ **Sub-batch 1.6 candidate (deferred)** — post-process refinement to catch `out-of-source`-that-should-be-`partial-depth` on `fix_direction=rewrite-to-source` + justification-prose markers. Same structural shape as SB1.5; supervisor flagged partial-depth as systematically under-applied in spot-check finding #5.
+- ⏸ Sub-batches 2-N fix runs (remediation; ordering = Aiden's call after he reads Report-#0005)
 - ⏸ Closure sub-batch
 
-## Sub-batch 1 full-corpus — decisions LOCKED 2026-05-18
+## Sub-batch 1 full-corpus — completion record 2026-05-19
 
-All three previously-pending decisions were resolved at this session's
-pre-flight sign-off:
+Pre-flight decisions (locked 2026-05-18) held through completion:
 
 **D-SB1-scope:** match + cram + MC + scen — full 2128 items
 (sample-sampled from `questions.json`: mc=532, scen=345, match=580,
-cram=671 across 28 sections / 120 videos).
+cram=671 across 28 sections / 120 videos). All 2,128 produced clean
+verdicts. Zero items missing.
 
-**D-SB1-model:** sonnet-4-5 (locked). No SB1.5 supervisor cross-run
-with sonnet-4-6 — straight to full corpus on the SB1.5-validated
-model. Rationale: methodology calibrated against 4.5; SB1.5 passed on
-4.5; introducing model drift now would invalidate the validation.
+**D-SB1-model:** sonnet-4-5 (locked). 100% cache hit rate after first
+call — perfect cache behaviour confirmed at corpus scale. No
+SB1.5 cross-run was needed.
 
-**D-SB1-schedule:** today (2026-05-18) — halted at call #688 due to
-travel; resumes tomorrow in a fresh CC session using the resume-
-capable script (`a4a30c3`). Resume-on-restart means a future halt
-loses at most ~50 items of work (the periodic-flush interval).
+**D-SB1-schedule:** completed 2026-05-19 across one continuous run
+(~3h wall-clock, ~9 verdicts/min, 2,492 API calls total including
+364 verbatim retries = 17.1% retry rate). Resume-capable script
+(`a4a30c3`) executed cleanly; the periodic-flush path was verified
+at the ~50-verdict mark via direct file inspection — flush worked
+exactly as designed (location-keyed done-set, order-independent).
+
+**Spot-check stratified review (40 items, mulberry32 seed 20260519):**
+15 partial-adjacent / 15 out-of-source / 5 in-source / 5 partial-depth.
+Supervisor verdict: 30/40 strict agreement (PASS). Breakdown:
+- Partial-adjacent: 10/15 confident-agree, 5 uncertain pending Aiden
+  transcript verification, 0 disagree → 412 flips at scale look sound.
+- Out-of-source: 10/15 confident-agree, 3 likely-disagree (avalanche,
+  dual power feeds, tokenization — all same "concept-here-but-not-
+  this-term" pattern), 2 uncertain.
+- In-source: 5/5 agree.
+- Partial-depth: 5/5 agree-when-applied (concern is under-application
+  not mis-application).
+
+Packet artefacts at `.audit-working/audit-d-sub-batch-1/spotcheck-
+packet-v1.{json,md}`, generator at `build-spotcheck-packet.mjs`,
+seed reproducible (same seed → same 40 items).
 
 ## Sub-batch 1.5 sign-off annotations (carry forward)
 
@@ -130,14 +148,14 @@ workflow course-corrected.
 
 ## Budget state
 
-- $5 free credit, ~$3.71 remaining at session start
-- $50 paid credit added Thu 2026-05-14
-- Total available pre-session: ~$53.71
-- Sub-batch 1 partial-run spend 2026-05-18: $7.42 (halted at call #688, no on-disk verdicts — sunk)
-- Total available now: **~$46.29**
-- Cumulative Audit D spend: $1.29 prior + $7.42 today = **$8.71**
-- Sub-batch 1 full-corpus REMAINING projection: ~$30 mid / ~$45 stretch on a fresh restart (the resume-patched script doesn't recover the $7.42, but tomorrow's fresh run uses the same projection as today's pre-flight). Cumulative across both attempts: $37 mid / $52 stretch — still under the $60 hard ceiling.
-- Plenty of runway for Audit D end-to-end + future audits, but $7.42 of slack is gone
+- $5 free credit + $50 paid credit (added Thu 2026-05-14) → pre-Audit-D pool: ~$53.71
+- Cumulative Audit D spend through 2026-05-19: **$34.63**
+  - $1.29 — SB0 calibration + SB1 pre-flight iterations
+  - $7.42 — SB1 halt attempt 2026-05-18 (sunk; no on-disk verdicts)
+  - $25.92 — SB1 full-corpus completion 2026-05-19 ($25.9170 exact)
+- **Credit remaining: ~$19.08**
+- SB1 actual ($25.92) came in **under mid-projection** ($30); stretch ($45) and ceiling ($60) never approached. 100% cache hit rate on calls after first; per-verdict cost averaged $0.01234.
+- Remaining $19.08 covers: SB1.6 post-process refinement (script-only, ~$0 LLM cost), modest verification re-runs, and likely the first remediation sub-batch's verification pass. A top-up will be needed before any sub-batch that re-runs the LLM-as-judge over the full corpus.
 
 ## Tasks deferred behind Audit D
 
