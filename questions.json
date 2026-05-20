@@ -5447,8 +5447,17 @@
             ],
             "a": 2,
             "exp": "Exploiting physical emanations from the device rather than attacking the cryptographic algorithm itself. Side-channel attack: the attack doesn't break AES (which is computationally secure) — it exploits physical characteristics of the implementation. Power consumption correlates with operations on key bits. The AES algorithm is fine; the hardware implementation leaks information.",
-            "messerVideo": "2.3 - Hardware Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "2.4 - Cryptographic Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-alternate",
+              "from_messerVideo": "2.3 - Hardware Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "2.4 - Cryptographic Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "q": "During a security audit of new servers, a researcher discovers some contain undocumented chips soldered to the motherboard that appear to report system information to external IP addresses. The vendor denies knowledge of the chips. What type of threat does this represent?",
@@ -5545,8 +5554,17 @@
             ],
             "a": 1,
             "exp": "A Type 1 hypervisor (bare-metal) installs directly on hardware and contains its own minimal OS kernel — examples include VMware ESXi, Microsoft Hyper-V Server, and KVM. A Type 2 hypervisor runs as an application on top of an existing host OS — examples include VMware Workstation, VirtualBox, and Parallels Desktop. The reversed-software-vs-hardware distractor (B) is the classic misconception. The use-case reversal (C) confuses where each is typically deployed (Type 1 = production, Type 2 = developer/desktop). Para vs full virtualization (D) is a different axis.",
-            "messerVideo": "2.3 - Virtualization Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "3.1 - Cloud Infrastructures",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Virtualization Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "3.1 - Cloud Infrastructures",
+              "to_subObjective": "3.1"
+            }
           }
         ],
         "scenarios": [
@@ -5641,8 +5659,17 @@
             ],
             "a": 2,
             "exp": "The shared responsibility model divides duties — providers secure infrastructure; customers secure what they put on it.",
-            "messerVideo": "2.3 - Cloud-specific Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "3.1 - Cloud Infrastructures",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Cloud-specific Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "3.1 - Cloud Infrastructures",
+              "to_subObjective": "3.1"
+            }
           },
           {
             "q": "Which is the MOST common cause of cloud data breaches?",
@@ -5667,8 +5694,17 @@
             ],
             "a": 2,
             "exp": "Publicly accessible cloud storage is a misconfiguration — a customer-side security failure in the shared responsibility model.",
-            "messerVideo": "2.3 - Cloud-specific Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "2.3 - Misconfiguration Vulnerabilities",
+            "subObjective": "2.3",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Cloud-specific Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "2.3 - Misconfiguration Vulnerabilities",
+              "to_subObjective": "2.3"
+            }
           }
         ],
         "scenarios": [
@@ -5695,8 +5731,17 @@
             ],
             "a": 3,
             "exp": "Prioritize direct exposure paths: open RDP to internet (automated scanners find this in minutes) and unauthenticated API endpoint (immediate data exposure risk) are critical. Overprivileged IAM is high. Disabled versioning is a resilience issue but not an immediate external risk.",
-            "messerVideo": "2.3 - Cloud-specific Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "3.1 - Cloud Infrastructures",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "manual",
+              "from_messerVideo": "2.3 - Cloud-specific Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "3.1 - Cloud Infrastructures",
+              "to_subObjective": "3.1"
+            }
           }
         ]
       },
@@ -5881,8 +5926,17 @@
             ],
             "a": 1,
             "exp": "Configuration management with secure baselines applied consistently and verified automatically is most effective.",
-            "messerVideo": "2.3 - Misconfiguration Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "4.1 - Secure Baselines",
+            "subObjective": "4.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Misconfiguration Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "4.1 - Secure Baselines",
+              "to_subObjective": "4.1"
+            }
           }
         ],
         "scenarios": [
@@ -5989,8 +6043,17 @@
             ],
             "a": 2,
             "exp": "SIM swapping redirects the victim's phone number to the attacker — enabling interception of SMS-based MFA codes.",
-            "messerVideo": "2.3 - Mobile Device Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "manual",
+              "from_messerVideo": "2.3 - Mobile Device Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "q": "MDM helps secure mobile devices by:",
@@ -6017,8 +6080,17 @@
             ],
             "a": 1,
             "exp": "Container-based MDM: corporate data exists in a managed container; personal data is outside it. A selective/corporate wipe removes only the container — email, corporate apps, documents — leaving personal photos and apps untouched. This is the correct BYOD configuration.",
-            "messerVideo": "2.3 - Mobile Device Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "4.1 - Securing Wireless and Mobile",
+            "subObjective": "4.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Mobile Device Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "4.1 - Securing Wireless and Mobile",
+              "to_subObjective": "4.1"
+            }
           },
           {
             "q": "An attacker calls a user's mobile carrier, impersonates the user using social media-sourced personal information, and convinces the carrier to transfer the phone number to a new SIM. The attacker then triggers a bank password reset and intercepts the SMS verification code. What attack occurred and what would have prevented it?",
@@ -6030,8 +6102,17 @@
             ],
             "a": 3,
             "exp": "The bank should offer phishing-resistant MFA (FIDO2/authenticator app) as an alternative to SMS OTP, and the carrier should require stronger identity verification for SIM changes. SIM swapping: the attacker socially engineered the carrier, not the bank. SMS MFA is vulnerable because the phone number is the second factor — and phone numbers can be hijacked. Better alternatives: TOTP authenticator apps (tied to a device) or FIDO2 hardware keys (cannot be SIM-swapped).",
-            "messerVideo": "2.3 - Mobile Device Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "4.6 - Multifactor Authentication",
+            "subObjective": "4.6",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Mobile Device Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "4.6 - Multifactor Authentication",
+              "to_subObjective": "4.6"
+            }
           }
         ]
       },
@@ -6242,8 +6323,17 @@
             ],
             "a": 1,
             "exp": "Signature-based AV scans files at rest and at execution-write — its detection model is 'compare file bytes against malware hash database.' Fileless malware never writes the malicious payload to disk: it injects shellcode into a running process's memory, persists via registry keys or WMI subscriptions or scheduled-task XML, and runs in memory. With no file to scan, the AV's scanning model has no input. LOLBin abuse (B) is a related evasion technique but not the defining 'fileless' property. System-file disguise (C) is a different stealth technique. Polymorphism (D) is a different evasion technique. Modern AV/EDR adds behavioral and memory-scanning detection to address the fileless gap.",
-            "messerVideo": "2.4 - An Overview of Malware",
-            "subObjective": "2.4"
+            "messerVideo": "2.4 - Other Malware Types",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.4 - An Overview of Malware",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.4 - Other Malware Types",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "q": "C2 (Command and Control) infrastructure is used by attackers to:",
@@ -6255,8 +6345,17 @@
             ],
             "a": 0,
             "exp": "C2 servers communicate with malware on victim systems — receiving stolen data and sending instructions.",
-            "messerVideo": "2.4 - An Overview of Malware",
-            "subObjective": "2.4"
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.4 - An Overview of Malware",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.4 - Denial of Service",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "scenarios": [
@@ -6283,8 +6382,17 @@
             ],
             "a": 1,
             "exp": "Legitimate high volumes causing analysts to dismiss alerts creates a blind spot where malicious PowerShell activity (LOLBins) is ignored. Better approach: tune the EDR to suppress known-good scripts by hash or path, retaining alerts on anomalous PowerShell behavior. Alert fatigue is a critical security operations failure mode. The solution isn't to ignore alerts — it's to tune detection logic so known-good activity is suppressed and truly anomalous activity surfaces clearly. EDR tuning is an ongoing operational requirement.",
-            "messerVideo": "2.4 - An Overview of Malware",
-            "subObjective": "2.4"
+            "messerVideo": "4.4 - Security Monitoring",
+            "subObjective": "4.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.4 - An Overview of Malware",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "4.4 - Security Monitoring",
+              "to_subObjective": "4.4"
+            }
           }
         ]
       },
@@ -6481,8 +6589,17 @@
             ],
             "a": 2,
             "exp": "A RAT's danger is interactive remote control — the attacker sees what the user sees and can drive the keyboard/mouse, capture camera/microphone feeds, browse the filesystem, install additional payloads, and pivot from the compromised host. The persistence and full-environment access make RATs much more dangerous than single-purpose malware. Distractors describe other malware categories: worms self-propagate (A); ransomware encrypts and extorts (C); self-deleting malware (D) is a separate stealth pattern not specific to RATs. Common RAT examples include njRAT and Quasar, all built around the remote-control primitive.",
-            "messerVideo": "2.4 - Spyware and Bloatware",
-            "subObjective": "2.4"
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.4 - Spyware and Bloatware",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "scenarios": [
@@ -6563,8 +6680,17 @@
             ],
             "a": 3,
             "exp": "A Trojan is malicious code packaged inside something the user wants to install or run — pirated software, a fake app installer, a bundled 'free' tool. The defining axis is that it requires user-initiated execution and is a DELIVERY MECHANISM rather than a self-propagating category. A Trojan can CARRY ransomware, a backdoor, or other payloads, but the Trojan IS the disguise. The distractors describe distinct other categories: worms self-propagate (A); ransomware encrypts and extorts (C); rootkits hide presence (D). Confusing the delivery mechanism (Trojan) with the payload (ransomware/worm) is the most common error.",
-            "messerVideo": "2.4 - Other Malware Types",
-            "subObjective": "2.4"
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.4 - Other Malware Types",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "q": "Which BEST describes a rootkit's primary purpose?",
@@ -6630,8 +6756,17 @@
             ],
             "a": 3,
             "exp": "Hijacking CPU resources to mine cryptocurrency, disguised as svchost.exe but running from an unusual path. Cryptominer indicators: maxed CPU, no file encryption, outbound connections, disguised as a legitimate process name but running from an unexpected path (%AppData% instead of System32). Cryptominers need the CPU for mining — no interest in ransoming or destroying data.",
-            "messerVideo": "2.4 - Other Malware Types",
-            "subObjective": "2.4"
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "manual",
+              "from_messerVideo": "2.4 - Other Malware Types",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           }
         ]
       },
@@ -6711,8 +6846,17 @@
             ],
             "a": 3,
             "exp": "Shoulder surfing is observation of credential entry by a person physically present. The threat axis is visual exposure during entry, so the effective mitigations are physical and visual: privacy filters that narrow the viewing angle, body-shielding the keypad, and kiosk positioning that prevents over-the-shoulder visibility. MFA addresses what an attacker can do AFTER capturing the PIN but does not stop the disclosure. A stronger password is still equally visible to the surfer. Encryption addresses an entirely different threat (offline data access). Students often default to MFA or stronger credentials for any 'stolen credential' scenario; for shoulder surfing the threat is in-the-moment observation and the mitigation must address that specifically.",
-            "messerVideo": "2.4 - Physical Attacks",
-            "subObjective": "2.4"
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.4 - Physical Attacks",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           }
         ],
         "scenarios": [
@@ -6726,8 +6870,17 @@
             ],
             "a": 3,
             "exp": "Two techniques: (1) Tailgating — followed the legitimate employee group through access control. (2) Impersonation — the fake badge from a recognized firm reduced scrutiny. Mitigations: mantrap (prevents tailgating), verify all visitors at reception regardless of badge, enforce clean desk/screen lock policy.",
-            "messerVideo": "2.4 - Physical Attacks",
-            "subObjective": "2.4"
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "manual",
+              "from_messerVideo": "2.4 - Physical Attacks",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "q": "An attacker attaches a device to an ATM's card reader that stores magnetic stripe data from every card inserted. A small camera captures PIN entry. Three weeks later, the attacker creates cloned cards. What attacks were used and what mitigations protect against this?",
@@ -6824,7 +6977,17 @@
             "a": 0,
             "exp": "SYN floods leave many half-open TCP connections — eventually the server's connection table is full and it can't accept legitimate connections.",
             "messerVideo": "2.4 - Denial of Service",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.4 - Denial of Service",
+              "from_subObjective": "2.4",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Cluster verification: SYN flood not in cited DoS transcript. Additionally: candidate Messer-curriculum-gap (SYN flood may not appear anywhere in Messer SY0-701) — flag for SB-fix-2 Sybex-arbitration sub-path."
+            }
           },
           {
             "q": "An attacker generates a 50 Gbps DDoS flood at a target by sending small DNS queries (with the victim's address spoofed as the source) to thousands of open recursive DNS resolvers. The mechanism that BEST explains how a small attacker pipe produces large victim-side traffic is:",
@@ -6940,8 +7103,17 @@
             ],
             "a": 2,
             "exp": "DNSSEC uses digital signatures on DNS records — resolvers verify the signature, detecting tampered or forged records.",
-            "messerVideo": "2.4 - DNS Attacks",
-            "subObjective": "2.4"
+            "messerVideo": "4.5 - Secure Protocols",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "manual",
+              "from_messerVideo": "2.4 - DNS Attacks",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "4.5 - Secure Protocols",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "q": "DNS tunneling is used to:",
@@ -6954,7 +7126,17 @@
             "a": 0,
             "exp": "DNS tunneling encodes data within DNS queries — many firewalls allow all DNS traffic, making it a covert channel.",
             "messerVideo": "2.4 - DNS Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.4 - DNS Attacks",
+              "from_subObjective": "2.4",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Cluster verification: DNS tunneling not in cited DNS Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+            }
           }
         ],
         "scenarios": [
@@ -7037,7 +7219,17 @@
             "a": 1,
             "exp": "Evil twin APs mimic legitimate SSIDs — clients connect thinking they're on the real network, enabling MITM interception.",
             "messerVideo": "2.4 - Wireless Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.4 - Wireless Attacks",
+              "from_subObjective": "2.4",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Cluster verification: evil twin not in cited Wireless Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+            }
           },
           {
             "q": "Which is the BEST mitigation for WPS-related wireless attacks (e.g. Reaver-style PIN brute-force)?",
@@ -7063,7 +7255,17 @@
             "a": 3,
             "exp": "The captured handshake contains enough information for offline cracking — the attacker can test passwords without further network interaction.",
             "messerVideo": "2.4 - Wireless Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.4 - Wireless Attacks",
+              "from_subObjective": "2.4",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Cluster verification: WPA2 4-way handshake capture not in cited Wireless Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+            }
           }
         ],
         "scenarios": [
@@ -7371,8 +7573,17 @@
             ],
             "a": 3,
             "exp": "Web shells provide persistent remote access to a compromised web server — the attacker issues commands via HTTP requests.",
-            "messerVideo": "2.4 - Malicious Code",
-            "subObjective": "2.4"
+            "messerVideo": "2.4 - Application Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "manual",
+              "from_messerVideo": "2.4 - Malicious Code",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.4 - Application Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "q": "'Living off the land' (LOLBins) attacks involve:",
@@ -7384,8 +7595,17 @@
             ],
             "a": 2,
             "exp": "LOLBins use trusted system tools — since they're legitimate applications, many security tools don't flag their malicious use.",
-            "messerVideo": "2.4 - Malicious Code",
-            "subObjective": "2.4"
+            "messerVideo": "2.4 - Other Malware Types",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "manual",
+              "from_messerVideo": "2.4 - Malicious Code",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.4 - Other Malware Types",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "q": "Which BEST describes a dropper malware's primary function?",
@@ -7397,8 +7617,17 @@
             ],
             "a": 1,
             "exp": "A dropper is a small staged payload designed to land first on a compromised system and then fetch/install the main malware. The dropper itself is intentionally minimal — small footprint, sometimes obfuscated specifically to evade initial detection — because its job is just to bridge from the initial-access payload (e.g. a phishing attachment) to the larger second-stage malware. Distractors describe primary functions of OTHER categories: ransomware (A), info-stealer (C), RAT (D). Modern attack chains often involve a dropper then loader then main malware sequence, with each stage doing a different job.",
-            "messerVideo": "2.4 - Malicious Code",
-            "subObjective": "2.4"
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T16:56:43.561Z",
+              "packet_id": "packet-2",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.4 - Malicious Code",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "scenarios": [
