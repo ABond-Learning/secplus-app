@@ -3222,8 +3222,17 @@
             ],
             "a": 3,
             "exp": "BEC (Business Email Compromise) is a financially motivated cybercriminal technique — impersonating executives to authorize fraudulent wire transfers. Urgency, travel context, and financial request are classic BEC indicators.",
-            "messerVideo": "2.1 - Threat Actors",
-            "subObjective": "2.1"
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-alternate",
+              "from_messerVideo": "2.1 - Threat Actors",
+              "from_subObjective": "2.1",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "q": "A security analyst notices that a recently terminated employee's VPN credentials were used to access internal systems three days after termination, downloading 40GB of files. Which threat actor category does this BEST represent?",
@@ -3398,8 +3407,17 @@
             ],
             "a": 2,
             "exp": "Supply chain attacks inject malware into legitimate software or hardware before it reaches the target — e.g. SolarWinds.",
-            "messerVideo": "2.2 - Common Threat Vectors",
-            "subObjective": "2.2"
+            "messerVideo": "2.3 - Malicious Updates",
+            "subObjective": "2.3",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Common Threat Vectors",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.3 - Malicious Updates",
+              "to_subObjective": "2.3"
+            }
           },
           {
             "q": "Which of the following BEST reduces the risk from open service ports?",
@@ -3573,8 +3591,17 @@
             ],
             "a": 0,
             "exp": "Whaling targets high-value executives. Spear phishing is targeted but at a broader group.",
-            "messerVideo": "2.2 - Phishing",
-            "subObjective": "2.2"
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-alternate",
+              "from_messerVideo": "2.2 - Phishing",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "q": "SMS-based phishing is called:",
@@ -3612,8 +3639,17 @@
             ],
             "a": 0,
             "exp": "Pharming poisons name resolution (DNS cache, hosts file, or DNS server itself) so a user typing the correct URL gets sent to an attacker-controlled site — no user error needed beyond visiting their normal destination. Phishing requires the user to click a malicious link or visit an attacker URL. The reversed distractor (B — 'pharming uses email') is the most common confusion because the two terms sound similar; the targeting axis (C) and the exploit-required axis (D) are not the defining differences.",
-            "messerVideo": "2.2 - Phishing",
-            "subObjective": "2.2"
+            "messerVideo": "2.4 - DNS Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Phishing",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.4 - DNS Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "q": "Which email security standard publishes a list of authorized sending mail servers in DNS?",
@@ -3625,8 +3661,17 @@
             ],
             "a": 2,
             "exp": "SPF (Sender Policy Framework) publishes authorized sending servers in DNS — receiving servers reject mail from others.",
-            "messerVideo": "2.2 - Phishing",
-            "subObjective": "2.2"
+            "messerVideo": "4.5 - Email Security",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Phishing",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "4.5 - Email Security",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "q": "DKIM provides which security property for email?",
@@ -3638,8 +3683,17 @@
             ],
             "a": 0,
             "exp": "DKIM applies a cryptographic signature to emails — verifying the sending domain and detecting tampering.",
-            "messerVideo": "2.2 - Phishing",
-            "subObjective": "2.2"
+            "messerVideo": "4.5 - Email Security",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "from_messerVideo": "2.2 - Phishing",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "4.5 - Email Security",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "q": "DMARC builds on which two standards?",
@@ -3651,8 +3705,17 @@
             ],
             "a": 1,
             "exp": "DMARC extends SPF and DKIM — defining what to do (reject, quarantine, report) when emails fail both checks.",
-            "messerVideo": "2.2 - Phishing",
-            "subObjective": "2.2"
+            "messerVideo": "4.5 - Email Security",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Phishing",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "4.5 - Email Security",
+              "to_subObjective": "4.5"
+            }
           }
         ],
         "scenarios": [
@@ -3803,8 +3866,17 @@
             ],
             "a": 2,
             "exp": "Typosquatting registers slightly misspelled versions of popular domains — capturing misdirected traffic.",
-            "messerVideo": "2.2 - Impersonation",
-            "subObjective": "2.2"
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Impersonation",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           }
         ],
         "scenarios": [
@@ -3831,8 +3903,17 @@
             ],
             "a": 1,
             "exp": "Pharming via DNS cache poisoning — the correct URL is being typed but a compromised resolver is returning a malicious IP. The institution's own DNS records being correct rules out domain hijacking.",
-            "messerVideo": "2.2 - Impersonation",
-            "subObjective": "2.2"
+            "messerVideo": "2.4 - DNS Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "from_messerVideo": "2.2 - Impersonation",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.4 - DNS Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "q": "The CEO posts on LinkedIn that she is attending a conference in Singapore next week. Three days later, the CFO receives an email from the CEO's personal email requesting he authorize an emergency $80,000 gift card purchase for a client deal that must close before the CEO returns. What attack is this, and what control would MOST directly prevent it?",
@@ -3857,8 +3938,17 @@
             ],
             "a": 0,
             "exp": "Users who mistype Microsoft's URL or click links without checking the full domain. Typosquatting (microsofft, rniicrosoft) catches fast typists. Brand impersonation (microsoft-security-alert.com) catches users who click links in emails without inspecting the full URL. Users who carefully verify domains before entering credentials are protected.",
-            "messerVideo": "2.2 - Impersonation",
-            "subObjective": "2.2"
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Impersonation",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "q": "An attacker spends two weeks building rapport with a target company's IT administrator on a professional networking site, posing as a cybersecurity consultant. After establishing trust, they send the admin a 'security assessment tool' to run on the network — actually a backdoor. What social engineering principle is being exploited?",
@@ -4059,8 +4149,17 @@
             ],
             "a": 3,
             "exp": "Baiting uses enticing physical media or offers to lure victims — the USB drive triggers malware execution when inserted.",
-            "messerVideo": "2.2 - Other Social Engineering Attacks",
-            "subObjective": "2.2"
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.2 - Common Threat Vectors",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "q": "Which social engineering principle does 'Act now — this offer expires in 1 hour!' exploit?",
@@ -4072,8 +4171,17 @@
             ],
             "a": 1,
             "exp": "Scarcity creates artificial urgency — pressure to act immediately reduces critical thinking and victim scrutiny.",
-            "messerVideo": "2.2 - Other Social Engineering Attacks",
-            "subObjective": "2.2"
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "from_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "q": "Following an authorized person through a badge-access door without using your own credentials is:",
@@ -4085,8 +4193,17 @@
             ],
             "a": 0,
             "exp": "Piggybacking/tailgating physically follows an authorized person through a controlled access point without authenticating.",
-            "messerVideo": "2.2 - Other Social Engineering Attacks",
-            "subObjective": "2.2"
+            "messerVideo": "1.2 - Physical Security",
+            "subObjective": "1.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "1.2 - Physical Security",
+              "to_subObjective": "1.2"
+            }
           },
           {
             "q": "Which BEST distinguishes disinformation from misinformation?",
@@ -4111,8 +4228,17 @@
             ],
             "a": 1,
             "exp": "Social engineering targets people — technical controls don't stop it. Training employees to recognize and report attempts is the primary mitigation.",
-            "messerVideo": "2.2 - Other Social Engineering Attacks",
-            "subObjective": "2.2"
+            "messerVideo": "5.6 - Security Awareness",
+            "subObjective": "5.6",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "from_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "5.6 - Security Awareness",
+              "to_subObjective": "5.6"
+            }
           }
         ],
         "scenarios": [
@@ -4126,8 +4252,17 @@
             ],
             "a": 0,
             "exp": "Two techniques: (1) impersonation with pretexting — claiming to be IT vendor to gain access; (2) physical keylogger installation once inside. Visitor verification procedures and a clean desk/screen lock policy would have mitigated both.",
-            "messerVideo": "2.2 - Other Social Engineering Attacks",
-            "subObjective": "2.2"
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.2 - Impersonation",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "q": "A security awareness test sends: 'FINAL NOTICE: Your email account will be permanently deleted in 2 hours unless you click here.' 28% of employees click. Which social engineering principle made this test so effective?",
@@ -4139,8 +4274,17 @@
             ],
             "a": 3,
             "exp": "Scarcity/urgency: '2 hours' and 'permanent deletion' create panic that overrides careful evaluation. Training should specifically focus on recognizing artificial urgency as a manipulation tactic — legitimate IT departments don't delete accounts on 2-hour notice.",
-            "messerVideo": "2.2 - Other Social Engineering Attacks",
-            "subObjective": "2.2"
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "q": "An employee finds a USB drive in the company car park labeled 'Salary Review 2024 - CONFIDENTIAL'. They plug it in at their workstation. The drive executes a script that installs malware. Which social engineering attack is this, and what combination of controls MOST effectively prevents it?",
@@ -4153,7 +4297,18 @@
             "a": 2,
             "exp": "Baiting exploits curiosity and greed. Two controls needed: technical (disable USB ports via MDM/endpoint policy) AND human (train employees that found media is a known attack vector — turn it in to IT, don't plug it in). Either alone is insufficient.",
             "messerVideo": "2.2 - Other Social Engineering Attacks",
-            "subObjective": "2.2"
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "kept-as-is",
+              "original_decision": "accept-alternate",
+              "resolved_self_alternate": true,
+              "from_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "from_subObjective": "2.2",
+              "kept_as_is": true,
+              "note": "accept-alternate target equals current citation; treated as kept-as-is via self-alternate (no edit applied)"
+            }
           },
           {
             "q": "A disgruntled ex-employee tells a journalist that the company's security practices are dangerously inadequate and provides fabricated 'evidence' — fake internal memos and manufactured screenshots. The story goes viral and damages the company's stock price. What type of attack is this?",
@@ -4178,8 +4333,17 @@
             ],
             "a": 0,
             "exp": "Authority (impersonating insurance provider) combined with fear of personal harm (losing coverage) is a powerful combination. The threat is personal and health-related — employees' critical thinking is bypassed by emotional response. Train employees to call companies back using numbers from official statements.",
-            "messerVideo": "2.2 - Other Social Engineering Attacks",
-            "subObjective": "2.2"
+            "messerVideo": "2.2 - Impersonation",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "from_subObjective": "2.2",
+              "to_messerVideo": "2.2 - Impersonation",
+              "to_subObjective": "2.2"
+            }
           }
         ]
       }
@@ -4256,8 +4420,17 @@
             ],
             "a": 0,
             "exp": "Process hollowing creates a trusted process 'shell' and fills it with malicious code — the OS sees a legitimate process name.",
-            "messerVideo": "2.3 - Memory Injections",
-            "subObjective": "2.3"
+            "messerVideo": "2.4 - Other Malware Types",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "from_messerVideo": "2.3 - Memory Injections",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "2.4 - Other Malware Types",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "q": "ASLR mitigates memory attacks by:",
@@ -4269,8 +4442,17 @@
             ],
             "a": 3,
             "exp": "ASLR randomizes memory locations — making buffer overflows and memory injection harder to exploit reliably.",
-            "messerVideo": "2.3 - Memory Injections",
-            "subObjective": "2.3"
+            "messerVideo": "2.5 - Mitigation Techniques",
+            "subObjective": "2.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Memory Injections",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "2.5 - Mitigation Techniques",
+              "to_subObjective": "2.5"
+            }
           },
           {
             "q": "DEP (Data Execution Prevention) mitigates memory attacks by:",
@@ -4310,8 +4492,17 @@
             ],
             "a": 1,
             "exp": "Implement bounds checking and input length validation, with OS-level mitigations (ASLR, DEP, stack canaries) as defense-in-depth. Stack buffer overflow: user input exceeded the allocated buffer, overwriting the return address. Primary mitigation is the root cause fix: validate input length before writing to the buffer. ASLR, DEP, and stack canaries make exploitation harder but don't fix the vulnerable code.",
-            "messerVideo": "2.3 - Memory Injections",
-            "subObjective": "2.3"
+            "messerVideo": "2.3 - Buffer Overflows",
+            "subObjective": "2.3",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Memory Injections",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "2.3 - Buffer Overflows",
+              "to_subObjective": "2.3"
+            }
           },
           {
             "q": "A forensic analyst finds a legitimate antivirus process has an unusual thread not present in the baseline. Memory forensics reveals shellcode running within the antivirus process's address space. The antivirus binary's file integrity checks show no tampering. How was the attacker likely able to execute code while evading detection?",
@@ -4816,8 +5007,17 @@
             ],
             "a": 1,
             "exp": "Kerberoasting: any domain user can request service tickets; the ticket is encrypted with the service account's password hash. Taking it offline allows password cracking without further network interaction. If the service account has admin privileges (common misconfiguration), cracking the password leads to privilege escalation.",
-            "messerVideo": "2.3 - Operating System Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "2.4 - Password Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Operating System Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "2.4 - Password Attacks",
+              "to_subObjective": "2.4"
+            }
           }
         ]
       },
@@ -5043,8 +5243,17 @@
             ],
             "a": 0,
             "exp": "XSS executes in the victim's browser (client-side). SQLi manipulates the server's database (server-side).",
-            "messerVideo": "2.3 - Cross-site Scripting",
-            "subObjective": "2.3"
+            "messerVideo": "2.3 - SQL Injection",
+            "subObjective": "2.3",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "from_messerVideo": "2.3 - Cross-site Scripting",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "2.3 - SQL Injection",
+              "to_subObjective": "2.3"
+            }
           },
           {
             "q": "The HttpOnly cookie attribute mitigates XSS by:",
@@ -5178,8 +5387,17 @@
             ],
             "a": 0,
             "exp": "Side-channel attacks exploit physical characteristics of hardware rather than software vulnerabilities.",
-            "messerVideo": "2.3 - Hardware Vulnerabilities",
-            "subObjective": "2.3"
+            "messerVideo": "2.4 - Cryptographic Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.3 - Hardware Vulnerabilities",
+              "from_subObjective": "2.3",
+              "to_messerVideo": "2.4 - Cryptographic Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "q": "Specter and Meltdown are examples of:",
@@ -5192,7 +5410,17 @@
             "a": 1,
             "exp": "Specter and Meltdown are CPU hardware-level vulnerabilities — they exploit speculative execution to leak protected memory contents.",
             "messerVideo": "2.3 - Hardware Vulnerabilities",
-            "subObjective": "2.3"
+            "subObjective": "2.3",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T15:14:02.090Z",
+              "packet_id": "packet-1",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.3 - Hardware Vulnerabilities",
+              "from_subObjective": "2.3",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Spectre/Meltdown are canonical hardware-vulnerability examples — partial-depth shape, not partial-adjacent. Same SB1.6 pattern as the loose-flag pool. Don't move; flag for SB-fix-2 partial-depth review."
+            }
           }
         ],
         "scenarios": [
