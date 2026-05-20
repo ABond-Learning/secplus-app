@@ -7744,7 +7744,17 @@
             "a": 2,
             "exp": "IDOR occurs when apps expose internal object IDs — changing ?account=1001 to ?account=1002 might access another user's data.",
             "messerVideo": "2.4 - Application Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.4 - Application Attacks",
+              "from_subObjective": "2.4",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Cluster verification: IDOR not in cited Application Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+            }
           },
           {
             "q": "Which is the PRIMARY mitigation for CSRF (Cross-Site Request Forgery) attacks?",
@@ -7797,8 +7807,17 @@
             ],
             "a": 0,
             "exp": "Particularly dangerous because it targets privileged admin accounts. A support agent viewing the ticket executes the attacker's script with admin session privileges, enabling account takeover of a high-privilege user. Stored XSS targeting admins: the payload is stored in the ticket and executes when a privileged user views it. This is privilege escalation via XSS — an unprivileged user executing code in a privileged user's browser context. This is how many high-profile compromises begin.",
-            "messerVideo": "2.4 - Application Attacks",
-            "subObjective": "2.4"
+            "messerVideo": "2.3 - Cross-site Scripting",
+            "subObjective": "2.3",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "from_messerVideo": "2.4 - Application Attacks",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.3 - Cross-site Scripting",
+              "to_subObjective": "2.3"
+            }
           }
         ]
       },
@@ -7886,8 +7905,17 @@
             ],
             "a": 1,
             "exp": "Making large-scale password cracking impractical. Key stretching applies many iterations of hashing — taking milliseconds per attempt is fine for login but makes billions of guesses per second impractical.",
-            "messerVideo": "2.4 - Cryptographic Attacks",
-            "subObjective": "2.4"
+            "messerVideo": "1.4 - Hashing and Digital Signatures",
+            "subObjective": "1.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-alternate",
+              "from_messerVideo": "2.4 - Cryptographic Attacks",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "1.4 - Hashing and Digital Signatures",
+              "to_subObjective": "1.4"
+            }
           }
         ],
         "scenarios": [
@@ -7987,7 +8015,17 @@
             "a": 1,
             "exp": "Credential stuffing exploits PASSWORD REUSE across services. The attacker takes a username/password list breached from one site (or bought from a leak market) and replays it against many other sites. Wherever the user reused the credential, the login succeeds — no guessing, no cracking. Defense: unique passwords per site (password manager), MFA on every account, breach-credential monitoring at signup. Distractors describe related but distinct attacks: spraying (B), database theft + cracking (C), offline hash cracking (D). The defining reuse axis is what makes stuffing effective at scale.",
             "messerVideo": "2.4 - Password Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.4 - Password Attacks",
+              "from_subObjective": "2.4",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Cluster verification: credential stuffing not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+            }
           },
           {
             "q": "Which attack is MOST effectively mitigated by MFA but NOT account lockout?",
@@ -8000,7 +8038,17 @@
             "a": 3,
             "exp": "Credential stuffing uses valid credentials — account lockout won't trigger. MFA prevents access even with correct credentials.",
             "messerVideo": "2.4 - Password Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.4 - Password Attacks",
+              "from_subObjective": "2.4",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Cluster verification: credential stuffing + MFA-mitigation not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+            }
           },
           {
             "q": "Which BEST captures why pass-the-hash is particularly dangerous in Windows enterprise environments?",
@@ -8013,7 +8061,17 @@
             "a": 1,
             "exp": "Pass-the-hash is dangerous because the hash IS the credential — capturing it (from lsass memory, SAM database, or domain controller replication) gives the attacker authenticated access to every NTLM-accepting service the user can reach. Because NTLM hashes don't change unless the user changes their password, and because Windows admin accounts are often used to log into many hosts (each leaving a hash in memory), one hash capture often unlocks broad lateral movement. This is why credential hygiene (admin tier separation, no admin logon to workstations, LAPS, strict NTLM restrictions) is critical. Kerberos-only enforcement DOES help (B is wrong); NTLM hashes are NOT reversible (C is wrong); kernel access is a different attack class (D is wrong).",
             "messerVideo": "2.4 - Password Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.4 - Password Attacks",
+              "from_subObjective": "2.4",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Cluster verification: pass-the-hash not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+            }
           }
         ],
         "scenarios": [
@@ -8028,7 +8086,17 @@
             "a": 3,
             "exp": "Credential stuffing exploits password reuse — it uses correct passwords, so account lockout and complexity requirements don't help. MFA is the most effective control: even with the correct password, the attacker needs the second factor they don't have.",
             "messerVideo": "2.4 - Password Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "from_messerVideo": "2.4 - Password Attacks",
+              "from_subObjective": "2.4",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "note": "Cluster verification: credential stuffing scenario not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+            }
           },
           {
             "q": "A SOC team notices in their authentication logs: between 9-11am each day, exactly one failed login attempt occurs against each of 3,000 user accounts, using the password 'Welcome1'. No accounts are locked out. What attack is occurring and why does it evade traditional brute-force detection?",
@@ -8137,8 +8205,17 @@
             ],
             "a": 2,
             "exp": "And therefore its hash — with each infection. Hash-based IoCs match exact files — polymorphic malware changes its hash with each infection, evading hash-based detection.",
-            "messerVideo": "2.4 - Indicators of Compromise",
-            "subObjective": "2.4"
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.4 - Indicators of Compromise",
+              "from_subObjective": "2.4",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "scenarios": [
@@ -8251,8 +8328,17 @@
             ],
             "a": 0,
             "exp": "A DMZ exposes public services (web, email) to the internet while protecting the internal network if those services are compromised.",
-            "messerVideo": "2.5 - Segmentation and Access Control",
-            "subObjective": "2.5"
+            "messerVideo": "3.2 - Secure Infrastructures",
+            "subObjective": "3.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "from_messerVideo": "2.5 - Segmentation and Access Control",
+              "from_subObjective": "2.5",
+              "to_messerVideo": "3.2 - Secure Infrastructures",
+              "to_subObjective": "3.2"
+            }
           },
           {
             "q": "An air gap provides the STRONGEST isolation primarily because:",
@@ -8264,8 +8350,17 @@
             ],
             "a": 2,
             "exp": "The defining property of an air gap is the complete absence of network connection — no Ethernet, no WiFi, no Bluetooth, no USB-bridged data path. That makes remote attacks impossible (the only attack paths are physical: introduced media, supply chain, or insider). DMZ + WAF, VLAN + ACL, and host-firewall + EDR all reduce attack surface but still maintain a network path to the system; with sufficient skill, a determined attacker can find a path through any of them. Air gap is a categorically different control class — it removes the path entirely rather than guarding it.",
-            "messerVideo": "2.5 - Segmentation and Access Control",
-            "subObjective": "2.5"
+            "messerVideo": "1.2 - Physical Security",
+            "subObjective": "1.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.5 - Segmentation and Access Control",
+              "from_subObjective": "2.5",
+              "to_messerVideo": "1.2 - Physical Security",
+              "to_subObjective": "1.2"
+            }
           },
           {
             "q": "Which BEST explains why an application allow list provides stronger protection than a block list?",
@@ -8394,8 +8489,17 @@
             ],
             "a": 1,
             "exp": "Isolation has TWO primary purposes that distinguish it from other IR steps: (1) STOP the spread — the compromised host can no longer reach other systems on the network, blocking lateral movement and exfiltration; (2) PRESERVE the system intact — for forensic investigation, evidence collection, and root-cause analysis. Wiping or restoring (C, D) destroys the evidence needed to understand HOW the compromise happened and WHAT the attacker accessed. Forensics-only framing (B) misses the spread-prevention purpose. The standard NIST IR sequence is contain then eradicate then recover; isolation is containment, not eradication or recovery.",
-            "messerVideo": "2.5 - Mitigation Techniques",
-            "subObjective": "2.5"
+            "messerVideo": "4.8 - Incident Response",
+            "subObjective": "4.8",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.5 - Mitigation Techniques",
+              "from_subObjective": "2.5",
+              "to_messerVideo": "4.8 - Incident Response",
+              "to_subObjective": "4.8"
+            }
           }
         ],
         "scenarios": [
@@ -8422,8 +8526,17 @@
             ],
             "a": 1,
             "exp": "Isolation stops the spread (the SMB scanning is consistent with worm behavior or ransomware propagation). But isolation before forensics destroys evidence — the memory dump captures running malware and encryption keys that disappear on shutdown. Then investigate: the 47 IPs scanned may already be compromised.",
-            "messerVideo": "2.5 - Mitigation Techniques",
-            "subObjective": "2.5"
+            "messerVideo": "4.8 - Incident Response",
+            "subObjective": "4.8",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "from_messerVideo": "2.5 - Mitigation Techniques",
+              "from_subObjective": "2.5",
+              "to_messerVideo": "4.8 - Incident Response",
+              "to_subObjective": "4.8"
+            }
           }
         ]
       },
@@ -8515,8 +8628,17 @@
             ],
             "a": 2,
             "exp": "Secure Boot verifies the cryptographic signature of bootloader and OS — preventing unsigned malicious code from running at boot.",
-            "messerVideo": "2.5 - Hardening Techniques",
-            "subObjective": "2.5"
+            "messerVideo": "4.1 - Hardening Targets",
+            "subObjective": "4.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-20T17:07:21.222Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-alternate",
+              "from_messerVideo": "2.5 - Hardening Techniques",
+              "from_subObjective": "2.5",
+              "to_messerVideo": "4.1 - Hardening Targets",
+              "to_subObjective": "4.1"
+            }
           },
           {
             "q": "Which BEST distinguishes EDR from traditional signature-based antivirus?",
