@@ -1,4 +1,4 @@
-# Where Things Stand — 2026-05-19
+# Where Things Stand — 2026-05-20
 
 Handoff document for supervisor-Claude continuity. Captures
 institutional knowledge that isn't in the formal docs (PLAN.md,
@@ -15,7 +15,7 @@ instructions to match.
 
 ## Current state
 
-**Last commit:** `25764ea` (Tue 2026-05-19, docs: CLAUDE.md Workflow Rule #8 — resume support for long-running API scripts) — plus the Report-#0005 commit and the docs-update commit that introduced this paragraph (see `git log -3` for hashes).
+**Last commit:** `8375cb8` (Mon 2026-05-19, docs: PLAN.md + supervisor-handoff sync with SB1 full-corpus + spot-check PASS) — plus today's three planned commits (SCHEMA.md `audit_*` convention; Report-#0006; PLAN/handoff sync). See `git log -4` for hashes after today's commits land.
 
 **Branch:** main, working tree clean except 3 pre-existing untracked
 Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
@@ -27,8 +27,13 @@ Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
   partial pass, Rec 1 deferred to post-process
 - ✅ Sub-batch 1.5 post-process (Mon 2026-05-18, `a26d42c` + `becaac9` + `dd6b0da` + `c99a6a1`) — PASS with supervisor sign-off recorded in Report-#0004
 - ✅ Sub-batch 1 full-corpus — **SHIPPED 2026-05-19.** 2,128 verdicts produced (zero data loss), $25.9170 spent, 100% cache hit rate after first call. Postprocess flipped 412 verdicts (19.4%) to `partial-adjacent` — SB1.5 architectural fix validated at scale. **Spot-check PASS at 75% strict agreement (30/40)** on the supervisor-reviewed stratified packet (matches SB0's 76.7%). Methodology validated; no catastrophic finding. Session report: Report-#0005. *Note: the original 2026-05-18 attempt halted at call #688 / $7.42 sunk; that sunk cost is included in the $34.63 cumulative figure but the SB1 verdicts on disk are entirely from the 2026-05-19 fresh run on the resume-capable script.*
-- ⏸ **Sub-batch 1.6 candidate (deferred)** — post-process refinement to catch `out-of-source`-that-should-be-`partial-depth` on `fix_direction=rewrite-to-source` + justification-prose markers. Same structural shape as SB1.5; supervisor flagged partial-depth as systematically under-applied in spot-check finding #5.
-- ⏸ Sub-batches 2-N fix runs (remediation; ordering = Aiden's call after he reads Report-#0005)
+- ✅ **8-item uncertainty verification (Tue 2026-05-20)** — text-vs-text grep against `.messer-transcripts/`, $0 spend. 8/8 LLM verdicts held — supervisor adjudication matched CC findings. Post-verification agreement = **38/40 = 95%**, with 3 remaining disagreements being the known SB1.6 pattern (#19 avalanche, #20 dual power feeds, #26 tokenization). Methodology-narrative reframing belongs in SB-fix-1a's report, not Report-#0006.
+- ✅ **Sub-batch 1.6 post-process refinement — SHIPPED 2026-05-20.** Authored `scripts/audit-d-postprocess-sb16.mjs` (~220 lines). Predicate gate corrected from supervisor brief (`mark-for-Sybex-arbitration`, not `rewrite-to-source` — brief's value matched zero corpus rows; gate-value sanity-check caught this before any code). Two-tier output: strict (≥2 of 10 prose markers → auto-flip OOS to partial-depth) + loose (=1 marker → `sb16_action=flag-for-review`, no category change). Self-test PASS (3/3 must-flip, 12/12 must-not-flip incl. #23 gated out by `remove-from-catalog`); idempotency verified. Real-apply: 3 strict flips + 18 loose flags. Final counts: OOS 296→293, partial-depth 399→402. Output at `.audit-working/audit-d-sub-batch-1/full-corpus-verdicts-sb16.json` (separate file per clean-provenance preference). Named SB1.5 residuals cross-check: CCPA §5.4.2 mc[6] self-resolved (already partial-depth); HMAC §1.2.2 cram[4] OOS but 2 siblings (mc[4]+match[3]) in loose-flag pool → reaches SB-fix-2 review as a unit.
+- ✅ **SB-fix-1 scoping (Tue 2026-05-20)** — D2 partial-adjacent inventoried at 197 items. Schema-constraint finding split the work: mc + scen (63 items) per-item citable + Strategy A study-safe; match + cram (134 items) inherit citation from parent → SB-fix-1b deferred (Path B = schema extension, separate prep work block). SB-fix-1a authorized as 3 packets (25 + 25 + 13), per-packet commits, cadence Option C (build packet-1 first, calibrate, then decide A vs B). Validator-constraint check on `messerVideo`/`subObjective` queued as first task of next session before apply-script authoring.
+- ⏸ **SB-fix-1a apply (next session and beyond):** Q6 validator check → packet-1 build → Aiden review → apply → commit. 3 sessions to clear.
+- ⏸ SB-fix-1b-prep (match + cram schema extension scoping) — separate proposal session after SB-fix-1a closes
+- ⏸ SB-fix-2 (partial-depth augment, includes the 18 SB1.6 loose flags as candidate-augment pool) — downstream of SB-fix-1a closure
+- ⏸ Domain 1/3/4/5 partial-adjacent (227 remaining items) — future sub-batches once D2 pattern is validated
 - ⏸ Closure sub-batch
 
 ## Sub-batch 1 full-corpus — completion record 2026-05-19
@@ -112,6 +117,41 @@ structurally cleaner than further prompt iteration. The pattern
 generalizes to any LLM-as-judge pipeline where schema enforces
 category-action pairing.
 
+**Prose-marker co-firing as a precision tool (from SB1.6 2026-05-20):**
+
+Single prose markers in LLM justifications are too noisy to discriminate
+must-flip from must-not-flip cases — markers like "the concept ... IS
+taught" or "legitimate Security+ concept" appear in both. But requiring
+**≥ 2 of N candidate markers to co-fire** gives 100% precision and
+100% recall on the SB1.6 must-flip validation set (3/3 caught, 0/12
+false-positives). The single-marker hits are kept as a flag-for-review
+tier rather than discarded — they form a candidate-augment pool for
+the next remediation sub-batch. Two-tier output (strict auto-flip +
+loose flag) is the right architecture when prose-marker scanning can't
+cleanly decide on the basis of phrasing alone.
+
+**Schema-constraint check belongs in scoping, not implementation (from SB-fix-1 2026-05-20):**
+
+Before scoping a "metadata-only" change across N items, verify the
+schema actually supports per-item override on the field being changed.
+For Audit D's partial-adjacent re-citation, 134 of 197 D2 items live in
+`match` / `cram` arrays where citation inherits from the parent video —
+re-citation requires either a structural move (breaks SM-2 keys) or a
+schema extension. Catching this in scoping saved authoring an apply
+script that would have silently broken study progress on 65 match items.
+The lesson: when SCHEMA.md says "never reorder ... never change video
+id," check whether the proposed remediation touches those guarantees
+before drafting the apply path.
+
+**`audit_*` field naming convention (locked 2026-05-20):**
+
+Fields prefixed `audit_*` on items / videos are tooling-only metadata.
+The React app never reads them. They are added by audit / remediation
+scripts (e.g., `audit_d_review` on items processed by SB-fix-1a) for
+provenance and decision tracking. Documented in SCHEMA.md's "Audit-trail
+fields" section. Future audit scripts adding new state to items must use
+this prefix to keep the study-relevant / audit-trail boundary clean.
+
 **Audit A lessons (carry-over from May 2026):**
 
 1. Tool-gated execution beats self-reported discipline — Batch 4b
@@ -149,13 +189,15 @@ workflow course-corrected.
 ## Budget state
 
 - $5 free credit + $50 paid credit (added Thu 2026-05-14) → pre-Audit-D pool: ~$53.71
-- Cumulative Audit D spend through 2026-05-19: **$34.63**
+- Cumulative Audit D spend through 2026-05-20: **$34.63** (unchanged from 2026-05-19)
   - $1.29 — SB0 calibration + SB1 pre-flight iterations
   - $7.42 — SB1 halt attempt 2026-05-18 (sunk; no on-disk verdicts)
   - $25.92 — SB1 full-corpus completion 2026-05-19 ($25.9170 exact)
+  - $0    — SB1.6 (transcript-grep + post-process script, no LLM calls)
+  - $0    — SB-fix-1 scoping (no LLM calls)
 - **Credit remaining: ~$19.08**
 - SB1 actual ($25.92) came in **under mid-projection** ($30); stretch ($45) and ceiling ($60) never approached. 100% cache hit rate on calls after first; per-verdict cost averaged $0.01234.
-- Remaining $19.08 covers: SB1.6 post-process refinement (script-only, ~$0 LLM cost), modest verification re-runs, and likely the first remediation sub-batch's verification pass. A top-up will be needed before any sub-batch that re-runs the LLM-as-judge over the full corpus.
+- Remaining $19.08 covers: SB-fix-1a apply work (no LLM calls — pure script work + Aiden review), modest verification re-runs if needed, and SB-fix-2 verification pass. A top-up will be needed before any sub-batch that re-runs the LLM-as-judge over the full corpus.
 
 ## Tasks deferred behind Audit D
 
