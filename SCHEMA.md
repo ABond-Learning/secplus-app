@@ -115,6 +115,35 @@ Field | Type | Rule
 The validator (Phase B) treats these as required only on items added after the
 Phase A extraction.
 
+## Audit-trail fields (`audit_*` prefix convention)
+
+Any field on an item or video prefixed with `audit_` is **tooling-only
+metadata** — written by audit / remediation scripts to record provenance and
+review history. **The React app never reads these fields.** They are safe to
+add to or remove from any item without UI impact.
+
+Convention:
+
+- `audit_*` fields are pure data records. The React app's JSON parser
+  passes them through into in-memory item objects but no UI code branches on
+  them.
+- Future audit scripts that add new audit fields must use the `audit_`
+  prefix to make the boundary unambiguous.
+- Audit fields are valid input to the export/import flow (they round-trip
+  via localStorage and gist sync) but do not affect SM-2 keys, study
+  surfacing order, or scoring.
+
+Current `audit_*` fields:
+
+Field | Owner | Purpose
+--- | --- | ---
+`audit_d_review` | SB-fix-1a remediation pipeline (planned; not yet shipped) | Per-item record of the partial-adjacent re-citation decision: `{ reviewed_at, packet_id, llm_verdict_id, from_messerVideo, to_messerVideo, fix_direction_applied, kept_as_is?, note? }`. Added to mc/scen items processed by `scripts/sb-fix-1a-apply-packet.mjs` (planned).
+
+When a new audit script needs a record on items, it should:
+1. Pick a stable `audit_<scope>_<purpose>` name.
+2. Add a row to the table above (one-line description).
+3. Confirm via grep that no React code reads the new field.
+
 ## localStorage compatibility
 
 The React app stores per-question SM-2 data using keys derived from
