@@ -58,10 +58,12 @@ const VALIDATOR = resolve(repo, "scripts/validate-questions.mjs");
 // Same vocabulary as SB-fix-1a so SB-fix-2 review tooling can filter
 // audit_d_review uniformly across mc/scen/match/cram items.
 const AUDIT_FIELD_SB16_CANDIDATE = "sb16_candidate";
+const AUDIT_FIELD_SB16_SUBCATEGORY = "sb16_subcategory";
 const AUDIT_FIELD_KEPT_AS_IS = "kept_as_is";
 const AUDIT_FIELD_RESOLVED_SELF_ALT = "resolved_self_alternate";
 const DECISION_KEPT_AS_IS = "kept-as-is";
 const DECISION_SB16_CANDIDATE = "keep-as-is-sb16-candidate";
+const VALID_SB16_SUBCATEGORIES = new Set(["partial-depth", "messer-curriculum-gap"]);
 
 // ─── CLI ───────────────────────────────────────────────────────────────
 function parseArgs() {
@@ -166,6 +168,28 @@ for (const dec of decisionsDoc.decisions) {
   } else if (decisionType === DECISION_SB16_CANDIDATE) {
     auditExtra[AUDIT_FIELD_KEPT_AS_IS] = true;
     auditExtra[AUDIT_FIELD_SB16_CANDIDATE] = true;
+    // sb16_subcategory routes SB-fix-2 resolution per the umbrella-conceptual-
+    // fit framing in SCHEMA.md (added 2026-05-21, 12deabc):
+    //   "partial-depth"         → cited video's umbrella subsumes the
+    //                             tested technique; technique absent from
+    //                             transcript
+    //   "messer-curriculum-gap" → cited video is a sibling concept; tested
+    //                             technique has no umbrella home anywhere in
+    //                             Messer's corpus
+    // Required on every sb16-candidate decision from packet 2 onward
+    // (existing SB-fix-1a candidates were retrofitted via
+    // audit-d-backfill-sb16-subcategory.mjs in 6f796f7).
+    if (!dec.sb16_subcategory) {
+      console.error(`ERROR: #${dec.packet_index} decision=keep-as-is-sb16-candidate but missing sb16_subcategory`);
+      console.error(`       must be one of: ${[...VALID_SB16_SUBCATEGORIES].join(", ")}`);
+      process.exit(1);
+    }
+    if (!VALID_SB16_SUBCATEGORIES.has(dec.sb16_subcategory)) {
+      console.error(`ERROR: #${dec.packet_index} unknown sb16_subcategory: "${dec.sb16_subcategory}"`);
+      console.error(`       must be one of: ${[...VALID_SB16_SUBCATEGORIES].join(", ")}`);
+      process.exit(1);
+    }
+    auditExtra[AUDIT_FIELD_SB16_SUBCATEGORY] = dec.sb16_subcategory;
     auditExtra.note = dec.note || "concept-here-but-not-this-exact-term pattern (SB1.6); review during SB-fix-2";
   } else {
     console.error(`ERROR: #${dec.packet_index} unknown decision_type: ${decisionType}`);
@@ -261,22 +285,35 @@ console.log(`Decisions in packet: ${decisionsDoc.decisions.length}`);
 console.log(`Actions resolved:    ${actions.length}`);
 console.log(`Skipped (already applied): ${skipped.length}`);
 console.log("");
+// Concept label for cluster-view rollup, derived programmatically from
+// item.term (cram) / item.answer (match) — never hand-annotated. Fixes the
+// packet-1 dry-run preview drift where hand-written labels at indices 1-3 of
+// §2.2.3 (Brand impersonation / BEC / Typosquatting) got shifted into the
+// wrong rows. Source-of-truth is the catalogue itself.
+function conceptLabel(item, type) {
+  if (type === "cram") return item.term || "?";
+  if (type === "match") return item.answer || "?";
+  return "?";
+}
+
 console.log("Per-item diff:");
 const byType = { edit: 0, "kept-as-is (self-alternate)": 0, "kept-as-is (reject)": 0, "sb16-candidate": 0 };
 for (const act of actions) {
   const locStr = `§${act.loc.section} ${act.loc.video} ${act.loc.type}[${act.loc.index}]`;
+  const label = conceptLabel(act.item, act.loc.type);
   if (act.resolved_self_alternate) {
     byType["kept-as-is (self-alternate)"]++;
-    console.log(`  #${String(act.packet_index).padStart(2)} ${locStr}  KEPT-AS-IS via SELF-ALTERNATE  (original=${act.original_decision}; target=effective-current=${act.effective_current})`);
+    console.log(`  #${String(act.packet_index).padStart(2)} ${locStr}  "${label}"  KEPT-AS-IS via SELF-ALTERNATE  (original=${act.original_decision}; target=effective-current=${act.effective_current})`);
   } else if (act.decision_type_recorded === DECISION_SB16_CANDIDATE) {
     byType["sb16-candidate"]++;
-    console.log(`  #${String(act.packet_index).padStart(2)} ${locStr}  SB16-CANDIDATE  (no edit; flagged for SB-fix-2)`);
+    const subcat = act.auditExtra?.[AUDIT_FIELD_SB16_SUBCATEGORY] || "(unset)";
+    console.log(`  #${String(act.packet_index).padStart(2)} ${locStr}  "${label}"  SB16-CANDIDATE  subcategory=${subcat}  (no edit; flagged for SB-fix-2)`);
   } else if (act.decision_type_recorded === "reject") {
     byType["kept-as-is (reject)"]++;
-    console.log(`  #${String(act.packet_index).padStart(2)} ${locStr}  REJECT  (no edit; kept_as_is=true)`);
+    console.log(`  #${String(act.packet_index).padStart(2)} ${locStr}  "${label}"  REJECT  (no edit; kept_as_is=true)`);
   } else {
     byType.edit++;
-    console.log(`  #${String(act.packet_index).padStart(2)} ${locStr}  EDIT  ${act.decision_type_recorded}`);
+    console.log(`  #${String(act.packet_index).padStart(2)} ${locStr}  "${label}"  EDIT  ${act.decision_type_recorded}`);
     const fromLabel = act.from_messerVideo ? `"${act.from_messerVideo}" / ${act.from_subObjective}` : `(inherits parent: ${act.effective_current})`;
     console.log(`      from: ${fromLabel}`);
     console.log(`      to:   "${act.to_messerVideo}" / ${act.to_subObjective}`);
@@ -285,6 +322,28 @@ for (const act of actions) {
 console.log("");
 console.log("Summary by action type:");
 for (const [k, n] of Object.entries(byType)) console.log(`  ${k.padEnd(30)}: ${n}`);
+
+// Cluster-view rollup: group items by source parent video and target. This
+// replaces the hand-annotated cluster-view that drifted in packet-1's dry-run
+// preview. Source-of-truth is `act` (script-resolved) plus catalogue labels.
+console.log("");
+console.log("Cluster-view rollup (source parent → destination):");
+const clusters = new Map();
+for (const act of actions) {
+  if (act.resolved_self_alternate || act.decision_type_recorded === DECISION_SB16_CANDIDATE || act.decision_type_recorded === "reject") continue;
+  const key = `${act.parent_section} - ${act.parent_video_title}  →  ${act.to_messerVideo}`;
+  if (!clusters.has(key)) clusters.set(key, []);
+  clusters.get(key).push(act);
+}
+const sortedClusterKeys = [...clusters.keys()].sort();
+for (const key of sortedClusterKeys) {
+  const items = clusters.get(key);
+  console.log(`  ${key}  (${items.length} item${items.length === 1 ? "" : "s"})`);
+  for (const act of items) {
+    const label = conceptLabel(act.item, act.loc.type);
+    console.log(`    - #${String(act.packet_index).padStart(2)} ${act.loc.type}[${act.loc.index}]  "${label}"`);
+  }
+}
 console.log("");
 console.log(`Pre-state SHA256: ${preStateSha}`);
 const postStateSha = createHash("sha256").update(JSON.stringify(questions, null, 2)).digest("hex");
