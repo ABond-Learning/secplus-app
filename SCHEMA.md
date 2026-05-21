@@ -76,14 +76,18 @@ Lives in `video.matching[]`.
 ```jsonc
 {
   "prompt": "CCTV monitoring a server room",
-  "answer": "Detective"
+  "answer": "Detective",
+  "messerVideo": "1.1 - Security Controls",  // optional, only when re-cited
+  "subObjective": "1.1"                       // optional, only when re-cited
 }
 ```
 
-Field | Required | Type
---- | --- | ---
-`prompt` | yes | string
-`answer` | yes | string
+Field | Required | Type | Notes
+--- | --- | --- | ---
+`prompt` | yes | string | The pair prompt.
+`answer` | yes | string | The pair answer.
+`messerVideo` | optional | string | Per-pair citation override. Absent → pair inherits the parent video's `title` for any UI purpose. Tooling-only metadata (see Audit-trail boundary below). Added by Audit D remediation scripts (SB-fix-1b). **Both-or-neither rule with `subObjective`** (see "Citation field rules" below).
+`subObjective` | optional | string | Per-pair sub-objective. Must match `\d+\.\d+(\.\d+)?` if present. Same both-or-neither rule.
 
 ## Cram term
 
@@ -92,28 +96,54 @@ Lives in `video.cram[]`.
 ```jsonc
 {
   "term": "Preventive control",
-  "def": "Stops a threat BEFORE it occurs. Examples: firewall, lock, ACL, MFA."
+  "def": "Stops a threat BEFORE it occurs. Examples: firewall, lock, ACL, MFA.",
+  "messerVideo": "1.1 - Security Controls",  // optional, only when re-cited
+  "subObjective": "1.1"                       // optional, only when re-cited
 }
 ```
 
-Field | Required | Type
---- | --- | ---
-`term` | yes | string
-`def` | yes | string
+Field | Required | Type | Notes
+--- | --- | --- | ---
+`term` | yes | string | The cram term.
+`def` | yes | string | The definition.
+`messerVideo` | optional | string | Per-term citation override. Same shape + rule as MatchItem. Added by Audit D remediation scripts (SB-fix-1b).
+`subObjective` | optional | string | Per-term sub-objective. Must match `\d+\.\d+(\.\d+)?`. Same both-or-neither rule.
 
-## Future fields (Task 1b, not yet enforced)
+## Citation field rules (`messerVideo` + `subObjective`)
 
-Per CLAUDE.md Quality Rules 1 and 2, every NEW question added in Task 1b must
-include the following fields. Existing content is grandfathered — flagged in the
-audit report but not modified.
+Both fields are **co-required when either is present.** Presence of `messerVideo` OR `subObjective` on any item (mc, scenario, matching pair, cram term) flips the item into "NEW" classification and requires both fields with valid values. Partial citation (one field present, the other absent) is a malformed state and the validator rejects it as `missing-messer` or `missing-subobj`.
 
 Field | Type | Rule
 --- | --- | ---
-`messerVideo` | string | Exact Professor Messer video title (e.g. `"2.3 - Common Attack Types"`). Quality Rule 1.
+`messerVideo` | string | Exact Professor Messer video title (e.g. `"2.3 - Common Attack Types"`). Bounded by the 120-entry known-title set in `questions.json`. Quality Rule 1.
 `subObjective` | string | SY0-701 sub-objective (e.g. `"2.3.6"`). Must match `\d+\.\d+(\.\d+)?`. Quality Rule 2.
 
-The validator (Phase B) treats these as required only on items added after the
-Phase A extraction.
+Type-level enforcement:
+
+Item type | NEW-item requires both? | Legacy info-flag emitted when absent?
+--- | --- | ---
+MC | YES | YES (`legacy-no-citation`)
+Scenario | YES | YES (`legacy-no-citation`)
+MatchItem | YES (when either present) | NO (citation is structurally optional)
+CramTerm | YES (when either present) | NO (citation is structurally optional)
+
+This split exists because mc/scen items required citations as part of Task 1b's quality bar (every NEW MC/scenario authored in Task 1b carries citations). Match + cram items inherit their citation from the parent video by default; Audit D remediation may add per-item overrides, in which case the both-or-neither rule applies.
+
+## Citation enforcement on mc/scen vs match/cram — historical note
+
+Per CLAUDE.md Quality Rules 1 and 2, every NEW question added in Task 1b must
+include `messerVideo` + `subObjective`. Existing content was grandfathered.
+Match + cram items historically had no citation fields; they were added as
+optional per-item overrides in SB-fix-1b-prep (2026-05-21) to support Audit D
+partial-adjacent remediation on the 134-item D2 match+cram pool deferred from
+SB-fix-1a. The both-or-neither rule above governs the per-item override
+mechanics across all four types; the type-level enforcement table above
+captures the asymmetry (mc/scen citation REQUIRED for NEW items; match/cram
+citation OPTIONAL but co-required when either field is present).
+
+The validator (`scripts/validate-questions.mjs`) enforces these rules
+uniformly via a single `checkCitation()` helper called from all four type
+walkers since SB-fix-1b-prep.
 
 ## Audit-trail fields (`audit_*` prefix convention)
 
@@ -137,7 +167,7 @@ Current `audit_*` fields:
 
 Field | Owner | Purpose
 --- | --- | ---
-`audit_d_review` | SB-fix-1a remediation pipeline (planned; not yet shipped) | Per-item record of the partial-adjacent re-citation decision: `{ reviewed_at, packet_id, llm_verdict_id, from_messerVideo, to_messerVideo, fix_direction_applied, kept_as_is?, note? }`. Added to mc/scen items processed by `scripts/sb-fix-1a-apply-packet.mjs` (planned).
+`audit_d_review` | SB-fix-1a (shipped 2026-05-20) + SB-fix-1b (pending) remediation pipelines | Per-item record of the Audit D re-citation decision: `{ reviewed_at, packet_id, decision_type, from_messerVideo, from_subObjective, to_messerVideo, to_subObjective, kept_as_is?, sb16_candidate?, resolved_self_alternate?, note? }`. Added to mc/scen items by `scripts/sb-fix-1a-apply-packet.mjs` and (pending) to match/cram items by `scripts/sb-fix-1b-apply-packet.mjs` (same field shape across all four types).
 
 When a new audit script needs a record on items, it should:
 1. Pick a stable `audit_<scope>_<purpose>` name.
@@ -164,6 +194,10 @@ Implications for any future schema change:
 3. Removing items shifts indices for everything after. Don't.
 4. The umbrella localStorage key is `STORE_KEY = "secplus-v4"` with
    `SCHEMA_VERSION = 2`. Bumping the version triggers the in-app migration path.
+5. Per-item `messerVideo` / `subObjective` on match / cram items does NOT
+   affect SM-2 key shape — keys remain `{type}-{videoId}-{qi}` derived from
+   the parent `videoId`. Adding or changing per-item citation is safe at the
+   localStorage layer; no migration is required.
 
 ## Cross-device sync (Task 1.5)
 

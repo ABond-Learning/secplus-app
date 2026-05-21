@@ -29,9 +29,10 @@ const args = process.argv.slice(2);
 const reportPath = args.find((a) => a.startsWith("--report="))?.split("=")[1];
 const quiet = args.includes("--quiet");
 const pathOverride = args.find((a) => a.startsWith("--path="))?.split("=")[1];
+const selftest = args.includes("--selftest");
 
 const effectiveJsonPath = pathOverride ? resolve(pathOverride) : jsonPath;
-const data = JSON.parse(readFileSync(effectiveJsonPath, "utf8"));
+const data = selftest ? null : JSON.parse(readFileSync(effectiveJsonPath, "utf8"));
 
 // ─── Constants ────────────────────────────────────────────────────────────
 const MIN_EXP_CHARS = 40;
@@ -56,6 +57,12 @@ const trunc = (s, n = 120) => (s.length <= n ? s : s.slice(0, n - 1) + "…");
 const isNew = (item) => Boolean(item?.messerVideo || item?.subObjective);
 
 // Walk every string field in an item, calling cb(fieldName, value).
+// Intentionally does NOT walk `messerVideo` or `subObjective` on any item kind:
+// those fields are bounded by the 120-entry known-Messer-title allowlist (the
+// same allowlist used by `scripts/sb-fix-1a-build-packet.mjs` parser v2), so
+// spelling/emoji scans would produce false positives against the canonical
+// title set. Citation correctness is enforced separately by `checkCitation()`.
+// Do not add `messerVideo` here without a corresponding allowlist-aware scan.
 function forEachStringField(item, kind, cb) {
   switch (kind) {
     case "mc":
@@ -78,6 +85,35 @@ function forEachStringField(item, kind, cb) {
     case "section":
       cb("label", item.label);
       break;
+  }
+}
+
+// Citation rules — applied uniformly across mc / scen / match / cram.
+//
+// Co-required rule: presence of either `messerVideo` or `subObjective` on an
+// item flips it into NEW classification and requires BOTH fields with valid
+// values. Partial citation (one present, the other absent) is malformed and
+// emits `missing-messer` or `missing-subobj` per existing error codes.
+//
+// `requireCitation` distinguishes the type-level enforcement asymmetry:
+//   - mc / scen call with requireCitation=true: legacy items (neither field
+//     present) emit `legacy-no-citation` info.
+//   - match / cram call with requireCitation=false: citation is structurally
+//     optional on these types, so legacy state is silent.
+function checkCitation(item, location, { requireCitation }) {
+  if (isNew(item)) {
+    // Both-or-neither: isNew() returned true because at least one field is
+    // present; require BOTH and reject partial state.
+    if (!item.messerVideo) {
+      record("error", "missing-messer", location, "new item lacks 'messerVideo'");
+    }
+    if (!item.subObjective) {
+      record("error", "missing-subobj", location, "new item lacks 'subObjective'");
+    } else if (!SUBOBJ_PATTERN.test(item.subObjective)) {
+      record("error", "subobj-format", location, `'subObjective' "${item.subObjective}" must match \\d+\\.\\d+(\\.\\d+)?`);
+    }
+  } else if (requireCitation) {
+    record("info", "legacy-no-citation", location, "legacy item lacks messerVideo + subObjective (grandfathered)");
   }
 }
 
@@ -117,20 +153,58 @@ function checkChoice(item, location) {
     });
   }
 
-  // Citation rules — only enforced on NEW items.
-  if (isNew(item)) {
-    if (!item.messerVideo) {
-      record("error", "missing-messer", location, "new item lacks 'messerVideo'");
+  // Citation rules — mc/scen require citations on NEW items and emit
+  // legacy-no-citation info otherwise.
+  checkCitation(item, location, { requireCitation: true });
+}
+
+// ─── Self-test fixtures (--selftest) ──────────────────────────────────────
+//
+// Runs 6 fixtures (3 match + 3 cram) against checkCitation() to verify the
+// both-or-neither rule + subobj format rule + optional-by-default behaviour
+// extend cleanly to match + cram. Exits 0 on full PASS, 1 on any FAIL.
+//
+// Added in SB-fix-1b-prep (2026-05-21) to establish the test pattern for
+// schema additions; future schema changes can extend FIXTURES below.
+if (selftest) {
+  const expected = [
+    // [kind, location, item, expectedIssues, description]
+    ["match", "selftest match[0]", { prompt: "P", answer: "A", messerVideo: "1.1 - Security Controls", subObjective: "1.1" }, [], "valid: both fields present"],
+    ["match", "selftest match[1]", { prompt: "P", answer: "A", messerVideo: "1.1 - Security Controls" }, ["missing-subobj"], "missing subObjective"],
+    ["match", "selftest match[2]", { prompt: "P", answer: "A", messerVideo: "1.1 - Security Controls", subObjective: "bad-format" }, ["subobj-format"], "bad subObjective format"],
+    ["cram",  "selftest cram[0]",  { term: "T", def: "D", messerVideo: "1.1 - Security Controls", subObjective: "1.1" }, [], "valid: both fields present"],
+    ["cram",  "selftest cram[1]",  { term: "T", def: "D", subObjective: "1.1" }, ["missing-messer"], "missing messerVideo"],
+    ["cram",  "selftest cram[2]",  { term: "T", def: "D" }, [], "neither field present (optional, no info on match/cram)"],
+  ];
+
+  let passed = 0;
+  let failed = 0;
+  const failures = [];
+  for (const [, loc, item, want, desc] of expected) {
+    // Snapshot issues so far, then run checkCitation, then diff.
+    const before = issues.length;
+    checkCitation(item, loc, { requireCitation: false });
+    const newIssues = issues.slice(before);
+    const got = newIssues.map((i) => i.code).sort();
+    const wantSorted = [...want].sort();
+    const ok = got.length === wantSorted.length && got.every((c, i) => c === wantSorted[i]);
+    if (ok) {
+      passed++;
+    } else {
+      failed++;
+      failures.push({ loc, desc, want: wantSorted, got });
     }
-    if (!item.subObjective) {
-      record("error", "missing-subobj", location, "new item lacks 'subObjective'");
-    } else if (!SUBOBJ_PATTERN.test(item.subObjective)) {
-      record("error", "subobj-format", location, `'subObjective' "${item.subObjective}" must match \\d+\\.\\d+(\\.\\d+)?`);
-    }
-  } else {
-    // Legacy — record info-level missing citation (one entry per item).
-    record("info", "legacy-no-citation", location, "legacy item lacks messerVideo + subObjective (grandfathered)");
+    // Trim back: self-test shouldn't pollute the issue accumulator.
+    issues.length = before;
   }
+
+  console.log(`\nValidator self-test: ${passed} PASS, ${failed} FAIL (of ${expected.length})`);
+  for (const f of failures) {
+    console.log(`  FAIL ${f.loc} — ${f.desc}`);
+    console.log(`    expected codes: [${f.want.join(", ")}]`);
+    console.log(`    got codes:      [${f.got.join(", ")}]`);
+  }
+  process.exit(failed > 0 ? 1 : 0);
 }
 
 // Walk and validate everything.
@@ -162,11 +236,15 @@ for (const section of data) {
       const loc = `${vidLoc} match[${i}]`;
       if (typeof m.prompt !== "string" || !m.prompt.trim()) record("error", "match-prompt", loc, "missing prompt");
       if (typeof m.answer !== "string" || !m.answer.trim()) record("error", "match-answer", loc, "missing answer");
+      // Citation is structurally optional on match items; co-required when either field is present.
+      checkCitation(m, loc, { requireCitation: false });
     });
     (video.cram ?? []).forEach((c, i) => {
       const loc = `${vidLoc} cram[${i}]`;
       if (typeof c.term !== "string" || !c.term.trim()) record("error", "cram-term", loc, "missing term");
       if (typeof c.def !== "string" || !c.def.trim()) record("error", "cram-def", loc, "missing def");
+      // Citation is structurally optional on cram items; co-required when either field is present.
+      checkCitation(c, loc, { requireCitation: false });
     });
 
     // Spelling + emoji + flag scan over EVERY string field of EVERY item, including the section/video.
