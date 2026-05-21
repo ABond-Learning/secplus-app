@@ -167,7 +167,26 @@ Current `audit_*` fields:
 
 Field | Owner | Purpose
 --- | --- | ---
-`audit_d_review` | SB-fix-1a (shipped 2026-05-20) + SB-fix-1b (pending) remediation pipelines | Per-item record of the Audit D re-citation decision: `{ reviewed_at, packet_id, decision_type, from_messerVideo, from_subObjective, to_messerVideo, to_subObjective, kept_as_is?, sb16_candidate?, resolved_self_alternate?, note? }`. Added to mc/scen items by `scripts/sb-fix-1a-apply-packet.mjs` and (pending) to match/cram items by `scripts/sb-fix-1b-apply-packet.mjs` (same field shape across all four types).
+`audit_d_review` | SB-fix-1a (shipped 2026-05-20) + SB-fix-1b (pending) remediation pipelines | Per-item record of the Audit D re-citation decision: `{ reviewed_at, packet_id, decision_type, from_messerVideo, from_subObjective, to_messerVideo, to_subObjective, kept_as_is?, sb16_candidate?, sb16_subcategory?, resolved_self_alternate?, note? }`. Added to mc/scen items by `scripts/sb-fix-1a-apply-packet.mjs` and (pending) to match/cram items by `scripts/sb-fix-1b-apply-packet.mjs` (same field shape across all four types).
+
+### `audit_d_review.sb16_subcategory` semantics
+
+Routes sb16-candidate items to the correct SB-fix-2 resolution path.
+The load-bearing distinction is **umbrella-conceptual-fit** between the
+tested technique and the cited video's taught content — not specific-
+technique transcript presence.
+
+Value | Meaning | Example
+--- | --- | ---
+`"partial-depth"` | Cited video's umbrella concept conceptually contains the tested technique; the specific technique is absent from the transcript (and may be absent from the corpus). SB-fix-2 may resolve by re-writing items to test the umbrella directly, or by adding a new sub-video citation. | Spectre/Meltdown under Hardware Vulnerabilities (umbrella = hardware-as-attack-vector subsumes CPU speculation). SYN flood under Denial of Service (umbrella subsumes SYN flooding).
+`"messer-curriculum-gap"` | Cited video's umbrella does NOT contain the tested technique — the cited video is a SIBLING concept, not the parent. The tested concept has no umbrella home in the Messer corpus. SB-fix-2 may resolve by re-citing to a generic survey video, re-writing items to test a covered concept, or flagging for removal as out-of-Messer-scope. | Integer overflow under Buffer Overflows (buffer-overflow umbrella = memory-write-beyond-bounds; integer-overflow umbrella = arithmetic-exceeds-type-range; distinct concepts sharing only the word "overflow").
+
+Backfill audit: SB-fix-1a's 10 sb16-candidates (Spectre/Meltdown, SYN
+flood, DNS tunneling, evil twin, WPA2 handshake, IDOR, credential
+stuffing x3, pass-the-hash) are all `partial-depth` — their cited
+videos' umbrellas conceptually contain the tested techniques.
+SB-fix-1b packet 2's integer overflow (#36, #37) introduces the first
+`messer-curriculum-gap` cases. Established 2026-05-21.
 
 When a new audit script needs a record on items, it should:
 1. Pick a stable `audit_<scope>_<purpose>` name.
