@@ -5669,7 +5669,8 @@
               "from_subObjective": "2.3",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Spectre/Meltdown are canonical hardware-vulnerability examples — partial-depth shape, not partial-adjacent. Same SB1.6 pattern as the loose-flag pool. Don't move; flag for SB-fix-2 partial-depth review."
+              "note": "Spectre/Meltdown are canonical hardware-vulnerability examples — partial-depth shape, not partial-adjacent. Same SB1.6 pattern as the loose-flag pool. Don't move; flag for SB-fix-2 partial-depth review.",
+              "sb16_subcategory": "partial-depth"
             }
           }
         ],
@@ -7236,7 +7237,8 @@
               "from_subObjective": "2.4",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Cluster verification: SYN flood not in cited DoS transcript. Additionally: candidate Messer-curriculum-gap (SYN flood may not appear anywhere in Messer SY0-701) — flag for SB-fix-2 Sybex-arbitration sub-path."
+              "note": "Cluster verification: SYN flood not in cited DoS transcript. Additionally: candidate Messer-curriculum-gap (SYN flood may not appear anywhere in Messer SY0-701) — flag for SB-fix-2 Sybex-arbitration sub-path.",
+              "sb16_subcategory": "partial-depth"
             }
           },
           {
@@ -7385,7 +7387,8 @@
               "from_subObjective": "2.4",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Cluster verification: DNS tunneling not in cited DNS Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+              "note": "Cluster verification: DNS tunneling not in cited DNS Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
+              "sb16_subcategory": "partial-depth"
             }
           }
         ],
@@ -7478,7 +7481,8 @@
               "from_subObjective": "2.4",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Cluster verification: evil twin not in cited Wireless Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+              "note": "Cluster verification: evil twin not in cited Wireless Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
+              "sb16_subcategory": "partial-depth"
             }
           },
           {
@@ -7514,7 +7518,8 @@
               "from_subObjective": "2.4",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Cluster verification: WPA2 4-way handshake capture not in cited Wireless Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+              "note": "Cluster verification: WPA2 4-way handshake capture not in cited Wireless Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
+              "sb16_subcategory": "partial-depth"
             }
           }
         ],
@@ -8003,7 +8008,8 @@
               "from_subObjective": "2.4",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Cluster verification: IDOR not in cited Application Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+              "note": "Cluster verification: IDOR not in cited Application Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
+              "sb16_subcategory": "partial-depth"
             }
           },
           {
@@ -8274,7 +8280,8 @@
               "from_subObjective": "2.4",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Cluster verification: credential stuffing not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+              "note": "Cluster verification: credential stuffing not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
+              "sb16_subcategory": "partial-depth"
             }
           },
           {
@@ -8297,7 +8304,8 @@
               "from_subObjective": "2.4",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Cluster verification: credential stuffing + MFA-mitigation not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+              "note": "Cluster verification: credential stuffing + MFA-mitigation not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
+              "sb16_subcategory": "partial-depth"
             }
           },
           {
@@ -8320,7 +8328,8 @@
               "from_subObjective": "2.4",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Cluster verification: pass-the-hash not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+              "note": "Cluster verification: pass-the-hash not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
+              "sb16_subcategory": "partial-depth"
             }
           }
         ],
@@ -8345,7 +8354,8 @@
               "from_subObjective": "2.4",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "note": "Cluster verification: credential stuffing scenario not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern)."
+              "note": "Cluster verification: credential stuffing scenario not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
+              "sb16_subcategory": "partial-depth"
             }
           },
           {
