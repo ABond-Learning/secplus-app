@@ -1,4 +1,4 @@
-# Where Things Stand — 2026-05-21 (after Report-#0007 ship)
+# Where Things Stand — 2026-05-21 (end of day; after SB-fix-1b-prep ship)
 
 Handoff document for supervisor-Claude continuity. Captures
 institutional knowledge that isn't in the formal docs (PLAN.md,
@@ -15,7 +15,7 @@ instructions to match.
 
 ## Current state
 
-**Last commit:** `4e6fb9e` (Thu 2026-05-21, Report-#0007 standalone) — plus today's docs-sync commit landing this paragraph. Recent chain: SCHEMA.md `audit_*` convention (`db60853`); Report-#0006 + SB1.6 script (`553c17d`); PLAN/handoff sync mid-day 2026-05-20 (`e8ba93a`); SB-fix-1a packets 1/3 / 2/3 / 3/3 (`53786b0` / `4b9d838` / `61b6992`); PLAN/handoff sync end-of-day 2026-05-20 (`df40c40`); Report-#0007 (`4e6fb9e`); this docs-sync commit.
+**Last commit:** `5bec38a` (Thu 2026-05-21, Report-#0008 standalone) — plus today's end-of-day docs-sync commit landing this paragraph. Recent chain: SCHEMA.md `audit_*` convention (`db60853`); Report-#0006 + SB1.6 script (`553c17d`); PLAN/handoff sync mid-day 2026-05-20 (`e8ba93a`); SB-fix-1a packets 1/3 / 2/3 / 3/3 (`53786b0` / `4b9d838` / `61b6992`); PLAN/handoff sync end-of-day 2026-05-20 (`df40c40`); Report-#0007 (`4e6fb9e`); PLAN/handoff sync after Report-#0007 (`56875cb`); SB-fix-1b-prep single commit (`c1464c0`); Report-#0008 (`5bec38a`); this end-of-day sync commit.
 
 **Branch:** main, working tree clean except 3 pre-existing untracked
 Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
@@ -32,12 +32,12 @@ Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
 - ✅ **SB-fix-1 scoping (Tue 2026-05-20)** — D2 partial-adjacent inventoried at 197 items. Schema-constraint finding split the work: mc + scen (63 items) per-item citable + Strategy A study-safe; match + cram (134 items) inherit citation from parent → SB-fix-1b deferred (Path B = schema extension).
 - ✅ **SB-fix-1a SHIPPED 2026-05-20** (three commits: `53786b0` + `4b9d838` + `61b6992`). Q6 validator-constraint check first (Outcome A — no rule blocks per-item override). Then 3 packets of 25/25/13 items with per-packet commits. Cadence: C for packet-1 (built, surfaced, calibrate), pivoted to B for packets 2+3 (combined relay) after parser-v2 fix landed mid-stream. Parser-v2 replaced regex-based v1 with allowlist-based matching after packet-1 review surfaced 4 parser bugs (truncation on "or", inverted primary, prose-suffix capture, hallucinated titles); 10 corpus items improved, 53 unchanged. **Cumulative: 63 reviewed / 52 re-cited / 1 self-alternate (#17) / 10 sb16-candidates.** Mid-stream cluster verification on 9 supervisor-flagged items (TASK-1-style transcript grep) confirmed all 9 as SB16-CANDIDATE (concept-here-but-not-this-exact-term in §2.4 attack-types cluster). Validator clean throughout (0 errors / 5 warns unchanged from baseline). Backups retained at `.audit-working/sb-fix-1a/backups/`.
 - ✅ **Report-#0007 SHIPPED 2026-05-21 (`4e6fb9e`).** Load-bearing methodology document for SB-fix-1a covering Q6 + parser v2 + all 3 packets + catch-all generalisation across §2.2/§2.3/§2.4/§2.5 + partial-depth under-application + Messer-curriculum-gap candidates. Cumulative methodology agreement number locked at **47/50 = 94%** (30 spot-check + 8 uncertainty-verified + 9 cluster-verified; 3 remaining disagreements all SB1.6-method-handled). Supervisor sign-off PASS with four framing nudges folded in (parser-v2 functional impact framing; denominator reconstruction in §8; corpus-scale claim softened; (A)↔(B) hidden dependency in §9).
-- ⏸ **(A) SB-fix-1b-prep** — schema-extension scoping for match + cram per-item override (134 items). Path B confirmed by supervisor 2026-05-20. Next-session candidate.
-- ⏸ **(B) SB-fix-2** — partial-depth review against the 31-item candidate-augment pool (21 from SB1.6 + 10 surfaced during SB-fix-1a). Pool is structurally larger than the SB1.6 prose-marker predicate alone could catch. Includes Messer-curriculum-gap Sybex-arbitration sub-path for items like #43 SYN flood.
-- ⏸ **(C) Domain 1/3/4/5 partial-adjacent** (227 remaining items) — future sub-batches once D2 pattern is fully validated through SB-fix-2.
+- ✅ **SB-fix-2 pool composition walk 2026-05-21** — type-composition surfaced 14 of 31 items (45%) as match+cram → (A) is sequencing prerequisite for that subset. Ordering decided: Option 1 (A→B sequential).
+- ✅ **SB-fix-1b-prep SHIPPED 2026-05-21 (`c1464c0`) + Report-#0008 (`5bec38a`).** Schema extension + validator generalisation. SCHEMA.md: MatchItem + CramTerm optional `messerVideo` + `subObjective` with both-or-neither rule; new Citation field rules section + type-level enforcement table. Validator: extracted `checkCitation()` helper (preserves existing error codes verbatim per Q-B refinement 1; explicit both-or-neither logic per Q-B refinement 2); called from match + cram walkers with `requireCitation: false`; Q-C comment in `forEachStringField`; `--selftest` flag with 6 fixtures (6/6 PASS). Q-A through Q-E supervisor-adjudicated; zero JSX changes per Q-D-1 (citation stays tooling-metadata; reserves Q-D-2 as future opt-in). Headline: scope reduced from feature-shaped to data-shaped after no-UI-read-path audit; supports BOTH 134-item SB-fix-1b apply pool AND 14-item SB-fix-2 match+cram subset under uniform schema.
+- ⏸ **SB-fix-1b apply (134 items, ~6 packets).** UNBLOCKED. Next-session opener: SB-fix-1b apply scoping → packet-1 cadence Option C (build → surface → calibrate), then decide A vs B for packets 2-6.
+- ⏸ **SB-fix-2** — partial-depth review against the 31-item candidate-augment pool (21 from SB1.6 + 10 surfaced during SB-fix-1a). Both mc/scen subset (17 items) AND match/cram subset (14 items) now structurally unblocked. Includes Messer-curriculum-gap Sybex-arbitration sub-path for items like #43 SYN flood. Order: after SB-fix-1b apply completes.
+- ⏸ **Domain 1/3/4/5 partial-adjacent** (227 remaining items) — future sub-batches once D2 pattern is fully validated through SB-fix-2.
 - ⏸ **Closure sub-batch**
-
-**Hidden (A)↔(B) dependency surfaced in Report-#0007 §9:** SB-fix-2's 31-item candidate-augment pool likely contains some match/cram items (HMAC match, MAM cram, MTD match+cram per SB1.6's loose-flag inventory in Report-#0006) that require (A)'s schema extension before per-item re-citation is structurally possible. A 5-minute type-composition check on the 31-item pool should precede the (A) vs (B) ordering decision. If the pool is dominantly mc/scen, the two blocks can run independently in either order; if a meaningful fraction is match/cram, (A) becomes a sequencing prerequisite for that subset of (B).
 
 ## Sub-batch 1 full-corpus — completion record 2026-05-19
 
@@ -200,16 +200,18 @@ workflow course-corrected.
 ## Budget state
 
 - $5 free credit + $50 paid credit (added Thu 2026-05-14) → pre-Audit-D pool: ~$53.71
-- Cumulative Audit D spend through 2026-05-21: **$34.63** (unchanged from 2026-05-19; SB-fix-1a + Report-#0007 were pure script + documentation work, $0 LLM)
+- Cumulative Audit D spend through 2026-05-21 (end of day): **$34.63** (unchanged from 2026-05-19; SB-fix-1a + Report-#0007 + SB-fix-1b-prep + Report-#0008 were pure script + documentation work, $0 LLM)
   - $1.29 — SB0 calibration + SB1 pre-flight iterations
   - $7.42 — SB1 halt attempt 2026-05-18 (sunk; no on-disk verdicts)
   - $25.92 — SB1 full-corpus completion 2026-05-19 ($25.9170 exact)
   - $0    — SB1.6 (transcript-grep + post-process script, no LLM calls)
   - $0    — SB-fix-1a (3 packets of script-only + Aiden review, no LLM calls anywhere)
   - $0    — Report-#0007 (documentation, no LLM)
+  - $0    — SB-fix-1b-prep (schema + validator + self-test work, no LLM)
+  - $0    — Report-#0008 (documentation, no LLM)
 - **Credit remaining: ~$19.08**
 - SB1 actual ($25.92) came in **under mid-projection** ($30); stretch ($45) and ceiling ($60) never approached. 100% cache hit rate on calls after first; per-verdict cost averaged $0.01234.
-- Remaining $19.08 covers: SB-fix-2 review work (no LLM expected — manual gate against the 31-item candidate-augment pool), SB-fix-1b-prep (no LLM), and a meaningful margin for any unexpected mid-SB-fix-2 LLM-as-judge work. A top-up will be needed before any sub-batch that re-runs the LLM-as-judge over the full corpus.
+- Remaining $19.08 covers: SB-fix-1b apply work (no LLM — transcript grep + manual review against 134 items), SB-fix-2 review (no LLM expected — manual gate against 31-item pool), Domain 1/3/4/5 PA sub-batches (no LLM expected), closure work, and a meaningful margin for any unexpected mid-arc LLM-as-judge work. A top-up will be needed before any sub-batch that re-runs the LLM-as-judge over the full corpus.
 
 ## Tasks deferred behind Audit D
 
