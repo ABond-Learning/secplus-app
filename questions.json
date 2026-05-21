@@ -3346,7 +3346,17 @@
           },
           {
             "prompt": "Malware injected into a software update",
-            "answer": "Supply chain attack vector"
+            "answer": "Supply chain attack vector",
+            "messerVideo": "2.3 - Supply Chain Vulnerabilities",
+            "subObjective": "2.3",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Common Threat Vectors",
+              "to_messerVideo": "2.3 - Supply Chain Vulnerabilities",
+              "to_subObjective": "2.3"
+            }
           },
           {
             "prompt": "Infected USB drive left in car park",
@@ -3511,11 +3521,31 @@
           },
           {
             "term": "Spear phishing",
-            "def": "Targeted phishing at a specific person or group. Personalized to seem more legitimate."
+            "def": "Targeted phishing at a specific person or group. Personalized to seem more legitimate.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Whaling",
-            "def": "Spear phishing targeting senior executives (CEO, CFO, CISO). High-value targets."
+            "def": "Spear phishing targeting senior executives (CEO, CFO, CISO). High-value targets.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Vishing",
@@ -3527,19 +3557,59 @@
           },
           {
             "term": "Pharming",
-            "def": "Redirects users to a fake website even if they type the correct URL — DNS poisoning or hosts file modification."
+            "def": "Redirects users to a fake website even if they type the correct URL — DNS poisoning or hosts file modification.",
+            "messerVideo": "2.4 - DNS Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "2.4 - DNS Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "SPF",
-            "def": "Sender Policy Framework. DNS record listing authorized sending mail servers. Prevents spoofed sender addresses."
+            "def": "Sender Policy Framework. DNS record listing authorized sending mail servers. Prevents spoofed sender addresses.",
+            "messerVideo": "4.5 - Email Security",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "4.5 - Email Security",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "term": "DKIM",
-            "def": "DomainKeys Identified Mail. Cryptographic email signature. Proves email came from the domain."
+            "def": "DomainKeys Identified Mail. Cryptographic email signature. Proves email came from the domain.",
+            "messerVideo": "4.5 - Email Security",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "4.5 - Email Security",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "term": "DMARC",
-            "def": "Domain-based Message Authentication, Reporting, and Conformance. Builds on SPF + DKIM."
+            "def": "Domain-based Message Authentication, Reporting, and Conformance. Builds on SPF + DKIM.",
+            "messerVideo": "4.5 - Email Security",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "4.5 - Email Security",
+              "to_subObjective": "4.5"
+            }
           }
         ],
         "matching": [
@@ -3549,11 +3619,31 @@
           },
           {
             "prompt": "Targeted email at a specific individual",
-            "answer": "Spear phishing"
+            "answer": "Spear phishing",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "prompt": "Targeted at a CEO or CFO",
-            "answer": "Whaling"
+            "answer": "Whaling",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "prompt": "Phishing via phone call",
@@ -3565,19 +3655,59 @@
           },
           {
             "prompt": "Redirects correct URL to fake site",
-            "answer": "Pharming"
+            "answer": "Pharming",
+            "messerVideo": "2.4 - DNS Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "2.4 - DNS Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "prompt": "DNS record listing authorized sending mail servers",
-            "answer": "SPF"
+            "answer": "SPF",
+            "messerVideo": "4.5 - Email Security",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "4.5 - Email Security",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "prompt": "Cryptographic email signature per domain",
-            "answer": "DKIM"
+            "answer": "DKIM",
+            "messerVideo": "4.5 - Email Security",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "4.5 - Email Security",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "prompt": "Policy for handling SPF/DKIM failures",
-            "answer": "DMARC"
+            "answer": "DMARC",
+            "messerVideo": "4.5 - Email Security",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Phishing",
+              "to_messerVideo": "4.5 - Email Security",
+              "to_subObjective": "4.5"
+            }
           }
         ],
         "questions": [
@@ -3796,15 +3926,45 @@
           },
           {
             "term": "Brand impersonation",
-            "def": "Fake websites, emails, or apps mimicking trusted brands (Microsoft, Apple, banks) to steal credentials."
+            "def": "Fake websites, emails, or apps mimicking trusted brands (Microsoft, Apple, banks) to steal credentials.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Impersonation",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Business Email Compromise (BEC)",
-            "def": "Attacker impersonates an executive via email to trick employees into wire transfers or credential disclosure."
+            "def": "Attacker impersonates an executive via email to trick employees into wire transfers or credential disclosure.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Impersonation",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Typosquatting",
-            "def": "Registering domain names similar to legitimate ones (gooogle.com) to catch mistyped URLs."
+            "def": "Registering domain names similar to legitimate ones (gooogle.com) to catch mistyped URLs.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-alternate",
+              "inherited_from_parent": "2.2 - Impersonation",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Identity fraud",
@@ -3818,15 +3978,45 @@
           },
           {
             "prompt": "Fake Microsoft login page to steal credentials",
-            "answer": "Brand impersonation"
+            "answer": "Brand impersonation",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Impersonation",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "prompt": "Posing as an executive via email for wire transfer",
-            "answer": "Business Email Compromise (BEC)"
+            "answer": "Business Email Compromise (BEC)",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Impersonation",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "prompt": "Domain gooogle.com registered to catch typos",
-            "answer": "Typosquatting"
+            "answer": "Typosquatting",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Impersonation",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           }
         ],
         "questions": [
@@ -4089,23 +4279,73 @@
         "cram": [
           {
             "term": "Baiting",
-            "def": "Using enticing physical media (USB drives) or fake offers to lure victims into executing malware."
+            "def": "Using enticing physical media (USB drives) or fake offers to lure victims into executing malware.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.2 - Other Social Engineering Attacks",
+              "to_messerVideo": "2.2 - Common Threat Vectors",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Tailgating / piggybacking",
-            "def": "Following an authorized person through a secured door without authenticating. Physical access attack."
+            "def": "Following an authorized person through a secured door without authenticating. Physical access attack.",
+            "messerVideo": "1.2 - Physical Security",
+            "subObjective": "1.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Other Social Engineering Attacks",
+              "to_messerVideo": "1.2 - Physical Security",
+              "to_subObjective": "1.2"
+            }
           },
           {
             "term": "Quid pro quo",
-            "def": "'Something for something.' Attacker offers help (IT support) in exchange for information or access."
+            "def": "'Something for something.' Attacker offers help (IT support) in exchange for information or access.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.2 - Other Social Engineering Attacks",
+              "to_messerVideo": "2.2 - Common Threat Vectors",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Scarcity",
-            "def": "Creating urgency — 'act now, limited time.' Bypasses critical thinking."
+            "def": "Creating urgency — 'act now, limited time.' Bypasses critical thinking.",
+            "messerVideo": "2.2 - Phishing",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Other Social Engineering Attacks",
+              "to_messerVideo": "2.2 - Phishing",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Authority",
-            "def": "Impersonating a figure of authority (boss, IT, government) to compel compliance."
+            "def": "Impersonating a figure of authority (boss, IT, government) to compel compliance.",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-alternate",
+              "inherited_from_parent": "2.2 - Other Social Engineering Attacks",
+              "to_messerVideo": "2.2 - Common Threat Vectors",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Disinformation",
@@ -4115,7 +4355,17 @@
         "matching": [
           {
             "prompt": "USB drives left in a company car park",
-            "answer": "Baiting"
+            "answer": "Baiting",
+            "messerVideo": "2.2 - Common Threat Vectors",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-21T14:04:38.663Z",
+              "packet_id": "packet-1",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.2 - Other Social Engineering Attacks",
+              "to_messerVideo": "2.2 - Common Threat Vectors",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "prompt": "Following someone through a badge-entry door",
