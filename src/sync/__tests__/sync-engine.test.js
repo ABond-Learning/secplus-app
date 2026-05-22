@@ -40,6 +40,16 @@ test("isTracked covers all SY0-701 SM-2 prefixes", () => {
   assert.equal(isTracked("secplus-v4"), true);
 });
 
+test("isTracked covers weakness- prefix (added 2026-05-22)", () => {
+  assert.equal(isTracked("weakness-mc-2.4.1-7-1716372345678"), true);
+  assert.equal(isTracked("weakness-match-3.2.5-2-1716372389001"), true);
+  assert.equal(isTracked("weakness-cram-1.1.3-12-1716372401234"), true);
+});
+
+test("isLocalOnly: weakness- prefix is NOT local-only (syncs cross-device)", () => {
+  assert.equal(isLocalOnly("weakness-mc-2.4.1-7-1716372345678"), false);
+});
+
 test("isTracked rejects non-app keys", () => {
   assert.equal(isTracked("randomKey"), false);
   assert.equal(isTracked(""), false);
@@ -145,6 +155,21 @@ test("mergeEntries: drops LOCAL_ONLY keys injected via remote (defence)", () => 
   };
   const merged = mergeEntries(local, remote);
   assert.deepEqual(Object.keys(merged), ["mc-1.1.1-0"]);
+});
+
+test("mergeEntries: weakness- records merge per-key last-write-wins (append-only key uniqueness)", () => {
+  // Keys are unique per attempt (timestamped) so genuine cross-device
+  // collision on the same key is rare. When it happens (e.g. clock skew
+  // producing identical ms), the standard per-key max-ts merge applies.
+  const local  = { "weakness-mc-2.4.1-7-1716372345678": { value: '{"correct":true,"ts":1716372345678}', ts: T1 } };
+  const remote = { "weakness-mc-2.4.1-7-1716372345678": { value: '{"correct":false,"ts":1716372345678}', ts: T2 } };
+  const merged = mergeEntries(local, remote);
+  assert.equal(merged["weakness-mc-2.4.1-7-1716372345678"].value, '{"correct":false,"ts":1716372345678}');
+  // Distinct timestamps in the key produce distinct entries; both kept.
+  const localTwo  = { "weakness-mc-2.4.1-7-1000": { value: "A", ts: T1 } };
+  const remoteTwo = { "weakness-mc-2.4.1-7-2000": { value: "B", ts: T1 } };
+  const mergedTwo = mergeEntries(localTwo, remoteTwo);
+  assert.deepEqual(Object.keys(mergedTwo).sort(), ["weakness-mc-2.4.1-7-1000", "weakness-mc-2.4.1-7-2000"]);
 });
 
 test("mergeEntries: handles many keys, mixed ownership", () => {

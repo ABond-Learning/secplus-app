@@ -409,6 +409,58 @@ test("joining-device guard surfaces 401 from probe and does not push", async () 
   engineB.clearConfig();
 });
 
+test("integration: weakness- records propagate cross-device (added 2026-05-22)", async () => {
+  // Weakness records are append-only with timestamped keys. Two devices
+  // each writing distinct weakness keys must converge to a union of all
+  // records on both sides. This is the only test path for the new
+  // TRACKED_PREFIXES entry — the unit tests cover classification + merge;
+  // this exercises the end-to-end Gist round-trip.
+  const server = makeFakeGistServer();
+  server._seedGist("gist-shared");
+
+  const storageA = makeStorage({
+    "weakness-mc-2.4.1-7-1716372345678": JSON.stringify({ questionId: "mc-2.4.1-7", ts: 1716372345678, correct: true, mode: "quiz" }),
+  });
+  const storageB = makeStorage({
+    "weakness-mc-2.4.1-7-1716372400000": JSON.stringify({ questionId: "mc-2.4.1-7", ts: 1716372400000, correct: false, mode: "quiz" }),
+  });
+
+  const engineA = createEngine({ storage: storageA, fetchFn: server.fetch });
+  const engineB = createEngine({ storage: storageB, fetchFn: server.fetch });
+
+  // A configures sync, pushes its record.
+  await engineA.setConfig({ pat: "tokenA", gistId: "gist-shared" });
+  // B configures sync — joining branch pulls A's record + preserves B's local.
+  // (joining-device guard doesn't push B-only keys on initial setConfig;
+  // they propagate on next scan tick — see "joining-device: B-only key is
+  // preserved and propagates on next scan" test above for the pattern.)
+  await engineB.setConfig({ pat: "tokenB", gistId: "gist-shared" });
+
+  // After B's config: B has both records locally.
+  assert.equal(storageB.getItem("weakness-mc-2.4.1-7-1716372345678") != null, true, "B should have A's record after pull");
+  assert.equal(storageB.getItem("weakness-mc-2.4.1-7-1716372400000") != null, true, "B should still have its own record");
+
+  // B's next scan tick pushes the B-only key to the Gist.
+  await engineB._scanAndSync();
+
+  // A pulls; A now has B's record too.
+  await engineA._scanAndSync();
+  assert.equal(storageA.getItem("weakness-mc-2.4.1-7-1716372345678") != null, true, "A should still have its own record");
+  assert.equal(storageA.getItem("weakness-mc-2.4.1-7-1716372400000") != null, true, "A should have B's record after pull");
+
+  // The Gist holds both records (different keys, both kept).
+  const stored = JSON.parse(
+    server._state().gists["gist-shared"].files["secplus-sync.json"].content
+  );
+  assert.deepEqual(
+    Object.keys(stored.entries).filter(k => k.startsWith("weakness-")).sort(),
+    ["weakness-mc-2.4.1-7-1716372345678", "weakness-mc-2.4.1-7-1716372400000"]
+  );
+
+  engineA.clearConfig();
+  engineB.clearConfig();
+});
+
 test("integration: PAT and meta keys never leak to the Gist", async () => {
   const server = makeFakeGistServer();
   server._seedGist("gist-shared");
