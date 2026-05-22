@@ -4,6 +4,7 @@ import SyncSettings, { deriveHealth } from "./sync/SyncSettings.jsx";
 import { getStatus as getSyncStatus, subscribe as subscribeSync } from "./sync/sync-engine.js";
 import { buildPool } from "./study/buildPool.js";
 import CustomiseDrawer from "./study/CustomiseDrawer.jsx";
+import { recordWeakness as recordWeaknessRaw } from "./study/weakness.js";
 
 // ─── DATA LIVES IN questions.json ──────────────────────────────
 
@@ -656,6 +657,33 @@ export default function App() {
     recordRating(questionKey, isCorrect ? 3 : 1);
   }
 
+  // Per-attempt weakness record — writes a `weakness-{questionId}-{ts}`
+  // localStorage entry alongside the SM-2 update. SM-2 stays the source of
+  // truth for review scheduling; weakness records are the source of truth
+  // for diagnostic queries. Best-effort: never throws, never blocks SM-2.
+  // See SCHEMA.md §weakness records + src/study/weakness.js.
+  //
+  // Reads SM-2 state from localStorage at write time (rather than React state)
+  // to avoid stale-closure bugs in handlers that mount once with empty deps
+  // arrays — notably QuizTab's keyboard handler captures recordWeakness at
+  // mount when async loadStore hasn't resolved, leaving wrapper closures
+  // pointing at the empty DEFAULT_STORE. localStorage lags React state by
+  // one render tick (saveStore runs in a useEffect post-render), so the
+  // value read here is exactly the pre-current-attempt SM-2 snapshot —
+  // correct semantics for prior_sm2 backfill. Stable function (no
+  // useCallback deps); child components don't re-render on store changes.
+  const recordWeakness = useCallback((opts) => {
+    const storage = typeof localStorage !== "undefined" ? localStorage : null;
+    let storeFromLs = null;
+    if (storage) {
+      try {
+        const raw = storage.getItem(STORE_KEY);
+        if (raw) storeFromLs = JSON.parse(raw);
+      } catch (e) { /* best-effort: weakness write is non-blocking */ }
+    }
+    return recordWeaknessRaw(opts, { storage, store: storeFromLs });
+  }, []);
+
   function recordSession(score, total, mode) {
     setStore(s => {
       const today = todayStr();
@@ -771,6 +799,7 @@ export default function App() {
               store={store}
               recordResult={recordResult}
               recordRating={recordRating}
+              recordWeakness={recordWeakness}
               recordSession={recordSession}
               pendingDrill={pendingDrill}
               clearPendingDrill={() => setPendingDrill(null)}
@@ -783,6 +812,7 @@ export default function App() {
               watchedVideos={watchedVideos}
               store={store}
               recordResult={recordResult}
+              recordWeakness={recordWeakness}
               recordSession={recordSession}
               onDrillWrongAsQuiz={(wrongQs) => {
                 setPendingDrill(wrongQs);
@@ -1179,7 +1209,7 @@ const STUDY_MODE_CARDS = [
   ["matching",   "🔗", "Matching",    "Term-to-definition exercises"],
 ];
 
-function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, pendingDrill, clearPendingDrill }) {
+function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, recordWeakness, recordSession, pendingDrill, clearPendingDrill }) {
   const [selectedMode, setSelectedMode] = useState(null);
   const [session, setSession] = useState(null);
 
@@ -1257,6 +1287,7 @@ function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, 
       store={store}
       recordResult={recordResult}
       recordRating={recordRating}
+      recordWeakness={recordWeakness}
       recordSession={recordSession}
       session={session}
       onCancel={() => { setSelectedMode(null); setSession(null); }}
@@ -1269,7 +1300,7 @@ function StudyTab({ sections, watchedVideos, store, recordResult, recordRating, 
 // revealOptions, [isPreloaded] }) from StudyTab; the pool is already
 // buildPool()-output. StudyTab forces a remount per-session via
 // key={session.id}, so no reset-on-prop-change useEffect is needed.
-function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordSession, session, onCancel }) {
+function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, recordWeakness, recordSession, session, onCancel }) {
   const sessionMode = session?.mode || "quiz";
   const sessionActiveRecall = !!session?.activeRecall;
 
@@ -1288,10 +1319,23 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   // schedules state updates — a state setter would still be pending.
   const matchScoresRef = useRef({});
 
+  // Weakness-tracker timing refs (per implementation-plan §4.0). Capture
+  // when the current question became visible; `computeTimeToAnswerMs` reads
+  // it at submit. Pause-on-blur + reveal-on-resume (Q-C-3) lands in commit
+  // 4; this commit ships static timing only (no pause subtraction yet).
+  const questionDisplayedAtRef = useRef(Date.now());
+  const wasInterruptedRef = useRef(false);
+  const computeTimeToAnswerMs = useCallback(() => {
+    return Math.max(0, Date.now() - questionDisplayedAtRef.current);
+  }, []);
+
   // Active recall: whenever the question changes, re-hide the options so the
   // user has to consciously reveal them again. Show is sticky per-question.
+  // Reset weakness timing refs in the same effect.
   useEffect(() => {
     setOptionsRevealed(false);
+    questionDisplayedAtRef.current = Date.now();
+    wasInterruptedRef.current = false;
   }, [idx]);
 
   // Keyboard shortcuts for the quiz running view:
@@ -1348,6 +1392,16 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
           e.preventDefault();
           const recordKey = keyOf(q);
           recordRating(recordKey, n);
+          recordWeakness({
+            questionId: recordKey,
+            correct: ctx.answers[ctx.idx] === q.a,
+            answerChosen: ctx.answers[ctx.idx],
+            timeToAnswerMs: computeTimeToAnswerMs(),
+            objectiveCode: q.subObjective || (q.videoId ? q.videoId.split(".").slice(0, 2).join(".") : null),
+            mode: ctx.sessionMode || "quiz",
+            confidence: null, // UI ships in commit 3
+            interrupted: wasInterruptedRef.current,
+          });
           setShowExp(false);
           if (ctx.idx + 1 >= ctx.quizQ.length) finishQuiz();
           else setIdx(ctx.idx + 1);
@@ -1363,6 +1417,16 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
         const recordKey = keyOf(q);
         const wasCorrect = ctx.answers[ctx.idx] === q.a;
         recordRating(recordKey, wasCorrect ? 3 : 1);
+        recordWeakness({
+          questionId: recordKey,
+          correct: wasCorrect,
+          answerChosen: ctx.answers[ctx.idx],
+          timeToAnswerMs: computeTimeToAnswerMs(),
+          objectiveCode: q.subObjective || (q.videoId ? q.videoId.split(".").slice(0, 2).join(".") : null),
+          mode: ctx.sessionMode || "quiz",
+          confidence: null,
+          interrupted: wasInterruptedRef.current,
+        });
         setShowExp(false);
         if (ctx.idx + 1 >= ctx.quizQ.length) finishQuiz();
         else setIdx(ctx.idx + 1);
@@ -1429,6 +1493,11 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
             // consistently-missed pairs surface in weak spots. New writes
             // use `match-${videoId}-${pairIdx}`; legacy `${videoId}-m` and
             // `${videoId}-m-${pairIdx}` records are converted on load.
+            // All pairs share the same timeToAnswerMs (matching is answered
+            // together) — captured once before the loop.
+            const matchTimeToAnswerMs = computeTimeToAnswerMs();
+            const matchInterrupted = wasInterruptedRef.current;
+            const matchObjectiveCode = q.subObjective || (q.videoId ? q.videoId.split(".").slice(0, 2).join(".") : null);
             let correct = 0;
             q.pairs.forEach((p, pairIdx) => {
               const pairKey = matchKey(q.videoId, pairIdx);
@@ -1436,6 +1505,16 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
               const wasCorrect = chosen === p.answer;
               if (wasCorrect) correct++;
               recordResult(pairKey, wasCorrect);
+              recordWeakness({
+                questionId: pairKey,
+                correct: wasCorrect,
+                answerChosen: chosen,
+                timeToAnswerMs: matchTimeToAnswerMs,
+                objectiveCode: matchObjectiveCode,
+                mode: "matching",
+                confidence: null, // matching has no confidence UI in v1 (per scoping doc §2.2 deferral)
+                interrupted: matchInterrupted,
+              });
             });
             matchScoresRef.current[idx] = { correct, total: q.pairs.length };
             setMatchAnswers({});
@@ -1538,6 +1617,16 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
                 key={rating}
                 onClick={() => {
                   recordRating(key, rating);
+                  recordWeakness({
+                    questionId: key,
+                    correct: selected === q.a,
+                    answerChosen: selected,
+                    timeToAnswerMs: computeTimeToAnswerMs(),
+                    objectiveCode: q.subObjective || (q.videoId ? q.videoId.split(".").slice(0, 2).join(".") : null),
+                    mode: sessionMode || "quiz",
+                    confidence: null,
+                    interrupted: wasInterruptedRef.current,
+                  });
                   setShowExp(false);
                   if (idx + 1 >= quizQ.length) finishQuiz();
                   else setIdx(idx + 1);
@@ -1792,7 +1881,7 @@ function CramTab({ watchedVideos, onBack }) {
 }
 
 // ─── EXAM TAB ──────────────────────────────────────────────────
-function ExamTab({ watchedVideos, store, recordResult, recordSession, onDrillWrongAsQuiz }) {
+function ExamTab({ watchedVideos, store, recordResult, recordWeakness, recordSession, onDrillWrongAsQuiz }) {
   const [running, setRunning] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -2020,6 +2109,16 @@ function ExamTab({ watchedVideos, store, recordResult, recordSession, onDrillWro
     qs.forEach((q, i) => {
       if (ans[i] !== undefined) {
         recordResult(keyOf(q), ans[i] === q.a);
+        recordWeakness({
+          questionId: keyOf(q),
+          correct: ans[i] === q.a,
+          answerChosen: ans[i],
+          timeToAnswerMs: null, // exam timing is total-only; per-question timing not tracked
+          objectiveCode: q.subObjective || (q.videoId ? q.videoId.split(".").slice(0, 2).join(".") : null),
+          mode: "exam",
+          confidence: null,
+          interrupted: false, // exam tab-blur handled by exam-session save (out-of-scope for Q-C-3)
+        });
       }
     });
     clearExamSession();
