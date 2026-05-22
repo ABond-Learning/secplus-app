@@ -171,6 +171,11 @@ const priorEntries = [
     resolve(repo, ".audit-working/sb-fix-1b/packet-2-decisions.json"),
     "SB-fix-1b packet 2",
   ),
+  ...loadPrior(
+    resolve(repo, ".audit-working/sb-fix-1b/packet-3.json"),
+    resolve(repo, ".audit-working/sb-fix-1b/packet-3-decisions.json"),
+    "SB-fix-1b packet 3",
+  ),
 ];
 
 console.log(`Loaded ${priorEntries.length} prior-adjudicated items across SB-fix-1a (3 packets) + SB-fix-1b packets 1-2.`);
