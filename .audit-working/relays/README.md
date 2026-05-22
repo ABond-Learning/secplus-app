@@ -1,155 +1,131 @@
-# CC ↔ Supervisor Relay
+# CC ↔ Supervisor Relay (v2 — simplified)
 
-Git-mediated message bus between Claude Code (running in WSL on
-Aiden's machine) and the supervisor model (running in a separate
-Claude conversation, fetched via web_fetch on
-raw.githubusercontent.com).
+Git-mediated message exchange between CC and the supervisor
+model. Both sides write to the repo; Aiden routes short
+signals between them.
 
-**Why not paste-relay?** Each manual paste-relay round-trip is
-~30-60s of Aiden time (iconv → clip.exe → switch tab → paste).
-At the SB-fix-1b cadence of 4-6 round-trips per packet, that's
-real overhead. Git push + supervisor web_fetch + supervisor
-response + Aiden runs `supervisor-relay.sh` is ~20s total wall-
-clock once warm.
+## The loop
 
-## Directory layout
+### CC → supervisor
 
-```
-.audit-working/relays/
-├── README.md                                   (this file)
-├── .last-processed-from-supervisor             (CC bookmark)
-├── from-cc/                                    (CC writes here)
-│   └── {ISO-timestamp}-{topic}.md
-└── from-supervisor/                            (supervisor writes here via Aiden's bridge script)
-    └── {ISO-timestamp}-{topic}.md
-```
+- CC writes file to
+  `.audit-working/relays/from-cc/{ISO-timestamp}-{topic}.md`.
+- Terminating marker at bottom of every file:
+  `---ready-for-supervisor---`.
+- Include a unique NONCE near the top
+  (format: `{ISO-timestamp}-{8-char-random-hex}`, e.g.
+  `2026-05-22T083449Z-66731790`).
+- CC commits + pushes.
+- CC's terminal output to Aiden: ONLY path, commit hash,
+  nonce string. No status block. No clipboard pipe.
+- CC idles waiting for Aiden's next signal.
 
-`.audit-working/relays/` is the **only** subtree of
-`.audit-working/` that is git-tracked. The rest of
-`.audit-working/` remains gitignored (see top-level `.gitignore`).
+### Aiden → supervisor
 
-## File naming convention
+- Aiden pastes the nonce + a brief trigger phrase (e.g.
+  "packet 3 ready") into supervisor's chat.
+- Supervisor `web_fetch`es the file at
+  `raw.githubusercontent.com/ABond-Learning/secplus-app/main/.audit-working/relays/from-cc/{file}`.
+- Supervisor verifies the fetched NONCE matches Aiden's
+  quoted nonce. Mismatch → cache-staleness; refetch with
+  `?_=<unix-ms>` cache-buster until match.
 
-`{ISO-8601-timestamp}-{topic-kebab}.md`
+### Supervisor → Aiden
 
-Examples:
-- `2026-05-22T093500Z-relay-test.md`
-- `2026-05-22T101230Z-sb-fix-1b-packet-3.md`
+- Supervisor writes response via `create_file` in the
+  supervisor sandbox at `/home/claude/relay-{topic}.md`.
+- Calls `present_files` to make it downloadable.
+- Response file includes:
+  - Supervisor's own `SUPERVISOR_NONCE`
+  - `CC_NONCE_ECHO` — CC's nonce echoed verbatim (proves
+    fresh fetch)
+  - Terminator marker `---ready-for-cc---`
 
-Timestamps use UTC (Z) for ordering stability. Topic should be
-kebab-case, short enough to scan, descriptive enough to identify
-in `ls`.
+### Aiden → CC
 
-## Markers
+- Aiden downloads supervisor's file (typically into
+  `~/Downloads/`).
+- Messages CC: "Supervisor response at
+  `~/Downloads/<filename>`" (or just pastes the path).
+- That's the only routing Aiden does. No script, no
+  bridge tool.
 
-Every from-cc message ends with a terminating marker:
+### CC processing
 
-```
----ready-for-supervisor---
-```
+- Reads file from the Aiden-specified path.
+- Copies it to
+  `.audit-working/relays/from-supervisor/{ISO-timestamp}-{topic}.md`
+  (audit trail).
+- Commits + pushes with message
+  `relay: supervisor → CC — {topic}`.
+- Processes the instructions in the file.
+- When ready for the next round-trip, writes a new
+  `from-cc/` file → loop continues.
 
-Every from-supervisor message ends with:
+## What's banned
 
-```
----ready-for-cc---
-```
+- **`iconv | clip.exe` of status blocks.** The clipboard
+  pipe is only acceptable for very short copyable strings
+  if at all (nonces, file paths, brief signals). Long
+  status content lives in the relay file itself.
+- **Long terminal status output.** CC's terminal to Aiden
+  shows path + commit hash + nonce — nothing more. If
+  Aiden wants more context, he reads the relay file in the
+  repo. The relay file IS the surface.
+- **Autonomous polling and bridge tools.** Aiden routes
+  by hand using short signals. No `scripts/supervisor-relay.sh`.
+  No 10-second poll loop. CC waits for Aiden's chat
+  message.
 
-The marker confirms the writer finished the message (vs partial
-write / commit-mid-edit). Supervisor verifies the marker before
-processing; CC's poll loop verifies it before treating a file as
-processable.
+## Audit trail
 
-## Nonce / cache-staleness protocol
+Both directions land in the repo as committed files:
 
-`raw.githubusercontent.com` has been observed serving stale
-content (precedent: 2026-05-21 morning — supervisor fetched
-yesterday's handoff doc and received the previous day's version).
+- `from-cc/` — every CC → supervisor message
+- `from-supervisor/` — every supervisor → CC message
 
-Mitigation: every from-cc message embeds a unique nonce near the
-top — the ISO timestamp suffices, but a separately-printed
-`NONCE: <string>` line makes verification mechanical. Supervisor
-compares the nonce in the fetched content against the nonce
-quoted in chat by Aiden. Mismatch → fetch again with cache-
-buster (`?_=<unix-ms>`) until match.
+Full conversation reconstructable from `git log` on those
+two directories. No state lives only in chat or in
+ephemeral terminal output.
 
-Same direction reversed: from-supervisor files include a nonce
-that CC can verify against the chat hand-off if Aiden quotes it.
+## When relay is the wrong tool
+
+Trivial single-message exchanges (small queries, quick
+confirmations, "yes proceed") can use direct paste-relay.
+The git overhead isn't worth it for one-line interactions.
+
+Threshold: anything that would be a long status block
+(>10 lines or with structured content) uses the relay.
+Anything short can use direct paste between Aiden's two
+chats.
 
 ## CC orientation on session restart
 
 ```
-1. Read .audit-working/relays/.last-processed-from-supervisor
-   (if present). It contains the ISO timestamp of the last
-   from-supervisor file CC has processed.
-2. ls .audit-working/relays/from-supervisor/*.md and find any
-   files newer than the bookmark.
-3. Process the oldest unprocessed file first.
+1. git pull --ff-only
+2. ls .audit-working/relays/from-supervisor/*.md sorted by name
+3. Compare against git log of from-cc/ commits: any
+   from-supervisor file that has not been acknowledged by
+   a later from-cc commit is unprocessed.
+4. Process the oldest unprocessed file first.
 ```
 
-`.last-processed-from-supervisor` is a plain-text file
-containing one line: the ISO timestamp of the last processed
-file (matches the filename prefix). It IS git-tracked — survives
-WSL restarts, branch switches, machine moves.
-
-## CC poll loop (when actively awaiting a response)
-
-After CC pushes a from-cc message, CC enters a poll cycle:
-
-```
-while true:
-  git fetch --quiet
-  git pull --quiet --ff-only
-  scan from-supervisor/ for files newer than .last-processed-from-supervisor
-  if new file present and ends with ---ready-for-cc---:
-    process it (update bookmark, read, act)
-    break
-  sleep 10
-```
-
-The poll cadence is 10 seconds. Adjust if Aiden+supervisor
-typically take longer to respond — but supervisor latency is
-human-supervisor-bound, not network-bound, so 10s polling is
-not wasteful.
-
-## Bridge script (Aiden's side)
-
-`scripts/supervisor-relay.sh` runs on Aiden's machine when
-supervisor produces a response. Usage:
-
-```
-./scripts/supervisor-relay.sh <path-to-supervisor-response.md>
-```
-
-It:
-1. Generates a fresh ISO timestamp
-2. Copies the supplied file to
-   `.audit-working/relays/from-supervisor/{ISO}-{topic}.md`
-   (topic derived from input filename)
-3. Stages, commits with message
-   `relay: supervisor → CC — {topic}`, pushes
-4. Confirms the push reached origin via post-push git log
-
-## Failure modes + handling
-
-- **Push fails (no network)**: bridge script reports failure;
-  CC's poll loop continues polling indefinitely — no auto-retry,
-  retry by re-running the bridge script.
-- **Marker absent (partial write)**: poll loop skips the file
-  until next iteration; if marker still absent after several
-  iterations, surface as anomaly.
-- **Nonce mismatch (cache staleness)**: supervisor re-fetches
-  with cache-buster query string; if persistent, Aiden falls
-  back to paste-relay for that round-trip.
-- **Bookmark loss (file deleted)**: CC re-processes all
-  from-supervisor files in timestamp order (idempotent since
-  CC's commits would already exist).
+No bookmark file is required — the git history is the
+bookmark.
 
 ## Versioning
 
-This is v1 of the protocol. Changes go in a CHANGELOG section
-below.
-
 ### CHANGELOG
 
-- 2026-05-22 — v1 — initial protocol; established during Task A
-  of "start as we mean to go on" infrastructure session.
+- **2026-05-22 — v2** — simplified. Retired
+  `scripts/supervisor-relay.sh` bridge tool and CC poll
+  loop. Single round-trip pattern: both sides write to repo,
+  Aiden routes short signals by hand. Banned `iconv | clip.exe`
+  status blocks and long terminal output. Established
+  during Task A.1 of "start as we mean to go on"
+  infrastructure session.
+- **2026-05-22 — v1** — initial protocol (file-based relay
+  with bridge script + 10s poll loop). Tested end-to-end
+  successfully (commits `fec556d` → `2035ab0` → `cc9d2c7`)
+  but the bridge + poll layer was identified as over-built
+  during the test cycle itself. Retired same day.
