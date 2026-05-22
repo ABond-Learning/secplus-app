@@ -8320,11 +8320,31 @@
           },
           {
             "term": "HSTS (HTTP Strict Transport Security)",
-            "def": "HTTP header instructing browsers to ALWAYS use HTTPS — mitigates SSL stripping."
+            "def": "HTTP header instructing browsers to ALWAYS use HTTPS — mitigates SSL stripping.",
+            "messerVideo": "4.5 - Secure Protocols",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - On-path Attacks",
+              "to_messerVideo": "4.5 - Secure Protocols",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "term": "BGP hijacking",
-            "def": "Attacker advertises false BGP routes — redirecting internet traffic through attacker-controlled infrastructure."
+            "def": "Attacker advertises false BGP routes — redirecting internet traffic through attacker-controlled infrastructure.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - On-path Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "2.4 On-path Attacks IS umbrella for network interception attacks; BGP hijacking IS routing-layer interception. Same pattern as SYN flood / evil twin."
+            }
           }
         ],
         "matching": [
@@ -8338,15 +8358,45 @@
           },
           {
             "prompt": "Downgrading HTTPS to HTTP",
-            "answer": "SSL stripping"
+            "answer": "SSL stripping",
+            "messerVideo": "2.4 - Cryptographic Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - On-path Attacks",
+              "to_messerVideo": "2.4 - Cryptographic Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "prompt": "HTTP header forcing HTTPS always",
-            "answer": "HSTS"
+            "answer": "HSTS",
+            "messerVideo": "4.5 - Secure Protocols",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - On-path Attacks",
+              "to_messerVideo": "4.5 - Secure Protocols",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "prompt": "False BGP route advertisements redirect internet traffic",
-            "answer": "BGP hijacking"
+            "answer": "BGP hijacking",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - On-path Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #102 (BGP hijacking match counterpart)."
+            }
           }
         ],
         "questions": [
@@ -8437,7 +8487,17 @@
           },
           {
             "term": "Nonce",
-            "def": "Number used Once. Random value added to authentication to prevent replay — each session unique."
+            "def": "Number used Once. Random value added to authentication to prevent replay — each session unique.",
+            "messerVideo": "1.4 - Encryption Technologies",
+            "subObjective": "1.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - Replay Attacks",
+              "to_messerVideo": "1.4 - Encryption Technologies",
+              "to_subObjective": "1.4"
+            }
           }
         ],
         "matching": [
@@ -8534,7 +8594,17 @@
         "cram": [
           {
             "term": "Web shell",
-            "def": "Malicious script uploaded to a web server giving attacker remote command execution via HTTP."
+            "def": "Malicious script uploaded to a web server giving attacker remote command execution via HTTP.",
+            "messerVideo": "2.4 - Application Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - Malicious Code",
+              "to_messerVideo": "2.4 - Application Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "Macro virus",
@@ -8542,17 +8612,47 @@
           },
           {
             "term": "Living off the land (LOLBins)",
-            "def": "Using legitimate system tools (PowerShell, WMI, certutil) for malicious purposes — evades detection."
+            "def": "Using legitimate system tools (PowerShell, WMI, certutil) for malicious purposes — evades detection.",
+            "messerVideo": "2.4 - Other Malware Types",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - Malicious Code",
+              "to_messerVideo": "2.4 - Other Malware Types",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "Dropper",
-            "def": "Initial malware that downloads and installs the main malicious payload. First stage of multi-stage attack."
+            "def": "Initial malware that downloads and installs the main malicious payload. First stage of multi-stage attack.",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Malicious Code",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "matching": [
           {
             "prompt": "Malicious script uploaded to web server for remote access",
-            "answer": "Web shell"
+            "answer": "Web shell",
+            "messerVideo": "2.4 - Application Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - Malicious Code",
+              "to_messerVideo": "2.4 - Application Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "prompt": "Malicious VBA code in Office documents",
@@ -8560,11 +8660,31 @@
           },
           {
             "prompt": "Using legitimate system tools maliciously",
-            "answer": "Living off the land (LOLBins)"
+            "answer": "Living off the land (LOLBins)",
+            "messerVideo": "2.4 - Other Malware Types",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - Malicious Code",
+              "to_messerVideo": "2.4 - Other Malware Types",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "prompt": "Initial malware that downloads main payload",
-            "answer": "Dropper"
+            "answer": "Dropper",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Malicious Code",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "questions": [
@@ -8678,11 +8798,31 @@
           },
           {
             "term": "IDOR (Insecure Direct Object Reference)",
-            "def": "Accessing objects by manipulating predictable identifiers without proper authorization check."
+            "def": "Accessing objects by manipulating predictable identifiers without proper authorization check.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Application Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Cross-packet precedent: SB-fix-1a #51 was kept-as-is-sb16-candidate. 2.4 Application Attacks IS umbrella (IDOR)."
+            }
           },
           {
             "term": "SSRF (Server-Side Request Forgery)",
-            "def": "Attacker makes the server fetch attacker-specified URLs — can reach internal services."
+            "def": "Attacker makes the server fetch attacker-specified URLs — can reach internal services.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Application Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "No precedent but same pattern as IDOR: 2.4 Application Attacks IS umbrella (SSRF)."
+            }
           },
           {
             "term": "CSRF token",
@@ -8700,11 +8840,31 @@
           },
           {
             "prompt": "Changing ?id=123 to ?id=124 to access another user's data",
-            "answer": "IDOR (Insecure Direct Object Reference)"
+            "answer": "IDOR (Insecure Direct Object Reference)",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Application Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #113 (IDOR match counterpart)."
+            }
           },
           {
             "prompt": "Making server fetch attacker-controlled URLs",
-            "answer": "SSRF (Server-Side Request Forgery)"
+            "answer": "SSRF (Server-Side Request Forgery)",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Application Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #114 (SSRF match counterpart)."
+            }
           },
           {
             "prompt": "Primary mitigation for CSRF",
@@ -8841,15 +9001,45 @@
           },
           {
             "term": "POODLE",
-            "def": "Padding Oracle On Downgraded Legacy Encryption — exploits SSLv3 via protocol downgrade."
+            "def": "Padding Oracle On Downgraded Legacy Encryption — exploits SSLv3 via protocol downgrade.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Cryptographic Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "2.4 Cryptographic Attacks IS umbrella; POODLE IS a cryptographic attack. Same pattern as SSL stripping / SYN flood / evil twin."
+            }
           },
           {
             "term": "Rainbow table",
-            "def": "Precomputed hash-to-plaintext database. Defeated by salting."
+            "def": "Precomputed hash-to-plaintext database. Defeated by salting.",
+            "messerVideo": "2.4 - Password Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Cryptographic Attacks",
+              "to_messerVideo": "2.4 - Password Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "Key stretching",
-            "def": "bcrypt, PBKDF2, Argon2 — deliberately slow hashing algorithms making brute force impractical."
+            "def": "bcrypt, PBKDF2, Argon2 — deliberately slow hashing algorithms making brute force impractical.",
+            "messerVideo": "4.6 - Password Security",
+            "subObjective": "4.6",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "accept-alternate",
+              "inherited_from_parent": "2.4 - Cryptographic Attacks",
+              "to_messerVideo": "4.6 - Password Security",
+              "to_subObjective": "4.6"
+            }
           }
         ],
         "matching": [
@@ -8863,15 +9053,45 @@
           },
           {
             "prompt": "SSLv3 padding oracle exploitation",
-            "answer": "POODLE attack"
+            "answer": "POODLE attack",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Cryptographic Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #117 (POODLE match counterpart)."
+            }
           },
           {
             "prompt": "Precomputed hash database — defeated by salts",
-            "answer": "Rainbow table"
+            "answer": "Rainbow table",
+            "messerVideo": "2.4 - Password Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Cryptographic Attacks",
+              "to_messerVideo": "2.4 - Password Attacks",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "prompt": "Deliberately slow hashing to resist brute force",
-            "answer": "Key stretching (bcrypt, PBKDF2)"
+            "answer": "Key stretching (bcrypt, PBKDF2)",
+            "messerVideo": "4.6 - Password Security",
+            "subObjective": "4.6",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Cryptographic Attacks",
+              "to_messerVideo": "4.6 - Password Security",
+              "to_subObjective": "4.6"
+            }
           }
         ],
         "questions": [
@@ -8963,15 +9183,45 @@
           },
           {
             "term": "Credential stuffing",
-            "def": "Using stolen username/password pairs from one breach to try on other services (exploits password reuse)."
+            "def": "Using stolen username/password pairs from one breach to try on other services (exploits password reuse).",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Password Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Cross-packet precedent: SB-fix-1a #54/#55/#57 all kept-as-is-sb16-candidate (Credential stuffing)."
+            }
           },
           {
             "term": "Pass-the-hash",
-            "def": "Using a captured password hash directly for authentication — no need to crack it."
+            "def": "Using a captured password hash directly for authentication — no need to crack it.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Password Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Cross-packet precedent: SB-fix-1a #56 was kept-as-is-sb16-candidate (Pass-the-hash)."
+            }
           },
           {
             "term": "Hybrid attack",
-            "def": "Dictionary words + rule modifications (capitalize, add numbers/symbols)."
+            "def": "Dictionary words + rule modifications (capitalize, add numbers/symbols).",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Password Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "No precedent but same pattern as credential stuffing / pass-the-hash. 2.4 Password Attacks IS umbrella (Hybrid attack)."
+            }
           },
           {
             "term": "Account lockout",
@@ -8985,7 +9235,17 @@
           },
           {
             "prompt": "Stolen credentials tried on other services",
-            "answer": "Credential stuffing"
+            "answer": "Credential stuffing",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Password Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #123 (Credential stuffing match counterpart)."
+            }
           },
           {
             "prompt": "Using captured hash directly for authentication",
@@ -9277,11 +9537,31 @@
           },
           {
             "term": "DMZ (Demilitarized Zone)",
-            "def": "Isolated network segment for public-facing servers. Between internet and internal network."
+            "def": "Isolated network segment for public-facing servers. Between internet and internal network.",
+            "messerVideo": "3.2 - Secure Infrastructures",
+            "subObjective": "3.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.5 - Segmentation and Access Control",
+              "to_messerVideo": "3.2 - Secure Infrastructures",
+              "to_subObjective": "3.2"
+            }
           },
           {
             "term": "Air gap",
-            "def": "Complete physical isolation — no network connection. Used for most sensitive systems."
+            "def": "Complete physical isolation — no network connection. Used for most sensitive systems.",
+            "messerVideo": "3.1 - Network Infrastructure Concepts",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.5 - Segmentation and Access Control",
+              "to_messerVideo": "3.1 - Network Infrastructure Concepts",
+              "to_subObjective": "3.1"
+            }
           },
           {
             "term": "Application allow list",
@@ -9289,13 +9569,33 @@
           },
           {
             "term": "Microsegmentation",
-            "def": "Granular segmentation — each workload isolated. Core Zero Trust architecture component."
+            "def": "Granular segmentation — each workload isolated. Core Zero Trust architecture component.",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.5 - Segmentation and Access Control",
+              "to_messerVideo": "1.2 - Zero Trust",
+              "to_subObjective": "1.2"
+            }
           }
         ],
         "matching": [
           {
             "prompt": "Isolated network for public-facing servers",
-            "answer": "DMZ / screened subnet"
+            "answer": "DMZ / screened subnet",
+            "messerVideo": "3.2 - Secure Infrastructures",
+            "subObjective": "3.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.5 - Segmentation and Access Control",
+              "to_messerVideo": "3.2 - Secure Infrastructures",
+              "to_subObjective": "3.2"
+            }
           },
           {
             "prompt": "Logical isolation at Layer 2",
@@ -9303,7 +9603,17 @@
           },
           {
             "prompt": "Complete physical network isolation",
-            "answer": "Air gap"
+            "answer": "Air gap",
+            "messerVideo": "3.1 - Network Infrastructure Concepts",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.5 - Segmentation and Access Control",
+              "to_messerVideo": "3.1 - Network Infrastructure Concepts",
+              "to_subObjective": "3.1"
+            }
           },
           {
             "prompt": "Only approved apps can run",
@@ -9311,7 +9621,17 @@
           },
           {
             "prompt": "Per-workload isolation in Zero Trust",
-            "answer": "Microsegmentation"
+            "answer": "Microsegmentation",
+            "messerVideo": "1.2 - Zero Trust",
+            "subObjective": "1.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.5 - Segmentation and Access Control",
+              "to_messerVideo": "1.2 - Zero Trust",
+              "to_subObjective": "1.2"
+            }
           }
         ],
         "questions": [
@@ -9564,7 +9884,17 @@
           },
           {
             "term": "Secure boot",
-            "def": "UEFI feature verifying boot software is signed and trusted — prevents bootkit attacks."
+            "def": "UEFI feature verifying boot software is signed and trusted — prevents bootkit attacks.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.5 - Hardening Techniques",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "2.5 Hardening Techniques IS umbrella for hardening; Secure Boot IS a hardening technique (boot-time integrity). Specific technique not in transcript but conceptual home is correct."
+            }
           },
           {
             "term": "CIS Benchmarks",
@@ -9586,7 +9916,17 @@
           },
           {
             "prompt": "Verifying boot software is signed and trusted",
-            "answer": "Secure Boot"
+            "answer": "Secure Boot",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:46:45.044Z",
+              "packet_id": "packet-4",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.5 - Hardening Techniques",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #133 (Secure Boot match counterpart). CC verified '3.1 - Infrastructure Considerations' exists in MESSER_VIDEOS.md per supervisor's question — but that's the rejected parser primary, not the kept destination. Keep-as-is leaves citation inheriting from parent 2.5 Hardening Techniques."
+            }
           },
           {
             "prompt": "Prescriptive OS hardening guides",
