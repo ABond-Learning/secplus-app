@@ -16,8 +16,25 @@ signals between them.
   (format: `{ISO-timestamp}-{8-char-random-hex}`, e.g.
   `2026-05-22T083449Z-66731790`).
 - CC commits + pushes.
-- CC's terminal output to Aiden: ONLY path, commit hash,
-  nonce string. No status block. No clipboard pipe.
+- CC's terminal output to Aiden: ONLY relative path, full
+  `raw.githubusercontent.com` URL, commit hash, nonce
+  string. No status block. No clipboard pipe.
+
+  Template:
+
+  ```
+  Relative path: .audit-working/relays/from-cc/{file}.md
+  URL for supervisor:
+    https://raw.githubusercontent.com/ABond-Learning/secplus-app/main/.audit-working/relays/from-cc/{file}.md
+  Commit: {hash}
+  Nonce: {nonce}
+  ```
+
+  The full URL is required because supervisor's `web_fetch`
+  needs the complete URL to appear in Aiden's chat message
+  before fetching (security constraint). Without it, Aiden
+  has to construct the URL by hand each time. Added
+  2026-05-22 after the EOS round-trip surfaced the gap.
 - CC idles waiting for Aiden's next signal.
 
 ### Aiden → supervisor
@@ -117,6 +134,14 @@ bookmark.
 
 ### CHANGELOG
 
+- **2026-05-22 — v2.1** — CC terminal-output template now
+  requires the full `raw.githubusercontent.com` URL alongside
+  relative path / commit hash / nonce. Surfaced during the
+  EOS round-trip of the v2 introduction session — Aiden had
+  to hand-construct the URL because supervisor's `web_fetch`
+  security requires the full URL to appear in Aiden's chat
+  message before fetching. Codified to remove the friction
+  step.
 - **2026-05-22 — v2** — simplified. Retired
   `scripts/supervisor-relay.sh` bridge tool and CC poll
   loop. Single round-trip pattern: both sides write to repo,
