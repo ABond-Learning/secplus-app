@@ -5997,7 +5997,17 @@
           },
           {
             "term": "Type 2 hypervisor",
-            "def": "Runs on top of a host operating system. Examples: VirtualBox, VMware Workstation."
+            "def": "Runs on top of a host operating system. Examples: VirtualBox, VMware Workstation.",
+            "messerVideo": "3.1 - Cloud Infrastructures",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.3 - Virtualization Vulnerabilities",
+              "to_messerVideo": "3.1 - Cloud Infrastructures",
+              "to_subObjective": "3.1"
+            }
           }
         ],
         "matching": [
@@ -6011,11 +6021,31 @@
           },
           {
             "prompt": "Type 1 hypervisor runs on",
-            "answer": "Bare metal hardware (no host OS)"
+            "answer": "Bare metal hardware (no host OS)",
+            "messerVideo": "3.1 - Cloud Infrastructures",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.3 - Virtualization Vulnerabilities",
+              "to_messerVideo": "3.1 - Cloud Infrastructures",
+              "to_subObjective": "3.1"
+            }
           },
           {
             "prompt": "Type 2 hypervisor runs on",
-            "answer": "A host operating system"
+            "answer": "A host operating system",
+            "messerVideo": "3.1 - Cloud Infrastructures",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.3 - Virtualization Vulnerabilities",
+              "to_messerVideo": "3.1 - Cloud Infrastructures",
+              "to_subObjective": "3.1"
+            }
           }
         ],
         "questions": [
@@ -6116,7 +6146,17 @@
         "cram": [
           {
             "term": "Shared responsibility model",
-            "def": "Cloud security responsibilities split between provider and customer. Provider secures infrastructure; customer secures data/config."
+            "def": "Cloud security responsibilities split between provider and customer. Provider secures infrastructure; customer secures data/config.",
+            "messerVideo": "3.1 - Cloud Infrastructures",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.3 - Cloud-specific Vulnerabilities",
+              "to_messerVideo": "3.1 - Cloud Infrastructures",
+              "to_subObjective": "3.1"
+            }
           },
           {
             "term": "Misconfiguration",
@@ -6124,11 +6164,31 @@
           },
           {
             "term": "Insecure APIs",
-            "def": "Cloud services accessed via APIs — poorly secured APIs are a major attack vector."
+            "def": "Cloud services accessed via APIs — poorly secured APIs are a major attack vector.",
+            "messerVideo": "3.1 - Cloud Infrastructures",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.3 - Cloud-specific Vulnerabilities",
+              "to_messerVideo": "3.1 - Cloud Infrastructures",
+              "to_subObjective": "3.1"
+            }
           },
           {
             "term": "Data sovereignty",
-            "def": "Data must remain in specific geographic regions due to legal requirements — cloud complicates this."
+            "def": "Data must remain in specific geographic regions due to legal requirements — cloud complicates this.",
+            "messerVideo": "3.3 - States of Data",
+            "subObjective": "3.3",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.3 - Cloud-specific Vulnerabilities",
+              "to_messerVideo": "3.3 - States of Data",
+              "to_subObjective": "3.3"
+            }
           }
         ],
         "matching": [
@@ -6138,7 +6198,17 @@
           },
           {
             "prompt": "Provider secures infrastructure; customer secures data",
-            "answer": "Shared responsibility model"
+            "answer": "Shared responsibility model",
+            "messerVideo": "3.1 - Cloud Infrastructures",
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.3 - Cloud-specific Vulnerabilities",
+              "to_messerVideo": "3.1 - Cloud Infrastructures",
+              "to_subObjective": "3.1"
+            }
           },
           {
             "prompt": "Publicly accessible S3 bucket with sensitive data",
@@ -6146,7 +6216,17 @@
           },
           {
             "prompt": "Legal requirement for data to stay in specific regions",
-            "answer": "Data sovereignty"
+            "answer": "Data sovereignty",
+            "messerVideo": "3.3 - States of Data",
+            "subObjective": "3.3",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.3 - Cloud-specific Vulnerabilities",
+              "to_messerVideo": "3.3 - States of Data",
+              "to_subObjective": "3.3"
+            }
           }
         ],
         "questions": [
@@ -6369,7 +6449,17 @@
           },
           {
             "term": "Weak cipher suites",
-            "def": "Using outdated/weak encryption algorithms (SSL, DES, MD5) when stronger ones are available."
+            "def": "Using outdated/weak encryption algorithms (SSL, DES, MD5) when stronger ones are available.",
+            "messerVideo": "1.4 - Encryption Technologies",
+            "subObjective": "1.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.3 - Misconfiguration Vulnerabilities",
+              "to_messerVideo": "1.4 - Encryption Technologies",
+              "to_subObjective": "1.4"
+            }
           },
           {
             "term": "CIS Benchmarks",
@@ -6383,7 +6473,17 @@
           },
           {
             "prompt": "Using SSL instead of TLS for HTTPS",
-            "answer": "Weak cipher suite misconfiguration"
+            "answer": "Weak cipher suite misconfiguration",
+            "messerVideo": "4.5 - Secure Protocols",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-alternate",
+              "inherited_from_parent": "2.3 - Misconfiguration Vulnerabilities",
+              "to_messerVideo": "4.5 - Secure Protocols",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "prompt": "Prescriptive secure configuration guides",
@@ -6491,11 +6591,31 @@
           },
           {
             "term": "SIM swapping",
-            "def": "Attacker social engineers carrier to transfer victim's number to attacker-controlled SIM."
+            "def": "Attacker social engineers carrier to transfer victim's number to attacker-controlled SIM.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.3 - Mobile Device Vulnerabilities",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "term": "Bluesnarfing",
-            "def": "Unauthorized data access via Bluetooth."
+            "def": "Unauthorized data access via Bluetooth.",
+            "messerVideo": "2.4 - Wireless Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.3 - Mobile Device Vulnerabilities",
+              "to_messerVideo": "2.4 - Wireless Attacks",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "matching": [
@@ -6513,11 +6633,31 @@
           },
           {
             "prompt": "Attacker convinces carrier to transfer victim's phone number",
-            "answer": "SIM swapping"
+            "answer": "SIM swapping",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.3 - Mobile Device Vulnerabilities",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           },
           {
             "prompt": "Unauthorized data access via Bluetooth",
-            "answer": "Bluesnarfing"
+            "answer": "Bluesnarfing",
+            "messerVideo": "2.4 - Wireless Attacks",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.3 - Mobile Device Vulnerabilities",
+              "to_messerVideo": "2.4 - Wireless Attacks",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "questions": [
@@ -6649,11 +6789,31 @@
           },
           {
             "prompt": "Researcher notifies vendor before going public",
-            "answer": "Responsible disclosure"
+            "answer": "Responsible disclosure",
+            "messerVideo": "5.5 - Penetration Tests",
+            "subObjective": "5.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-alternate",
+              "inherited_from_parent": "2.3 - Zero-day Vulnerabilities",
+              "to_messerVideo": "5.5 - Penetration Tests",
+              "to_subObjective": "5.5"
+            }
           },
           {
             "prompt": "Pay researchers to find and report vulnerabilities",
-            "answer": "Bug bounty program"
+            "answer": "Bug bounty program",
+            "messerVideo": "5.5 - Penetration Tests",
+            "subObjective": "5.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.3 - Zero-day Vulnerabilities",
+              "to_messerVideo": "5.5 - Penetration Tests",
+              "to_subObjective": "5.5"
+            }
           },
           {
             "prompt": "Public database of known vulnerabilities",
@@ -6750,15 +6910,45 @@
           },
           {
             "term": "Fileless malware",
-            "def": "Lives entirely in memory — no file written to disk. Harder to detect with traditional AV."
+            "def": "Lives entirely in memory — no file written to disk. Harder to detect with traditional AV.",
+            "messerVideo": "2.4 - Viruses and Worms",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - An Overview of Malware",
+              "to_messerVideo": "2.4 - Viruses and Worms",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "C2 (Command and Control)",
-            "def": "Infrastructure attackers use to communicate with and control compromised systems."
+            "def": "Infrastructure attackers use to communicate with and control compromised systems.",
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - An Overview of Malware",
+              "to_messerVideo": "2.4 - Denial of Service",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "Indicators of compromise (IoC)",
-            "def": "Artefacts indicating a system may be compromised: known malicious IPs/hashes/domains, unusual behavior."
+            "def": "Artefacts indicating a system may be compromised: known malicious IPs/hashes/domains, unusual behavior.",
+            "messerVideo": "2.4 - Indicators of Compromise",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - An Overview of Malware",
+              "to_messerVideo": "2.4 - Indicators of Compromise",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "Best ransomware defense",
@@ -6772,11 +6962,31 @@
           },
           {
             "prompt": "Exists only in memory, no disk file",
-            "answer": "Fileless malware"
+            "answer": "Fileless malware",
+            "messerVideo": "2.4 - Viruses and Worms",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - An Overview of Malware",
+              "to_messerVideo": "2.4 - Viruses and Worms",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "prompt": "Infrastructure for controlling compromised systems",
-            "answer": "C2 (Command and Control)"
+            "answer": "C2 (Command and Control)",
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - An Overview of Malware",
+              "to_messerVideo": "2.4 - Denial of Service",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "prompt": "Best defense against ransomware data loss",
@@ -6784,7 +6994,17 @@
           },
           {
             "prompt": "Evidence a system may be compromised",
-            "answer": "Indicator of Compromise (IoC)"
+            "answer": "Indicator of Compromise (IoC)",
+            "messerVideo": "2.4 - Indicators of Compromise",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - An Overview of Malware",
+              "to_messerVideo": "2.4 - Indicators of Compromise",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "questions": [
@@ -7045,7 +7265,17 @@
           },
           {
             "term": "RAT (Remote Access Trojan)",
-            "def": "Gives attacker remote control of victim system — spyware capabilities plus remote command execution."
+            "def": "Gives attacker remote control of victim system — spyware capabilities plus remote command execution.",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Spyware and Bloatware",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "matching": [
@@ -7063,7 +7293,17 @@
           },
           {
             "prompt": "Full remote control of victim machine",
-            "answer": "RAT (Remote Access Trojan)"
+            "answer": "RAT (Remote Access Trojan)",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Spyware and Bloatware",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           }
         ],
         "questions": [
@@ -7125,7 +7365,17 @@
         "cram": [
           {
             "term": "Trojan (Trojan horse)",
-            "def": "Disguised as legitimate software. Requires user to install it. Contains hidden malicious payload."
+            "def": "Disguised as legitimate software. Requires user to install it. Contains hidden malicious payload.",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Other Malware Types",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "Rootkit",
@@ -7137,21 +7387,61 @@
           },
           {
             "term": "Botnet",
-            "def": "Network of compromised systems (bots) controlled via C2 server. Used for DDoS, spam, credential stuffing."
+            "def": "Network of compromised systems (bots) controlled via C2 server. Used for DDoS, spam, credential stuffing.",
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Other Malware Types",
+              "to_messerVideo": "2.4 - Denial of Service",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "Backdoor",
-            "def": "Hidden access method installed by attacker for persistent re-entry — bypasses normal authentication."
+            "def": "Hidden access method installed by attacker for persistent re-entry — bypasses normal authentication.",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Other Malware Types",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "term": "Cryptominer",
-            "def": "Uses victim's CPU/GPU to mine cryptocurrency without consent — causes performance degradation."
+            "def": "Uses victim's CPU/GPU to mine cryptocurrency without consent — causes performance degradation.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Other Malware Types",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Classifier corpus-absent. But 2.4 Other Malware Types IS the natural umbrella for cryptominers (they ARE other malware types). Same pattern as Spectre/Meltdown: cited video is conceptual home, specific technique not in transcript."
+            }
           }
         ],
         "matching": [
           {
             "prompt": "Disguised as legitimate software, hidden payload",
-            "answer": "Trojan horse"
+            "answer": "Trojan horse",
+            "messerVideo": "2.4 - An Overview of Malware",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Other Malware Types",
+              "to_messerVideo": "2.4 - An Overview of Malware",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "prompt": "Hides malware by intercepting OS calls",
@@ -7163,11 +7453,31 @@
           },
           {
             "prompt": "Network of compromised systems under C2 control",
-            "answer": "Botnet"
+            "answer": "Botnet",
+            "messerVideo": "2.4 - Denial of Service",
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-alternate",
+              "inherited_from_parent": "2.4 - Other Malware Types",
+              "to_messerVideo": "2.4 - Denial of Service",
+              "to_subObjective": "2.4"
+            }
           },
           {
             "prompt": "Uses victim CPU to mine cryptocurrency",
-            "answer": "Cryptominer"
+            "answer": "Cryptominer",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Other Malware Types",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #78 (cryptominer match counterpart)."
+            }
           }
         ],
         "questions": [
@@ -7281,15 +7591,45 @@
           },
           {
             "term": "Skimming",
-            "def": "Device attached to card readers (ATMs, POS) to capture card data."
+            "def": "Device attached to card readers (ATMs, POS) to capture card data.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Physical Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Classifier corpus-absent. 2.4 Physical Attacks IS the natural umbrella — skimming IS physical attachment to card readers."
+            }
           },
           {
             "term": "Dumpster diving",
-            "def": "Searching rubbish bins for sensitive information — documents, hardware, sticky notes with passwords."
+            "def": "Searching rubbish bins for sensitive information — documents, hardware, sticky notes with passwords.",
+            "messerVideo": "5.5 - Penetration Tests",
+            "subObjective": "5.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - Physical Attacks",
+              "to_messerVideo": "5.5 - Penetration Tests",
+              "to_subObjective": "5.5"
+            }
           },
           {
             "term": "Shoulder surfing",
-            "def": "Physically observing someone entering credentials or viewing sensitive information."
+            "def": "Physically observing someone entering credentials or viewing sensitive information.",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "accept-primary",
+              "inherited_from_parent": "2.4 - Physical Attacks",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           }
         ],
         "matching": [
@@ -7299,7 +7639,17 @@
           },
           {
             "prompt": "Device on ATM capturing card data",
-            "answer": "Skimming"
+            "answer": "Skimming",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Physical Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #82 (skimming match counterpart)."
+            }
           },
           {
             "prompt": "Searching bins for sensitive documents",
@@ -7307,7 +7657,17 @@
           },
           {
             "prompt": "Watching someone type their password",
-            "answer": "Shoulder surfing"
+            "answer": "Shoulder surfing",
+            "messerVideo": "2.2 - Other Social Engineering Attacks",
+            "subObjective": "2.2",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - Physical Attacks",
+              "to_messerVideo": "2.2 - Other Social Engineering Attacks",
+              "to_subObjective": "2.2"
+            }
           }
         ],
         "questions": [
@@ -7420,7 +7780,17 @@
           },
           {
             "term": "SYN flood",
-            "def": "Sends many SYN packets without completing handshake — exhausts server connection table (half-open connections)."
+            "def": "Sends many SYN packets without completing handshake — exhausts server connection table (half-open connections).",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Denial of Service",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Cross-packet precedent: SB-fix-1a #43 was kept-as-is-sb16-candidate. Same pattern (SYN flood)."
+            }
           },
           {
             "term": "Amplification attack",
@@ -7442,7 +7812,17 @@
           },
           {
             "prompt": "TCP handshake exploit leaving half-open connections",
-            "answer": "SYN flood"
+            "answer": "SYN flood",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Denial of Service",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #87 (SYN flood match counterpart)."
+            }
           },
           {
             "prompt": "Small request produces large response at victim",
@@ -7548,15 +7928,45 @@
           },
           {
             "term": "DNS sinkhole",
-            "def": "Redirecting malicious domain lookups to a controlled IP — blocks malware C2 communication."
+            "def": "Redirecting malicious domain lookups to a controlled IP — blocks malware C2 communication.",
+            "messerVideo": "2.5 - Mitigation Techniques",
+            "subObjective": "2.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - DNS Attacks",
+              "to_messerVideo": "2.5 - Mitigation Techniques",
+              "to_subObjective": "2.5"
+            }
           },
           {
             "term": "DNSSEC",
-            "def": "DNS Security Extensions — cryptographically signs DNS records to prevent poisoning/spoofing."
+            "def": "DNS Security Extensions — cryptographically signs DNS records to prevent poisoning/spoofing.",
+            "messerVideo": "4.5 - Secure Protocols",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - DNS Attacks",
+              "to_messerVideo": "4.5 - Secure Protocols",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "term": "DNS tunneling",
-            "def": "Hiding data exfiltration or C2 traffic within DNS queries — often overlooked by firewalls that allow DNS."
+            "def": "Hiding data exfiltration or C2 traffic within DNS queries — often overlooked by firewalls that allow DNS.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - DNS Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Cross-packet precedent: SB-fix-1a #45 was kept-as-is-sb16-candidate. Same pattern (DNS tunneling)."
+            }
           }
         ],
         "matching": [
@@ -7570,15 +7980,45 @@
           },
           {
             "prompt": "Cryptographic signing of DNS records",
-            "answer": "DNSSEC"
+            "answer": "DNSSEC",
+            "messerVideo": "4.5 - Secure Protocols",
+            "subObjective": "4.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - DNS Attacks",
+              "to_messerVideo": "4.5 - Secure Protocols",
+              "to_subObjective": "4.5"
+            }
           },
           {
             "prompt": "Data hidden in DNS queries for exfiltration",
-            "answer": "DNS tunneling"
+            "answer": "DNS tunneling",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - DNS Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #91 (DNS tunneling match counterpart)."
+            }
           },
           {
             "prompt": "Redirecting malware C2 DNS to controlled IP",
-            "answer": "DNS sinkhole"
+            "answer": "DNS sinkhole",
+            "messerVideo": "2.5 - Mitigation Techniques",
+            "subObjective": "2.5",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "manual",
+              "inherited_from_parent": "2.4 - DNS Attacks",
+              "to_messerVideo": "2.5 - Mitigation Techniques",
+              "to_subObjective": "2.5"
+            }
           }
         ],
         "questions": [
@@ -7677,7 +8117,17 @@
         "cram": [
           {
             "term": "Evil twin",
-            "def": "Rogue access point mimicking a legitimate SSID. Victims connect and attacker intercepts traffic (MITM)."
+            "def": "Rogue access point mimicking a legitimate SSID. Victims connect and attacker intercepts traffic (MITM).",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Wireless Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Cross-packet precedent: SB-fix-1a #46 was kept-as-is-sb16-candidate. Same pattern (Evil twin)."
+            }
           },
           {
             "term": "Deauthentication attack",
@@ -7685,11 +8135,31 @@
           },
           {
             "term": "WPA2 handshake capture",
-            "def": "Capturing the 4-way handshake during authentication for offline brute-force cracking."
+            "def": "Capturing the 4-way handshake during authentication for offline brute-force cracking.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Wireless Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Cross-packet precedent: SB-fix-1a #47 was kept-as-is-sb16-candidate. Same pattern (WPA2 handshake capture)."
+            }
           },
           {
             "term": "WPS PIN attack",
-            "def": "Brute-forcing WPS 8-digit PIN. Only 11,000 combinations needed (design flaw). Disable WPS."
+            "def": "Brute-forcing WPS 8-digit PIN. Only 11,000 combinations needed (design flaw). Disable WPS.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Wireless Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "2.4 Wireless Attacks IS the natural umbrella. Override parser primary 4.1 Securing Wireless and Mobile — that's defensive-side; this tests the attack mechanic. Same pattern as evil twin/WPA2."
+            }
           },
           {
             "term": "RF jamming",
@@ -7699,7 +8169,17 @@
         "matching": [
           {
             "prompt": "Rogue AP with same SSID as legitimate network",
-            "answer": "Evil twin"
+            "answer": "Evil twin",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Wireless Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #95 (Evil twin match counterpart)."
+            }
           },
           {
             "prompt": "Forged 802.11 frames to disconnect clients",
@@ -7707,7 +8187,17 @@
           },
           {
             "prompt": "Brute-forcing WPS 8-digit PIN",
-            "answer": "WPS PIN attack"
+            "answer": "WPS PIN attack",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - Wireless Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "Same as #97 (WPS PIN attack match counterpart)."
+            }
           }
         ],
         "questions": [
@@ -7816,7 +8306,17 @@
           },
           {
             "term": "SSL stripping",
-            "def": "Downgrades HTTPS to HTTP — attacker sees plaintext traffic. Requires MITM position."
+            "def": "Downgrades HTTPS to HTTP — attacker sees plaintext traffic. Requires MITM position.",
+            "audit_d_review": {
+              "reviewed_at": "2026-05-22T11:18:41.156Z",
+              "packet_id": "packet-3",
+              "decision_type": "keep-as-is-sb16-candidate",
+              "inherited_from_parent": "2.4 - On-path Attacks",
+              "kept_as_is": true,
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "note": "2.4 On-path Attacks IS the natural umbrella — SSL stripping IS an on-path/MITM downgrade attack. Override parser primary 4.5 Secure Protocols. Same pattern as evil twin family."
+            }
           },
           {
             "term": "HSTS (HTTP Strict Transport Security)",
