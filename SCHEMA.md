@@ -193,6 +193,43 @@ When a new audit script needs a record on items, it should:
 2. Add a row to the table above (one-line description).
 3. Confirm via grep that no React code reads the new field.
 
+### `audit_d_review.sb_fix_2` semantics
+
+Records SB-fix-2 decisions per sb16-candidate item. Nested inside
+`audit_d_review` to preserve the SB-fix-1a/1b audit trail without
+field-name collision (SB-fix-2 has its own `from_*` /
+`applied_*` fields that would clash at the top level).
+
+Added 2026-05-22 by SB-fix-2 sub-batch (`scripts/sb-fix-2-apply-packet.mjs`).
+Tooling-metadata only — React app does not read this block (per
+Q-D-1 from SB-fix-1b-prep + Q-E-2 from SB-fix-2 scoping).
+
+Fields:
+
+Field | Type | Required when | Notes
+--- | --- | --- | ---
+`decision` | string enum | always | One of `keep-with-sybex-note`, `re-cite-to-sybex`, `rewrite-to-messer`, `flag-for-removal`, `promote-to-sybex-citation`
+`sybex_reference` | object | every decision except `flag-for-removal` | Structured citation; see sub-fields below
+`sybex_reference.edition` | string | when `sybex_reference` present | Canonical value `"Chapple 9th"` per Q-B-1 (Chapple/Seidl SY0-701 Study Guide, 9th edition)
+`sybex_reference.chapter` | integer ≥ 1 | when `sybex_reference` present |
+`sybex_reference.section` | string non-empty | when `sybex_reference` present |
+`sybex_reference.page` | integer ≥ 1 | optional | Section-anchored citations are robust to reprints; page is best-effort
+`sybex_reference.quote_excerpt` | string ≤ 500 chars | when `sybex_reference` present | Audit-trail evidence
+`comptia_objective_reference` | string | required on `re-cite-to-sybex` + `keep-with-sybex-note`; optional elsewhere | SY0-701 objective code, e.g. `"2.4"` or `"2.4.6"`
+`applied_at` | ISO 8601 timestamp | always |
+`applied_by` | string | always | E.g. `"sb-fix-2-packet-3"`
+`note` | string | optional | Free-text explanation
+`from_messerVideo` | string | written on `re-cite-to-sybex` | Pre-state snapshot of the Messer citation being cleared
+`from_subObjective` | string | written on `re-cite-to-sybex` | Pre-state snapshot
+`original_content` | object | written on `rewrite-to-messer` | Snapshot of pre-rewrite item state for audit replay
+`removal_reason` | string | required on `flag-for-removal` |
+
+Canonical citation string format (rendered by
+`scripts/sb-fix-2-apply-packet.mjs`'s `formatSybexCitation()`
+helper): `"Chapple 9th, Chapter N, §Section, p.NN"`. Gracefully
+degrades to `"Chapple 9th, Chapter N, §Section"` when `page` is
+absent.
+
 ## localStorage compatibility
 
 The React app stores per-question SM-2 data using keys derived from
