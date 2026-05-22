@@ -40,7 +40,7 @@ function parseArgs() {
   const out = { packet: null, subPath: null, start: 0, size: null, selftest: false };
   for (let i = 2; i < process.argv.length; i++) {
     const a = process.argv[i];
-    if (a === "--packet" && i + 1 < process.argv.length) out.packet = Number(process.argv[++i]);
+    if (a === "--packet" && i + 1 < process.argv.length) out.packet = process.argv[++i]; // string OR number (e.g. "G", "1")
     else if (a === "--sub-path" && i + 1 < process.argv.length) out.subPath = process.argv[++i];
     else if (a === "--start" && i + 1 < process.argv.length) out.start = Number(process.argv[++i]);
     else if (a === "--size" && i + 1 < process.argv.length) out.size = Number(process.argv[++i]);
