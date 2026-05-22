@@ -620,7 +620,15 @@
           },
           {
             "prompt": "Provides integrity + authentication but NOT non-repudiation",
-            "answer": "HMAC"
+            "answer": "HMAC",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "HMAC; same as item 1 (1.2 Non-repudiation umbrella)."
+            }
           },
           {
             "prompt": "CIA component non-repudiation is most tied to",
@@ -695,7 +703,15 @@
             "a": 1,
             "exp": "Non-repudiation requires that only one party could have created the proof. HMAC's shared key means either party could have.",
             "messerVideo": "1.2 - Non-repudiation",
-            "subObjective": "1.2"
+            "subObjective": "1.2",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "HMAC + non-repudiation; 1.2 Non-repudiation IS umbrella; HMAC is the foil concept used to teach what does/doesn't provide non-repudiation."
+            }
           },
           {
             "q": "If Alice signs a message with her private key, what can Bob verify using her public key?",
@@ -1294,7 +1310,15 @@
           },
           {
             "prompt": "Physically secures a laptop to a desk",
-            "answer": "Cable lock"
+            "answer": "Cable lock",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "Cable lock; 1.2 Physical Security IS umbrella for physical security mechanisms."
+            }
           }
         ],
         "questions": [
@@ -4938,7 +4962,15 @@
           },
           {
             "prompt": "Common C functions causing buffer overflows",
-            "answer": "strcpy, gets, sprintf (no bounds checking)"
+            "answer": "strcpy, gets, sprintf (no bounds checking)",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "strcpy/gets/sprintf; 2.3 Buffer Overflows IS umbrella; specific C functions are mechanism implementations."
+            }
           }
         ],
         "questions": [
@@ -7135,7 +7167,15 @@
           },
           {
             "term": "Metamorphic virus",
-            "def": "Completely rewrites its own code with each infection — most evasive type."
+            "def": "Completely rewrites its own code with each infection — most evasive type.",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "Metamorphic virus; 2.4 Viruses and Worms IS umbrella for virus types."
+            }
           },
           {
             "term": "Virus vs Worm key difference",
@@ -8437,7 +8477,15 @@
             "a": 3,
             "exp": "HSTS tells browsers the site must always be accessed via HTTPS — browsers refuse to connect over HTTP even if redirected.",
             "messerVideo": "2.4 - On-path Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "messer-curriculum-gap",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "HSTS; 2.4 On-path Attacks teaches attacks; HSTS is the defense — sibling concept. Natural umbrella 4.5 Secure Protocols doesn't have HSTS in transcript either. Genuine curriculum-gap."
+            }
           }
         ],
         "scenarios": [
@@ -8556,7 +8604,15 @@
             "a": 2,
             "exp": "Each nonce is unique and single-use — replaying an old authentication packet fails because the nonce has already been used.",
             "messerVideo": "2.4 - Replay Attacks",
-            "subObjective": "2.4"
+            "subObjective": "2.4",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "Nonce-as-replay-prevention; 2.4 Replay Attacks IS umbrella for replay prevention. Distinct framing from packet 4 #106 (Nonce-as-crypto-primitive → 1.4 Encryption Technologies)."
+            }
           }
         ],
         "scenarios": [
@@ -10367,7 +10423,15 @@
             "a": 1,
             "exp": "SD-WAN security advantage: centralized policy management with encryption across all WAN links, and the ability to apply security controls (FWaaS, CASB) close to the user rather than backhauling all traffic to a central data center. MPLS doesn't encrypt traffic natively. SD-WAN with SASE provides better cloud-era security than MPLS backhauling.",
             "messerVideo": "3.1 - Network Infrastructure Concepts",
-            "subObjective": "3.1"
+            "subObjective": "3.1",
+            "audit_d_review": {
+              "sb1_6_review": {
+                "routing": "partial-adjacent-not-sb16",
+                "note": "SD-WAN; corpus-hit in secure-communication-sy0-701.txt (1 hit). Belongs in that video, not the cited 3.1 Network Infrastructure Concepts. Defer to D1/D3/D4/D5 partial-adjacent cleanup pass.",
+                "applied_at": "2026-05-22T12:51:07.369Z",
+                "applied_by": "sb-fix-2-r"
+              }
+            }
           }
         ]
       },
@@ -12191,11 +12255,27 @@
           },
           {
             "term": "Parallel test",
-            "def": "Recovery systems brought online alongside production — both running simultaneously. Validates recovery without risk."
+            "def": "Recovery systems brought online alongside production — both running simultaneously. Validates recovery without risk.",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "Parallel test; 3.4 Recovery Testing IS umbrella; parallel test is a recovery test type."
+            }
           },
           {
             "term": "Full interruption test",
-            "def": "Production actually fails over to recovery — real outage. Most realistic, highest risk and cost."
+            "def": "Production actually fails over to recovery — real outage. Most realistic, highest risk and cost.",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "Full interruption test; same as item 9 (3.4 Recovery Testing umbrella)."
+            }
           },
           {
             "term": "Simulation",
@@ -12339,7 +12419,15 @@
         "matching": [
           {
             "prompt": "All data changed since last full backup",
-            "answer": "Differential backup"
+            "answer": "Differential backup",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "Differential backup; 3.4 Backups IS umbrella; differential backup is a backup type."
+            }
           },
           {
             "prompt": "All data changed since last backup of any type",
@@ -12891,7 +12979,15 @@
           },
           {
             "term": "MAM (Mobile Application Management)",
-            "def": "Manages individual applications rather than the whole device — more granular than MDM."
+            "def": "Manages individual applications rather than the whole device — more granular than MDM.",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "MAM; 4.1 Securing Wireless and Mobile IS umbrella; MAM is a mobile management specific."
+            }
           }
         ],
         "matching": [
@@ -13658,7 +13754,15 @@
           },
           {
             "prompt": "Standardized threat intel sharing format",
-            "answer": "STIX/TAXII"
+            "answer": "STIX/TAXII",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "STIX/TAXII; 4.3 Threat Intelligence IS umbrella; STIX/TAXII is a threat intel sharing format."
+            }
           },
           {
             "prompt": "Proactive searching assuming compromise",
@@ -13946,7 +14050,15 @@
             "a": 0,
             "exp": "CVSS measures severity; EPSS measures likelihood of exploitation. Combining them improves prioritization.",
             "messerVideo": "4.3 - Analyzing Vulnerabilities",
-            "subObjective": "4.3"
+            "subObjective": "4.3",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "EPSS; 4.3 Analyzing Vulnerabilities IS umbrella; EPSS is a vulnerability scoring system."
+            }
           },
           {
             "q": "CVSS scores are computed from three metric groups: Base, Temporal, and Environmental. Which statement about these groups is CORRECT?",
@@ -18262,7 +18374,15 @@
           },
           {
             "term": "Maximum tolerable downtime (MTD)",
-            "def": "Maximum time a business function can be unavailable before the organization fails to survive."
+            "def": "Maximum time a business function can be unavailable before the organization fails to survive.",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "MTD; same as item 15 (5.2 BIA umbrella)."
+            }
           }
         ],
         "matching": [
@@ -18284,7 +18404,15 @@
           },
           {
             "prompt": "Maximum time before organization cannot survive",
-            "answer": "MTD"
+            "answer": "MTD",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "MTD; 5.2 Business Impact Analysis IS umbrella; MTD is a BIA metric."
+            }
           }
         ],
         "questions": [
@@ -19390,7 +19518,15 @@
           },
           {
             "prompt": "Retesting after fixes to confirm remediation",
-            "answer": "Remediation validation"
+            "answer": "Remediation validation",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "Remediation validation; 5.5 Penetration Tests IS umbrella for pen testing phases; remediation validation is a post-test phase."
+            }
           },
           {
             "prompt": "Required annually by PCI DSS",
@@ -19569,7 +19705,15 @@
           },
           {
             "term": "Security champions",
-            "def": "Embedded security advocates within business teams — amplify security culture."
+            "def": "Embedded security advocates within business teams — amplify security culture.",
+            "audit_d_review": {
+              "sb16_candidate": true,
+              "sb16_subcategory": "partial-depth",
+              "packet_id": "sb-fix-2-r",
+              "applied_at": "2026-05-22T12:51:07.369Z",
+              "applied_by": "sb-fix-2-r",
+              "note": "Security champions; 5.6 Security Awareness IS umbrella; security champions is an SA program element."
+            }
           },
           {
             "term": "Gamification",
