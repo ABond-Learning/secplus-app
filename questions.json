@@ -4929,7 +4929,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "messer-curriculum-gap",
-              "note": "Integer overflow concept absent from entire Messer SY0-701 corpus (verified via grep across 122 transcripts, 2026-05-21). Buffer Overflows is the closest sibling video but not the conceptual home — buffer-overflow umbrella (memory-write-beyond-bounds) does NOT subsume integer-overflow (arithmetic-exceeds-type-range); distinct concepts sharing only the word 'overflow'. SB-fix-2 to decide: re-cite to nearest survey video (2.3 - Other Application Attacks?), rewrite item to test buffer overflow specifically, or flag for removal as out-of-Messer-scope."
+              "note": "Integer overflow concept absent from entire Messer SY0-701 corpus (verified via grep across 122 transcripts, 2026-05-21). Buffer Overflows is the closest sibling video but not the conceptual home — buffer-overflow umbrella (memory-write-beyond-bounds) does NOT subsume integer-overflow (arithmetic-exceeds-type-range); distinct concepts sharing only the word 'overflow'. SB-fix-2 to decide: re-cite to nearest survey video (2.3 - Other Application Attacks?), rewrite item to test buffer overflow specifically, or flag for removal as out-of-Messer-scope.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 6,
+                  "section": "Buffer Overflows",
+                  "page": 177,
+                  "quote_excerpt": "One of the listed vulnerabilities is an 'Integer overflow'. This is simply a variant of a buffer overflow where the result of an arithmetic operation attempts to store an integer that is too large to fit in the specified buffer."
+                },
+                "comptia_objective_reference": "2.3.2",
+                "note": "Sybex frames integer overflow as a buffer-overflow variant (storage-size implication) rather than the general arithmetic-wraparound framing the current cram/match uses. Both correct; framing alignment is a future content-quality consideration, not a blocker.",
+                "applied_at": "2026-05-23T15:22:57.400Z",
+                "applied_by": "sb-fix-2-packet-G",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -4957,7 +4971,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "messer-curriculum-gap",
-              "note": "Integer overflow concept absent from entire Messer SY0-701 corpus (verified via grep across 122 transcripts, 2026-05-21). Buffer Overflows is the closest sibling video but not the conceptual home — buffer-overflow umbrella (memory-write-beyond-bounds) does NOT subsume integer-overflow (arithmetic-exceeds-type-range); distinct concepts sharing only the word 'overflow'. SB-fix-2 to decide: re-cite to nearest survey video (2.3 - Other Application Attacks?), rewrite item to test buffer overflow specifically, or flag for removal as out-of-Messer-scope."
+              "note": "Integer overflow concept absent from entire Messer SY0-701 corpus (verified via grep across 122 transcripts, 2026-05-21). Buffer Overflows is the closest sibling video but not the conceptual home — buffer-overflow umbrella (memory-write-beyond-bounds) does NOT subsume integer-overflow (arithmetic-exceeds-type-range); distinct concepts sharing only the word 'overflow'. SB-fix-2 to decide: re-cite to nearest survey video (2.3 - Other Application Attacks?), rewrite item to test buffer overflow specifically, or flag for removal as out-of-Messer-scope.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 6,
+                  "section": "Buffer Overflows",
+                  "page": 177,
+                  "quote_excerpt": "One of the listed vulnerabilities is an 'Integer overflow'. This is simply a variant of a buffer overflow where the result of an arithmetic operation attempts to store an integer that is too large to fit in the specified buffer."
+                },
+                "comptia_objective_reference": "2.3.2",
+                "note": "Sybex frames integer overflow as a buffer-overflow variant (storage-size implication) rather than the general arithmetic-wraparound framing the current cram/match uses. Both correct; framing alignment is a future content-quality consideration, not a blocker.",
+                "applied_at": "2026-05-23T15:22:57.400Z",
+                "applied_by": "sb-fix-2-packet-G",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
