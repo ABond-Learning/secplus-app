@@ -222,13 +222,36 @@ export function classifyItem({ citedHits, anyCorpusHits, corpusHitFiles, citedVi
 }
 
 // Heuristic: which cited videos are likely "broad umbrellas" (large category videos)?
-// Generic predicate: if the parent video title contains generic-umbrella words.
-// (CC's advisory label — supervisor adjudicates.)
-function looksLikeUmbrellaTitle(title) {
+//
+// Task 1.2 / 2026-05-23 — inverted the default per
+// findings/sb-fix-2-classifier-improvements.md Improvement 2 Option 1:
+// "Most Messer SY0-701 videos are category-level summaries; the prior on
+// 'is this an umbrella?' should be YES, not NO." Packet R supervisor
+// review flipped 10 of 18 CC curriculum-gap recommendations to
+// partial-depth (56% divergence) — the umbrella-conceptual-fit pattern
+// is the load-bearing rule. Default YES; carve out specific-markers.
+//
+// Specific-markers (return false / not-an-umbrella):
+//   - "Specific" / "Examples of" framing in title
+//   - "X vs Y" / "X versus Y" comparison framing
+//   - Slash-separated lists (e.g. "Spectre / Meltdown") — title IS the
+//     specific technique names, not a category over them
+//
+// (CC's recommendation remains advisory — supervisor adjudicates per
+// cadence Rule 3. Inverted default surfaces more partial-depth candidates
+// for supervisor review; supervisor downgrades to curriculum-gap when
+// the title really is specific.)
+export function looksLikeUmbrellaTitle(title) {
   if (!title) return false;
   const t = title.toLowerCase();
-  const umbrellaWords = ["overview", "introduction", "fundamentals", "concepts", "attacks", "techniques", "vulnerabilities", "security", "controls"];
-  return umbrellaWords.some(w => t.includes(w));
+  // Specific-markers — title explicitly narrows to specific technique(s)
+  if (/\b(specific|examples? of)\b/.test(t)) return false;
+  // Comparison framing — "X vs Y" / "X versus Y"
+  if (/\b(vs\.?|versus)\b/.test(t)) return false;
+  // Slash-separated list — names specific techniques, not category over them
+  if (t.includes("/")) return false;
+  // Default: title is a potential umbrella
+  return true;
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────
@@ -448,6 +471,44 @@ function selftest() {
   if (countMatches("HELLO world", "hello") !== 1) throw new Error("countMatches case-insensitive");
   if (countMatches("a.b.c", "a.b") !== 1) throw new Error("countMatches regex escape");
 
+  // ─── looksLikeUmbrellaTitle (Task 1.2) — inverted default per Option 1
+  // Umbrella-by-default cases (return true):
+  const umbrellaTitles = [
+    "Recovery Testing",
+    "Backups",
+    "Threat Intelligence",
+    "Non-repudiation",
+    "Business Impact Analysis",
+    "Penetration Tests",
+    "Security Awareness",
+    "Securing Wireless and Mobile",
+    "Replay Attacks",
+    "Common Attack Types",       // original umbrella-words baseline retained
+    "Threats and Vulnerabilities",
+    "Common Network Vulnerabilities",
+    "DNS Tunneling",             // intentionally umbrella-by-default per Option 1
+  ];
+  for (const t of umbrellaTitles) {
+    if (!looksLikeUmbrellaTitle(t)) throw new Error(`umbrella default-YES: '${t}' should be umbrella`);
+  }
+
+  // Specific-marker cases (return false):
+  const specificTitles = [
+    "Specific Threats",
+    "Examples of DDoS Attacks",
+    "Symmetric vs Asymmetric Encryption",
+    "Symmetric versus Asymmetric",
+    "Spectre / Meltdown",
+    "RSA / DH / ECDH",            // slash-list of specific algorithms
+  ];
+  for (const t of specificTitles) {
+    if (looksLikeUmbrellaTitle(t)) throw new Error(`umbrella specific-marker: '${t}' should NOT be umbrella`);
+  }
+
+  // Empty / null guard
+  if (looksLikeUmbrellaTitle("")) throw new Error("umbrella empty: '' should not be umbrella");
+  if (looksLikeUmbrellaTitle(null)) throw new Error("umbrella null: null should not be umbrella");
+
   // classifyItem — four outcomes
   const c1 = classifyItem({ citedHits: 3, anyCorpusHits: 0, corpusHitFiles: [], citedVideoIsBroadUmbrella: false });
   if (c1.label !== "not-sb16") throw new Error(`classifyItem cited-hit: expected not-sb16, got ${c1.label}`);
@@ -468,6 +529,7 @@ function selftest() {
   console.log("  ✓ needles mc/scen last-clause noun phrase (single + multi-word)");
   console.log("  ✓ regression: cram/match unaffected by mc/scen augmentation");
   console.log("  ✓ countMatches: case-insensitive + regex-escape correct");
+  console.log("  ✓ looksLikeUmbrellaTitle: 13 default-YES + 6 specific-marker carve-outs (Task 1.2 Option 1)");
   console.log("  ✓ classify cited-hit → not-sb16");
   console.log("  ✓ classify corpus-hit → partial-adjacent-not-sb16");
   console.log("  ✓ classify umbrella-empty → partial-depth");
