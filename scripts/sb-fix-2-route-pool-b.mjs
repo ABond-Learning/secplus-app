@@ -100,6 +100,16 @@ const STOPWORDS = new Set([
   "is","are","be","that","this","which","when","where","what","how",
 ]);
 
+// All-caps stopwords for the acronym extractor — BEST/MOST/NOT framing
+// words slip through `[A-Z]{2,6}` but are grep noise (appear thousands of
+// times in transcripts). Filter them out before adding as needles.
+const ACRONYM_STOPWORDS = new Set([
+  "BEST","MOST","LEAST","NOT","ALL","ANY","AND","OR","IF","IS","ARE","BE",
+  "WHO","WHAT","WHEN","WHERE","WHY","HOW","TRUE","FALSE","YES","NO",
+  "MAY","CAN","DOES","WILL","HAS","HAVE","WAS","WERE","ITS","THEY",
+  "ONLY","EACH","ONE","TWO","FROM","INTO","ALSO","BUT","SUCH","BOTH",
+]);
+
 export function needlesFor(item, type) {
   const needles = [];
   let primary;
@@ -122,6 +132,48 @@ export function needlesFor(item, type) {
   if (cur.length >= 2) runs.push(cur.join(" "));
   runs.sort((a, b) => b.length - a.length);
   if (runs[0]) needles.push(runs[0]);
+
+  // ─── mc/scen augmentation (Task 1.1 / 2026-05-23) ─────────────────
+  // Full question text rarely greps a transcript; the tested CONCEPT does.
+  // Per findings/sb-fix-2-classifier-improvements.md (R packet showed 56%
+  // divergence): augment with acronyms, quoted substrings, last-clause
+  // noun phrases drawn from the q text.
+  if (type === "mc" || type === "scen") {
+    const qText = (item.q || "");
+
+    // (a) Capitalised acronyms (2-6 chars; optional hyphen extension):
+    //     "HMAC", "HSTS", "MAM", "SD-WAN", "WPA2", "MTD".
+    //     ACRONYM_STOPWORDS filters BEST/MOST/NOT framing noise.
+    for (const m of qText.matchAll(/\b[A-Z][A-Z0-9]{1,5}(?:-[A-Z0-9]{2,6})?\b/g)) {
+      if (!ACRONYM_STOPWORDS.has(m[0])) needles.push(m[0]);
+    }
+
+    // (b) Quoted substrings (straight + curly, 2-80 chars). Rare but the
+    //     authoring convention sometimes quotes the tested term.
+    for (const m of qText.matchAll(/"([^"]{2,80})"|“([^”]{2,80})”|'([^']{2,80})'/g)) {
+      const captured = (m[1] || m[2] || m[3] || "").trim();
+      if (captured) needles.push(captured);
+    }
+
+    // (c) Last-clause noun phrase (last 1-3 non-stopword tokens before
+    //     each '?'). "What is MAM?" → "MAM"; "Which prevents X?" → ignored
+    //     because final token is stopword. Acronym extractor catches MAM
+    //     too; this is belt-and-braces for non-acronym terminal nouns.
+    for (const part of qText.split("?")) {
+      const trimmed = part.trim();
+      if (!trimmed) continue;
+      const ptokens = trimmed.split(/\s+/);
+      const tail = [];
+      for (let i = ptokens.length - 1; i >= 0 && tail.length < 3; i--) {
+        const cleaned = ptokens[i].replace(/[^A-Za-z0-9-]/g, "");
+        if (!cleaned) continue;
+        if (STOPWORDS.has(cleaned.toLowerCase())) break;
+        tail.unshift(cleaned);
+      }
+      if (tail.length >= 1) needles.push(tail.join(" "));
+    }
+  }
+
   // Dedupe (case-insensitive)
   const seen = new Set();
   return needles.filter(n => {
@@ -344,11 +396,52 @@ function main() {
 function selftest() {
   console.log("=== sb-fix-2-route-pool-b --selftest ===");
 
-  // Needles
+  // Needles — match + cram (unchanged baseline)
   const n1 = needlesFor({ term: "HMAC", def: "..." }, "cram");
   if (!n1.includes("HMAC")) throw new Error(`needles cram: missing 'HMAC' got ${JSON.stringify(n1)}`);
   const n2 = needlesFor({ prompt: "Defensive technique", answer: "Cable lock" }, "match");
   if (!n2.includes("Cable lock")) throw new Error(`needles match: missing 'Cable lock' got ${JSON.stringify(n2)}`);
+
+  // ─── Needles — mc/scen augmentation (Task 1.1) ─────────────────────
+  // (a) Acronym extractor: catches 2-6 char all-caps + hyphen extensions
+  const a1 = needlesFor({ q: "Why does HMAC NOT provide non-repudiation?" }, "mc");
+  if (!a1.includes("HMAC")) throw new Error(`acronym: missing 'HMAC' got ${JSON.stringify(a1)}`);
+  // ACRONYM_STOPWORDS filters BEST/MOST/NOT noise
+  if (a1.includes("NOT")) throw new Error(`acronym stopword: 'NOT' should be filtered, got ${JSON.stringify(a1)}`);
+
+  // Multi-acronym + hyphenated
+  const a2 = needlesFor({ q: "Which describes SD-WAN advantages over MPLS WAN?" }, "scen");
+  if (!a2.includes("SD-WAN")) throw new Error(`acronym hyphen: missing 'SD-WAN' got ${JSON.stringify(a2)}`);
+  if (!a2.includes("MPLS")) throw new Error(`acronym multi: missing 'MPLS' got ${JSON.stringify(a2)}`);
+  if (!a2.includes("WAN")) throw new Error(`acronym multi: missing 'WAN' got ${JSON.stringify(a2)}`);
+
+  // Acronym with digit (WPA2)
+  const a3 = needlesFor({ q: "Compare WPA2 Personal and WPA2 Enterprise." }, "mc");
+  if (!a3.includes("WPA2")) throw new Error(`acronym digit: missing 'WPA2' got ${JSON.stringify(a3)}`);
+
+  // BEST/MOST framing — verify ACRONYM_STOPWORDS list works
+  const a4 = needlesFor({ q: "Which control is BEST for MFA on mobile?" }, "mc");
+  if (a4.includes("BEST")) throw new Error(`acronym stopword: 'BEST' should be filtered, got ${JSON.stringify(a4)}`);
+  if (!a4.includes("MFA")) throw new Error(`acronym: 'MFA' should pass, got ${JSON.stringify(a4)}`);
+
+  // (b) Quoted substring extractor
+  const q1 = needlesFor({ q: 'The attacker exploited a "Spectre" vulnerability.' }, "mc");
+  if (!q1.includes("Spectre")) throw new Error(`quoted: missing 'Spectre' got ${JSON.stringify(q1)}`);
+
+  // (c) Last-clause noun phrase before ?
+  const l1 = needlesFor({ q: "What is MAM?" }, "mc");
+  if (!l1.includes("MAM")) throw new Error(`last-clause: missing 'MAM' got ${JSON.stringify(l1)}`);
+
+  // last-clause: multi-word tail
+  const l2 = needlesFor({ q: "Which technique mitigates credential stuffing?" }, "mc");
+  if (!l2.some(s => /credential stuffing/i.test(s))) {
+    throw new Error(`last-clause multi: missing 'credential stuffing' got ${JSON.stringify(l2)}`);
+  }
+
+  // No augmentation for cram/match (regression)
+  const r1 = needlesFor({ term: "HMAC" }, "cram");
+  // Should NOT include question-text-derived needles
+  if (r1.includes("MAM")) throw new Error(`regression: cram should not get q-augmentation, got ${JSON.stringify(r1)}`);
 
   // countMatches
   if (countMatches("hello world hello", "hello") !== 2) throw new Error("countMatches basic");
@@ -368,13 +461,18 @@ function selftest() {
   const c4 = classifyItem({ citedHits: 0, anyCorpusHits: 0, corpusHitFiles: [], citedVideoIsBroadUmbrella: false });
   if (c4.label !== "messer-curriculum-gap") throw new Error(`classifyItem sibling-empty: expected messer-curriculum-gap, got ${c4.label}`);
 
-  console.log("  ✓ needles extract for cram + match types");
+  console.log("  ✓ needles extract for cram + match types (baseline)");
+  console.log("  ✓ needles mc/scen acronym extractor: HMAC, SD-WAN, MPLS, WAN, WPA2, MFA");
+  console.log("  ✓ needles mc/scen acronym stopwords: BEST/MOST/NOT filtered");
+  console.log("  ✓ needles mc/scen quoted-substring extractor");
+  console.log("  ✓ needles mc/scen last-clause noun phrase (single + multi-word)");
+  console.log("  ✓ regression: cram/match unaffected by mc/scen augmentation");
   console.log("  ✓ countMatches: case-insensitive + regex-escape correct");
   console.log("  ✓ classify cited-hit → not-sb16");
   console.log("  ✓ classify corpus-hit → partial-adjacent-not-sb16");
   console.log("  ✓ classify umbrella-empty → partial-depth");
   console.log("  ✓ classify sibling-empty → messer-curriculum-gap");
-  console.log("SB-fix-2 routing self-test PASS (4/4 classification outcomes + helpers)");
+  console.log("SB-fix-2 routing self-test PASS (4 classification outcomes + helpers + mc/scen augmentation)");
 }
 
 main();
