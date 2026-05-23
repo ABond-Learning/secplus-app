@@ -5823,7 +5823,7 @@
             }
           },
           {
-            "term": "Specter/Meltdown",
+            "term": "Spectre/Meltdown",
             "def": "CPU speculative execution vulnerabilities allowing reading of protected memory. Hardware-level flaw.",
             "audit_d_review": {
               "reviewed_at": "2026-05-21T16:04:48.622Z",
@@ -5862,7 +5862,7 @@
           },
           {
             "prompt": "CPU vulnerability exploiting speculative execution",
-            "answer": "Specter / Meltdown",
+            "answer": "Spectre / Meltdown",
             "audit_d_review": {
               "reviewed_at": "2026-05-21T16:04:48.622Z",
               "packet_id": "packet-2",
@@ -5912,7 +5912,7 @@
             }
           },
           {
-            "q": "Specter and Meltdown are examples of:",
+            "q": "Spectre and Meltdown are examples of:",
             "opts": [
               "Software-based code injection attacks against running applications",
               "CPU hardware vulnerabilities exploiting speculative execution to read protected memory",
@@ -5920,7 +5920,7 @@
               "Social engineering attacks targeting end users with phishing emails"
             ],
             "a": 1,
-            "exp": "Specter and Meltdown are CPU hardware-level vulnerabilities — they exploit speculative execution to leak protected memory contents.",
+            "exp": "Spectre and Meltdown are CPU hardware-level vulnerabilities — they exploit speculative execution to leak protected memory contents.",
             "messerVideo": "2.3 - Hardware Vulnerabilities",
             "subObjective": "2.3",
             "audit_d_review": {

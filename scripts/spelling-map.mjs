@@ -174,7 +174,17 @@ RULES.push(
   word("re", "litre",  "liter"),
   word("re", "litres", "liters"),
   word("re", "theatre",  "theater"),
-  word("re", "spectre",  "specter"),
+  // Spectre is the official name of the CPU speculative-execution vulnerability
+  // (CVE-2017-5753 / CVE-2017-5715, Google Project Zero 2018). When paired with
+  // Meltdown — either before or after, with `/`, ` / `, ` and `, etc. — it's the
+  // proper noun, not British dialect. Variable-length lookbehind handles the
+  // Meltdown/Spectre order; lookahead handles Spectre/Meltdown.
+  {
+    family: "re",
+    pattern: /(?<![Mm]eltdown[\s\/\-]+(?:and\s+)?)\bspectre\b(?![\s\/\-]+(?:and\s+)?[Mm]eltdown)/gi,
+    fix: () => "specter",
+    note: "spectre → specter, EXCEPT 'Spectre/Meltdown' family (proper noun, CPU vulnerability — paired with Meltdown either direction)",
+  },
   word("re", "calibre",  "caliber"),
   word("re", "manoeuvre", "maneuver"),
   word("re", "manoeuvres", "maneuvers"),
