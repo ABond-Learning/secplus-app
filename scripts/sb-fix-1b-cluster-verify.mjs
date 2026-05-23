@@ -12,12 +12,18 @@
 //
 // Usage:
 //   node scripts/sb-fix-1b-cluster-verify.mjs --packet 3
+//   node scripts/sb-fix-1b-cluster-verify.mjs --selftest
 //
 // Output:
 //   .audit-working/sb-fix-1b/packet-N-cluster-verification.md
 //
 // Cluster definition: items grouped by (section, video) with count ≥ 3.
 // Single-item parent videos are not clustered (no compounding context).
+//
+// Selftest (--selftest): exercises pure helpers (needlesFor + countMatches)
+// against synthetic fixtures. No filesystem dependencies. Establishes the
+// baseline behavioural contract; future improvements (needle augmentation,
+// classifier tuning) should extend selftest fixtures alongside.
 
 import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
@@ -29,32 +35,33 @@ const repo = resolve(here, "..");
 // ─── CLI ─────────────────────────────────────────────────────────────
 function parseArgs() {
   let packet = null;
+  let selftest = false;
   for (let i = 2; i < process.argv.length; i++) {
     if (process.argv[i] === "--packet" && i + 1 < process.argv.length) {
       packet = Number(process.argv[++i]);
+    } else if (process.argv[i] === "--selftest") {
+      selftest = true;
     }
   }
-  if (packet == null) {
-    console.error("usage: --packet <N>");
+  if (!selftest && packet == null) {
+    console.error("usage: --packet <N> | --selftest");
     process.exit(2);
   }
-  return { packet };
+  return { packet, selftest };
 }
-const args = parseArgs();
 
-// ─── Inputs ──────────────────────────────────────────────────────────
-const PACKET_JSON = resolve(repo, `.audit-working/sb-fix-1b/packet-${args.packet}.json`);
-const QUESTIONS = resolve(repo, "questions.json");
+// ─── Static paths (no I/O at module load) ────────────────────────────
 const TRANSCRIPTS_DIR = resolve(repo, ".messer-transcripts");
 const MESSER_MD = resolve(repo, "MESSER_VIDEOS.md");
-const OUT = resolve(repo, `.audit-working/sb-fix-1b/packet-${args.packet}-cluster-verification.md`);
 
-const packetData = JSON.parse(readFileSync(PACKET_JSON, "utf8"));
-const questions = JSON.parse(readFileSync(QUESTIONS, "utf8"));
+// ─── Late-bound state (assigned by runPacketVerification before use) ─
+let citationToSlug = null;
+let questions = null;
+let packetData = null;
 
 // ─── Citation → slug map (per audit-video-grounding.mjs precedent) ───
-const citationToSlug = new Map();
-{
+function buildCitationToSlugMap() {
+  const map = new Map();
   const md = readFileSync(MESSER_MD, "utf8");
   let curSec = null;
   for (const line of md.split("\n")) {
@@ -69,9 +76,10 @@ const citationToSlug = new Map();
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "")
         + "-sy0-701";
-      citationToSlug.set(cite, slug);
+      map.set(cite, slug);
     }
   }
+  return map;
 }
 
 function transcriptPathFor(citation) {
@@ -167,16 +175,6 @@ function corpusGrep(needle) {
   return hits;
 }
 
-// ─── Cluster identification ──────────────────────────────────────────
-const clusters = new Map(); // key = `${section}|${video}` → [items]
-for (const it of packetData.items) {
-  const key = `${it.location.section}|${it.location.video}`;
-  if (!clusters.has(key)) clusters.set(key, []);
-  clusters.get(key).push(it);
-}
-const clusterKeys = [...clusters.keys()].filter(k => clusters.get(k).length >= 3);
-clusterKeys.sort();
-
 // ─── Verify each cluster item ────────────────────────────────────────
 function classifyItem(it) {
   const item = findItem(it.location.section, it.location.video, it.location.type, it.location.index);
@@ -239,9 +237,29 @@ function classifyItem(it) {
   };
 }
 
-// ─── Render markdown ─────────────────────────────────────────────────
-const lines = [];
-lines.push(`# SB-fix-1b packet ${args.packet} — INLINE CLUSTER VERIFICATION (cadence Rule 2)`);
+// ─── Production flow ────────────────────────────────────────────────
+function runPacketVerification(packet) {
+  const PACKET_JSON = resolve(repo, `.audit-working/sb-fix-1b/packet-${packet}.json`);
+  const QUESTIONS = resolve(repo, "questions.json");
+  const OUT = resolve(repo, `.audit-working/sb-fix-1b/packet-${packet}-cluster-verification.md`);
+
+  packetData = JSON.parse(readFileSync(PACKET_JSON, "utf8"));
+  questions = JSON.parse(readFileSync(QUESTIONS, "utf8"));
+  citationToSlug = buildCitationToSlugMap();
+
+  // ─── Cluster identification ────────────────────────────────────────
+  const clusters = new Map(); // key = `${section}|${video}` → [items]
+  for (const it of packetData.items) {
+    const key = `${it.location.section}|${it.location.video}`;
+    if (!clusters.has(key)) clusters.set(key, []);
+    clusters.get(key).push(it);
+  }
+  const clusterKeys = [...clusters.keys()].filter(k => clusters.get(k).length >= 3);
+  clusterKeys.sort();
+
+  // ─── Render markdown ──────────────────────────────────────────────
+  const lines = [];
+  lines.push(`# SB-fix-1b packet ${packet} — INLINE CLUSTER VERIFICATION (cadence Rule 2)`);
 lines.push("");
 lines.push(`Generated: ${new Date().toISOString()}`);
 lines.push("");
@@ -350,9 +368,86 @@ for (const c of clusterSummary) {
 }
 lines.push("");
 
-writeFileSync(OUT, lines.join("\n"));
-console.log(`Wrote ${OUT}`);
-console.log(`Clusters analysed: ${clusterKeys.length}`);
-for (const c of clusterSummary) {
-  console.log(`  §${c.section} ${c.video}: ${c.count} items — ${c.patterns.map(p => `${p.kind}=${p.count}`).join(", ")}`);
+  writeFileSync(OUT, lines.join("\n"));
+  console.log(`Wrote ${OUT}`);
+  console.log(`Clusters analysed: ${clusterKeys.length}`);
+  for (const c of clusterSummary) {
+    console.log(`  §${c.section} ${c.video}: ${c.count} items — ${c.patterns.map(p => `${p.kind}=${p.count}`).join(", ")}`);
+  }
 }
+
+// ─── Self-test ───────────────────────────────────────────────────────
+// Tests pure helpers (needlesFor + countMatches) against synthetic fixtures.
+// classifyItem is not exercised here because it depends on the cluster's
+// surrounding I/O context (transcripts on disk + parser destinations from a
+// real packet); the routing-level classifier in sb-fix-2-route-pool-b.mjs
+// covers the recommendation-decision pattern under selftest there. This
+// selftest is the BASELINE — extend fixtures when augmenting needlesFor
+// or countMatches.
+function selftest() {
+  console.log("=== sb-fix-1b-cluster-verify --selftest ===");
+
+  // ─── needlesFor: cram item — uses `term` as primary
+  const n1 = needlesFor({ term: "HMAC", def: "..." }, "cram");
+  if (!n1.includes("HMAC")) throw new Error(`needles cram: missing 'HMAC' got ${JSON.stringify(n1)}`);
+
+  // ─── needlesFor: match item — uses `answer` as primary
+  const n2 = needlesFor({ prompt: "Authentication mechanism", answer: "Cable lock" }, "match");
+  if (!n2.includes("Cable lock")) throw new Error(`needles match: missing 'Cable lock' got ${JSON.stringify(n2)}`);
+
+  // ─── needlesFor: core phrase extraction — parenthesised clarification dropped
+  const n3 = needlesFor({ answer: "TPM (Trusted Platform Module)" }, "match");
+  if (!n3.some(s => s.toLowerCase().startsWith("tpm"))) {
+    throw new Error(`needles parens-strip: missing TPM-prefixed needle, got ${JSON.stringify(n3)}`);
+  }
+
+  // ─── needlesFor: em-dash split — first chunk taken
+  const n4 = needlesFor({ term: "Salting — adding random data to hashes" }, "cram");
+  if (!n4.some(s => s.toLowerCase() === "salting")) {
+    throw new Error(`needles em-dash split: missing 'Salting' first-chunk, got ${JSON.stringify(n4)}`);
+  }
+
+  // ─── needlesFor: longest non-stopword run — multi-word phrase
+  const n5 = needlesFor({ term: "shared responsibility model" }, "cram");
+  if (!n5.some(s => /shared\s+responsibility/i.test(s))) {
+    throw new Error(`needles longest-run: missing 'shared responsibility', got ${JSON.stringify(n5)}`);
+  }
+
+  // ─── needlesFor: dedup is case-insensitive
+  const n6 = needlesFor({ term: "hmac" }, "cram");
+  const lower = n6.map(s => s.toLowerCase());
+  if (new Set(lower).size !== lower.length) {
+    throw new Error(`needles dedup: duplicate (case-insensitive) survived, got ${JSON.stringify(n6)}`);
+  }
+
+  // ─── countMatches: basic count
+  if (countMatches("hello world hello", "hello") !== 2) throw new Error("countMatches basic");
+
+  // ─── countMatches: case-insensitive
+  if (countMatches("HELLO world Hello", "hello") !== 2) throw new Error("countMatches case-insensitive");
+
+  // ─── countMatches: regex-special-char escape (dots, parens)
+  if (countMatches("a.b.c d", "a.b") !== 1) throw new Error("countMatches regex escape — dot literal");
+  if (countMatches("foo (bar) baz", "(bar)") !== 1) throw new Error("countMatches regex escape — parens literal");
+
+  // ─── countMatches: empty/null inputs
+  if (countMatches("", "anything") !== 0) throw new Error("countMatches empty text");
+  if (countMatches("anything", "") !== 0) throw new Error("countMatches empty needle");
+
+  console.log("  ✓ needlesFor: cram term, match answer extracted as primary");
+  console.log("  ✓ needlesFor: parenthesised clarifications stripped");
+  console.log("  ✓ needlesFor: em-dash split takes first chunk");
+  console.log("  ✓ needlesFor: longest non-stopword run added");
+  console.log("  ✓ needlesFor: dedup is case-insensitive");
+  console.log("  ✓ countMatches: basic + case-insensitive + regex-escape + empty inputs");
+  console.log("SB-fix-1b cluster-verify self-test PASS (6/6 baseline fixtures)");
+}
+
+// ─── Main ────────────────────────────────────────────────────────────
+function main() {
+  const args = parseArgs();
+  if (args.selftest) { selftest(); return; }
+  runPacketVerification(args.packet);
+}
+
+main();
