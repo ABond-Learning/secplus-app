@@ -1,4 +1,4 @@
-# Where Things Stand — 2026-05-22 (end-of-day: SB-fix-1b CLOSED, SB-fix-2 mid-flight, weakness-tracker mid-flight)
+# Where Things Stand — 2026-05-23 (autonomous chain α SHIPPED; classifier improvements + P1-P3 prebuild + Spectre fix + methodology synthesis + event-log fix)
 
 Handoff document for supervisor-Claude continuity. Captures
 institutional knowledge that isn't in the formal docs (PLAN.md,
@@ -15,7 +15,9 @@ instructions to match.
 
 ## Current state
 
-**Last commit:** `0b831ba` (Fri 2026-05-22, weakness-tracker commit 2: recordWeakness helper + 5 call-sites + Fix A) — plus today's end-of-day docs-sync commit landing this paragraph. Today's session chain (2026-05-22, all on `main`): relay v1 infra + test cycle + v2 simplification + cadence rules + Task C scoping + Report-#0009 (`24cdc7f` → `fec556d` → `2035ab0` → `cc9d2c7` → `7c65c6c` → `28f4054` → `84d575e` → `7955798`) → Q-letter adjudication relay (`0b457bf`) → relay v2.1 (`77ae671`) → SB-fix-1b packets 3+4 build/decisions/dry-run/apply (`78932e9` → `93f99de` → `7dd2dcd` → `a77ef4e` → `925022d` → `c21b60b` → `2fd99c1` → `f89b48e`) → SB-fix-1b closure docs-sync (`dcf9f5d`) → SB-fix-2 scoping (`0d12f9d`) → implementation plan (`3e0480f`) → plan sign-off (`52cd26d`) → scripts skeleton + SCHEMA (`0bc18e6`) → R packet build (`32b29fc`) → R routings + backfill (`592152b` → `0789b95`) → G packet build (`8c475eb`) → weakness-tracker implementation plan (`ecb2fb4`) → plan sign-off (`9c5df20`) → weakness-tracker commit 1 sync-engine (`829898f`) → weakness-tracker commit 2 helper + sites + Fix A (`0b831ba`) → this end-of-day sync commit.
+**Last commit:** `4d82944` (Sat 2026-05-23, event-log: compute actual_minutes from timestamps + task_id join key) — plus today's docs-sync commit landing this paragraph + Report-#0010 commit. Today's session chain (2026-05-23, all on `main`): autonomous chain α from mammoth-pick — pre-Task-0 setup (event-log helper + CLAUDE.md Rule #8/9; `a2ec1eb` + `bb208f4`) → pre-flight halt + adjudication (`6e7cb15`) → Task 1 classifier improvements (`51ac1ff` + `8fc51e7` + `4a3008c`) → Task 1 close + scope surface (`89e900a`) → supervisor redirect: chain α not β → Task 2 retroactive smoke (`63fc015`) → Task 3 P1/P2/P3 prebuild (gitignored output) → Task 4 Spectre typo + spelling-map exception (`8f1163b`) → Task 5 methodology synthesis (`c5b3deb`) → close-out item 1 event-log bug fix (`4d82944`) → this docs-sync + Report-#0010 commits.
+
+**Prior reference (2026-05-22 EOD chain):** `0b831ba` (weakness-tracker commit 2: recordWeakness helper + 5 call-sites + Fix A). Yesterday's session chain (2026-05-22, all on `main`): relay v1 infra + test cycle + v2 simplification + cadence rules + Task C scoping + Report-#0009 (`24cdc7f` → `fec556d` → `2035ab0` → `cc9d2c7` → `7c65c6c` → `28f4054` → `84d575e` → `7955798`) → Q-letter adjudication relay (`0b457bf`) → relay v2.1 (`77ae671`) → SB-fix-1b packets 3+4 build/decisions/dry-run/apply (`78932e9` → `93f99de` → `7dd2dcd` → `a77ef4e` → `925022d` → `c21b60b` → `2fd99c1` → `f89b48e`) → SB-fix-1b closure docs-sync (`dcf9f5d`) → SB-fix-2 scoping (`0d12f9d`) → implementation plan (`3e0480f`) → plan sign-off (`52cd26d`) → scripts skeleton + SCHEMA (`0bc18e6`) → R packet build (`32b29fc`) → R routings + backfill (`592152b` → `0789b95`) → G packet build (`8c475eb`) → weakness-tracker implementation plan (`ecb2fb4`) → plan sign-off (`9c5df20`) → weakness-tracker commit 1 sync-engine (`829898f`) → weakness-tracker commit 2 helper + sites + Fix A (`0b831ba`) → this end-of-day sync commit.
 
 **Branch:** main, working tree clean except 3 pre-existing untracked
 Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
@@ -48,13 +50,40 @@ Task 2 docs in `docs/` (left alone per Audit D scoping D-J)
 - `findings/sb-fix-2-classifier-improvements.md` — needle-extractor improvement (mc/scen use full Q text; should extract acronyms) + `looksLikeUmbrellaTitle` heuristic too conservative (10 of 18 R items flipped). Tuning deferred to between P packets if divergence reproduces (>30% trigger threshold).
 - `findings/d1-d3-d4-d5-partial-adjacent-from-pool-b.md` — SD-WAN scen routes out of SB-fix-2 scope to future D1/D3/D4/D5 cleanup pass (corpus-hit in `secure-communication-sy0-701.txt`).
 
+## Autonomous chain α — 2026-05-23 results
+
+Tasks 1-5 + close-out items 1-3 shipped this session, all $0 LLM spend.
+
+| Task | Outcome | Commit |
+|---|---|---|
+| 1.0 | Cluster-verify selftest infra (6/6 fixtures; production byte-identical) | `51ac1ff` |
+| 1.1 | Needle extractor for mc/scen (acronyms + quoted + last-clause; +7 fixtures) | `8fc51e7` |
+| 1.2 | Umbrella heuristic invert (Option 1; +20 fixtures) | `4a3008c` |
+| 2 | Retroactive smoke: R-packet divergence 77.8% → 11.1% (12 diverge→agree flips, 0 regressions) | `63fc015` |
+| 3 | P1/P2/P3 packets pre-built against 56-item partial-depth pool (P1=20 / P2=20 / P3=16) | (artefacts gitignored) |
+| 4 | Spectre typo fix in §2.3.8 (4 sites + spelling-map proper-noun exception) | `8f1163b` |
+| 5 | Methodology synthesis doc across Reports #0005-#0009 (341 lines) | `c5b3deb` |
+| close-out 1 | Event-log auto-compute actual_minutes + task_id join key + 12-fixture test | `4d82944` |
+| close-out 2 | PLAN.md + supervisor-handoff sync (this commit) | TBD |
+| close-out 3 | Report-#0010 | TBD |
+
+**Event-log bug discovery 2026-05-23 (close-out 1):** the timing-audit
+one-liner caught manually-passed `actual_minutes` values inflated 4-8×
+vs the real `task_start → task_end` timestamp delta. Root cause:
+helper had no compute-from-timestamps logic; callers (CC) supplied
+vibes-based estimates. Fixed by requiring `task_id` as the join key,
+computing `actual_minutes` in the helper, and rejecting caller-passed
+`actual_minutes` on `task_end`. CLAUDE.md Rule #9 updated to reflect
+the new contract.
+
 ## Next-session opener
 
 Aiden's choice between:
-- **(a)** SB-fix-2 G review at home with Sybex book (G packet `8c475eb` ready for Sybex chapter/section lookups; then P packets 1/2/3 against 56-item partial-depth pool)
-- **(b)** Weakness-tracker commit 3 ConfidenceRater UI — but verify no q/w/e/r keyboard collision in existing handlers FIRST per supervisor sign-off note (memory `project_weakness_tracker_commit_3_keyboard_check.md`). Subsequent commits 4/5 (Q-C-3 pause-on-blur, Q-F-1 import/export) then SCHEMA + docs + Report-#0010.
-- **(c)** Something else — both work streams are unblocked individually; either can wait.
-- ⏸ **Domain 1/3/4/5 partial-adjacent** (227 remaining items) — future sub-batches once D2 pattern is fully validated through SB-fix-2.
+- **(a)** SB-fix-2 G review at home with Sybex book (G packet `8c475eb` ready for Sybex chapter/section lookups)
+- **(b)** SB-fix-2 P1/P2/P3 review at home with Sybex book (P packets pre-built this chain at `.audit-working/sb-fix-2/packet-P{1,2,3}.{md,json}`; gitignored but on local disk; supervisor + Aiden inline review per cadence Rule 3)
+- **(c)** Weakness-tracker commit 3 ConfidenceRater UI — but verify no q/w/e/r keyboard collision in existing handlers FIRST per supervisor sign-off note (memory `project_weakness_tracker_commit_3_keyboard_check.md`). Subsequent commits 4/5 (Q-C-3 pause-on-blur, Q-F-1 import/export) then SCHEMA + docs + Report-#0011.
+- **(d)** Something else — all work streams unblocked individually.
+- ⏸ **Domain 1/3/4/5 partial-adjacent** (227 remaining items) — future sub-batches once D2 pattern is fully validated through SB-fix-2 + the now-improved classifier (re-applying it across all 5 domains is anticipated to surface ~80-90% of partial-depth candidates automatically).
 - ⏸ **Closure sub-batch**
 
 ## Sub-batch 1 full-corpus — completion record 2026-05-19
