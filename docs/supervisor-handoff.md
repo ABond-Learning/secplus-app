@@ -13,6 +13,108 @@ fetched by supervisor-Claude conversations on orientation. Keep
 this path stable; if it moves, update the project's custom
 instructions to match.
 
+## Grand plan recalibration — 2026-05-23
+
+Load-bearing context for the next supervisor session. Read this before
+chain details below — the recalibration changes the frame, not just the
+numbers.
+
+### 1. The app is study-ready NOW for Domain 2
+
+D2 partial-adjacent items are fully audited (SB1 full-corpus + SB1.6 +
+SB-fix-1a + SB-fix-1b 134/134 + SB-fix-2 R 18/18 routed + P1/P2/P3
+packets pre-built awaiting Sybex inline review). The catalogue passes
+the validator (0 errors, 4 warns baseline) and the build is clean.
+
+Other domains (D1/D3/D4/D5) are functional but **not supervisor-
+validated**. They render, they're answerable, they score correctly —
+but the SB1 full-corpus methodology hasn't been carried through to
+their partial-adjacent items yet (227 outstanding).
+
+**Implication:** Aiden can study against the app today without waiting
+for D1/D3/D4/D5 to close. D2-heavy study time is the highest-confidence
+material; non-D2 study is high-confidence-for-the-test-material-itself
+but the catalogue's citation provenance is less audited.
+
+### 2. Studying IS the test of audit quality
+
+Studying is **not** a downstream consumer of audit completion — it's
+the actual test of whether the audit worked. Real study sessions
+surface broken questions in a way that no LLM-as-judge pass and no
+inline cluster verification can fully predict. When Aiden hits a
+confusing question during a quiz, that's signal — not noise.
+
+**Operational shift:** stop treating audit completion as a gate on
+study. Fix bugs as they surface from real study sessions, in
+background-work threads, rather than blocking on "all 227 D1/D3/D4/D5
+items reviewed first."
+
+### 3. Three-phase plan
+
+**Phase 1 — Close to study-ready (1-2 focused days):**
+- Today's chain close (this commit + Report-#0010 land).
+- G + P packets adjudication with Sybex book (G packet `8c475eb`
+  ready, P1/P2/P3 pre-built this chain).
+- Weakness-tracker UI commits 3-4 (ConfidenceRater UI + pause-on-blur
+  Q-C-3); commit 5 import/export already parallel-eligible.
+- After these, full study-readiness achieved.
+
+**Phase 2 — Study + iterate (mid-July exam target):**
+- Aiden studies daily.
+- Weakness-tracker captures per-attempt data (records the *what / how
+  confident / how long / interrupted?* per question).
+- Broken questions surface naturally during study; fix as background
+  work, single-commit per fix.
+- D1/D3/D4/D5 partial-adjacent cleanup runs **in parallel** with
+  study, prioritised by what study surfaces first (not by section
+  ordering or pool size).
+- Mock exams when weakness-tracker readiness data suggests Aiden is
+  near pass threshold (not on a calendar tickbox).
+
+**Phase 3 — Post-Sec+:**
+- SC-900 / AZ-900 substrate work using the same methodology.
+- `docs/audit-d-methodology-synthesis.md` (shipped this chain) becomes
+  the reference for that follow-on work — patterns, cadence,
+  scripts all carry forward.
+
+### 4. The actual_minutes lesson reshapes mental models
+
+Discovered today via the timing-audit one-liner: prior CC-claimed
+`actual_minutes` values across the chain were 3-5× inflated vs the
+real `task_start → task_end` timestamp delta. Real CC compute time
+per task is short (~2-3 min wall-clock for code edits + tests +
+commit). The actual bottleneck is **supervisor + Aiden coordination**:
+relay round-trips, adjudication time, Aiden-out windows.
+
+**Implication for planning:** when budgeting future chains, the gating
+constraint is human turnaround, not CC throughput. Chain plans that
+sequence CC work expecting "several hours of CC compute" are likely
+sized wrong — that compute will finish in 30-60 min, and the wall-clock
+extends because Aiden + supervisor decisions punctuate the sequence.
+
+The fix landed this session: helper now owns `actual_minutes`
+computation (close-out item 1 / `4d82944`). Going forward the metric
+will be ground-truth — the next chain's audit will compare to
+reality, not to a vibes estimate.
+
+### 5. Next-session opener
+
+When Aiden returns:
+- **Fresh chat per memory `feedback_collaboration.md` rule (~#16).**
+  This session's context is large; the next session should not
+  inherit it. Fresh orient.
+- **Orient per memory `feedback_surface_and_pause.md` rule (~#17).**
+  Re-read this handoff doc + PLAN.md + Report-#0010 + the
+  methodology synthesis to land in the right state.
+- **First work: G + P packets adjudication when Sybex book accessible.**
+  G is small (3 items, fast). P1 next (20 items, §2.4-heavy). Then
+  P2 (20 items, all §2.4 — the Common Attack Types catch-all
+  cluster). Then P3 (16 items, diverse-tail).
+- After SB-fix-2 closes, weakness-tracker UI commits 3-4 + then study
+  begins.
+
+---
+
 ## Current state
 
 **Last commit:** `4d82944` (Sat 2026-05-23, event-log: compute actual_minutes from timestamps + task_id join key) — plus today's docs-sync commit landing this paragraph + Report-#0010 commit. Today's session chain (2026-05-23, all on `main`): autonomous chain α from mammoth-pick — pre-Task-0 setup (event-log helper + CLAUDE.md Rule #8/9; `a2ec1eb` + `bb208f4`) → pre-flight halt + adjudication (`6e7cb15`) → Task 1 classifier improvements (`51ac1ff` + `8fc51e7` + `4a3008c`) → Task 1 close + scope surface (`89e900a`) → supervisor redirect: chain α not β → Task 2 retroactive smoke (`63fc015`) → Task 3 P1/P2/P3 prebuild (gitignored output) → Task 4 Spectre typo + spelling-map exception (`8f1163b`) → Task 5 methodology synthesis (`c5b3deb`) → close-out item 1 event-log bug fix (`4d82944`) → this docs-sync + Report-#0010 commits.
