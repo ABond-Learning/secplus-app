@@ -1,4 +1,4 @@
-# Where Things Stand — 2026-05-23 (autonomous chain α SHIPPED; classifier improvements + P1-P3 prebuild + Spectre fix + methodology synthesis + event-log fix)
+# Where Things Stand — 2026-05-23 (autonomous chain α SHIPPED + G-packet partial close + Tier 1/2/3 framework + Pages deploy fix)
 
 Handoff document for supervisor-Claude continuity. Captures
 institutional knowledge that isn't in the formal docs (PLAN.md,
@@ -117,7 +117,93 @@ When Aiden returns:
 
 ## Current state
 
-**Last commit:** `4d82944` (Sat 2026-05-23, event-log: compute actual_minutes from timestamps + task_id join key) — plus today's docs-sync commit landing this paragraph + Report-#0010 commit. Today's session chain (2026-05-23, all on `main`): autonomous chain α from mammoth-pick — pre-Task-0 setup (event-log helper + CLAUDE.md Rule #8/9; `a2ec1eb` + `bb208f4`) → pre-flight halt + adjudication (`6e7cb15`) → Task 1 classifier improvements (`51ac1ff` + `8fc51e7` + `4a3008c`) → Task 1 close + scope surface (`89e900a`) → supervisor redirect: chain α not β → Task 2 retroactive smoke (`63fc015`) → Task 3 P1/P2/P3 prebuild (gitignored output) → Task 4 Spectre typo + spelling-map exception (`8f1163b`) → Task 5 methodology synthesis (`c5b3deb`) → close-out item 1 event-log bug fix (`4d82944`) → this docs-sync + Report-#0010 commits.
+**Last commit:** `eec412e` (Sat 2026-05-23, Report-#0011 — GitHub Pages deploy fix) — plus this documentation-refresh commit. Today spans TWO arcs on `main`: (1) the autonomous chain α from mammoth-pick, and (2) a post-chain adjudication + infra arc (G-packet partial close, Pages deploy fix, Tier framework, Sybex sourcing). See "Sessions arc — 2026-05-23 (post-chain)" below.
+
+Chain α (2026-05-23, all on `main`): pre-Task-0 setup (event-log helper + CLAUDE.md Rule #8/9; `a2ec1eb` + `bb208f4`) → pre-flight halt + adjudication (`6e7cb15`) → Task 1 classifier improvements (`51ac1ff` + `8fc51e7` + `4a3008c`) → Task 1 close + scope surface (`89e900a`) → supervisor redirect: chain α not β → Task 2 retroactive smoke (`63fc015`) → Task 3 P1/P2/P3 prebuild (gitignored output) → Task 4 Spectre typo + spelling-map exception (`8f1163b`) → Task 5 methodology synthesis (`c5b3deb`) → close-out item 1 event-log bug fix (`4d82944`) → docs-sync (`16b6933`) + recalibration (`2253c38`) + Report-#0010 (`2376c2c`).
+
+## Sessions arc — 2026-05-23 (post-chain: adjudication + infra)
+
+After chain α closed, the day continued with supervisor-driven G-packet
+adjudication and several infra/process findings. Commits: SB-fix-2
+packets published to relay tree (`bcfb273`) → G-packet Items 1+2 applied
+(`2516639`) → Report-#0011 Pages fix (`eec412e`) → this doc refresh.
+
+### web_fetch on this repo is unreliable — local repo is source of truth
+
+The supervisor's `web_fetch` against `raw.githubusercontent.com` failed
+across multiple distinct modes on 2026-05-23:
+- **Branch-pinned URLs** (`/main/...`) served **stale cached** content —
+  the fetched bytes lagged the pushed commit.
+- **Commit-pinned URLs** (`/<sha>/...`) returned **404** even when the
+  same URL returned **200 OK** under `curl`.
+
+Net: do not trust `web_fetch` to reflect repo state. **Local repo via
+`cat` / `git` is the source of truth.** The relay tree (CLAUDE.md
+Workflow Rule #11) is the supervisor's *convenience* path for reading
+working files, but even tracked paths can be flaky on `web_fetch` — when
+in doubt, CC pastes verbatim bytes (Workflow Rule #10) and Aiden relays.
+
+### Tier 1/2/3 source-grounding framework (applies forward from G packet)
+
+Adopted this session for SB-fix-2 G/P adjudication and forward:
+- **Tier 1** — Sybex glossary first-pass screen (fast "is the term in the
+  cert vocabulary at all?"). Supervisor-side project file at
+  `/mnt/project/Sybex_Glossary.pdf`.
+- **Tier 2** — Sybex practice-test bank (does the cert actually *test*
+  this concept, and how?). Extraction underway (below).
+- **Tier 3** — full Sybex chapter prose (chapter/section/page citation
+  for `keep-with-sybex-note` / `re-cite-to-sybex` decisions).
+
+**Scoping:** the framework applies FORWARD from the G packet. D2 and all
+earlier sub-batches (SB0 → SB-fix-1b) shipped under the prior
+LLM-as-judge + transcript-grep methodology and remain the **documented
+frozen baseline** — NOT retro-fitted. Re-auditing closed D2 work against
+the new tiers is explicitly out of scope unless real study surfaces a
+problem (per the grand-plan recalibration: studying is the test).
+
+### Sybex glossary discovered → Tier 1 source
+
+`Sybex_Glossary.pdf` (Chapple/Seidl 9th) added as the Tier 1 first-pass
+screen. Lets adjudication quickly separate "off-syllabus drift" from
+"on-syllabus, just cited to the wrong source."
+
+### Sybex practice-test extraction underway
+
+Purpose: build a Tier 2 corpus for future audit decisions + a study
+reference. Extraction via Claude in Chrome — **chapters 1+2 on disk** at
+`.audit-working/sybex-practice-tests/{chapter-01,chapter-02}.json`;
+**remaining 16 chapters + 2 practice exams running unattended.** This is
+the corpus that will let future SB-fix-style passes ground "does the
+cert test this?" without per-item manual book lookups.
+
+### GitHub Pages deploy fix (see Report-#0011)
+
+Two GitHub failure-alert emails → diagnosed the failing **Deploy to
+GitHub Pages** workflow. Root cause was read-only Workflow permissions
+producing `401 Bad credentials` (NOT the initially-guessed missing
+workflow permissions / missing environment — both wrong; corrected by
+elimination). Full diagnosis + fix in `Reports/Report-#0011.md`
+(`eec412e`). The deploy YAML itself (`687b4d1`, 2026-04-24) was
+untouched by the autonomous chain.
+
+### G packet partial close
+
+- **Items 1+2 SHIPPED (`2516639`):** §2.3.2 integer-overflow pair
+  (cram[2] + match[2]) → `keep-with-sybex-note`, Chapple 9th Ch 6
+  §Buffer Overflows p.177, objective 2.3.2. Audit-only; content
+  unchanged. Sybex frames integer overflow as a buffer-overflow variant
+  (storage-size) vs the catalogue's arithmetic-wraparound framing — both
+  correct; framing alignment is a future content-quality note, not a
+  blocker.
+- **Item 3 HOLDING:** §2.4.9 HSTS mc[2]. Grep established SSL stripping
+  lives in Messer's **Cryptographic Attacks** video (5 hits, framed as an
+  on-path attack), NOT the cited **On-path Attacks** (0 hits); and HSTS
+  is **absent corpus-wide** (0 transcript files). So the messerVideo
+  correction is a within-§2.4 citation fix — verdict turns on whether it
+  stays `keep-with-sybex-note` or shifts to `re-cite-to-sybex`. Pending
+  **Chapter 12 Sybex practice-test data**. Applied under
+  `applied_by=sb-fix-2-packet-G`, so a 1-item decisions file slots Item 3
+  in later without re-touching Items 1+2.
 
 **Prior reference (2026-05-22 EOD chain):** `0b831ba` (weakness-tracker commit 2: recordWeakness helper + 5 call-sites + Fix A). Yesterday's session chain (2026-05-22, all on `main`): relay v1 infra + test cycle + v2 simplification + cadence rules + Task C scoping + Report-#0009 (`24cdc7f` → `fec556d` → `2035ab0` → `cc9d2c7` → `7c65c6c` → `28f4054` → `84d575e` → `7955798`) → Q-letter adjudication relay (`0b457bf`) → relay v2.1 (`77ae671`) → SB-fix-1b packets 3+4 build/decisions/dry-run/apply (`78932e9` → `93f99de` → `7dd2dcd` → `a77ef4e` → `925022d` → `c21b60b` → `2fd99c1` → `f89b48e`) → SB-fix-1b closure docs-sync (`dcf9f5d`) → SB-fix-2 scoping (`0d12f9d`) → implementation plan (`3e0480f`) → plan sign-off (`52cd26d`) → scripts skeleton + SCHEMA (`0bc18e6`) → R packet build (`32b29fc`) → R routings + backfill (`592152b` → `0789b95`) → G packet build (`8c475eb`) → weakness-tracker implementation plan (`ecb2fb4`) → plan sign-off (`9c5df20`) → weakness-tracker commit 1 sync-engine (`829898f`) → weakness-tracker commit 2 helper + sites + Fix A (`0b831ba`) → this end-of-day sync commit.
 
