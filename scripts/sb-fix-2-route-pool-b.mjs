@@ -537,4 +537,9 @@ function selftest() {
   console.log("SB-fix-2 routing self-test PASS (4 classification outcomes + helpers + mc/scen augmentation)");
 }
 
-main();
+// Only run main when invoked directly (entry script). When imported as a
+// module — e.g. by sb-fix-2-retroactive-smoke.mjs reusing the classifier
+// helpers — main() must NOT execute (would otherwise overwrite packet-R.*).
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main();
+}
