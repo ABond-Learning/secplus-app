@@ -176,6 +176,15 @@ reference. Extraction via Claude in Chrome — **chapters 1+2 on disk** at
 the corpus that will let future SB-fix-style passes ground "does the
 cert test this?" without per-item manual book lookups.
 
+**Pickup step (resume note):** when all 18 chapters + 2 exams have landed
+in `.audit-working/sybex-practice-tests/`, the next action is to wire them
+as the Tier 2 screen for P1/P2/P3 adjudication (does the cert actually
+*test* this concept, and how?) ahead of per-item Tier 3 Sybex chapter
+lookups. The extraction is an external Claude-in-Chrome process CC does not
+control; if it stalls, the partial output on disk is still usable. Verify
+file count (`ls .audit-working/sybex-practice-tests/`) at next-session
+orient.
+
 ### GitHub Pages deploy fix (see Report-#0011)
 
 Two GitHub failure-alert emails → diagnosed the failing **Deploy to
