@@ -63,7 +63,7 @@ const AUDIT_FIELD_KEPT_AS_IS = "kept_as_is";
 const AUDIT_FIELD_RESOLVED_SELF_ALT = "resolved_self_alternate";
 const DECISION_KEPT_AS_IS = "kept-as-is";
 const DECISION_SB16_CANDIDATE = "keep-as-is-sb16-candidate";
-const VALID_SB16_SUBCATEGORIES = new Set(["partial-depth", "messer-curriculum-gap"]);
+const VALID_SB16_SUBCATEGORIES = new Set(["partial-depth", "messer-curriculum-gap", "cross-source-curriculum-gap"]);
 
 // ─── CLI ───────────────────────────────────────────────────────────────
 function parseArgs() {

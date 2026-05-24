@@ -180,6 +180,7 @@ Value | Meaning | Example
 --- | --- | ---
 `"partial-depth"` | Cited video's umbrella concept conceptually contains the tested technique; the specific technique is absent from the transcript (and may be absent from the corpus). SB-fix-2 may resolve by re-writing items to test the umbrella directly, or by adding a new sub-video citation. | Spectre/Meltdown under Hardware Vulnerabilities (umbrella = hardware-as-attack-vector subsumes CPU speculation). SYN flood under Denial of Service (umbrella subsumes SYN flooding).
 `"messer-curriculum-gap"` | Cited video's umbrella does NOT contain the tested technique — the cited video is a SIBLING concept, not the parent. The tested concept has no umbrella home in the Messer corpus. SB-fix-2 may resolve by re-citing to a generic survey video, re-writing items to test a covered concept, or flagging for removal as out-of-Messer-scope. | Integer overflow under Buffer Overflows (buffer-overflow umbrella = memory-write-beyond-bounds; integer-overflow umbrella = arithmetic-exceeds-type-range; distinct concepts sharing only the word "overflow").
+`"cross-source-curriculum-gap"` | Concept is absent from both Messer's transcripts AND Sybex (glossary, practice tests, and book index). The item is exam-relevant (cited CompTIA objective covers the topic area) but no study-source authority teaches the technique at the depth the question tests. Items in this category are kept-as-enrichment; no citation re-targeting is possible. | HSTS under On-path Attacks (§2.4.9 mc[2]) — HSTS is the canonical SSL-stripping defense under CompTIA objective 2.4, but is absent from Messer transcripts, the Sybex glossary (70pp), Sybex Ch12 practice tests, and the Sybex book index (pp 629-652).
 
 Backfill audit: SB-fix-1a's 10 sb16-candidates (Spectre/Meltdown, SYN
 flood, DNS tunneling, evil twin, WPA2 handshake, IDOR, credential
@@ -187,6 +188,10 @@ stuffing x3, pass-the-hash) are all `partial-depth` — their cited
 videos' umbrellas conceptually contain the tested techniques.
 SB-fix-1b packet 2's integer overflow (#36, #37) introduces the first
 `messer-curriculum-gap` cases. Established 2026-05-21.
+`cross-source-curriculum-gap` added 2026-05-24 (G-packet Item 3); HSTS
+(§2.4.9 mc[2]) is the first case — absent from Messer AND all three Sybex
+tiers, so no citation re-targeting is possible and the item stays
+kept-as-enrichment.
 
 When a new audit script needs a record on items, it should:
 1. Pick a stable `audit_<scope>_<purpose>` name.
