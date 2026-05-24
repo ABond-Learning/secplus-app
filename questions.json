@@ -1345,7 +1345,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "Cable lock; 1.2 Physical Security IS umbrella for physical security mechanisms."
+              "note": "Cable lock; 1.2 Physical Security IS umbrella for physical security mechanisms.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 9,
+                  "section": "Site Security",
+                  "page": 285,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "1.2",
+                "note": "Chapter-level Tier 3. Ch 9 Site Security is the TOC home for physical locks; 'cable lock' not named in glossary/index/practice tests. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-24T21:13:11.198Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -5903,7 +5917,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Spectre/Meltdown — cited Hardware Vulnerabilities video IS conceptual home (hardware-as-attack-vector umbrella subsumes CPU speculation); specific examples just absent from transcript. Same shape as SB-fix-1a #25."
+              "note": "Spectre/Meltdown — cited Hardware Vulnerabilities video IS conceptual home (hardware-as-attack-vector umbrella subsumes CPU speculation); specific examples just absent from transcript. Same shape as SB-fix-1a #25.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 11,
+                  "section": "Hardware Vulnerabilities",
+                  "page": 340,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.3",
+                "note": "Chapter-level Tier 3. Ch 11 Hardware Vulnerabilities is the TOC home for CPU speculative-execution flaws; Spectre/Meltdown not named in glossary/index/practice tests. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-24T21:13:11.198Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -5941,7 +5969,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Spectre/Meltdown — cited Hardware Vulnerabilities video IS conceptual home; specific examples just absent from transcript. Same shape as SB-fix-1a #25."
+              "note": "Spectre/Meltdown — cited Hardware Vulnerabilities video IS conceptual home; specific examples just absent from transcript. Same shape as SB-fix-1a #25.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 11,
+                  "section": "Hardware Vulnerabilities",
+                  "page": 340,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.3",
+                "note": "Chapter-level Tier 3. Ch 11 Hardware Vulnerabilities is the TOC home for CPU speculative-execution flaws; Spectre/Meltdown not named in glossary/index/practice tests. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-24T21:13:11.198Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -6002,7 +6044,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Spectre/Meltdown are canonical hardware-vulnerability examples — partial-depth shape, not partial-adjacent. Same SB1.6 pattern as the loose-flag pool. Don't move; flag for SB-fix-2 partial-depth review.",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 11,
+                  "section": "Hardware Vulnerabilities",
+                  "page": 340,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.3",
+                "note": "Chapter-level Tier 3. Ch 11 Hardware Vulnerabilities is the TOC home for CPU speculative-execution flaws; Spectre/Meltdown not named in glossary/index/practice tests. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-24T21:13:11.198Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -7244,7 +7300,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "Metamorphic virus; 2.4 Viruses and Worms IS umbrella for virus types."
+              "note": "Metamorphic virus; 2.4 Viruses and Worms IS umbrella for virus types.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 3,
+                  "section": "Viruses",
+                  "page": 57,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Ch 3 Viruses is the TOC home; index lists boot-sector/email/macro/memory-resident subtypes but not metamorphic, and it is absent from practice tests. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-24T21:13:11.198Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -8129,7 +8199,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Cross-packet precedent: SB-fix-1a #45 was kept-as-is-sb16-candidate. Same pattern (DNS tunneling)."
+              "note": "Cross-packet precedent: SB-fix-1a #45 was kept-as-is-sb16-candidate. Same pattern (DNS tunneling).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Domain Name System Attacks",
+                  "page": 412,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Ch 12 DNS Attacks is the TOC home; DNS-tunneling exfiltration technique not named in glossary/index/practice tests (only VPN split-tunnel present). Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-24T21:13:11.198Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -8167,7 +8251,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #91 (DNS tunneling match counterpart)."
+              "note": "Same as #91 (DNS tunneling match counterpart).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Domain Name System Attacks",
+                  "page": 412,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Ch 12 DNS Attacks is the TOC home; DNS-tunneling exfiltration technique not named in glossary/index/practice tests. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-24T21:13:11.198Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -8242,7 +8340,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Cluster verification: DNS tunneling not in cited DNS Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Domain Name System Attacks",
+                  "page": 412,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Ch 12 DNS Attacks is the TOC home; DNS-tunneling exfiltration technique not named in glossary/index/practice tests. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-24T21:13:11.198Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -8322,7 +8434,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Cross-packet precedent: SB-fix-1a #47 was kept-as-is-sb16-candidate. Same pattern (WPA2 handshake capture)."
+              "note": "Cross-packet precedent: SB-fix-1a #47 was kept-as-is-sb16-candidate. Same pattern (WPA2 handshake capture).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 13,
+                  "section": "Wi-Fi Security Standards",
+                  "page": 438,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Ch 13 Wi-Fi Security is the TOC home for WPA2; the 4-way-handshake-capture-for-offline-cracking technique not named in glossary/index/practice tests (practice tests cover WPA3 SAE/PSK only). Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-24T21:13:11.198Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
