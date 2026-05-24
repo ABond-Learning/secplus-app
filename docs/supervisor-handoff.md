@@ -1,14 +1,38 @@
-# Where Things Stand — 2026-05-24 (Sybex Tier 2 corpus COMPLETE + committed)
+# Where Things Stand — 2026-05-24 (G packet CLOSED + Sybex Tier 2 corpus committed + Rule #9 rescope)
 
-> **2026-05-24 update:** The only state change since the 2026-05-23 refresh is the
-> Sybex practice-test extraction, which is now **complete and committed** (18 files /
-> 500 questions at `.audit-working/sybex-practice-tests/`). Everything else below —
-> autonomous chain α, G-packet partial close, Tier 1/2/3 framework, Pages deploy fix —
-> still describes current state. See the "Sybex Tier 2 corpus — COMPLETE" section and
-> `Reports/Report-#0012.md`. **Methodology shift:** Audit D forward adjudication now
-> runs on a **Tier 1 + Tier 2** evidence base (glossary + practice-test bank), not
-> Tier 1 alone. **Now unblocked:** Item 3 HSTS verdict (Ch12 data in hand), P1/P2/P3
-> adjudication (56 items), and the D1/D3/D4/D5 partial-adjacent cleanup (227+ items).
+> **2026-05-24 state (post-G-packet).** Three ship prompts landed today on `main`:
+>
+> - **G packet CLOSED** at `9eb4311` — all three items shipped. Items 1+2 (§2.3.2
+>   integer overflow) → `keep-with-sybex-note`; Item 3 (§2.4.9 HSTS) →
+>   `keep-with-sybex-note` + `cross-source-curriculum-gap`. See `Reports/Report-#0014.md`.
+> - **Tier 1/2/3 framework validated end-to-end** across both failure modes it was
+>   designed to separate: *in-source-needs-citation-note* (Items 1+2 — concept taught,
+>   just cite the Sybex source) and *cross-source-gap* (Item 3 — concept absent from
+>   Messer AND all Sybex tiers, kept-as-enrichment).
+> - **`sb16_subcategory` is now a 3-value enum:** `partial-depth`,
+>   `messer-curriculum-gap`, `cross-source-curriculum-gap` (new; first case = HSTS).
+>   See `SCHEMA.md §audit_d_review.sb16_subcategory`.
+> - **Rule #9 rescoped** at `bb4cc83` — event logging now applies to **all
+>   supervisor-directed CC tasks** (any ship prompt), not just autonomous chains.
+>   Run-ID convention `YYYY-MM-DD-<short-task-slug>`. See `Reports/Report-#0013.md`.
+> - **Sybex Tier 2 corpus committed** at `d655a46` — 18 files / 500 questions at
+>   `.audit-working/sybex-practice-tests/` (ch02-17 + 2 practice exams; ch01 excluded).
+>   Audit D forward adjudication now runs on a **Tier 1 + Tier 2** evidence base.
+>   See `Reports/Report-#0012.md`.
+> - **Supervisor-side Sybex references:** the book index + TOC are in the supervisor
+>   project at `/mnt/project/sy0-701_index.md` and `/mnt/project/sy0-701_toc.md`. Use
+>   these directly for Tier 3 chapter/page lookups rather than asking Aiden to open the
+>   physical book. (Glossary remains at `/mnt/project/Sybex_Glossary.pdf`.)
+> - **Event-log helper — known limitation:** multi-process invocation (one `node` per
+>   `logEvent`, as CC drives it) drops `actual_minutes` (ISO timestamps stay accurate).
+>   Fix spec at `docs/event-log-persistent-state-spec.md` — disk-backed run-state file;
+>   **pending review**, implementation is a separate ship after sign-off.
+> - **Next up:** P1/P2/P3 packets (56 partial-depth items, pre-built at
+>   `.audit-working/relays/from-cc/sb-fix-2-packets/`), then D1/D3/D4/D5 partial-adjacent
+>   cleanup (227+ items + SD-WAN routing-out).
+>
+> Everything below the prior header still describes current state for everything not
+> listed above (autonomous chain α, Pages deploy fix, web_fetch reliability, conventions).
 
 ## (prior header) Where Things Stand — 2026-05-23 (autonomous chain α SHIPPED + G-packet partial close + Tier 1/2/3 framework + Pages deploy fix)
 
