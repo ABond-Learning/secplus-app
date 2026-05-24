@@ -1,0 +1,378 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 4: Social Engineering and Password Attacks",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "1/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 81,
+    "average_per_question_seconds": 4.05
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Joseph receives an email notifying him that he needs to change his password due to a recent account issue. He notices that the email links him to a website using the domain amaz0n.com. What type of attack should he describe this as?",
+      "options": {
+        "A": "Typosquatting",
+        "B": "Phishing",
+        "C": "Smishing",
+        "D": "A watering hole attack"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Phishing"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": true,
+      "explanation": "This email is an attempt to get account information and is a phishing email. Joseph did not enter the URL himself, which is the behavior that a typosquatter relies on. A smishing attack relies on SMS, and a watering hole attack uses a frequently visited website.",
+      "image_referenced": false,
+      "notes": "Accidental-correct: my Security+ reasoning happened to match the keyed correct answer despite intent to pick wrong."
+    },
+    {
+      "n": 2,
+      "stem": "When you combine phishing with voicemail, it is known as:",
+      "options": {
+        "A": "Whaling",
+        "B": "Spoofing",
+        "C": "Spooning",
+        "D": "Vishing"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Vishing"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Vishing is a form of phishing done via voice phones call or voicemail. Whaling focuses on targeting important targets for phishing attacks, whereas spoofing is a general term that means faking things. Spooning is not a technical term used for security practices.",
+      "image_referenced": false
+    },
+    {
+      "n": 3,
+      "stem": "While reviewing her logs, Michele notices that a remote system has attempted to log into her server via SSH using the username admin and a variety of passwords like “password” and “ninja.” What type of attack has Michele noticed?",
+      "options": {
+        "A": "A brute‐force attack",
+        "B": "Shoulder surfing",
+        "C": "An on‐path attack",
+        "D": "Pretexting"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "A brute‐force attack"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Michele has discovered a brute‐force attack, which relies on trying a large number of passwords, often combined with a list of usernames to try. Shoulder surfing attacks involve an attacker watching as a user enters information like a password or credit card data. On‐path attacks intercept data sent via a network, and pretexting is a social engineering attack that relies on a believable reason for attackers to need a victim to take action.",
+      "image_referenced": false
+    },
+    {
+      "n": 4,
+      "stem": "Joanna wants to detect password spraying attacks. What type of rule should she deploy through her security systems?",
+      "options": {
+        "A": "Match attempts to log into many systems with the same username and password.",
+        "B": "Match multiple attempts to log into the same user account using different passwords.",
+        "C": "Match repeated use of the same password during failed login attempts for multiple usernames.",
+        "D": "Match all attempts to use passwords with slight changes for the same account."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Match repeated use of the same password during failed login attempts for multiple usernames."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Password spraying involves the use of the same password to attempt to log into multiple accounts. Joanna should search for uses of the same password for different accounts.",
+      "image_referenced": false
+    },
+    {
+      "n": 5,
+      "stem": "One of the staff at Susan’s organization has reported that a critical vendor has contacted them about an unpaid invoice. After Susan investigates, she discovers that the invoice was sent from an email account that was not typically a contact and that the invoice requested payment to a PayPal account. What type of social engineering attack has Susan most likely discovered?",
+      "options": {
+        "A": "Smishing",
+        "B": "Business email compromise",
+        "C": "Disinformation",
+        "D": "Typosquatting"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Business email compromise"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Susan has most likely discovered a business email compromise and should reach out to the impacted organization to inform them of the potentially compromised account. Smishing would occur via SMS, there is nothing in the question to indicate a disinformation campaign was part of this, and there is no URL mentioned and thus typosquatting can be dismissed as well.",
+      "image_referenced": false
+    },
+    {
+      "n": 6,
+      "stem": "Selah infects the ads on a website that users from her target company frequently visit with malware as part of her penetration test. What technique has she used?",
+      "options": {
+        "A": "A watering hole attack",
+        "B": "Vishing",
+        "C": "Whaling",
+        "D": "Typosquatting"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "A watering hole attack"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Watering hole attacks rely on compromising or infecting a website that targeted users frequently visit, much like animals will visit a common watering hole. Vishing is phishing via voice, whaling is a targeted phishing attack against senior or important staff, and typosquatting registers similar URLs that are likely to be inadvertently entered in order to harvest clicks or conduct malicious activity.",
+      "image_referenced": false
+    },
+    {
+      "n": 7,
+      "stem": "Ben wants to determine if brute‐force password attacks are being used against his company. What log information is least likely to be useful when working to detect brute‐force attacks?",
+      "options": {
+        "A": "Source IP address or hostname",
+        "B": "Failed login logs",
+        "C": "The password that was used for each attempt",
+        "D": "The geographic location of system being logged into"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "The geographic location of system being logged into"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The source IP or hostname; the failed login logs with time, date, username, and other information; and the password that was used for each failed attempt would be useful for watching for brute‐force attempts. Knowing where the system being logged into is located isn’t useful when tracking brute‐force attempts. Logging failed passwords can be problematic as it can reveal actual passwords by allowing log reviewers to see failures driven by typos, so Ben may want to avoid that sort of log even though it can be useful!",
+      "image_referenced": false
+    },
+    {
+      "n": 8,
+      "stem": "Melissa receives a call and the caller informs her a senior manager in her organization needs her to buy gift cards for an event that starts in an hour. The caller says that the senior leader forgot to get the cards, and that the event is critical to her organization. Melissa buys the cards and sends them to the Gmail address the caller says that the senior leader needs them sent to. What type of attack has Melissa fallen for?",
+      "options": {
+        "A": "Phishing",
+        "B": "Pretexting",
+        "C": "Business email compromise",
+        "D": "Carding"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Pretexting"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The caller is using pretexting, providing Melissa with a story that relies on urgency and perceived authority to get her to take actions she might normally question. This social engineering attack is not a phishing attack aimed at gathering information or credentials, it does not involve business email accounts being compromised, and carding is not a topic covered in the Security+ exam outline.",
+      "image_referenced": false
+    },
+    {
+      "n": 9,
+      "stem": "Alaina wants to determine if a password spraying attack was used against her organization. Which of the following indicators would be most useful as part of her investigation?",
+      "options": {
+        "A": "The time the login attempts happened",
+        "B": "The passwords used for failed attempts",
+        "C": "The source IP address of the attempts",
+        "D": "The number of failed attempts for each user"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "The passwords used for failed attempts"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Password spraying attempts try to use a single common password for many user accounts. Determining if a single password is being used over and over can help catch basic password spraying attempts. The time, source IP, or number of failed attempts do not indicate password spraying.",
+      "image_referenced": false
+    },
+    {
+      "n": 10,
+      "stem": "Which of the following human vectors is primarily associated with nation‐state actors?",
+      "options": {
+        "A": "Misinformation campaigns",
+        "B": "Watering hole attacks",
+        "C": "Business email compromise",
+        "D": "Password spraying"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Misinformation campaigns"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Misinformation and disinformation campaigns are primarily associated with nation‐state actors, but are increasingly used by other organizations and even individuals as well. Watering hole attacks, business email compromise, and password spraying are broadly used attacks.",
+      "image_referenced": false
+    },
+    {
+      "n": 11,
+      "stem": "Nicole accidentally types www.smazon.com into her browser and discovers that she is directed to a different site loaded with ads and pop‐ups. Which of the following is the most accurate description of the attack she has experienced?",
+      "options": {
+        "A": "DNS hijacking",
+        "B": "Pharming",
+        "C": "Typosquatting",
+        "D": "Hosts file compromise"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Typosquatting"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Typosquatting uses misspellings and common typos of websites to redirect traffic for profit or malicious reasons. Fortunately in reality, if you visit smazon.com, you’ll be redirected to the actual amazon.com website, as Amazon knows about and works to prevent this type of issue. DNS hijacking and hosts file modifications both attempt to redirect traffic to actual URLs or hostnames to different destinations, and pharming does redirect legitimate traffic to fake sites, but typosquatting is the more specific answer.",
+      "image_referenced": false
+    },
+    {
+      "n": 12,
+      "stem": "Devon is a penetration tester and sets up malicious tools on his target organization’s primary internal website. What type of attack is he conducting?",
+      "options": {
+        "A": "A misinformation campaign",
+        "B": "A watering hole attack",
+        "C": "A typosquatting attack",
+        "D": "A disinformation campaign"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "A watering hole attack"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Devon is conducting a watering hole attack that leverages a frequently visited site to deploy malware. There is no description of misinformation or disinformation in the question, and there is not a typo described that would lead to a typosquatting attack being successful.",
+      "image_referenced": false
+    },
+    {
+      "n": 13,
+      "stem": "Phishing emails sent pretending to be from a company that recipients are familiar with and likely to respond to is what type of attack?",
+      "options": {
+        "A": "Phishing",
+        "B": "Pharming",
+        "C": "Brand impersonation",
+        "D": "Pretexting"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Brand impersonation"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Brand impersonation attacks are designed to appear to be from a company that recipients are likely to be familiar with, and thus are more likely to elicit a response. While these are a type of phishing, the more specific answer of brand impersonation is the best answer. Pretexting is a social engineering concept that provides a reason for the request. Pharming attacks redirect traffic intended to be sent to a legitimate site to a fake website typically designed to simulate the real one.",
+      "image_referenced": false
+    },
+    {
+      "n": 14,
+      "stem": "When a caller was recently directed to Amanda, who is a junior IT employee at her company, the caller informed her that they were the head of IT for her organization and that she needed to immediately disable the organization’s firewall. After Amanda made the change, she discovered that the caller was not the head of IT, and that they were actually a penetration tester hired by her company. What social engineering attack best describes this?",
+      "options": {
+        "A": "Smishing",
+        "B": "Pretexting",
+        "C": "Impersonation",
+        "D": "Vishing"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Impersonation"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "This is an example of an impersonation attack. The pentester impersonated the head of IT in order to achieve their goals. The good news is that it was a penetration tester! Smishing is phishing via SMS, vishing is phishing via voice or voicemail, and pretexting provides a reason that the target should perform an action. Here the attack relied on the authority that Amanda believed the caller had.",
+      "image_referenced": false
+    },
+    {
+      "n": 15,
+      "stem": "Fred is concerned about text message–based attacks. Which of the following attacks relies on text messages as its primary focus?",
+      "options": {
+        "A": "Impersonation",
+        "B": "Watering hole attacks",
+        "C": "Smishing",
+        "D": "Business email compromise"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Smishing"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Smishing attacks are SMS‐based. Impersonation attacks could use texts but don’t specifically rely on them. Watering hole attacks use frequently visited websites, whereas business email compromise attacks focus on gaining access to business email accounts to use in follow‐up attacks.",
+      "image_referenced": false
+    },
+    {
+      "n": 16,
+      "stem": "Sharif notices that his authentication logs have many different usernames showing failed logins with the same password. What type of attack has he discovered?",
+      "options": {
+        "A": "Credential harvesting",
+        "B": "Impersonation",
+        "C": "BEC",
+        "D": "Spraying"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Spraying"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Sharif has discovered a spraying attack that uses the same password—often a default or common password—with many usernames. Credential harvesting is the process of gathering credentials like usernames and passwords. Impersonation is a social engineering technique used when an attacker pretends to be someone else. BEC, or business email compromise, involves attackers posing as a trusted individual and asking for actions to be performed.",
+      "image_referenced": false
+    },
+    {
+      "n": 17,
+      "stem": "Naomi receives a report of smishing. What type of attack should she be looking for?",
+      "options": {
+        "A": "Compressed files in phishing",
+        "B": "Text message–based phishing",
+        "C": "Voicemail‐based phishing",
+        "D": "Server‐based phishing"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Text message–based phishing"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Smishing is a type of phishing that occurs via text (SMS) message.",
+      "image_referenced": false
+    },
+    {
+      "n": 18,
+      "stem": "Jack’s organization wants to prevent typosquatting. What option should he select to address this issue?",
+      "options": {
+        "A": "Copyright the domain name",
+        "B": "Purchase the most common typos for his organization’s domain",
+        "C": "Trademark the domain name",
+        "D": "Disable typo resolution for the domain"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Purchase the most common typos for his organization’s domain"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "While it’s nearly impossible to prevent typosquatting, purchasing and registering the most common typos (typo‐domains) related to your organization’s domain and redirecting them to your real domain is the most effective option available. Copyrighting or trademarking the domain name does not prevent typosquatting, and typo resolution is not a feature or capability that is available.",
+      "image_referenced": false
+    },
+    {
+      "n": 19,
+      "stem": "Gwyne’s company has been contacted by customers asking about a new social media account operating under the company’s brand. The social media account is advertising cryptocurrency, which Gwyne’s organization does not sell or work with. What type of attack best describes what Gwyne’s organization has encountered?",
+      "options": {
+        "A": "Impersonation",
+        "B": "Brand impersonation",
+        "C": "Mis‐branding",
+        "D": "Crypto‐phishing"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Brand impersonation"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Using an organization’s brand in this way is an example of brand impersonation. While this is also an impersonation attack, the more specific description is the best answer here. Misbranding and crypto‐phishing were both made up for this question and aren’t commonly used terms.",
+      "image_referenced": false
+    },
+    {
+      "n": 20,
+      "stem": "Nation‐state‐driven social media campaigns about the trustworthiness of the U.S. election in 2016 are an example of what type of social engineering?",
+      "options": {
+        "A": "Smishing",
+        "B": "Pretexting",
+        "C": "Disinformation",
+        "D": "Spraying"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Disinformation"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Disinformation campaigns are used to shift public opinion or to accomplish other goals. They are not limited to nation‐state actors but are an increasingly heavily used social engineering tactic at a broad scale. Smishing relies on SMS messages, pretexting involves using a reason that creates urgency or importance in a request from a social engineer, and spraying is a type of password brute forcing.",
+      "image_referenced": false
+    }
+  ]
+}

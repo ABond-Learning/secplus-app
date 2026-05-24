@@ -1,0 +1,381 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 5: Security Assessment and Testing",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 63,
+    "average_per_question_seconds": 3.15
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Which one of the following security assessment techniques assumes that an organization has already been compromised and searches for evidence of that compromise?",
+      "options": {
+        "A": "Vulnerability scanning",
+        "B": "Penetration testing",
+        "C": "Threat hunting",
+        "D": "War driving"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Threat hunting"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Threat hunting is an assessment technique that makes an assumption of compromise and then searches the organization for indicators of compromise that confirm the assumption. Vulnerability scanning, penetration testing, and war driving are all assessment techniques that probe for vulnerabilities but do not assume that a compromise has already taken place.",
+      "image_referenced": false
+    },
+    {
+      "n": 2,
+      "stem": "Renee is configuring her vulnerability management solution to perform credentialed scans of servers on her network. What type of account should she provide to the scanner?",
+      "options": {
+        "A": "Domain administrator",
+        "B": "Local administrator",
+        "C": "Root",
+        "D": "Read‐only"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Read‐only"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Credentialed scans only require read‐only access to target servers. Renee should follow the principle of least privilege and limit the access available to the scanner.",
+      "image_referenced": false
+    },
+    {
+      "n": 3,
+      "stem": "Ryan is planning to conduct a vulnerability scan of a business‐critical system using dangerous plug‐ins. What would be the best approach for the initial scan?",
+      "options": {
+        "A": "Run the scan against production systems to achieve the most realistic results possible.",
+        "B": "Run the scan during business hours.",
+        "C": "Run the scan in a test environment.",
+        "D": "Do not run the scan to avoid disrupting the business."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Run the scan in a test environment."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Ryan should first run his scan against a test environment to identify likely vulnerabilities and assess whether the scan itself might disrupt business activities.",
+      "image_referenced": false
+    },
+    {
+      "n": 4,
+      "stem": "Which one of the following values for the CVSS attack complexity metric would indicate that the specified attack is simplest to exploit?",
+      "options": {
+        "A": "High",
+        "B": "Medium",
+        "C": "Low",
+        "D": "Severe"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Low"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "An attack complexity of “low” indicates that exploiting the vulnerability does not require any specialized conditions.",
+      "image_referenced": false
+    },
+    {
+      "n": 5,
+      "stem": "Tara recently analyzed the results of a vulnerability scan report and found that a vulnerability reported by the scanner did not exist because the system was actually patched as specified. What type of error occurred?",
+      "options": {
+        "A": "False positive",
+        "B": "False negative",
+        "C": "True positive",
+        "D": "True negative"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "False positive"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "A false positive error occurs when the vulnerability scanner reports a vulnerability that does not actually exist.",
+      "image_referenced": false
+    },
+    {
+      "n": 6,
+      "stem": "Brian ran a penetration test against a school’s grading system and discovered a flaw that would allow students to alter their grades by exploiting a SQL injection vulnerability. What type of control should he recommend to the school’s cybersecurity team to prevent students from engaging in this type of activity?",
+      "options": {
+        "A": "Confidentiality",
+        "B": "Integrity",
+        "C": "Alteration",
+        "D": "Availability"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Integrity"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "By allowing students to change their own grades, this vulnerability provides a pathway to unauthorized alteration of information. Brian should recommend that the school deploy integrity controls that prevent unauthorized modifications.",
+      "image_referenced": false
+    },
+    {
+      "n": 7,
+      "stem": "Which one of the following security assessment tools is least likely to be used during the reconnaissance phase of a penetration test?",
+      "options": {
+        "A": "Nmap",
+        "B": "Nessus",
+        "C": "Metasploit",
+        "D": "Nslookup"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Metasploit"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Nmap is a port scanning tool used to enumerate open network ports on a system. Nessus is a vulnerability scanner designed to detect security issues on a system. Nslookup is a DNS information gathering utility. All three of these tools may be used to gather information and detect vulnerabilities. Metasploit is an exploitation framework used to execute and attack and would be better suited for the Attacking and Exploiting phase of a penetration test.",
+      "image_referenced": false
+    },
+    {
+      "n": 8,
+      "stem": "During a vulnerability scan, Brian discovered that a system on his network contained this vulnerability:\n\n\n\n\nWhat security control, if deployed, would likely have addressed this issue?",
+      "options": {
+        "A": "Patch management",
+        "B": "File integrity monitoring",
+        "C": "Intrusion detection",
+        "D": "Threat hunting"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Patch management"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "This vulnerability is corrected by a patch that was released by Microsoft in 2017. A strong patch management program would have identified and remediated the missing patch.",
+      "image_referenced": true,
+      "notes": "Question references one or more images embedded in the stem.",
+      "image_urls": [
+        "https://epdc.wiley.com/pub/images/88d08111-79d2-4314-959b-4289b37f88e2"
+      ]
+    },
+    {
+      "n": 9,
+      "stem": "Which one of the following tools is most likely to detect an XSS vulnerability?",
+      "options": {
+        "A": "Static application test",
+        "B": "Web application vulnerability scanner",
+        "C": "Intrusion detection system",
+        "D": "Network vulnerability scanner"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Web application vulnerability scanner"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Intrusion detection systems do not detect vulnerabilities; they detect attacks. The remaining three tools could all possibly discover a cross‐site scripting (XSS) vulnerability, but a web application vulnerability scanner is the most likely to detect it because it is specifically designed to test web applications.",
+      "image_referenced": false
+    },
+    {
+      "n": 10,
+      "stem": "During a penetration test, Patrick deploys a toolkit on a compromised system and uses it to gain access to other systems on the same network. What term best describes this activity?",
+      "options": {
+        "A": "Lateral movement",
+        "B": "Privilege escalation",
+        "C": "Footprinting",
+        "D": "OSINT"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Lateral movement"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Moving from one compromised system to other systems on the same network is known as lateral movement. Privilege escalation attacks increase the level of access that an attacker has to an already compromised system. Footprinting and OSINT are reconnaissance techniques.",
+      "image_referenced": false
+    },
+    {
+      "n": 11,
+      "stem": "Zian is a cybersecurity leader who is coordinating the activities of a security audit. The audit is being done to validate the organization’s financial statements to investors and involves a review of cybersecurity controls. What term best describes this audit?",
+      "options": {
+        "A": "External audit",
+        "B": "Penetration test",
+        "C": "Internal audit",
+        "D": "Informal audit"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "External audit"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Audits performed to validate an organization’s financial statements are very formal audits that are performed by independent third‐party auditors. This makes them external audits. Internal audits may be more or less formal than external audits but they are generally done only to provide assurance to internal parties and not to investors. Penetration tests may be done as part of an audit but they are not audits themselves.",
+      "image_referenced": false
+    },
+    {
+      "n": 12,
+      "stem": "Which one of the following assessment techniques is designed to solicit participation from external security experts and reward them for discovering vulnerabilities?",
+      "options": {
+        "A": "Threat hunting",
+        "B": "Penetration testing",
+        "C": "Bug bounty",
+        "D": "Vulnerability scanning"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Bug bounty"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Bug bounty programs are designed to allow external security experts to test systems and uncover previously unknown vulnerabilities. Bug bounty programs offer successful testers financial rewards to incentivize their participation.",
+      "image_referenced": false
+    },
+    {
+      "n": 13,
+      "stem": "Kyle is conducting a penetration test. After gaining access to an organization’s database server, he installs a backdoor on the server to grant himself access in the future. What term best describes this action?",
+      "options": {
+        "A": "Privilege escalation",
+        "B": "Lateral movement",
+        "C": "Maneuver",
+        "D": "Persistence"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Persistence"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Backdoors are a persistence tool, designed to make sure that the attacker’s access persists after the original vulnerability is remediated. Kyle can use this backdoor to gain access to the system in the future, even if the original exploit that he used to gain access is no longer effective.",
+      "image_referenced": false
+    },
+    {
+      "n": 14,
+      "stem": "Which one of the following techniques would be considered passive reconnaissance?",
+      "options": {
+        "A": "Port scans",
+        "B": "Vulnerability scans",
+        "C": "WHOIS lookups",
+        "D": "Footprinting"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "WHOIS lookups"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "WHOIS lookups use external registries and are an example of open source intelligence (OSINT), which is a passive reconnaissance technique. Port scans, vulnerability scans, and footprinting all require active engagement with the target and are, therefore, active reconnaissance.",
+      "image_referenced": false
+    },
+    {
+      "n": 15,
+      "stem": "Which element of the SCAP framework can be used to consistently describe vulnerabilities?",
+      "options": {
+        "A": "CPE",
+        "B": "CVE",
+        "C": "CVSS",
+        "D": "CCE"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "CVE"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Common Vulnerabilities and Exposures (CVE) provides a standard nomenclature for describing security‐related software flaws. Common Platform Enumeration (CPE) provides a standard nomenclature for describing product names and versions. The Common Vulnerability Scoring System (CVSS) provides a standardized approach for measuring and describing the severity of security‐related software flaws. Common Configuration Enumeration (CCE) provides a standard nomenclature for discussing system configuration issues.",
+      "image_referenced": false
+    },
+    {
+      "n": 16,
+      "stem": "Bruce is conducting a penetration test for a client. The client provided him with full details of their systems in advance. What type of test is Bruce conducting?",
+      "options": {
+        "A": "Partially known environment test",
+        "B": "Detailed environment test",
+        "C": "Known environment test",
+        "D": "Unknown environment test"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Known environment test"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Known environment tests are performed with full knowledge of the underlying technology, configurations, and settings that make up the target. Unknown environment tests are intended to replicate what an attacker would encounter. Testers are not provided with access to or information about an environment, and instead, they must gather information, discover vulnerabilities, and make their way through an infrastructure or systems like an attacker would. Partially known environment tests are a blend of unknown environment and known environment testing. Detailed environment tests are not a type of penetration test.",
+      "image_referenced": false
+    },
+    {
+      "n": 17,
+      "stem": "Lila is working on a penetration testing team and she is unsure whether she is allowed to conduct social engineering as part of the test. What document should she consult to find this information?",
+      "options": {
+        "A": "Contract",
+        "B": "Statement of work",
+        "C": "Rules of engagement",
+        "D": "Lessons learned report"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Rules of engagement"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The rules of engagement provide technical details on the parameters of the test. This level of detail would not normally be found in a contract or statement of work (SOW). The lessons learned report is not produced until after the test.",
+      "image_referenced": false
+    },
+    {
+      "n": 18,
+      "stem": "Grace would like to determine the operating system running on a system that she is targeting in a penetration test. Which one of the following techniques will most directly provide her with this information?",
+      "options": {
+        "A": "Port scanning",
+        "B": "Footprinting",
+        "C": "Vulnerability scanning",
+        "D": "Packet capture"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Footprinting"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "All of these techniques might provide Grace with information about the operating system running on a device. However, footprinting is a technique specifically designed to elicit this information.",
+      "image_referenced": false
+    },
+    {
+      "n": 19,
+      "stem": "Kevin recently identified a new security vulnerability and computed its CVSS base score as 6.5. Which risk category would this vulnerability fall into?",
+      "options": {
+        "A": "Low",
+        "B": "Medium",
+        "C": "High",
+        "D": "Critical"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Medium"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Vulnerabilities with CVSS base scores between 4.0 and 6.9 fit into the medium risk category. Vulnerability scores between 0.1 and 3.9 would be low, between 7.0 and 8.9 would be high, and those between 9.0 and 10.0 would be in the critical risk category.",
+      "image_referenced": false
+    },
+    {
+      "n": 20,
+      "stem": "Which one of the CVSS metrics would contain information about the type of account access that an attacker must have to execute an attack?",
+      "options": {
+        "A": "AV",
+        "B": "C",
+        "C": "PR",
+        "D": "AC"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "PR"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The privileges required (PR) metric indicates the type of system access that an attacker must have to execute the attack.",
+      "image_referenced": false
+    }
+  ]
+}

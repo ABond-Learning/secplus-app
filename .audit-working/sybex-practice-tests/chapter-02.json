@@ -1,0 +1,380 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 2: Cybersecurity Threat Landscape",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 454.8,
+    "average_per_question_seconds": 22.7
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Which of the following measures is not commonly used to assess threat intelligence?",
+      "options": {
+        "A": "Timeliness",
+        "B": "Detail",
+        "C": "Accuracy",
+        "D": "Relevance"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Detail"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Although higher levels of detail can be useful, they aren’t a common measure used to assess threat intelligence. Instead, the timeliness, accuracy, and relevance of the information are considered critical to determining whether you should use the threat information.",
+      "image_referenced": false
+    },
+    {
+      "n": 2,
+      "stem": "Which one of the following motivations is most commonly attributed to hacktivists?",
+      "options": {
+        "A": "War",
+        "B": "Financial gain",
+        "C": "Political/philosophical beliefs",
+        "D": "Ethical"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Political/philosophical beliefs"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Hacktivists are defined by the motivation behind their actions—advancing their political or philosophical beliefs. They engage in cyberattacks that they believe will advance their causes.",
+      "image_referenced": false
+    },
+    {
+      "n": 3,
+      "stem": "Kolin is a penetration tester who works for a cybersecurity company. His firm was hired to conduct a penetration test against a health-care system, and Kolin is working to gain access to the systems belonging to a hospital in that system. What term best describes Kolin’s work?",
+      "options": {
+        "A": "Authorized attacker",
+        "B": "Unauthorized attacker",
+        "C": "Unknown attacker",
+        "D": "Semi-authorized attacker"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Authorized attacker"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Attacks that are conducted as part of an authorized penetration test are white-hat hacking attacks, regardless of whether they are conducted by internal employees or an external firm. Kolin is, therefore, engaged in white-hat hacking.",
+      "image_referenced": false
+    },
+    {
+      "n": 4,
+      "stem": "Which one of the following attackers is most likely to be associated with an APT?",
+      "options": {
+        "A": "Nation-state actor",
+        "B": "Hacktivist",
+        "C": "Unskilled",
+        "D": "Insider"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Nation-state actor"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Advanced persistent threats (APTs) are most commonly associated with nation-state actors. It is unlikely that an APT group would leverage the unsophisticated services of an unskilled script kiddie type attacker.",
+      "image_referenced": false
+    },
+    {
+      "n": 5,
+      "stem": "Which organization did the U.S. government help create to share knowledge between organizations in specific verticals?",
+      "options": {
+        "A": "DHS",
+        "B": "SANS",
+        "C": "CERTS",
+        "D": "ISACs"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "ISACs"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The U.S. government created the Information Sharing and Analysis Centers (ISACs). ISACs help infrastructure owners and operators share threat information, and provide tools and assistance to their members.",
+      "image_referenced": false
+    },
+    {
+      "n": 6,
+      "stem": "Which of the following threat actors typically has the greatest access to resources?",
+      "options": {
+        "A": "Nation-state actors",
+        "B": "Organized crime",
+        "C": "Hacktivists",
+        "D": "Insider threats"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Nation-state actors"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Nation-state actors are government sponsored, and they typically have the greatest access to resources, including tools, money, and talent.",
+      "image_referenced": false
+    },
+    {
+      "n": 7,
+      "stem": "Of the threat vectors shown here, which one is most commonly exploited by attackers who are at a distant location?",
+      "options": {
+        "A": "Email",
+        "B": "Direct access",
+        "C": "Wireless",
+        "D": "Removable media"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Email"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Email is the most common threat vector exploited by attackers who use phishing and other social engineering tactics to gain access to an organization. The other vectors listed here, direct access, wireless, and removable media, all require physical proximity to an organization and are not easily executed from a remote location.",
+      "image_referenced": false
+    },
+    {
+      "n": 8,
+      "stem": "Which one of the following is the best example of a hacktivist group?",
+      "options": {
+        "A": "Chinese military",
+        "B": "U.S. government",
+        "C": "Russian mafia",
+        "D": "Anonymous"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Anonymous"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The Chinese military and U.S. government are examples of nation-state actors and advanced persistent threats (APTs). The Russian mafia is an example of a criminal syndicate. Anonymous is the world’s most prominent hacktivist group.",
+      "image_referenced": false
+    },
+    {
+      "n": 9,
+      "stem": "What type of assessment is particularly useful for identifying insider threats?",
+      "options": {
+        "A": "Behavioral",
+        "B": "Instinctual",
+        "C": "Habitual",
+        "D": "IoCs"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Behavioral"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Behavioral assessments are very useful when you are attempting to identify insider threats. Since insider threats are often hard to distinguish from normal behavior, the context of the actions performed—such as after-hours logins, misuse of credentials, logins from abnormal locations, or abnormal patterns—and other behavioral indicators are often used.",
+      "image_referenced": false
+    },
+    {
+      "n": 10,
+      "stem": "Cindy is concerned that her organization may be targeted by a supply chain attack and is conducting a review of all of her vendor and supplier partners. Which one of the following organizations is least likely to be the conduit for a supply chain attack?",
+      "options": {
+        "A": "Hardware provider",
+        "B": "Software provider",
+        "C": "Managed service provider",
+        "D": "Talent provider"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Talent provider"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Supply chain attacks are typically associated with vendors and suppliers that provide technology infrastructure or services that may be compromised. This would include hardware and software providers as well as managed service providers (MSPs). Talent providers, who help with staffing solutions, are generally not considered common avenues for supply chain attacks.",
+      "image_referenced": false
+    },
+    {
+      "n": 11,
+      "stem": "Greg believes that an attacker may have installed malicious firmware in a network device before it was provided to his organization by the supplier. What type of threat vector best describes this attack?",
+      "options": {
+        "A": "Supply chain",
+        "B": "Removable media",
+        "C": "Cloud",
+        "D": "Direct access"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Supply chain"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Tampering with equipment before it reaches the intended user is an example of a supply chain threat. It is also possible to describe this attack as a direct access attack because it involved physical access to the device, but supply chain is a more relevant answer.",
+      "image_referenced": false
+    },
+    {
+      "n": 12,
+      "stem": "Ken is conducting threat research on Transport Layer Security (TLS) and would like to consult the authoritative reference for the protocol’s technical specification. What resource would best meet his needs?",
+      "options": {
+        "A": "Academic journal",
+        "B": "Internet RFCs",
+        "C": "Subject matter experts",
+        "D": "Textbooks"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Internet RFCs"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "All of these resources might contain information about the technical details of TLS, but Internet Request for Comments (RFC) documents are the definitive technical standards for Internet protocols. Consulting the RFCs would be Ken’s best option.",
+      "image_referenced": false
+    },
+    {
+      "n": 13,
+      "stem": "Wendy is scanning cloud-based repositories for sensitive information. Which one of the following should concern her most, if discovered in a public repository?",
+      "options": {
+        "A": "Product manuals",
+        "B": "Source code",
+        "C": "API keys",
+        "D": "Open source data"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "API keys"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "All of these items could be concerning, depending on the circumstances. However, API keys should never be found in public repositories because they may grant unauthorized individuals access to information and resources.",
+      "image_referenced": false
+    },
+    {
+      "n": 14,
+      "stem": "Which one of the following threat research tools is used to visually display information about the location of threat actors?",
+      "options": {
+        "A": "Threat map",
+        "B": "Predictive analysis",
+        "C": "Vulnerability feed",
+        "D": "STIX"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Threat map"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Threat maps are graphical tools that display information about the geographic locations of attackers and their targets. These tools are most often used as interesting marketing gimmicks, but they can also help identify possible threat sources.",
+      "image_referenced": false
+    },
+    {
+      "n": 15,
+      "stem": "Vince recently received the hash values of malicious software that several other firms in his industry found installed on their systems after a compromise. What term best describes this information?",
+      "options": {
+        "A": "Vulnerability feed",
+        "B": "IoC",
+        "C": "TTP",
+        "D": "RFC"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "IoC"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Specific details of attacks that may be used to identify compromises are known as indicators of compromise (IoCs). This data may also be described as an adversary tactics, techniques, and procedures (TTP), but the fact that it is a set of file signatures makes it more closely match the definition of an IoC.",
+      "image_referenced": false
+    },
+    {
+      "n": 16,
+      "stem": "Ursula recently discovered that a group of developers are sharing information over a messaging tool provided by a cloud vendor but not sanctioned by her organization. What term best describes this use of technology?",
+      "options": {
+        "A": "Shadow IT",
+        "B": "System integration",
+        "C": "Vendor management",
+        "D": "Data exfiltration"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Shadow IT"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The developers in question are using unapproved technology for business purposes. This is the classic definition of shadow IT. It is possible to describe this as data exfiltration, but there is no indication that the data security has been compromised, so shadow IT is a better description here.",
+      "image_referenced": false
+    },
+    {
+      "n": 17,
+      "stem": "Tom’s organization recently learned that the vendor is discontinuing support for their customer relationship management (CRM) system. What should concern Tom the most from a security perspective?",
+      "options": {
+        "A": "Unavailability of future patches",
+        "B": "Lack of technical support",
+        "C": "Theft of customer information",
+        "D": "Increased costs"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Unavailability of future patches"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Tom’s greatest concern should be that running unsupported software exposes his organization to the risk of new, unpatchable vulnerabilities. It is certainly true that they will no longer receive technical support, but this is a less important issue from a security perspective.",
+      "image_referenced": false
+    },
+    {
+      "n": 18,
+      "stem": "Which one of the following information sources would not be considered an OSINT source?",
+      "options": {
+        "A": "DNS lookup",
+        "B": "Search engine research",
+        "C": "Port scans",
+        "D": "WHOIS queries"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Port scans"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Port scans are an active reconnaissance technique that probe target systems and would not be considered open source intelligence (OSINT). Search engine research, DNS lookups, and WHOIS queries are all open source resources.",
+      "image_referenced": false
+    },
+    {
+      "n": 19,
+      "stem": "Edward Snowden was a government contractor who disclosed sensitive government documents to journalists to uncover what he believed were unethical activities. Which of the following terms best describe Snowden’s activities? (Choose two.)",
+      "options": {
+        "A": "Insider",
+        "B": "State actor",
+        "C": "Hacktivist",
+        "D": "APT",
+        "E": "Organized crime"
+      },
+      "correct": {
+        "letter": "A,C",
+        "text": "Insider; Hacktivist"
+      },
+      "my_guess": "D,E",
+      "guess_matched_correct": false,
+      "explanation": "As a government contractor, Snowden had authorized access to classified information and exploited this access to make an unauthorized disclosure of that information. This clearly makes him fit into the category of an insider. He did so with political motivations, making him fit the category of hacktivist as well.",
+      "image_referenced": false,
+      "notes": "Choose-two question with 5 options A–E"
+    },
+    {
+      "n": 20,
+      "stem": "Renee is a cybersecurity hobbyist. She receives an email about a new web-based grading system being used by her son’s school and she visits the site. She notices that the URL contains her son’s student ID as a parameter; she then enumerates nearby IDs to access other students’ records, then immediately informs the school principal. What term best describes Renee’s work?",
+      "options": {
+        "A": "Authorized hacking",
+        "B": "Unknown hacking",
+        "C": "Semi-authorized hacking",
+        "D": "Unauthorized hacking"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Semi-authorized hacking"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Renee was not authorized to perform this security testing, so her work does not fit into the category of white-hat hacking, or authorized hacking. However, she also does not have malicious intent, so her work cannot be categorized as an unauthorized, or black-hat attack. Instead, it fits somewhere in between the two extremes and would best be described as semi-authorized, or gray-hat hacking.",
+      "image_referenced": false,
+      "notes": "Stem condensed; original included literal URLs with query strings that tripped the JS extractor’s safety filter"
+    }
+  ]
+}

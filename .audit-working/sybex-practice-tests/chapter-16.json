@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 16: Security Governance and Compliance",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 45,
+    "average_per_question_seconds": 2.25
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Joe is authoring a document that explains to system administrators one way in which they might comply with the organization’s requirement to encrypt all laptops. What type of document is Joe writing?",
+      "options": {
+        "A": "Policy",
+        "B": "Guideline",
+        "C": "Procedure",
+        "D": "Standard"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Guideline"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "The key phrase in this scenario is “one way.” This indicates that compliance with the document is not mandatory, so Joe must be authoring a guideline. Policies, standards, and procedures are all mandatory.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "Which one of the following statements is not true about compensating controls under PCI DSS?",
+      "options": {
+        "A": "Controls used to fulfill one PCI DSS requirement may be used to compensate for the absence of a control needed to meet another requirement.",
+        "B": "Controls must meet the intent of the original requirement.",
+        "C": "Controls must meet the rigor of the original requirement.",
+        "D": "Compensating controls must provide a similar level of defense as the original requirement."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Controls used to fulfill one PCI DSS requirement may be used to compensate for the absence of a control needed to meet another requirement."
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "PCI DSS compensating controls must be “above and beyond” other PCI DSS requirements. This specifically bans the use of a control used to meet one requirement as a compensating control for another requirement.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "What law creates privacy obligations for those who handle the personal information of European Union residents?",
+      "options": {
+        "A": "HIPAA",
+        "B": "FERPA",
+        "C": "GDPR",
+        "D": "PCI DSS"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "GDPR"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The General Data Protection Regulation (GDPR) implements privacy requirements for handling the personal information of EU residents. The Health Insurance Portability and Accountability Act (HIPAA) includes security and privacy rules that affect health‐care providers, health insurers, and health information clearinghouses. The Family Educational Rights and Privacy Act (FERPA) applies to educational institutions. The Payment Card Industry Data Security Standard (PCI DSS) applies to credit and debit card information.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Which one of the following is not one of the five core security functions defined by the NIST Cybersecurity Framework?",
+      "options": {
+        "A": "Identify",
+        "B": "Contain",
+        "C": "Respond",
+        "D": "Recover"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Contain"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The five security functions described in the NIST Cybersecurity Framework are identify, protect, detect, respond, and recover.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "What ISO standard provides guidance on privacy controls?",
+      "options": {
+        "A": "27002",
+        "B": "27001",
+        "C": "27701",
+        "D": "31000"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "27701"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The International Organization for Standardization (ISO) publishes ISO 27701, covering privacy controls. ISO 27001 and 27002 cover cybersecurity, and ISO 31000 covers risk management.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Which one of the following documents must normally be approved by the CEO or similarly high‐level executive?",
+      "options": {
+        "A": "Standard",
+        "B": "Procedure",
+        "C": "Guideline",
+        "D": "Policy"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Policy"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Policies require approval from the highest level of management, usually the CEO. Other documents may often be approved by other managers, such as the CISO.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Greg would like to create an umbrella agreement that provides the security terms and conditions for all future work that his organization does with a vendor. What type of agreement should Greg use?",
+      "options": {
+        "A": "BPA",
+        "B": "MOU",
+        "C": "MSA",
+        "D": "SLA"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "MSA"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Master service agreements (MSAs) provide an umbrella contract for the work that a vendor does with an organization over an extended period of time. The MSA typically includes detailed security and privacy requirements. Each time the organization enters into a new project with the vendor, they may then create a statement of work (SOW) that contains project‐specific details and references the MSA.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "What organization is known for creating independent security benchmarks covering hardware and software platforms from many different vendors?",
+      "options": {
+        "A": "Microsoft",
+        "B": "Center for Internet Security",
+        "C": "Cloud Security Alliance",
+        "D": "Cisco"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Center for Internet Security"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "All of these organizations produce security standards and benchmarks. However, only the Center for Internet Security (CIS) is known for producing independent benchmarks covering a wide variety of software and hardware.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "What do many organizations use to schedule and coordinate changes for information systems?",
+      "options": {
+        "A": "Impact analysis",
+        "B": "Backout plans",
+        "C": "Maintenance windows",
+        "D": "Version control"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Maintenance windows"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Many organizations use scheduled maintenance windows to coordinate changes to information systems. These windows are preplanned and announced times when all non‐emergency changes will take place and often occur on evenings and weekends. A change management process ensures that personnel can perform a security impact analysis. Experts evaluate changes to identify any security impacts before personnel deploy the changes in a production environment. A backout plan allows personnel to undo the change and return the system to its previous state if necessary. Version control ensures that developers and users have access to the latest versions of software and that changes are carefully managed throughout the release process.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Which one of the following would not normally be found in an organization’s information security policy?",
+      "options": {
+        "A": "Statement of the importance of cybersecurity",
+        "B": "Requirement to use AES‐256 encryption",
+        "C": "Delegation of authority",
+        "D": "Designation of responsible executive"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Requirement to use AES‐256 encryption"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Security policies do not normally contain prescriptive technical guidance, such as a requirement to use a specific encryption algorithm. This type of detail would normally be found in a security standard.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "Alice, an IT security manager at Acme Corporation, decides to conduct an exercise to test the employees’ ability to recognize phishing emails. She creates fake phishing messages and sends them to the employees. When employees click on the links in the fake messages, they are redirected to a training program. What is the primary purpose of the exercise that Alice is conducting?",
+      "options": {
+        "A": "To penalize the employees who click on the phishing links",
+        "B": "To reward employees who identify the fake phishing messages",
+        "C": "To test employees’ ability to recognize phishing messages and help them improve",
+        "D": "To gather data for a report on the most gullible departments"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "To test employees’ ability to recognize phishing messages and help them improve"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Alice’s exercise is designed to evaluate how well employees can identify phishing messages and, if they fail to do so, redirect them to a training program that is meant to help them get better at recognizing such messages. The exercise is meant for educational purposes and not for penalizing employees. It is intended to help them improve their skills in recognizing phishing emails. While rewarding employees for identifying phishing emails could be a component of a security awareness program, the exercise described is primarily educational and is focused on helping those who fail to recognize the phishing messages. While data might be collected for analysis and understanding areas where improvement is needed, the intention is not to label departments as gullible.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "Tonya discovers that an employee is running a side business from his office, using company technology resources. What policy would most likely contain information relevant to this situation?",
+      "options": {
+        "A": "NDA",
+        "B": "AUP",
+        "C": "Data ownership",
+        "D": "Data classification"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "AUP"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "An organization’s acceptable use policy (AUP) should contain information on what constitutes allowable and unallowable use of company resources. This policy should contain information to help guide Tonya’s next steps.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "What compliance obligation applies to merchants and service providers who work with credit card information?",
+      "options": {
+        "A": "FERPA",
+        "B": "SOX",
+        "C": "HIPAA",
+        "D": "PCI DSS"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "PCI DSS"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The Payment Card Industry Data Security Standard (PCI DSS) provides detailed rules about the storage, processing, and transmission of credit and debit card information. PCI DSS is not a law but rather a contractual obligation that applies to credit card merchants and service providers.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "Mike is an information security manager at TechRise Solutions. The company has been experiencing an increase in security incidents, and senior management is concerned about the security posture of the organization. They have asked Mike to take proactive measures to strengthen the company’s security culture. What should be Mike’s primary role in enhancing the security awareness and training at TechRise Solutions?",
+      "options": {
+        "A": "To delegate all security responsibilities to the HR department",
+        "B": "To establish, promote, and maintain security training and awareness programs",
+        "C": "To create and distribute security awareness posters",
+        "D": "To personally conduct security training sessions for all employees"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "To establish, promote, and maintain security training and awareness programs"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "As an information security manager, Mike’s primary role would be to establish an effective security training and awareness program, promote it within the organization, and ensure it is maintained effectively to foster a security‐conscious culture among employees. This aligns with a proactive approach to reducing security incidents.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "Colin would like to implement a security control in his accounting department that is specifically designed to detect cases of fraud that are able to occur despite the presence of other security controls. Which one of the following controls is best suited to meet Colin’s need?",
+      "options": {
+        "A": "Separation of duties",
+        "B": "Least privilege",
+        "C": "Dual control",
+        "D": "Mandatory vacations"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Mandatory vacations"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Mandatory vacations are designed to force individuals to take time away from the office to allow fraudulent activity to come to light in their absence. The other controls listed here (separation of duties, least privilege, and dual control) are all designed to prevent, rather than detect, fraud.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Which one of the following security policy framework components does not contain mandatory guidance for individuals in the organization?",
+      "options": {
+        "A": "Policy",
+        "B": "Standard",
+        "C": "Procedure",
+        "D": "Guideline"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Guideline"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Guidelines are the only element of the security policy framework that is optional. Compliance with policies, standards, and procedures is mandatory.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "Rachel is the Head of Security at WebCraft Inc. She wants to create both security training and awareness programs. Which statement best captures the difference between these programs?",
+      "options": {
+        "A": "Security training requires time to learn new material, whereas awareness efforts use techniques like posters and emails to remind employees of security lessons.",
+        "B": "Security training involves giving rewards to employees, whereas awareness efforts involve punishments.",
+        "C": "There is no difference; both terms can be used interchangeably.",
+        "D": "Security training is for security team members only, whereas security awareness is for all employees."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Security training requires time to learn new material, whereas awareness efforts use techniques like posters and emails to remind employees of security lessons."
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Security training typically involves structured and formal programs where employees learn new security concepts and practices. In contrast, security awareness efforts are more informal and aim to keep security principles top‐of‐mind for employees through reminders, without requiring them to engage in formal learning.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Allan is developing a document that lists the acceptable mechanisms for securely obtaining remote administrative access to servers in his organization. What type of document is Allan writing?",
+      "options": {
+        "A": "Policy",
+        "B": "Standard",
+        "C": "Guideline",
+        "D": "Procedure"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Standard"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Standards describe specific security controls that must be in place for an organization. Allan would not include acceptable mechanisms in a high‐level policy document, and this information is too general to be useful as a procedure. Guidelines are not mandatory, so they would not be applicable in this scenario.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "Which one of the following is not a common use of the NIST Cybersecurity Framework?",
+      "options": {
+        "A": "Describe the current cybersecurity posture of an organization.",
+        "B": "Describe the target future cybersecurity posture of an organization.",
+        "C": "Communicate with stakeholders about cybersecurity risk.",
+        "D": "Create specific technology requirements for an organization."
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Create specific technology requirements for an organization."
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "The NIST Cybersecurity Framework is designed to help organizations describe their current cybersecurity posture, describe their target state for cybersecurity, identify and prioritize opportunities for improvement, assess progress, and communicate with stakeholders about risk. It does not create specific technology requirements.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "Which one of the following items is not normally included in a request for an exception to security policy?",
+      "options": {
+        "A": "Description of a compensating control",
+        "B": "Description of the risks associated with the exception",
+        "C": "Proposed revision to the security policy",
+        "D": "Business justification for the exception"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Proposed revision to the security policy"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Requests for an exception to a security policy would not normally include a proposed revision to the policy. Exceptions are documented variances from the policy because of specific technical and/or business requirements. They do not alter the original policy, which remains in force for systems not covered by the exception.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

@@ -1,0 +1,1727 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Practice Exam 1",
+    "total_questions": 90,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/90 Correct",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 376,
+    "average_per_question_seconds": 4.18
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "One of Murali’s staff members has malware on their PC. They claim that they downloaded only a spreadsheet tool, and not malware. What type of malware have they encountered if the malware was designed to look legitimate but was actually malicious?",
+      "options": {
+        "A": "A worm",
+        "B": "A virus",
+        "C": "A Trojan",
+        "D": "A rootkit"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "A Trojan"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Trojans, or Trojan horses, are malware designed to appear legitimate but that are actually malicious. Viruses require human interaction to spread, whereas worms propagate on their own via networks, often targeting vulnerable services. Rootkits help attackers obtain and maintain persistent access to systems.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "The authentication token that Susan uses generates codes based on an algorithm that relies on the current time. What type of token does Susan have?",
+      "options": {
+        "A": "HOTP",
+        "B": "Timestamp",
+        "C": "TOTP",
+        "D": "Time offset"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "TOTP"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Susan has a time‐based OTP (TOTP) token. HMAC‐based one‐time password (HOTP) tokens use a mathematical function that increments based on an event such as the click of a button. Time stamp and time offset are used for forensic and log analysis but are not types of tokens.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "What of the following would best allow you to quickly summarize key risk indicators in real time for management using graphs and charts?",
+      "options": {
+        "A": "Regular updates",
+        "B": "Dashboard reporting",
+        "C": "Risk trend analysis",
+        "D": "Risk event reports"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Dashboard reporting"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Dashboard reporting utilizes visual aids like graphs and charts to summarize risk data, usually in real time. This allows for a quick understanding and monitoring of key risk indicators. Regular updates are routine reports that provide stakeholders with the status of risks, the effectiveness of controls, and any recent changes or developments. Risk trend analysis reporting involves analyzing historical data to identify patterns or trends in the risks faced by the organization. Risk event reports focus on documenting specific risk events, such as security breaches or incidents, their impacts, and the responses taken.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Madhuri receives a text message asking her to contact the IRS due to unpaid taxes. When she calls the number in the text message, the person on the other end of the line attempts to get her to disclose her bank account number, Social Security number, and other personal information. What type of attack is this?",
+      "options": {
+        "A": "Vishing",
+        "B": "Phishing",
+        "C": "Spearphishing",
+        "D": "Smishing"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Smishing"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Smishing is phishing over SMS or text messages. Phishing is typically done via email, whereas vishing is conducted via the phone. Spearphishing is done via email and specifically targeted at individuals or small groups.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "Gabby’s organization captures sensitive customer information. Sales representatives and others often work with that data on local workstations and laptops. After a recent inadvertent data breach where a salesperson accidentally sent a spreadsheet of customer information to another customer, the organization is seeking a technology solution that can help prevent similar problems. What should Gabby recommend?",
+      "options": {
+        "A": "IDS",
+        "B": "FSB",
+        "C": "DLP",
+        "D": "FDE"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "DLP"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Data loss prevention (DLP) can tag sensitive data and then scan outbound communications for that data. Once tagged data or data that matches specific patterns such as credit card numbers or Social Security numbers is discovered, DLP can alert the user or take other action. An intrusion detection system (IDS) detects inbound traffic patterns but cannot stop an outbound email. FSB is not a security term, and full‐disk encryption (FDE) can help prevent data loss if a system is lost or stolen.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Fred wants to implement trusted boot and knows that he needs to make sure that his workstations and laptops have the appropriate hardware to support it. What hardware should he ensure is built into the systems he is purchasing?",
+      "options": {
+        "A": "TPM",
+        "B": "HSM",
+        "C": "IPS",
+        "D": "NGFW"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "TPM"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "A Trusted Platform Module (TPM) is used by UEFI as part of the boot process to validate the boot objects and programs or to document what is started so that boot attestation can occur. A hardware security module (HSM) is used to create, store, and manage encryption keys and certificates. An intrusion prevention system (IPS) and a next‐generation firewall (NGFW) are both network security devices.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Sarah is a cybersecurity analyst at a growing e‐commerce company. She’s tasked with enhancing the company’s email security measures. The management wants to ensure that email messages from their domain are verified for their authenticity and can’t be tampered with, and that other sites know how to handle emails from their domain. Which protocol(s) should Sarah deploy?",
+      "options": {
+        "A": "SPF only",
+        "B": "DKIM only",
+        "C": "SPF and DKIM",
+        "D": "SPF, DKIM, and DMARC"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "SPF, DKIM, and DMARC"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "These three protocols work together to secure email. SPF (Sender Protection Framework) allows domain owners to specify which mail servers can send messages from their domain, reducing email spoofing. DKIM (DomainKeys Identified Mail) uses digital signatures to verify the authenticity of email messages, making sure they haven’t been tampered with. DMARC (Domain‐based Message Authentication, Reporting, and Conformance) ties together SPF and DKIM and allows the domain owner to specify their usage and dictate policies for handling emails from their domain. By implementing all three, Sarah can achieve the company’s email security objectives.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "Terry wants to prevent her users from installing specific games on her organization’s computers. Which feature can she use to prevent known applications from being installed?",
+      "options": {
+        "A": "Application deny list",
+        "B": "HIDS",
+        "C": "Application allow list",
+        "D": "HIPS"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Application deny list"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "An application deny list feature blocks specific applications or files from being run or installed on a computer. An application allow list allows for the installation and running of the specified applications or files that are allowed. A host intrusion detection or prevention system will not prevent application installation.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "Susan is designing the physical security controls for her organization’s new building. She would like to ensure that the front doors are protected from a vehicle being used to ram through them. Which physical security control can Susan effectively utilize?",
+      "options": {
+        "A": "A moat",
+        "B": "A wall",
+        "C": "Bollards",
+        "D": "A fence"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Bollards"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Bollards are pillars or other structures placed in designated locations to prevent vehicles from passing through an area. Whereas many bollards look like metal poles or concrete pillars, planters, large boulders, and other structures can also serve as bollards. A moat is not a typical security control unless your organization has a castle, and walls and fences are more frequently used to prevent access by people.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Isaac needs to sanitize an SSD that uses full‐disk encryption and that has been encrypted for its full service life with the company he works for. What is the most effective means of making the data on the SSD no longer retrievable?",
+      "options": {
+        "A": "Completely overwrite the drive with binary 0s.",
+        "B": "Reformat the drive using a full format.",
+        "C": "Completely overwrite the drive with random patterns of binary 1s and 0s.",
+        "D": "Destroy the encryption key for the drive and then use the SATA secure erase command."
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Destroy the encryption key for the drive and then use the SATA secure erase command."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Isaac can simply destroy all copies of the encryption key for the drive to make the data very difficult to access. Using the built‐in secure erase command will ensure that the data is no longer recoverable under any normal circumstances. Overwriting SSDs and other flash media that are overprovisioned with additional space for wear leveling purposes is likely to miss remnant data in spare or replaced space. Formatting a drive simply removes the file indices and does not remove the data.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "Tom has documented the set of security settings and procedures used to configure systems before they are deployed in his organization. What industry term describes this sort of documentation?",
+      "options": {
+        "A": "A lockdown guide",
+        "B": "A config FAQ",
+        "C": "A secure baseline",
+        "D": "A nonrepudiation guide"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "A secure baseline"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Secure baselines are used to document the settings and procedures used to configure systems or devices. The other answer choices are not common industry terms.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "Lucca needs to make a forensic copy of a Linux system. What built‐in Linux command‐line tool can she use for that purpose?",
+      "options": {
+        "A": "dd",
+        "B": "md5sum",
+        "C": "cat",
+        "D": "grep"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "dd"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "The Linux dd command can be used to make a complete copy of a disk or volume. Since it is built into most Linux distributions, it is a handy way to make a copy. Once she is done, Lucca should use the shasum command to hash the copy and the original to validate her copying process. None of the other commands can be used to duplicate a disk.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "What is the virtual IP for a load balancer used for?",
+      "options": {
+        "A": "It is the IP address used inside the load balancer to communicate with the load‐balanced systems.",
+        "B": "It is the front‐facing IP address for the load‐balancing instance.",
+        "C": "It is the nonroutable IP address used for the load balancer that allows it to look like many systems.",
+        "D": "It is the set of TCP ports used to allow systems to be identified behind the load balancer."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "It is the front‐facing IP address for the load‐balancing instance."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "A virtual IP (VIP) for a load balancer is the IP address that it uses to present to the world. Client systems connect to the VIP, which is then used to distribute traffic to servers behind the load balancer. It is not the internal IP address, it is not typically a nonroutable IP address because client systems need to get to it, and it is an IP address, not a TCP port.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "In some encryption algorithms, an initial connection is set up using an asymmetric key pair. Immediately upon the establishment of that session, the two parties create a new symmetric key that is used for the remainder of the connection. What term best describes this type of symmetric key?",
+      "options": {
+        "A": "One‐time keys",
+        "B": "Ephemeral keys",
+        "C": "Private keys",
+        "D": "Public keys"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Ephemeral keys"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Ephemeral, short‐lived keys, are used with key establishment. Public and private keys are part of that exchange. A one‐time key is not an encryption term, but one‐time pads are cryptographic ciphers that are used once and then discarded.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "Matt is investigating a security incident and would like to review raw network traffic that was sent between systems during the incident. What would be the best source of information for this work?",
+      "options": {
+        "A": "Packet capture",
+        "B": "Vulnerability scans",
+        "C": "NetFlow records",
+        "D": "IPS logs"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Packet capture"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "If packet captures are available, they would be the best source of information for Matt, as they would contain the entire contents of the packets, including their payload. Vulnerability scans would not contain network traffic. NetFlow records only include header information and do not include payload data. IPS logs may contain limited packet data but only for packets that were flagged by the IPS for investigation.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Olivia wants to protect against DNS cache poisoning, and she knows that digitally signing DNS replies from protected zones would be helpful as part of that effort. What can she configure to implement this capability?",
+      "options": {
+        "A": "SDNS",
+        "B": "DNS over IKE",
+        "C": "DNSSEC",
+        "D": "DNS over TLS"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "DNSSEC"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "DNSSEC uses digital signatures to validate information provided by a DNS server, helping to prevent issues such as DNS poisoning. None of the other answers are real DNS security solutions; although you could protect DNS queries with TLS, doing so wouldn’t validate the actual DNS information like DNSSEC does.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "In the following image, a connection between two systems has been redirected by an attacker. The attacker has spoofed ARP packets to make it so that responses to the legitimate server are instead sent to a system that the attacker controls. When traffic is sent to that system, the attacker reads and potentially modifies the traffic before passing it along the server, then sends back responses from the server after reviewing or modifying them as well. What type of attack is this?",
+      "options": {
+        "A": "An ARPjacking",
+        "B": "A disassociation attack",
+        "C": "An on‐path attack",
+        "D": "A TCP redirect attack"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "An on‐path attack"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "This is one form of an on‐path attack, an attack that redirects traffic to a system or device controlled by the attacker, which can then take action on network traffic originally destined for another system. ARPjacking and TCP redirect attacks are made up. Disassociation attacks focus on causing Wi‐Fi devices to drop their connection and try to reconnect to an access point.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "The business‐critical web application that Nicole runs for her organization has a known zero‐day flaw in it that involves SQL injection (SQLi). If Nicole has sample code showing the SQL injection, what type of network security device can she use to protect her application even if a patch isn’t available yet?",
+      "options": {
+        "A": "A SQL transmogrifier",
+        "B": "A stateful packet inspection firewall",
+        "C": "An injection guard",
+        "D": "A WAF"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "A WAF"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "A web application firewall (WAF) can do exactly what Nicole needs. WAF software and hardware specialize in protecting web applications by analyzing traffic sent to the web application and blocking known malicious traffic and traffic patterns. Nicole can write a detection that will match the malicious SQL code from the zero‐day attack while being careful not to write an overly broad or overly narrow detection. Once it’s deployed, she can continue to run her web application until a patch is released while remaining safe because of her WAF. Stateful packet inspection firewalls track the communication between two devices but do not detect SQL injection or other application layer detail, and the other options were made up.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "Bethany is a cybersecurity manager at a major financial institution. As part of her duties, she has been tasked to plan the institution’s information security program, which includes security testing, assessments, and audits. Her team is especially concerned about the security of their newly implemented online banking system. Given that Bethany’s team has limited resources, she needs to prioritize which parts of the system to test first. Which of the following factors is most important for her to consider when scheduling security controls for review?",
+      "options": {
+        "A": "The availability of advanced testing tools in the market",
+        "B": "The number of transactions that pass through the system daily",
+        "C": "The personal information stored within the system and its likelihood to come under attack",
+        "D": "The average age and background of the system’s users"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "The personal information stored within the system and its likelihood to come under attack"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The personal information stored within the system and its likelihood to come under attack aligns with the factors that Bethany should consider when scheduling security controls for review. This includes the sensitivity of the information contained on the tested systems and applications and the risk that the system will come under attack.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "The organization that Cynthia works for has been sent a legal hold notice. What actions must they take?",
+      "options": {
+        "A": "They should not delete or destroy electronic or paper documents related to the legal case that is in process.",
+        "B": "They must send machines, documents, and files to the opposing counsel that may be relevant to the legal case in process.",
+        "C": "They must immediately stop performing the actions described in the legal hold document.",
+        "D": "All of the above."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "They should not delete or destroy electronic or paper documents related to the legal case that is in process."
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "A legal hold is a notification that litigation is in progress or active and that data and documents related to the case must be preserved. Legal holds are used to ensure that information relevant to the case is not lost or destroyed. It does not require the organization to send machines, documents, or files, and it does not require actions to cease unless there are automated or manual destruction processes or others that might cause the loss of case‐related information.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 21,
+      "stem": "Which of the following components is required for an SSL/TLS stripping attack?",
+      "options": {
+        "A": "An on‐path system",
+        "B": "A TLS accelerator card",
+        "C": "An SSL accelerator card",
+        "D": "An SSL/TLS removal script"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "An on‐path system"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "SSL stripping (or TLS stripping) relies on making the end user believe that they have a secure connection but instead proxies that connection via an on‐path system that intercepts requests, terminates the SSL or TLS connection, and then passes those requests on to the legitimate server after either capturing or modifying the traffic.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 22,
+      "stem": "Emily, a cybersecurity analyst at a medium‐sized firm, is in the process of evaluating a new vendor that will handle sensitive data for her organization. What factors are most important for Emily to consider during this vendor selection process?",
+      "options": {
+        "A": "The vendor’s marketing strategy and brand recognition",
+        "B": "The vendor’s financial stability, reputation, product quality, and regulatory compliance",
+        "C": "The number of employees the vendor has and the location of the vendor’s headquarters",
+        "D": "The vendor’s total sales in the previous fiscal year and projected growth"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "The vendor’s financial stability, reputation, product quality, and regulatory compliance"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The vendor’s financial stability, reputation, product quality, and regulatory compliance are pertinent because these factors will help Emily assess the reliability, credibility, and compliance of the vendor, particularly considering they will be handling sensitive data.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 23,
+      "stem": "What significant improvement in Personal mode wireless was included in WPA3?",
+      "options": {
+        "A": "Simultaneous authentication of equals",
+        "B": "Support for dictionary attacks",
+        "C": "Added WPS3",
+        "D": "Removed support for AES encryption"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Simultaneous authentication of equals"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Simultaneous Authentication of Equals (SAE) is a major addition to WPA3’s Personal mode, and it actually helps prevent dictionary attacks. AES encryption remains in use, but Wi‐Fi Protected Setup (WPS) is being removed.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 24,
+      "stem": "Jamie is a system administrator tasked with enhancing the security of a small business network consisting of Windows systems. To accomplish this, Jamie wants to enforce certain security measures such as minimum password lengths and disabling the storage of passwords using reversible encryption. Which of the following approaches would best achieve Jamie’s goal?",
+      "options": {
+        "A": "Enforce these measures using antivirus software.",
+        "B": "Use Group Policy Objects (GPOs) to enforce these measures.",
+        "C": "Enforce these measures through firewalls and routers.",
+        "D": "Use SELinux to enforce these measures on all systems."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Use Group Policy Objects (GPOs) to enforce these measures."
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Jamie should use Group Policy Objects (GPOs) to enforce these measures. GPOs are an effective method for controlling settings on Windows systems, such as disabling guest accounts, setting minimum password lengths, and restricting software installations. This can be applied both locally or via Active Directory, facilitating the large‐scale managed deployments of GPOs. While antivirus software, firewalls and routers, and SELinux can contribute to the security of the network, they don’t directly offer the ability to enforce the specific settings that Jamie is interested in. Moreover, SELinux is a Linux‐specific solution and would not apply to the Windows systems on this network. Therefore, using GPOs provides the most comprehensive and effective approach to achieving Jamie’s goal.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 25,
+      "stem": "Which type of governance model uses a bottom‐up approach where individual business units are delegated the authority to achieve cybersecurity objectives?",
+      "options": {
+        "A": "Centralized",
+        "B": "Decentralized",
+        "C": "Anomalous",
+        "D": "Compliance reporting"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Decentralized"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Decentralized governance models use a bottom‐up approach, where individual business units are delegated the authority to achieve cybersecurity objectives and then may do so in the manner they see fit. A centralized governance model uses a top‐down approach, where a central authority creates policies and standards that are then enforced throughout the organization. Anomalous has to do with anomalous behavior. Employees should be aware of such behavior whether it be risky, unexpected, or unintentional. Organizations need to engage in both internal and external compliance reporting to ensure that they meet the regulatory requirements and maintain transparency within the organization and with external stakeholders.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 26,
+      "stem": "Which of the following best describes why businesses classify their data and the implications for security controls?",
+      "options": {
+        "A": "Data classification primarily exists for businesses to categorize their marketing strategies.",
+        "B": "Data classification programs are solely used by government agencies to classify national security information, not utilized by businesses.",
+        "C": "Data classification allows organizations to specify the necessary security controls to protect information based on its sensitivity, impacting the measures used to prevent unauthorized access.",
+        "D": "Data classification is an outdated system and no longer plays a role in modern data protection efforts."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Data classification allows organizations to specify the necessary security controls to protect information based on its sensitivity, impacting the measures used to prevent unauthorized access."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Organizations use data classification to categorize information based on its sensitivity, which directly informs the necessary security controls for protecting that information from unauthorized access. This process allows a systematic approach to protecting the most crucial data and minimizing potential damage from data breaches. Conversely, data classification isn’t a practice exclusive to business marketing strategies or to the U.S. government’s national security information, as it’s widely utilized across various sectors for diverse types of data. Moreover, far from being outdated, data classification remains a pivotal component of modern data protection strategies, continually evolving to meet the challenges posed by increasing amounts of data and advancing cyber threats.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 27,
+      "stem": "Frank needs to choose a mobile device deployment option for his organization. He wants to allow users to use devices that his organization selects and purchases for their own use. Which mobile solution should he select?",
+      "options": {
+        "A": "BYOD",
+        "B": "COPE",
+        "C": "CYOD",
+        "D": "VDI"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "COPE"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "The corporate‐owned, personally enabled (COPE) model allows end users to use their devices for personal as well as corporate use while providing corporate control and management of the mobile devices. BYOD is a bring‐your‐own‐device model, which can create challenges when users manage and maintain their devices. CYOD, or choose your own device, allows users to select their own device. Virtual desktop infrastructure (VDI) runs applications on a remote system, allowing separation of data and systems while providing functionality to remote devices but is heavily bandwidth and application dependent.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 28,
+      "stem": "What is the key difference between checksums and hashes?",
+      "options": {
+        "A": "Checksums are unique to every file; hashes are not.",
+        "B": "Hashes are reversible and can be used to generate the original file or data; checksums cannot be used to re‐create the original file.",
+        "C": "Checksums are a small value used to detect errors, whereas hashes map to an arbitrarily sized output that is unique to each file hashed.",
+        "D": "There is no difference—checksums and hashes are the same."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Checksums are a small value used to detect errors, whereas hashes map to an arbitrarily sized output that is unique to each file hashed."
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "A checksum is a computation that is used to determine whether a file or message has been changed, allowing error detection. A hash generates a unique value for a file and is a one‐way function—it cannot be reversed to re‐create the original file.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 29,
+      "stem": "Janet is the cybersecurity lead for a medium‐sized company located in a hurricane‐prone region. She’s been tasked with designing a plan to ensure the company’s systems remain available and functional, even during a natural disaster. What strategy should she prioritize to maximize resilience and support continuity of operations?",
+      "options": {
+        "A": "Store all company data on physical servers in a highly secure location.",
+        "B": "Use a highly sophisticated cryptographic solution for all systems.",
+        "C": "Establish backup datacenters at least 90 miles apart and in a non‐hurricane‐prone region.",
+        "D": "Depend solely on uninterruptible power supply (UPS) systems for power‐related contingencies."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Establish backup datacenters at least 90 miles apart and in a non‐hurricane‐prone region."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "A resilient cybersecurity strategy would emphasize multiple, distributed redundancies to prevent any single point of failure. Therefore, having backup datacenters located at least 90 miles apart and in a region not prone to hurricanes helps guard against geographically based disasters. Using a single data storage location or relying on a single cryptographic solution doesn’t provide this redundancy, making these strategies insufficient for maximizing resilience. Lastly, while UPS systems are essential for power continuity, they only provide backup power for short periods; thus, relying solely on them won’t fully address longer‐term power outages or wider network and system failures.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 30,
+      "stem": "Simon is a system administrator for a technology firm. His organization has high data modification and transaction rates. They need a RAID solution that offers high read speeds, has a fault tolerance for at least one disk failure, and does not require double the storage. Which RAID level should Simon choose for his organization?",
+      "options": {
+        "A": "RAID 0",
+        "B": "RAID 1",
+        "C": "RAID 5",
+        "D": "RAID 10"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "RAID 5"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Simon should choose RAID 5. This RAID level stripes data across drives with one drive used for parity (checksum) of the data. It offers high read speeds and can sustain a single drive failure without losing data, which aligns with the requirements of Simon’s organization. It does not require double the storage, unlike RAID 1, which is a significant advantage in a high data transaction environment. RAID 0, while providing better I/O performance, is not fault tolerant—all data is lost if a drive fails; hence it is not suitable for Simon’s requirements. RAID 10 is similar to RAID 5 but adds additional performance benefits. However, it does require double the storage of a non‐RAID solution because it uses mirroring. Therefore, it does not meet Simon’s requirements.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 31,
+      "stem": "Maria is considering a BYOD device deployment and wants to enroll the devices in an MDM application. What key concern will she likely need to address with her users in the event that a device is lost and the organization wants to respond to ensure no corporate data is lost?",
+      "options": {
+        "A": "Full‐device encryption",
+        "B": "Remote wipe",
+        "C": "VDI",
+        "D": "Storage segmentation"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Remote wipe"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Users in Maria’s organization are likely to be concerned about what would be wiped if the device was remotely wiped in the event it was lost. If the organization’s policy is to immediately fully wipe the device, and it is then recovered, their personal data may be lost. Organizational policies for BYOD devices can be complex, and many organizations choose to separate user and corporate data more completely via storage segmentation and other capabilities to avoid this scenario. Full‐device encryption can help protect the data but would not typically be a concern for users—most will appreciate it. Virtual desktop infrastructure (VDI) would not have a direct impact on users.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 32,
+      "stem": "Brianna is concerned about undervoltage events and short power outages for her systems in a datacenter. What type of power protection should she put in place to help keep her systems online?",
+      "options": {
+        "A": "A generator",
+        "B": "Dual‐power supplies",
+        "C": "PDUs",
+        "D": "A UPS"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "A UPS"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "A UPS (uninterruptible power supply) relies on batteries or other stored power to keep systems online during short power outages, and it can also provide stable power during power sags and undervoltage events. A generator is needed for longer outages, because most UPS systems are intended to stay online for only a few minutes. Dual‐power supplies are used to ensure that a single power supply failing or a single power source failing does not take down a server. A power distribution unit (PDU) is used to deliver power to devices. Dual‐power supplies are used to ensure that a single power supply failing or a single power source failing does not take down a server.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 33,
+      "stem": "Gabby wants to protect against credential theft and knows that there are detection settings that can help prevent the abuse of stolen credentials. What detection and prevention setting relies on geolocation to protect against malicious use of stolen credentials?",
+      "options": {
+        "A": "Impossible travel time",
+        "B": "Privilege escalation",
+        "C": "Time‐of‐check (TOC)/time‐of‐use (TOU)",
+        "D": "Time‐based login"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Impossible travel time"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Risky login detection schemes look at impossible travel times between geographic locations using GeoIP capabilities. This means that they can detect that a user cannot reasonably have logged in from a site in one location and then traveled to a second location and logged in there. Although VPN usage can cause issues with this, in general this is a useful setting to avoid the use of stolen or shared credentials. Privilege escalation attacks attempt to use the rights of more privileged accounts, such as an administrator account. Time‐of‐check (TOC)/time‐of‐use (TOU) exploits are race conditions. Login time restriction is a setting used to prohibit users from logging in outside of specific hours but does not use geographic location.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 34,
+      "stem": "Ben wants to conduct an offline brute‐force attack against a Linux system. What file should he work to obtain a copy of?",
+      "options": {
+        "A": "John the Ripper",
+        "B": "The /etc/passwd file",
+        "C": "The /etc/shadow file",
+        "D": "He does not need a file; he can use SSH."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "The /etc/shadow file"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The /etc/shadow file contains password hashes for most modern Linux implementations, and Ben can then use a tool such as rainbow tables or John the Ripper to crack passwords. John itself is not a password file or repository, and /etc/passwd is a secure pointer to /etc/shadow and does not actually contain useful information. Finally, an offline password attack implies activity that does not take place over the network, so SSH is not a valid answer.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 35,
+      "stem": "The network that Jaime is connecting to requires each device to protect itself from potential threats both from outside the local security zone and from systems that share the same network zone with it. What security design concept requires this type of configuration?",
+      "options": {
+        "A": "Security zones",
+        "B": "Zero trust",
+        "C": "Screened subnet",
+        "D": "Security tagging"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Zero trust"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "A zero‐trust network does not trust systems or individuals, even if they are already inside the network's security perimeter. This means that each device or system must be secure and defended, rather than creating a harder outside security shell at security boundaries like many traditional networks did. Security zones are a high‐level concept based on the level of security for a network segment or other logical division. Screened subnets, also called DMZs, are used to allow access from public or lower‐security zones to resources such as web servers. Security tagging is not a specific technical term.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 36,
+      "stem": "Jessica is the procurement officer of a multidivision company. She is looking for an informal mechanism to document the relationship between her company and an internal service provider offering a service to a customer in a different business unit of the same company. Which type of agreement is most suitable for Jessica’s needs?",
+      "options": {
+        "A": "MSA",
+        "B": "SLA",
+        "C": "MOU",
+        "D": "BPA"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "MOU"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "In this context, Jessica’s need is best addressed by a memorandum of understanding (MOU). An MOU provides an informal means to document the relationship between separate parties, making it well suited for situations involving different business units within the same company. On the other hand, a master service agreement (MSA) typically applies to extensive contracts with outside vendors over an extended time frame. Service level agreements (SLAs) delineate the conditions for services supplied by vendors, covering aspects such as performance metrics and available remedies if those metrics are not satisfied. This type of agreement is not usually utilized for internal relationships. Lastly, a business partners agreement (BPA) is used when two organizations agree to conduct business together in a partnership and would not apply in Jessica’s intra‐company situation.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 37,
+      "stem": "Thomas has configured UEFI boot attestation on the servers that he is responsible for. What occurs during boot attestation?",
+      "options": {
+        "A": "Each boot component is checked against a list of signed and known software before it is loaded.",
+        "B": "The system builds a chain of trust from component to component as it loads during boot.",
+        "C": "The system attests to a verification platform about the trustworthiness of the software it is running after it completes the boot process.",
+        "D": "All of the above."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "The system attests to a verification platform about the trustworthiness of the software it is running after it completes the boot process."
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Boot attestation provides information about the software that it booted with to an attestation verification platform or system after boot, unlike secure boot, which uses a chained verification process to ensure that each component is signed and acceptable before it is loaded.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 38,
+      "stem": "Daniel wants to make users in his organization visit a different site than they intend to. To accomplish this, he falsifies DNS information in the local DNS server’s cache, causing systems that use that DNS server to get incorrect information. What term describes this attack?",
+      "options": {
+        "A": "ARP spoofing",
+        "B": "DNS phishing",
+        "C": "DNS poisoning",
+        "D": "Name overload"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "DNS poisoning"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "DNS poisoning attacks focus on falsifying DNS information that is then provided as the correct response to systems that rely on the poisoned DNS server. Since this information may be spread to other DNS servers that rely on the poisoned server, it can have a broad impact depending on the server that is poisoned. ARP spoofing involves responding to ARP requests with incorrect information, in essence claiming to be a different system based on the hardware address of the spoofed system or device. DNS phishing and name overload are not common technical or security terms.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 39,
+      "stem": "Liam is an IT manager at a mid‐sized company, and he’s tasked with selecting a vendor for their new cloud storage solution. The vendor will handle sensitive customer data and participate in critical business processes. As part of the vendor selection process, Liam is especially interested in a process that evaluates the vendor’s financial stability, business reputation, product quality, and regulatory compliance. What process is Liam employing?",
+      "options": {
+        "A": "Penetration testing",
+        "B": "Supply chain analysis",
+        "C": "Vendor questionnaires",
+        "D": "Due diligence"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Due diligence"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Liam is employing due diligence in his vendor selection process. This process involves thoroughly investigating potential vendors to ensure they meet the company’s standards and requirements, such as financial stability, business reputation, and regulatory compliance. Penetration testing, on the other hand, refers to a method of evaluating a vendor’s security by simulating attacks to identify vulnerabilities—it is a part of the assessment but not the whole process that Liam is focusing on. Supply chain analysis refers to the analysis of risks associated with a vendor’s own suppliers and doesn’t specifically address the elements Liam is considering. Lastly, vendor questionnaires are tools used to regularly collect information about a vendor’s practices and performance but do not provide the comprehensive evaluation that due diligence offers.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 40,
+      "stem": "Samantha has configured an unused network segment at her company to appear to be vulnerable and has added instrumentation and data‐gathering capabilities so that she can observe and analyze what attackers do while attempting to exploit that network. What type of environment has she set up?",
+      "options": {
+        "A": "A honeynet",
+        "B": "A black hole",
+        "C": "A honeypot",
+        "D": "A tarpit"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "A honeynet"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "A honeynet is a network that is built to have intentional vulnerabilities that will attract attackers whose actions can then be recorded and studied. A honeypot is a system or device configured in a similar way. A black hole is a network location where traffic is sent that will not be further forwarded. A tarpit is a system configured to slow down attackers.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 41,
+      "stem": "James, a customer service representative at an online retail company, is undergoing a security training program. As part of his role, he frequently communicates with customers, handling their queries and complaints. Which type of training would best equip James to handle social engineering and pretexting attacks that he may encounter in his work?",
+      "options": {
+        "A": "Role‐based training",
+        "B": "Anomalous behavior recognition",
+        "C": "Hybrid/remote work environment training",
+        "D": "Security policy training"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Role‐based training"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The correct answer is role‐based training. This approach tailors the training content to the specific job responsibilities of an individual. For a customer service representative like James, the focus would be on nontechnical aspects, particularly on dealing with social engineering and pretexting attacks. Anomalous behavior recognition, while important, is more focused on recognizing unexpected or risky behavior internally and is not specifically tailored to his role. Hybrid/remote work environment training and security policy training, although crucial, deal with best practices for remote work security and organizational security policies, respectively, and are not directly related to handling social engineering and pretexting attacks, which are a significant part of James’s job responsibilities.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 42,
+      "stem": "Henry is conducting a penetration test and wants to social‐engineer a staff member at his target organization into letting him gain access to a building. He explains that he is there at the request of a senior manager, and that he is late for a meeting with that manager, who is relying on him to be there. What social engineering principle is he using?",
+      "options": {
+        "A": "Authority",
+        "B": "Intimidation",
+        "C": "Urgency",
+        "D": "Trust"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Urgency"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Henry is using urgency. If he has expressed the fact that the person could lose their job if they didn’t let him in, he might intimidate them. If he had told them that he was an inspector or enforcement officer, he would have been using perceived authority. Finally, if he exploited their willingness to trust him, he would have used that trust as the foundation of his social engineering attack.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 43,
+      "stem": "The biometric authentication system that Patricia has deployed has been allowing users to authenticate whose fingerprints do not match the users who they are authenticating as. What type of error is this called in biometric systems?",
+      "options": {
+        "A": "CER",
+        "B": "False rejection",
+        "C": "False acceptance",
+        "D": "The efficacy rate"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "False acceptance"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "This type of problem is an issue with false acceptance and can be a major issue for biometric systems. Patricia needs to tune the system to reduce the false acceptance rates while minimizing false rejection rates. The crossover error rate (CER) is the point at which the false acceptance rate (FAR) and false rejection rate (FRR) cross over. Efficacy rate simply means how effective something is at performing its desired function.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 44,
+      "stem": "Xavier is implementing multifactor authentication and wants to ensure that he is using different factors. The authentication system he is setting up requires a PIN and a biometric factor. What types of factors are these?",
+      "options": {
+        "A": "Something you know and something you are",
+        "B": "Something you have and something you are",
+        "C": "Something you know and something you have",
+        "D": "They are both the same factor and cannot be used for multifactor authentication."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Something you know and something you are"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "A PIN is something you know, and a biometric factor is something you are. Xavier is correctly using two different types of factors for his authentication scheme. If he was using a PIN and a password, he would be using two of the same type of factor, reducing the overall security for his environment.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 45,
+      "stem": "What type of Trojan is specifically designed to provide administrative control of the systems it is installed on?",
+      "options": {
+        "A": "A BRT",
+        "B": "A RAT",
+        "C": "A root horse",
+        "D": "A full Trojan"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "A RAT"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Remote access Trojans (RATs) are Trojans that are specifically designed to provide remote administrative access. The rest of the answers here are made up.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 46,
+      "stem": "Andrea is reviewing a draft of the Domer Doodads information security policy. Which one of the following statements would be more appropriately placed in a different document?",
+      "options": {
+        "A": "All access to financial systems must use multifactor authentication for remote connections.",
+        "B": "Domer Doodads designates the chief information security officer as the individual with primary responsibility for information security.",
+        "C": "The chief information security officer is granted the authority to create specific requirements that implement this policy.",
+        "D": "Domer Doodads considers cybersecurity and compliance to be of critical importance to the business."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "All access to financial systems must use multifactor authentication for remote connections."
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "It is normal to find statements in an information security policy that declare the importance of cybersecurity to the organization, designate a specific individual as responsible for the cybersecurity function, and grant that individual authority over cybersecurity. Specific requirements, such as requiring multifactor authentication for financial systems, would be more appropriately placed in a standard than a policy.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 47,
+      "stem": "Phil is investigating a security incident where the attackers shut down his organization’s database server. They do not appear to have actually gained access to the system, but shut it down using some type of remote exploit. What principle of cybersecurity was most directly violated during this incident?",
+      "options": {
+        "A": "Integrity",
+        "B": "Confidentiality",
+        "C": "Availability",
+        "D": "Nonrepudiation"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Availability"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "This is an example of an availability breach. By shutting down the database server, the attackers were able to deny authorized users access to the server. Confidentiality was not compromised as data was not accessed. And since data was not accessed, it was not changed either, keeping data integrity intact. Nonrepudiation does not play a role in this scenario since we are not concerned with proving data source identity to a recipient.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 48,
+      "stem": "Ian is designing an authorization scheme for his organization’s deployment of a new accounting system. He is considering putting a control in place that would require that two accountants approve any payment request over $100,000. What security principle is Ian seeking to enforce?",
+      "options": {
+        "A": "Two‐person integrity control",
+        "B": "Separation of duties",
+        "C": "Least privilege",
+        "D": "Security through obscurity"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Two‐person integrity control"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "It is sometimes difficult to distinguish between cases of least privilege, separation of duties, and two‐person control. Least privilege means that an employee should have only the access rights necessary to perform their job. That is not the case in this scenario because accountants need to be able to approve payments. Separation of duties occurs when the same employee does not have permission to perform two different actions that, when combined, could undermine security. That is not the case here because both employees are performing the same action: approving the payment. Two‐person control occurs when two employees must jointly authorize the same action. That is the case in this scenario. Security through obscurity occurs when the security of a control depends on the secrecy of its mechanism.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 49,
+      "stem": "Brady is developing the architecture for a new data loss prevention system that his organization will use to prevent the exfiltration of sensitive information over the network. What category of control is Brady implementing?",
+      "options": {
+        "A": "Managerial",
+        "B": "Technical",
+        "C": "Operational",
+        "D": "Detective"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Technical"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "The control categories recognized by CompTIA are technical, operational, managerial, and physical. Data loss prevention systems use technology to achieve security control objectives and are, therefore, technical controls.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 50,
+      "stem": "What type of hypervisor requires that the platform operator routinely patch the host operating system?",
+      "options": {
+        "A": "Type I hypervisor",
+        "B": "Type II hypervisor",
+        "C": "Type III hypervisor",
+        "D": "Type IV hypervisor"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Type II hypervisor"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "A Type II hypervisor is the only type of hypervisor that uses a host operating system. A Type I hypervisor, or bare‐metal hypervisor, runs directly on top of the physical hardware. Type III and IV hypervisors do not exist.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 51,
+      "stem": "Which one of the following algorithms is primarily used for the exchange of encryption keys?",
+      "options": {
+        "A": "PBKDF2",
+        "B": "AES",
+        "C": "OCSP",
+        "D": "Diffie–Hellman"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Diffie–Hellman"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Diffie–Hellman is a key exchange algorithm used to create a common shared secret key. The Advanced Encryption Standard (AES) is a symmetric encryption algorithm used to protect data. Password‐Based Key Derivation Function 2 (PBKDF2) is a key stretching algorithm used to create strong keys from short passwords. The Online Certificate Status Protocol (OCSP) is used to verify the validity of digital certificates.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 52,
+      "stem": "Tina recently completed a risk management review and identified that the organization is susceptible to an on‐path attack. After review with her manager, they jointly decided that accepting the risk is the most appropriate strategy. What should Tina do next?",
+      "options": {
+        "A": "Design a remediation plan.",
+        "B": "Implement additional security controls.",
+        "C": "Document the decision.",
+        "D": "Repeat the business impact assessment."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Document the decision."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "After accepting a risk, the organization takes no action other than to document the risk as accepted. Implementing additional security controls or designing a remediation plan would not be risk acceptance but would instead fit into the category of risk mitigation. There is no need to repeat the business impact assessment.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 53,
+      "stem": "What ISO standard provides guidance on risk management practices?",
+      "options": {
+        "A": "ISO 27001",
+        "B": "ISO 27002",
+        "C": "ISO 27701",
+        "D": "ISO 31000"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "ISO 31000"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The International Organization for Standardization (ISO) publishes ISO 31000, covering risk management. ISO 27001 and 27002 cover cybersecurity, and ISO 27701 covers privacy controls.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 54,
+      "stem": "Phil is conducting a penetration test and has gained access to a target system. The account he has on that system is a standard user account, and Phil is installing a tool that will allow him to gain root access. What term best describes this activity?",
+      "options": {
+        "A": "Privilege escalation",
+        "B": "Lateral movement",
+        "C": "Pivoting",
+        "D": "Persistence"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Privilege escalation"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Privilege escalation is the act of increasing the level of access that an attacker has to a system. It is a common exploit to launch after gaining initial access to a system in an attempt to gain administrative access (otherwise known as root or superuser access).",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 55,
+      "stem": "Which one of the following threat actors typically has the lowest level of sophistication?",
+      "options": {
+        "A": "Organized crime",
+        "B": "Unskilled attacker",
+        "C": "Hacktivist",
+        "D": "Nation‐state"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Unskilled attacker"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Unskilled attackers are unsophisticated by definition. They simply use tools that are available for download and lack technical expertise. The other attack sources listed here range in sophistication, but all are more sophisticated than unskilled attackers.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 56,
+      "stem": "Jason is the Chief Information Security Officer (CISO) at a major online retail platform operating in the United States. The platform processes a significant amount of credit card transactions daily. Jason is aware of the company’s obligation to meet certain regulatory standards and also the severe consequences of noncompliance. He seeks to ensure that the company’s practices for storing, processing, and transmitting credit card information adhere to a particular standard. Which of the following regulations is Jason most concerned about?",
+      "options": {
+        "A": "HIPAA",
+        "B": "SOX",
+        "C": "PCI DSS",
+        "D": "GDPR"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "PCI DSS"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Jason should primarily focus on the Payment Card Industry Data Security Standard (PCI DSS), which provides detailed rules about the storage, processing, and transmission of credit card information. In contrast, HIPAA applies to health‐care providers, insurers, and information clearinghouses, not retail platforms. The Sarbanes–Oxley (SOX) Act focuses on the financial records of publicly traded companies. While the General Data Protection Regulation (GDPR) is essential for any organization processing the data of European Union (EU) residents, it is not specific to credit card data. Hence, while Jason should be aware of all relevant regulations, PCI DSS is the most directly applicable to the company’s credit card transactions.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 57,
+      "stem": "Which one of the following protocols allows the exchange of threat information over HTTPS connections?",
+      "options": {
+        "A": "TTP",
+        "B": "STIX",
+        "C": "OpenIOC",
+        "D": "TAXII"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "TAXII"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Trusted Automated Exchange of Indicator Information (TAXII) is intended to allow cyberthreat information to be communicated at the application layer via HTTPS. Structured Threat Information Expression (STIX) is an XML format for describing threat components. OpenIOC is an XML format for describing indicators of compromise. TTP is a generic term for adversary tactics, techniques, and procedures and is not a communication protocol or standard.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 58,
+      "stem": "Sarah is an IT compliance officer at a large U.S. publicly traded tech company. Her role involves ensuring that the financial records of the company are secured with a high degree of assurance. She understands that there is a particular act that mandates such assurance for the IT systems storing and processing these records. Which of the following acts is Sarah most focused on ensuring her company complies with?",
+      "options": {
+        "A": "FERPA",
+        "B": "GLBA",
+        "C": "SOX",
+        "D": "HIPAA"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "SOX"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Sarah’s main focus in this situation is the Sarbanes–Oxley Act (SOX Act), as it is specifically designed for U.S. publicly traded companies. It insists on a high level of confidence in the IT systems that manage these companies’ financial records. The Family Educational Rights and Privacy Act (FERPA) applies to educational institutions in the U.S., mandating the secure handling of student records. The Gramm–Leach–Bliley Act (GLBA) is aimed at U.S. financial institutions, necessitating them to establish a formal security program. The Health Insurance Portability and Accountability Act (HIPAA) sets the rules for health‐care providers, insurance firms, and health information clearinghouses in the U.S., calling for adherence to security and privacy standards related to health information. While each of these regulations plays a crucial role within their specific sectors, in Sarah’s role at a publicly traded tech firm, it’s the SOX Act that is most pertinent.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 59,
+      "stem": "Norm is evaluating the security of his organization’s datacenters and notices that there is a hole in the barbed wire fence protecting the facility. What type of control flaw has Norm identified?",
+      "options": {
+        "A": "Physical",
+        "B": "Detective",
+        "C": "Corrective",
+        "D": "Compensating"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Physical"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "A fence is an example of a physical control. Norm has identified a deficiency in a physical control that may be remediated by repairing the fence. A detective control helps pinpoint errors after an event has taken place. Corrective controls make up for an error and help restoration functions. A compensating control is an alternative method with which to implement an alternative substitute control in place of a complicated one that would take longer to implement.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 60,
+      "stem": "Gary recently conducted a comprehensive security review of his organization. He identified the 25 top risks to the organization and is pursuing different risk management strategies for each of these risks. In some cases, he is using multiple strategies to address a single risk. His goal is to reduce the overall level of risk so that it lies within his organization’s risk tolerance. Gary decides that the organization should integrate a threat intelligence feed with the firewall. What type of risk management strategy is this?",
+      "options": {
+        "A": "Risk acceptance",
+        "B": "Risk mitigation",
+        "C": "Risk avoidance",
+        "D": "Risk transference"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Risk mitigation"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The use of a threat intelligence feed to block connections at the firewall reduces the likelihood of a successful attack and is, therefore, a risk mitigation activity. Risk acceptance would be if Gary decides not to implement any measures against the risk. Risk avoidance would be if the organization ceased to conduct business. And risk transference would be if Gary purchased a cyber insurance policy against the risk.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 61,
+      "stem": "Emily is the Chief Information Security Officer (CISO) at a rapidly growing fintech startup. The company provides services to numerous other businesses, and as a result, they often receive requests from their clients to verify their security controls. To avoid the burden of multiple independent third‐party audits from their various clients, Emily is considering a common standard that could be used by auditors to assess the organization’s controls. What standard should Emily consider to alleviate this audit burden?",
+      "options": {
+        "A": "COBIT",
+        "B": "ISO 27001",
+        "C": "ISO 27002",
+        "D": "SSAE 18"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "SSAE 18"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Emily is looking for a solution to minimize the load of numerous third‐party audits. In such a situation, SSAE 18, also referred to as service organization controls (SOC) audits, is an ideal solution as it provides a common standard for auditors assessing service organizations. It allows the organization to undertake an external assessment instead of multiple third‐party assessments, sharing the resulting report with customers and potential clients. While COBIT, ISO 27001, and ISO 27002 are valuable auditing and assessment standards, they do not specifically address the issue of multiple third‐party audits. COBIT is a common framework for conducting audits and assessments, ISO 27001 describes an approach for setting up an information security management system, and ISO 27002 provides more detail on the specifics of information security controls, but none of them offer a solution like SSAE 18 for service organizations facing numerous audits.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 62,
+      "stem": "Which one of the following threat actors is most likely to have access to a zero‐day exploit?",
+      "options": {
+        "A": "Nation‐state",
+        "B": "Hacktivist",
+        "C": "Organized crime",
+        "D": "Unskilled attacker"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Nation‐state"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Zero‐day vulnerabilities are difficult to discover and their use is the hallmark of sophisticated, well‐resourced nation‐state groups. It is far less likely that organized crime, a hacktivist, or an unskilled attacker would have access to a zero‐day vulnerability.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 63,
+      "stem": "Which one of the following attacks is an example of a race condition exploitation?",
+      "options": {
+        "A": "XSRF",
+        "B": "TOCTOU",
+        "C": "SSRF",
+        "D": "XSS"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "TOCTOU"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The time‐of‐check‐to‐time‐of‐use (TOCTTOU or TOC/TOU) issue is a race condition that occurs when a program checks access permissions too far in advance of a resource request. An example of a cross‐site request forgery (XSRF) is when you have multiple tabs open on your browser and you are logged into your bank portal. An XSRF attack might use your present login status to send a command to transfer money out of your account. An example of a server‐side request forgery (SSRF) is when an attack is made to the internal network of an organization through a web browser. An example of a cross‐site scripting (XSS) attack would be having an attacker’s code executed when you are visiting a website.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 64,
+      "stem": "Gavin is drafting a document that provides a detailed step‐by‐step process that users may follow to connect to the VPN from remote locations. Alternatively, users may ask IT to help them configure the connection. What term best describes this document?",
+      "options": {
+        "A": "Policy",
+        "B": "Standard",
+        "C": "Guideline",
+        "D": "Procedure"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Procedure"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "A procedure offers a step‐by‐step process for completing a cybersecurity activity. The VPN instructions that Gavin is creating are best described using this term. Policies are the overarching security objectives of an organization. Standards follow through on implementing security policies. And guidelines are recommended ways of carrying out a task.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 65,
+      "stem": "Which one of the following environments is least susceptible to an injection attack?",
+      "options": {
+        "A": "LDAP",
+        "B": "SQL",
+        "C": "CASB",
+        "D": "XML"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "CASB"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The Lightweight Directory Access Protocol (LDAP), Structured Query Language (SQL), and the Extensible Markup Language (XML) all are command‐driven languages that are susceptible to injection attacks. Cloud access security brokers (CASBs) are security platforms that do not typically have injection vulnerabilities.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 66,
+      "stem": "Matthew is concerned about the impact of overlapping international data protection laws on his company’s operations. What principle would best assist Matthew in assessing this situation?",
+      "options": {
+        "A": "Data sovereignty",
+        "B": "Sovereign immunity",
+        "C": "Supremacy",
+        "D": "Jurisprudence"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Data sovereignty"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The principle of data sovereignty states that data is subject to the legal restrictions of any jurisdiction where it is collected, stored, or processed. Sovereign immunity, or crown immunity, is a legal doctrine whereby a sovereign or state cannot commit a legal wrong and is immune from civil suit or criminal prosecution. Supremacy is the quality or state of having more power, authority, or status than anyone else. Jurisprudence is the philosophy and theory of law. It is concerned primarily with what the law is and what it ought to be.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 67,
+      "stem": "Under the shared responsibility model, which component always remains the responsibility of the customer, regardless of the cloud service model used?",
+      "options": {
+        "A": "Data",
+        "B": "Application",
+        "C": "Hardware",
+        "D": "Datacenter"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Data"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "In the shared responsibility model for cloud computing, the customer always retains either full or partial responsibility for data security. Responsibility for hardware and physical data centers is the cloud provider’s responsibility under all models. Responsibility for applications is the customer’s responsibility under IaaS, the provider’s responsibility under SaaS, and a shared responsibility under PaaS.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 68,
+      "stem": "Sherry is concerned that a web application in her organization supports unvalidated redirects. Which one of the following approaches would minimize the risk of this attack?",
+      "options": {
+        "A": "Implementing multifactor authentication",
+        "B": "Restricting redirects to her domain",
+        "C": "Encrypting session cookies",
+        "D": "Requiring HTTPS"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Restricting redirects to her domain"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Unvalidated redirects instruct a web application to direct users to an arbitrary site at the conclusion of their transaction. This approach is quite dangerous because it allows an attacker to send users to a malicious site through a legitimate site that they trust. Sherry should restrict redirects so that they only occur within her trusted domain(s).",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 69,
+      "stem": "Norm would like to create an agreement with an SaaS provider that specifies the amount of downtime that is acceptable. What document would typically contain this type of requirement?",
+      "options": {
+        "A": "MOU",
+        "B": "BPA",
+        "C": "MSA",
+        "D": "SLA"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "SLA"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Service level agreements (SLAs) are written contracts that specify the conditions of service that will be provided by the vendor and the remedies available to the customer if the vendor fails to meet the SLA. SLAs commonly cover issues such as system availability, data durability, and response time.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 70,
+      "stem": "Which one of the following situations would be described as Shadow IT?",
+      "options": {
+        "A": "Using an unapproved code repository",
+        "B": "Hiring an unqualified systems administrator",
+        "C": "Configuring inappropriate access controls",
+        "D": "Using a product discontinued by the vendor"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Using an unapproved code repository"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "All of these situations pose a security risk. However, only the use of an unapproved code repository fits the definition of shadow IT—the adoption and use of unapproved technologies by an organization’s employees.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 71,
+      "stem": "Which one of the following tools is an exploitation framework commonly used by penetration testers?",
+      "options": {
+        "A": "Wireshark",
+        "B": "Aircrack‐ng",
+        "C": "Metasploit",
+        "D": "SET"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Metasploit"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Metasploit is the most popular exploitation framework used by penetration testers. Wireshark is a protocol analyzer. Aircrack‐ng is a wireless network security testing tool. The Social Engineer’s Toolkit (SET) is a framework for conducting social engineering attacks.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 72,
+      "stem": "Renee would like to send Christopher an encrypted message using an asymmetric encryption algorithm. What key should she use to encrypt the message?",
+      "options": {
+        "A": "Christopher’s public key",
+        "B": "Christopher’s private key",
+        "C": "Renee’s public key",
+        "D": "Renee’s private key"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Christopher’s public key"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "When encrypting a message using an asymmetric encryption algorithm, the person performing the encryption does so using the recipient’s public key.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 73,
+      "stem": "Seamus is conducting a business impact assessment for his organization. He is attempting to determine the risk associated with a denial‐of‐service attack against his organization’s datacenter. He consulted with various subject matter experts and determined that the attack would not cause any permanent damage to equipment, applications, or data. The primary damage would come in the form of lost revenue. Seamus believes that the organization would lose $75,000 in revenue during a successful attack. Seamus also consulted with his threat management vendor, who considered the probability of a successful attack against his organization and determined that there is a 10 percent chance of a successful attack in the next 12 months. What is the SLE in this scenario?",
+      "options": {
+        "A": "$625",
+        "B": "$6,250",
+        "C": "$7,500",
+        "D": "$75,000"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "$75,000"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The single loss expectancy (SLE) is the amount of damage expected to occur as the result of a single successful attack. In this case, the scenario provides this information as $75,000.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 74,
+      "stem": "Linda is migrating a system from an on‐premises environment to an IaaS provider. The system is currently protected using network firewall rules that limit remote access. What cloud control can Linda use to achieve this same objective?",
+      "options": {
+        "A": "Resource policy",
+        "B": "CASB",
+        "C": "HSM",
+        "D": "Security group"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Security group"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Security groups are used to limit network access to a server instance in the cloud. They are the equivalent of network firewall rules in an on‐premises environment.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 75,
+      "stem": "Garrett is attempting to manage the cloud server instances used by his organization. They do not currently tag cloud resources with the identity of the responsible individual. What is the primary risk of not better controlling this situation?",
+      "options": {
+        "A": "VM escaping",
+        "B": "Hypervisor breach",
+        "C": "Improper permissions",
+        "D": "VM sprawl"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "VM sprawl"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Virtual machine (VM) sprawl occurs when IaaS users create virtual service instances and then forget about them or abandon them, leaving them to accrue costs and accumulate security issues over time. Organizations should maintain instance awareness to avoid VM sprawl issues. VM escaping is where an attacker escapes the isolation of a virtual machine and gets access to the underlying operating system and other VMs on the same physical machine. Hypervisor breaches are cases where an attacker is able to compromise the hypervisor of a virtualization platform and gain access to virtual machine and/or the underlying operating system. Improper permission settings occur when users receive privileges not necessary to carry out their job functions.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 76,
+      "stem": "Paul is the CEO of a large manufacturing company. He is concerned about the company’s compliance obligations and wants reassurance about the effectiveness of the organization’s internal controls. He is considering ordering an audit, but he isn’t sure which type of audit would best meet his needs and would like to keep costs down. Which type of audit should Paul consider for his needs?",
+      "options": {
+        "A": "External audit",
+        "B": "Internal audit",
+        "C": "Independent third‐party audit",
+        "D": "Vulnerability assessment"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Internal audit"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Paul’s scenario is ideally suited to an internal audit. This is because internal audits are often conducted when management or the board of a company wishes to gain assurance that the company is meeting its compliance obligations. Furthermore, these audits are designed to identify control gaps in anticipation of a more formal external audit. While external audits and independent third‐party audits can provide validation of an organization’s controls, they are typically performed by outside auditing firms or other organizations, not the organization itself and are more expensive. A vulnerability assessment is very limited in scope and would not uncover many types of compliance issues.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 77,
+      "stem": "Tina is applying a digital signature to a contract so that the recipient can prove that she agreed to its terms. What goal of cryptography most directly describes Tina’s actions?",
+      "options": {
+        "A": "Nonrepudiation",
+        "B": "Confidentiality",
+        "C": "Integrity",
+        "D": "Authentication"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Nonrepudiation"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Nonrepudiation ensures that individuals can prove to a third party that a message came from its purported sender. Although Tina may also achieve other goals with her approach, this goal is her stated intention.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 78,
+      "stem": "Kevin is using a service where a cloud provider offers a platform that executes his code in response to discrete events. He is billed based on the actual resources consumed during each code execution event. What term best describes this service?",
+      "options": {
+        "A": "PaaS",
+        "B": "SaaS",
+        "C": "IaaS",
+        "D": "FaaS"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "FaaS"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "This is an example of function‐as‐a‐service (FaaS) computing, a subset of platform‐as‐a‐service (PaaS). Although both terms may be used to describe the service Kevin uses, the best answer is FaaS, because it is more specific.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 79,
+      "stem": "Grace received a digitally signed message from Richard and would like to verify the digital signature. What key should she use to perform this verification?",
+      "options": {
+        "A": "Richard’s public key",
+        "B": "Richard’s private key",
+        "C": "Grace’s public key",
+        "D": "Grace’s private key"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Richard’s public key"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The recipient of a digitally signed message may verify the digital signature by decrypting it with the public key of the individual who signed the message.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 80,
+      "stem": "Brian recently verified that the cash registers in his retail stores are printing only the last four digits of credit card numbers on receipts, replacing all the other digits with asterisks. The receipt does contain the customer’s name and signature. What type of control has he implemented?",
+      "options": {
+        "A": "Purging",
+        "B": "Tokenization",
+        "C": "Masking",
+        "D": "Deidentification"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Masking"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "This is an example of data masking, removing enough digits from sensitive information to render it nonsensitive. Tokenization would replace the existing number with an unrelated number. Purging would remove the data completely. The data is not deidentified because the customer’s name appears on the receipt.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 81,
+      "stem": "Which one of the following approaches, when feasible, is the most effective way to defeat injection attacks?",
+      "options": {
+        "A": "Input block lists",
+        "B": "Input allow lists",
+        "C": "Browser‐based input validation",
+        "D": "Signature detection"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Input allow lists"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Input allow list approaches define the specific input type or range that users may provide. When developers can write clear business rules defining allowable user input, allow listing is definitely the most effective way to prevent injection attacks. Block lists achieve the same goal but attempt to block malicious content rather than allow approved content so they are less effective. Browser‐based input validation is not a good practice because an attacker can easily bypass that validation. Signature detection is generally not used for injection attacks but rather for antivirus software.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 82,
+      "stem": "Which one of the following categories best describes information protected by HIPAA?",
+      "options": {
+        "A": "PCI",
+        "B": "PII",
+        "C": "PHI",
+        "D": "SPI"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "PHI"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The Health Insurance Portability and Accountability Act (HIPAA) mandates the safeguarding of protected health information (PHI). Sensitive personal information (SPI) and personally identifiable information (PII) may fall under HIPAA but do not necessarily do so. Payment card information (PCI) is covered by PCI DSS.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 83,
+      "stem": "What emerging cryptographic technology is commonly used to create a distributed and immutable public ledger?",
+      "options": {
+        "A": "Quantum computing",
+        "B": "Perfect forward secrecy",
+        "C": "Homomorphic encryption",
+        "D": "Blockchain"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Blockchain"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The blockchain is, in its simplest description, a distributed and immutable public ledger. This means that it can store records in a way that distributes those records among many different systems located around the world and do so in a manner that prevents anyone from tampering with those records. The blockchain creates a data store that nobody can tamper with or destroy.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 84,
+      "stem": "Jessica, a security consultant, is hired by a company to conduct a penetration test. The company provides her with a high‐level network diagram but no further details about the systems or configuration. What type of environment test is Jessica likely to conduct?",
+      "options": {
+        "A": "Known environment test",
+        "B": "Unknown environment test",
+        "C": "Partially known environment test",
+        "D": "Fully known environment test"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Partially known environment test"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "In this scenario, Jessica has been provided with some information about the environment—a high‐level network diagram, but not full details about the systems or configuration. This corresponds to a partially known environment test. Known environment tests provide the tester with full knowledge of the technology, configurations, and settings. Unknown environment tests provide no information about the environment and the tester has to discover vulnerabilities as an attacker would. A fully known environment test is not a recognized classification in penetration testing; hence it is not a valid choice.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 85,
+      "stem": "Jake is reviewing a database containing records of customer purchases and comes across the following table. What data minimization technique has most likely been used on the credit card information in this table?",
+      "options": {
+        "A": "Tokenization",
+        "B": "Destruction",
+        "C": "Hashing",
+        "D": "Masking"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Tokenization"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "This data is most likely tokenized. It appears to have been replaced with a sequential identifier that might be used to reference a credit card number contained in a lookup table. If the data had been hashed, it would contain fixed‐length hash values. If the data had been masked, it would contain placeholder characters, such as asterisks or Xs.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 86,
+      "stem": "Rhonda needs a digital certificate for a new web server that she is putting online this afternoon. If she has no prior relationship with a CA, what type of certificate can she obtain most quickly?",
+      "options": {
+        "A": "OV",
+        "B": "EV",
+        "C": "DV",
+        "D": "UV"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "DV"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Domain validation (DV) certificates require only verification of domain ownership, which can normally be done through an automated process. Other types of certificates require more thorough and time‐consuming verification steps.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 87,
+      "stem": "Vincent discovered the vulnerability shown here when scanning a system on his network. What is the best action he can take to correct this vulnerability?",
+      "options": {
+        "A": "Add multifactor authentication to the FTP server.",
+        "B": "Add an intrusion prevention system.",
+        "C": "Require the use of strong passwords.",
+        "D": "Remove the FTP server."
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Remove the FTP server."
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "The File Transfer Protocol (FTP) is an insecure protocol that should not be used today. Vincent’s best course of action is to remove the FTP server and replace this insecure protocol with a secure alternative, such as FTPS.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 88,
+      "stem": "Andrea is conducting a penetration test and is considering attacking systems belonging to a subsidiary of the target organization in an attempt to gain access. She is unsure whether this is permitted. What document should she consult to determine if this is acceptable activity?",
+      "options": {
+        "A": "Statement of work",
+        "B": "Contract",
+        "C": "Rules of engagement",
+        "D": "Lessons learned report"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Rules of engagement"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The rules of engagement provide technical details about the parameters of the test. This level of detail would not normally be found in a contract or statement of work. The lessons learned report is not produced until after the test.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 89,
+      "stem": "Which one of the following reconnaissance techniques allows an attacker to gather information with the least likelihood of the target learning of the attack?",
+      "options": {
+        "A": "Vulnerability scan",
+        "B": "OSINT",
+        "C": "Ping sweep",
+        "D": "SSH scan"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "OSINT"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Open source intelligence (OSINT) uses research techniques that mine publicly available information about the subject. OSINT would not trigger any alerts in the subject’s security systems. The other active reconnaissance techniques listed here all involve interactions with target systems that would leave log entries and other traces of the attacker’s actions.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 90,
+      "stem": "What term best describes data that is in the memory of a computer system?",
+      "options": {
+        "A": "Data in transit",
+        "B": "Data at rest",
+        "C": "Data in storage",
+        "D": "Data in use"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Data in use"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Data in processing, or data in use, is data that is actively in use by a computer system. Data being sent over a network is data in transit. Data at rest is stored data that resides on hard drives, on tapes, in the cloud, or on other storage media.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

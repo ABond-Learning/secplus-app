@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 13: Wireless and Mobile Security",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 261,
+    "average_per_question_seconds": 13.05
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Alyssa wants to harden iOS devices her organization uses. What set of guidelines can she follow to align to common industry security practices?",
+      "options": {
+        "A": "OWASP",
+        "B": "CIS benchmarks",
+        "C": "NIST 800‐103",
+        "D": "NIST 800‐111"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "CIS benchmarks"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The Center for Internet Security (CIS) provides hardening guidelines known as CIS benchmarks that Alyssa can use as a guide to secure her organization’s iOS devices. OWASP does not provide these, and NIST provides general guidance, not OS‐ or device‐specific configuration guides.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "Fred’s company issues devices in a BYOD model. That means that Fred wants to ensure that corporate data and applications are kept separate from personal applications on the devices. What technology is best suited to meet this need?",
+      "options": {
+        "A": "Biometrics",
+        "B": "Full‐device encryption",
+        "C": "Context‐aware authentication",
+        "D": "Containerization"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Containerization"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Using a containerization system can allow Fred’s users to run corporate applications and to use corporate data in a secure environment that cannot be accessed by other applications outside of the container on the device. Containerization schemes for mobile devices typically use encryption and other isolation techniques to ensure that data and applications do not cross over. Biometrics and context‐aware authentication are useful for ensuring that the right user is using a device but don’t provide this separation. Full‐device encryption helps reduce the risk of theft or loss of a device resulting in a data breach.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "Michelle has deployed iPads to her staff who work her company’s factory floor. She wants to ensure that the devices work only in the factory and that if they are taken home they cannot access business data or services. What type of solution is best suited to her needs?",
+      "options": {
+        "A": "Context‐aware authentication",
+        "B": "Geofencing",
+        "C": "Geolocation",
+        "D": "Unified endpoint management (UEM)"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Geofencing"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Geofencing will allow Michelle to determine what locations the device should work in. The device will then use geolocation to determine when it has moved and where it is. In this case, the correct answer is therefore geofencing—simply having geolocation capabilities would not provide the solution she needs. Context‐aware authentication can help by preventing users from logging in when they aren’t in the correct location, but a device that was logged in may not require reauthentication. Finally, UEM, much like mobile device management, can be used to enforce these policies, but the most correct answer is geofencing.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Ivan is running an enterprise wireless network and his heatmap shows that two access points are likely conflicting with each other. What will the enterprise access controller most likely do to handle this conflict?",
+      "options": {
+        "A": "Increase the broadcast power of one of the access points.",
+        "B": "Change the SSID for one of the access points.",
+        "C": "Disable one of the access points.",
+        "D": "Decrease the broadcast power of the access points."
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Decrease the broadcast power of the access points."
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "When access points conflict, enterprise wireless network management tools will typically decrease the power for both access points until the issue is resolved. Simply increasing power will cause more conflicts, changing the SSID would not serve typical enterprise models that use a single SSID to allow roaming, and disabling an access point may leave coverage gaps.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "Chris wants to use geolocation technology to find where phones issued by his organization are located. Which of the following is not commonly used as part of geolocation techniques?",
+      "options": {
+        "A": "Bluetooth",
+        "B": "GPS",
+        "C": "NFC",
+        "D": "Wi‐Fi"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "NFC"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Nearfield communication (NFC) is not typically used for geolocation because of its extremely short range. Geolocation services may use GPS, Wi‐Fi, and Bluetooth to identify areas, access points, Bluetooth beacons, and other items that help with location services.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Daniel knows that WPA3 has added a method to ensure that brute‐force attacks against weak preshared keys are less likely to succeed. What is this technology called?",
+      "options": {
+        "A": "SAE",
+        "B": "CCMP",
+        "C": "PSK",
+        "D": "WPS"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "SAE"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Simultaneous Authentication of Equals (SAE) is used to establish a secure peering environment and to protect session traffic. Since the process requires additional cryptographic steps, it causes brute‐force attacks to be much slower and thus less likely to succeed while also providing more security than WPA2’s preshared key (PSK) mode. WPS is Wi‐Fi Protected Setup, a quick setup capability; CCMP is the encryption mode used for WPA2 networks. WPA3 moves to 128‐bit encryption for Personal mode and can support 192‐bit encryption in Enterprise mode.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Isabelle needs to select the EAP protocol that she will use with her wireless network. She wants to use a secure protocol that does not require client devices to have a certificate, but she does want to require mutual authentication. Which EAP protocol should she use?",
+      "options": {
+        "A": "EAP‐FAST",
+        "B": "EAP‐TTLS",
+        "C": "PEAP",
+        "D": "EAP‐TLS"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "PEAP"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Isabelle should select PEAP, which doesn’t require client certificates but does provide TLS support. EAP‐TTLS provides similar functionality but requires additional software to be installed on some devices. EAP‐FAST focuses on quick reauthentication, and EAP‐TLS requires certificates to be deployed to the endpoint devices.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "Theresa has implemented a technology that keeps data for personal use separate from data for her company on mobile devices used by members of her staff. What is this concept called?",
+      "options": {
+        "A": "Storage segmentation",
+        "B": "Multifactor storage",
+        "C": "Full‐device encryption",
+        "D": "Geofencing"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Storage segmentation"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Storage segmentation is the concept of splitting storage between functions or usage to ensure that information that fits a specific context is not shared or used by applications or services outside of that context. Full‐device encryption encrypts the entire device, geofencing is used to determine geographic areas where actions or events may be taken by software, and multifactor storage was made up for this question.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "A member of Jake’s team tells him that he sideloaded applications on his Android‐based company owned phone. What has occurred?",
+      "options": {
+        "A": "Malware was installed on the phone.",
+        "B": "The phone was rooted to allow administrative access.",
+        "C": "Applications were installed by copying them instead of via an app store.",
+        "D": "The organization’s MDM was disabled to avoid its management controls."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Applications were installed by copying them instead of via an app store."
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Sideloading is the process of copying files between two devices like a phone and a laptop, desktop, or storage device. Jake’s team member has loaded an application without using the Android application store. Sideloading does not necessarily imply malware, rooting, or disabling an MDM, although an MDM may be configured to prevent sideloading.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Madhuri disables SMS, MMS, and RCS on phones in her organization. What has she prevented from being sent?",
+      "options": {
+        "A": "Phone calls and texts",
+        "B": "Text messages and multimedia messages",
+        "C": "Text messages and firmware updates",
+        "D": "Phone calls and multimedia messages"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Text messages and multimedia messages"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "SMS (Short Message Service) is used to send text messages, and MMS and RCS provide additional multimedia features. Neither provides phone calls or firmware updates.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "What is the most frequent concern that leads to GPS tagging being disabled by some companies via an MDM tool?",
+      "options": {
+        "A": "Chain of custody",
+        "B": "The ability to support geofencing",
+        "C": "Privacy",
+        "D": "Context‐aware authentication"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Privacy"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Geotagging places a location stamp in documents and pictures that can include position, time, and date. This can be a serious privacy issue when pictures or other information are posted, and many individuals and organizations disable GPS tagging. Organizations may want to enforce GPS tagging for some work products, meaning that the ability to enable or disable it in an MDM tool is quite useful. Chain of custody is a forensic concept, the ability to support geofencing does not require GPS tagging, and context‐aware authentication may need geolocation but not GPS tagging.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "Bart wants to use a cellular hotspot to provide Internet connectivity via Wi‐Fi. What type of network has he set up for his laptop and phone to connect to?",
+      "options": {
+        "A": "Ad‐hoc",
+        "B": "NFC",
+        "C": "Point‐to‐point",
+        "D": "RFID"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Ad‐hoc"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "This is an ad‐hoc network set up to allow devices to connect to the access point provided by the cellular modem. NFC is a short range, low bandwidth connection method used for payments and similar purposes. Point‐to‐point connections are used to bridge two networks together or for single connections, this is a multi‐device network. RFID uses tags and readers.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "Susan wants to ensure that the threat of a lost phone creating a data breach is minimized. What two technologies should she implement to do this?",
+      "options": {
+        "A": "Wi‐Fi and NFC",
+        "B": "Remote wipe and FDE",
+        "C": "Containerization and NFC",
+        "D": "Geofencing and remote wipe"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Remote wipe and FDE"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Susan’s best options are to use a combination of full‐device encryption (FDE) and remote wipe. If a device is stolen and continues to be connected to the cellular network, or reconnects at any point, the remote wipe will occur. If it does not, or if attackers attempt to get data from the device and it is locked, the encryption will significantly decrease the likelihood of the data being accessed. Of course, cracking a passcode, PIN, or password remains a potential threat. NFC and Wi‐Fi are wireless connection methods and have no influence on data breaches due to loss of a device. Geofencing may be useful for some specific organizations that want to take action if devices leave designated areas, but it is not a general solution. Containerization may shield data, but use of containers does not immediately imply encryption or other protection of the data but simply that the environments are separated.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "What are the two most commonly deployed biometric authentication solutions for mobile devices?",
+      "options": {
+        "A": "Voice recognition and face recognition",
+        "B": "Fingerprint recognition and gait recognition",
+        "C": "Face recognition and fingerprint recognition",
+        "D": "Voice recognition and fingerprint recognition"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Face recognition and fingerprint recognition"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Current mobile device implementations have focused heavily on facial recognition via services like Apple’s Face ID and fingerprint recognition like Android’s fingerprint scanning and Apple’s Touch ID. Gait recognition is not a widely deployed biometric technology and would be difficult for most mobile device users to use. Voice recognition as a biometric authenticator has not been broadly deployed for mobile devices, whereas voice‐activated services are in wide usage.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "Alaina wants to modify operating system settings and features on her iOS device and to install applications that are not permitted or available via the Apple App Store. What would she need to do to accomplish this?",
+      "options": {
+        "A": "Deploy an MDM tool to the phone.",
+        "B": "Jailbreak the phone.",
+        "C": "Keymod the phone.",
+        "D": "Install a third‐party operating system."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Jailbreak the phone."
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Jailbreaking will allow Alaina to obtain administrator access to the underlying phone operating system and to modify operating system settings and options as well as to install applications that are not available via the App Store. Deploying an MDM does not permit all of this, keymodding is not a term used in this context, and installing a third‐party OS would allow access but would change the OS.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Jerome wants to allow guests to use his organization’s wireless network, but he does not want to provide a preshared key. What solution can he deploy to gather information such as email addresses or other contact information before allowing users to access his open network?",
+      "options": {
+        "A": "WPS capture mode",
+        "B": "Kerberos",
+        "C": "WPA2",
+        "D": "A captive portal"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "A captive portal"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Jerome should deploy a captive portal that requires users to provide information before being moved to a network segment that allows Internet access. WPS capture mode was made up for this question, Kerberos is used for enterprise authentication, and WPA2 supports open, enterprise, or PSK modes but does not provide the capability Jerome needs by itself.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "Amanda wants to create a view of her buildings that shows Wi‐Fi signal strength and coverage. What is this type of view called?",
+      "options": {
+        "A": "A channel overlay",
+        "B": "A PSK",
+        "C": "A heatmap",
+        "D": "A SSID chart"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "A heatmap"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Amanda wants to create a heatmap, which shows the signal strength and coverage for each access point in a facility. Heatmaps can also be used to physically locate an access point by finding the approximate center of the signal. This can be useful to locate rogue access points and other unexpected or undesired wireless devices. PSK stands for preshared key, a channel overlay is not a commonly used term (although channel overlap is a concern for channels that share bandwidth), and SSID chart was made up for this question.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Megan wants to prevent access to phones that are misplaced by members of her organization. Which of the following MDM control options is least likely to help her protect phones that are misplaced?",
+      "options": {
+        "A": "PINs",
+        "B": "Device encryption",
+        "C": "Remote wipe",
+        "D": "Application management"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Application management"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Managing applications won’t help protect a misplaced phone from being accessed. PINs, device encryption, and remote wipe will all help keep her organization’s data and devices secure.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "Gurvinder wants to select a mobile device deployment method that provides employees with devices that they can use as though they’re personally owned to maximize flexibility and ease of use. Which deployment model should he select?",
+      "options": {
+        "A": "CYOD",
+        "B": "COPE",
+        "C": "BYOD",
+        "D": "MOTD"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "COPE"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Gurvinder’s requirements fit the COPE (corporate‐owned, personally enabled) mobile device deployment model. Choose your own device (CYOD) allows users to choose a device but then centrally manages it. BYOD allows users to use their own device, rather than have the company provide it, and MOTD means message of the day, and is not a mobile device deployment scheme.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "Octavia discovers that the contact list from her phone has been acquired via a wireless attack. Which of the following is the most likely culprit?",
+      "options": {
+        "A": "Bluejacking",
+        "B": "An evil maid",
+        "C": "Bluesnarfing",
+        "D": "An evil twin"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Bluesnarfing"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Bluesnarfing is the theft of information from a Bluetooth enabled device. If Octavia left Bluetooth on and had not properly secured her device, then an attacker may have been able to access her contact list and download its contents. A bluejacking attack occurs when unwanted messages are sent to a device via Bluetooth. Evil twins are malicious access points configured to appear to be legitimate access points, and an evil maid attack is an in‐person attack where an attacker takes advantage of physical access to hardware to acquire information or to insert malicious software on a device.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

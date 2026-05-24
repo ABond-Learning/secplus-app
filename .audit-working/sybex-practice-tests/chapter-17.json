@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 17: Risk Management and Privacy",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 43,
+    "average_per_question_seconds": 2.15
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Jen identified a missing patch on a Windows server that might allow an attacker to gain remote control of the system. After consulting with her manager, she applied the patch. From a risk management perspective, what has she done?",
+      "options": {
+        "A": "Removed the threat",
+        "B": "Reduced the threat",
+        "C": "Removed the vulnerability",
+        "D": "Reduced the vulnerability"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Removed the vulnerability"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "By applying the patch, Jen has removed the vulnerability from her server. This also has the effect of eliminating this particular risk. Jen cannot control the external threat of an attacker attempting to gain access to her server.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "You notice a high number of SQL injection attacks against a web application run by your organization, so you install a web application firewall to block many of these attacks before they reach the server. How have you altered the severity of this risk?",
+      "options": {
+        "A": "Reduced the magnitude",
+        "B": "Eliminated the vulnerability",
+        "C": "Reduced the probability",
+        "D": "Eliminated the threat"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Reduced the probability"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Installing a web application firewall reduces the probability that an attack will reach the web server. Vulnerabilities may still exist in the web application and the threat of an external attack is unchanged. The impact of a successful SQL injection attack is also unchanged by a web application firewall.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "Refer to the following scenario:\n\nAziz is responsible for the administration of an e‐commerce website that generates $100,000 per day in revenue for his firm. The website uses a database that contains sensitive information about the firm’s customers. He expects that a compromise of that database would result in $500,000 of fines against his firm.\n\nAziz is assessing the risk of a SQL injection attack against the database where the attacker would steal all of the customer personally identifiable information (PII) from the database. After consulting threat intelligence, he believes that there is a 5 percent chance of a successful attack in any given year.\n\nWhat is the asset value (AV)?",
+      "options": {
+        "A": "$5,000",
+        "B": "$100,000",
+        "C": "$500,000",
+        "D": "$600,000"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "$500,000"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The asset at risk in this case is the customer database. Losing control of the database would result in a $500,000 fine, so the asset value (AV) is $500,000.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Refer to the following scenario:\n\nAziz is responsible for the administration of an e‐commerce website that generates $100,000 per day in revenue for his firm. The website uses a database that contains sensitive information about the firm’s customers. He expects that a compromise of that database would result in $500,000 of fines against his firm.\n\nAziz is assessing the risk of a SQL injection attack against the database where the attacker would steal all of the customer personally identifiable information (PII) from the database. After consulting threat intelligence, he believes that there is a 5 percent chance of a successful attack in any given year.\n\nWhat is the exposure factor (EF)?",
+      "options": {
+        "A": "5%",
+        "B": "20%",
+        "C": "50%",
+        "D": "100%"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "100%"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The attack would result in the total loss of customer data stored in the database, making the exposure factor (EF) 100 percent.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "Refer to the following scenario:\n\nAziz is responsible for the administration of an e‐commerce website that generates $100,000 per day in revenue for his firm. The website uses a database that contains sensitive information about the firm’s customers. He expects that a compromise of that database would result in $500,000 of fines against his firm.\n\nAziz is assessing the risk of a SQL injection attack against the database where the attacker would steal all of the customer personally identifiable information (PII) from the database. After consulting threat intelligence, he believes that there is a 5 percent chance of a successful attack in any given year.\n\nWhat is the single loss expectancy (SLE)?",
+      "options": {
+        "A": "$5,000",
+        "B": "$100,000",
+        "C": "$500,000",
+        "D": "$600,000"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "$500,000"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "We compute the single loss expectancy (SLE) by multiplying the asset value (AV) ($500,000) and the exposure factor (EF) (100%) to get an SLE of $500,000.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Refer to the following scenario:\n\nAziz is responsible for the administration of an e‐commerce website that generates $100,000 per day in revenue for his firm. The website uses a database that contains sensitive information about the firm’s customers. He expects that a compromise of that database would result in $500,000 of fines against his firm.\n\nAziz is assessing the risk of a SQL injection attack against the database where the attacker would steal all of the customer personally identifiable information (PII) from the database. After consulting threat intelligence, he believes that there is a 5 percent chance of a successful attack in any given year.\n\nWhat is the annualized rate of occurrence (ARO)?",
+      "options": {
+        "A": "0.05",
+        "B": "0.20",
+        "C": "2.00",
+        "D": "5.00"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "0.05"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Aziz’s threat intelligence research determined that the threat has a 5 percent likelihood of occurrence each year. This is an ARO of 0.05.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Refer to the following scenario:\n\nAziz is responsible for the administration of an e‐commerce website that generates $100,000 per day in revenue for his firm. The website uses a database that contains sensitive information about the firm’s customers. He expects that a compromise of that database would result in $500,000 of fines against his firm.\n\nAziz is assessing the risk of a SQL injection attack against the database where the attacker would steal all of the customer personally identifiable information (PII) from the database. After consulting threat intelligence, he believes that there is a 5 percent chance of a successful attack in any given year.\n\nWhat is the annualized loss expectancy (ALE)?",
+      "options": {
+        "A": "$5,000",
+        "B": "$25,000",
+        "C": "$100,000",
+        "D": "$500,000"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "$25,000"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "We compute the annualized loss expectancy (ALE) by multiplying the SLE ($500,000) and the ARO (0.05) to get an ALE of $25,000.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "Refer to the following scenario:\n\nGrace recently completed a risk assessment of her organization’s exposure to data breaches and determined that there is a high level of risk related to the loss of sensitive personal information. She is considering a variety of approaches to managing this risk.\n\nGrace’s first idea is to add a web application firewall to protect her organization against SQL injection attacks. What risk management strategy does this approach adopt?",
+      "options": {
+        "A": "Risk acceptance",
+        "B": "Risk avoidance",
+        "C": "Risk mitigation",
+        "D": "Risk transference"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Risk mitigation"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Installing new controls or upgrading existing controls is an effort to reduce the probability or magnitude of a risk. This is an example of a risk mitigation activity.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "Refer to the following scenario:\n\nGrace recently completed a risk assessment of her organization’s exposure to data breaches and determined that there is a high level of risk related to the loss of sensitive personal information. She is considering a variety of approaches to managing this risk.\n\nBusiness leaders are considering dropping the customer activities that collect and store sensitive personal information. What risk management strategy would this approach use?",
+      "options": {
+        "A": "Risk acceptance",
+        "B": "Risk avoidance",
+        "C": "Risk mitigation",
+        "D": "Risk transference"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Risk avoidance"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Changing business processes or activities to eliminate a risk is an example of risk avoidance.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Refer to the following scenario:\n\nGrace recently completed a risk assessment of her organization’s exposure to data breaches and determined that there is a high level of risk related to the loss of sensitive personal information. She is considering a variety of approaches to managing this risk.\n\nGrace’s company decided to install the web application firewall and continue doing business. They are still worried about other risks to the information that were not addressed by the firewall and are considering purchasing an insurance policy to cover those risks. What strategy does this use?",
+      "options": {
+        "A": "Risk acceptance",
+        "B": "Risk avoidance",
+        "C": "Risk mitigation",
+        "D": "Risk transference"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Risk transference"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Insurance policies use a risk transference strategy by shifting some or all of the financial risk from the organization to an insurance company.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "Refer to the following scenario:\n\nGrace recently completed a risk assessment of her organization’s exposure to data breaches and determined that there is a high level of risk related to the loss of sensitive personal information. She is considering a variety of approaches to managing this risk.\n\nIn the end, Grace’s risk managers found that the insurance policy was too expensive and opted not to purchase it. They are taking no additional action. What risk management strategy is being used in this situation?",
+      "options": {
+        "A": "Risk acceptance",
+        "B": "Risk avoidance",
+        "C": "Risk mitigation",
+        "D": "Risk transference"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Risk acceptance"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "When an organization decides to take no further action to address remaining risk, they are choosing a strategy of risk acceptance.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "Under the European Union’s GDPR, what term is assigned to the individual who leads an organization’s privacy efforts?",
+      "options": {
+        "A": "Data protection officer",
+        "B": "Data controller",
+        "C": "Data steward",
+        "D": "Data processor"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Data protection officer"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Under the GDPR, the data protection officer (DPO) is an individual assigned direct responsibility for carrying out an organization’s privacy program.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "Helen’s organization maintains medical records on behalf of its customers, who are individual physicians. What term best describes the role of Helen’s organization?",
+      "options": {
+        "A": "Data processor",
+        "B": "Data controller",
+        "C": "Data owner",
+        "D": "Data steward"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Data processor"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "In this case, the physicians maintain the data ownership role. They have chosen to outsource data processing to Helen’s organization, making that organization a data processor.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "Gene recently conducted an assessment and determined that his organization can be without its main transaction database for a maximum of two hours before unacceptable damage occurs to the business. What metric has Gene identified?",
+      "options": {
+        "A": "MTBF",
+        "B": "MTTR",
+        "C": "RTO",
+        "D": "RPO"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "RTO"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The Recovery Time Objective (RTO) is the amount of time that the organization can tolerate a system being down before it is repaired. That is the metric that Gene has identified in this scenario.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "Tina works for a hospital system and manages the system’s patient records. What category of personal information best describes the information that is likely to be found in those records?",
+      "options": {
+        "A": "PCI",
+        "B": "PHI",
+        "C": "PFI",
+        "D": "PII"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "PHI"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "This is a tricky question, as it is possible that all of these categories of information may be found in patient records. However, they are most likely to contain protected health information (PHI). PHI could also be described as a subcategory of personally identifiable information (PII), but PHI is a better description. It is also possible that the records might contain payment card information (PCI) or personal financial information (PFI), but that is less likely than PHI.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Asa believes that her organization is taking data collected from customers for technical support and using it for marketing without their permission. What principle is most likely being violated?",
+      "options": {
+        "A": "Data minimization",
+        "B": "Data retention",
+        "C": "Purpose limitation",
+        "D": "Data sovereignty"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Purpose limitation"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Organizations should only use data for the purposes disclosed during the collection of that data. In this case, the organization collected data for technical support purposes and is now using it for marketing purposes. That violates the principle of purpose limitation.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "Which one of the following U.S. government classification levels requires the highest degree of security control?",
+      "options": {
+        "A": "Secret",
+        "B": "Confidential",
+        "C": "Top Secret",
+        "D": "Unclassified"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Top Secret"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Top Secret is the highest level of classification under the U.S. system and, therefore, requires the highest level of security control.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Which type of analysis uses numeric data in the analysis, resulting in assessments that allow the very straightforward prioritization of risk?",
+      "options": {
+        "A": "Qualitative",
+        "B": "One‐time",
+        "C": "Recurring",
+        "D": "Quantitative"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Quantitative"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Quantitative risk analysis uses numeric data in the analysis, resulting in assessments that allow the very straightforward prioritization of risks. Qualitative risk analysis substitutes subjective judgments and categories for strict numerical analysis, allowing the assessment of risks that are difficult to quantify. A one‐time risk assessment offers the organization a point‐in‐time view of its current risk state. Recurring risk assessments are performed at regular intervals, such as annually or quarterly.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "What term is given to an individual or organization who determines the reasons for processing personal information?",
+      "options": {
+        "A": "Data steward",
+        "B": "Data controller",
+        "C": "Data processor",
+        "D": "Data custodian"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Data controller"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Data controllers are the entities who determine the reasons for processing personal information and direct the methods of processing that data. This term is used primarily in European law, and it serves as a substitute for the term data owner to avoid a presumption that anyone who collects data has an ownership interest in that data.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "Brian recently conducted a risk mitigation exercise and has determined the level of risk that remains after implementing a series of controls. What term best describes this risk?",
+      "options": {
+        "A": "Inherent risk",
+        "B": "Control risk",
+        "C": "Risk appetite",
+        "D": "Residual risk"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Residual risk"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The residual risk is the risk that remains after an organization implements controls designed to mitigate, avoid, and/or transfer the inherent risk.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

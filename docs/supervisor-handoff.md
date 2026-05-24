@@ -1,4 +1,16 @@
-# Where Things Stand — 2026-05-23 (autonomous chain α SHIPPED + G-packet partial close + Tier 1/2/3 framework + Pages deploy fix)
+# Where Things Stand — 2026-05-24 (Sybex Tier 2 corpus COMPLETE + committed)
+
+> **2026-05-24 update:** The only state change since the 2026-05-23 refresh is the
+> Sybex practice-test extraction, which is now **complete and committed** (18 files /
+> 500 questions at `.audit-working/sybex-practice-tests/`). Everything else below —
+> autonomous chain α, G-packet partial close, Tier 1/2/3 framework, Pages deploy fix —
+> still describes current state. See the "Sybex Tier 2 corpus — COMPLETE" section and
+> `Reports/Report-#0012.md`. **Methodology shift:** Audit D forward adjudication now
+> runs on a **Tier 1 + Tier 2** evidence base (glossary + practice-test bank), not
+> Tier 1 alone. **Now unblocked:** Item 3 HSTS verdict (Ch12 data in hand), P1/P2/P3
+> adjudication (56 items), and the D1/D3/D4/D5 partial-adjacent cleanup (227+ items).
+
+## (prior header) Where Things Stand — 2026-05-23 (autonomous chain α SHIPPED + G-packet partial close + Tier 1/2/3 framework + Pages deploy fix)
 
 Handoff document for supervisor-Claude continuity. Captures
 institutional knowledge that isn't in the formal docs (PLAN.md,
@@ -167,23 +179,31 @@ problem (per the grand-plan recalibration: studying is the test).
 screen. Lets adjudication quickly separate "off-syllabus drift" from
 "on-syllabus, just cited to the wrong source."
 
-### Sybex practice-test extraction underway
+### Sybex Tier 2 corpus — COMPLETE (2026-05-24, committed)
 
-Purpose: build a Tier 2 corpus for future audit decisions + a study
-reference. Extraction via Claude in Chrome — **chapters 1+2 on disk** at
-`.audit-working/sybex-practice-tests/{chapter-01,chapter-02}.json`;
-**remaining 16 chapters + 2 practice exams running unattended.** This is
-the corpus that will let future SB-fix-style passes ground "does the
-cert test this?" without per-item manual book lookups.
+The Tier 2 corpus is **built, verified, and committed** at
+`.audit-working/sybex-practice-tests/` (tracked via a `.gitignore` exception
+mirroring the `relays/` precedent — `.audit-working/*` is otherwise gitignored).
 
-**Pickup step (resume note):** when all 18 chapters + 2 exams have landed
-in `.audit-working/sybex-practice-tests/`, the next action is to wire them
-as the Tier 2 screen for P1/P2/P3 adjudication (does the cert actually
-*test* this concept, and how?) ahead of per-item Tier 3 Sybex chapter
-lookups. The extraction is an external Claude-in-Chrome process CC does not
-control; if it stalls, the partial output on disk is still usable. Verify
-file count (`ls .audit-working/sybex-practice-tests/`) at next-session
-orient.
+- **18 files / 500 questions**: chapters 02–17 (20 each = 320) + Practice Exams 1
+  and 2 (90 each = 180). `chapter-01.json` is a legacy non-deliberate 6/20 run
+  from prior actual studying — **intentionally excluded** from the corpus (kept on
+  disk, re-ignored in `.gitignore`).
+- **5 accidental matches** (deliberately-wrong pick still matched Sybex's correct):
+  ch04 Q1, ch08 Q3, ch11 Q15, ch12 Q17, ch14 Q20 — flags where Sybex framing
+  diverges from common Security+ understanding.
+- **Shape**: per-question `n` / `stem` / `options` (A–D dict) / `correct`
+  ({letter, text}) / `explanation` / `my_guess` / `guess_matched_correct`. The
+  `my_guess` field records CCh's Security+ reasoning vs Sybex framing. One drift
+  found + fixed: `practice-exam-02` had `correct` as a bare string; normalized to
+  `{letter, text}` to match the other 17 (structural only, no answer changes).
+- Web-fetchable for the supervisor at the same `raw.githubusercontent.com` path
+  (subject to the `web_fetch` reliability caveat above — local `cat`/`git` remains
+  source of truth).
+
+This is the corpus that lets SB-fix-style passes ground "does the cert *test* this?"
+without per-item manual book lookups. See `Reports/Report-#0012.md` for the run
+methodology and Claude-in-Chrome workflow lessons.
 
 ### GitHub Pages deploy fix (see Report-#0011)
 
@@ -209,8 +229,10 @@ untouched by the autonomous chain.
   on-path attack), NOT the cited **On-path Attacks** (0 hits); and HSTS
   is **absent corpus-wide** (0 transcript files). So the messerVideo
   correction is a within-§2.4 citation fix — verdict turns on whether it
-  stays `keep-with-sybex-note` or shifts to `re-cite-to-sybex`. Pending
-  **Chapter 12 Sybex practice-test data**. Applied under
+  stays `keep-with-sybex-note` or shifts to `re-cite-to-sybex`. ~~Pending
+  Chapter 12 Sybex practice-test data.~~ **UNBLOCKED 2026-05-24** — Ch12
+  corpus is in hand (`chapter-12.json`, incl. the ch12 Q17 accidental
+  match); ready to adjudicate. Applied under
   `applied_by=sb-fix-2-packet-G`, so a 1-item decisions file slots Item 3
   in later without re-touching Items 1+2.
 

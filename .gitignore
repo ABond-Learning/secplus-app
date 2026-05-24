@@ -7,3 +7,7 @@ dist/
 .messer-transcripts/
 .audit-working/*
 !.audit-working/relays/
+# Sybex Tier 2 audit corpus is tracked (Audit D evidence base); ch01 is a legacy
+# non-deliberate run, intentionally excluded from the corpus.
+!.audit-working/sybex-practice-tests/
+.audit-working/sybex-practice-tests/chapter-01.json

@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 8: Identity and Access Management",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "1/20 Correct (displayed as 1/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 241,
+    "average_per_question_seconds": 12.05
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Angela has chosen to federate with other organizations to allow use of services that each organization provides. What role does Angela’s organization play when they authenticate their users and assert that those users are valid to other members of the federation?",
+      "options": {
+        "A": "Service provider",
+        "B": "Relying party",
+        "C": "Authentication provider",
+        "D": "Identity provider"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Identity provider"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Angela’s organization is acting as an identity provider (IdP). Other members of the federation may act as a service provider or relying party when they allow her users to access their services. Authentication provider is not a named role in typical federation activities.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "Which of the following technologies is the least effective means of preventing shared accounts?",
+      "options": {
+        "A": "Password complexity requirements",
+        "B": "Requiring biometric authentication",
+        "C": "Requiring one‐time passwords via a token",
+        "D": "Requiring a one‐time password via an application"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Password complexity requirements"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Password complexity requirements do not prevent sharing of complex passwords, making it the least effective option from the list. Biometric authentication measures will require the enrolled user to be there, although in some cases such as fingerprint systems, multiple users could each enroll a valid fingerprint for a single account. Both types of one‐time passwords could be shared but make it harder and less convenient to share accounts.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "What major difference is likely to exist between on‐premises identity services and those used in a cloud‐hosted environment?",
+      "options": {
+        "A": "Account policy control will be set to the cloud provider’s standards.",
+        "B": "The cloud service will provide account and identity management services.",
+        "C": "Multifactor authentication will not be supported by the cloud vendor.",
+        "D": "None of the above."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "The cloud service will provide account and identity management services."
+      },
+      "my_guess": "B",
+      "guess_matched_correct": true,
+      "explanation": "Most cloud services provide identity and authorization tools for their services. Most, although not all, allow customers to set some or even many of the account policies they will use, and most major vendors support some form of multifactor capability.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Amitoj wants to ensure that her organization’s password policy does not allow users to reset their password multiple times until they can reuse their current password. What setting is used to prevent this?",
+      "options": {
+        "A": "Complexity",
+        "B": "Length",
+        "C": "Expiration",
+        "D": "Age"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Age"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Password age is set to prevent users from resetting their password enough times to bypass reuse settings. Complexity, length, and expiration do not influence this.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "Which type of multifactor authentication is considered the least secure?",
+      "options": {
+        "A": "HOTP",
+        "B": "SMS",
+        "C": "TOTP",
+        "D": "Biometric"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "SMS"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "SMS messages are not secure and could be accessed by cloning a SIM card or redirecting VoIP traffic, among other possible threat models. Both HOTP and TOTP tokens and applications as well as biometric factors are generally considered more secure than an SMS‐based factor.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Geeta has been issued a USB security key as part of her organization’s multifactor implementation. What type of implementation is this?",
+      "options": {
+        "A": "A hard token",
+        "B": "A biometric token",
+        "C": "A soft token",
+        "D": "An attestation token"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "A hard token"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "A USB security key is an example of a hard, or physical, token. An application is an example of a soft token. A biometric factor might be a fingerprint or faceprint. Attestation is a formal verification that something is true. Attestation tokens were made up for this question.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Michelle enables the Windows picture password feature to control logins for her laptop. Which type of attribute will it provide?",
+      "options": {
+        "A": "Somewhere you are",
+        "B": "Something you know",
+        "C": "Something you are",
+        "D": "Someone you know"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Something you know"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Picture password asks users to click on specific, self‐defined parts of a picture. This means that clicking on those points is something you know. Something you are involves biometric traits, and somewhere you are relies on geographic locations.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "What purpose would Linux file permissions set to rw-r—r-- serve?",
+      "options": {
+        "A": "To allow the owner to read and write the file, and for the owner’s group and others to be able to read it",
+        "B": "To allow all users to read and write the file, and for the group and owner to be able to read it",
+        "C": "To allow system administrators to read and write the file, and for users and all others to be able to read it",
+        "D": "To prevent reading and writing for all users, and to prevent reading by groups and a specific user"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "To allow the owner to read and write the file, and for the owner’s group and others to be able to read it"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Linux file permissions are read left to right, with the first three characters indicating read, write, and execute permissions (rwx) for the owner of the file, the second three apply to the group, and the last three to all other users. Any indicated with a – are not allowed for that set.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "Theresa wants to implement an access control scheme that sets permissions based on what the individual’s job requires. Which of the following schemes is most suited to this type of implementation?",
+      "options": {
+        "A": "ABAC",
+        "B": "DAC",
+        "C": "RBAC",
+        "D": "MAC"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "RBAC"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Role‐based access control (RBAC) sets permissions based on an individual’s role, which is typically associated with their job. Attribute‐based access control (ABAC) is typically matched to other attributes than the job role. Discretionary access control (DAC) and mandatory access control (MAC) are commonly implemented at the operating system level.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Which of the following biometric technologies is most broadly deployed due to its ease of use and acceptance from end users?",
+      "options": {
+        "A": "Voice print recognition",
+        "B": "Gait recognition",
+        "C": "Retina scanners",
+        "D": "Fingerprint scanner"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Fingerprint scanner"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Fingerprint scanners are found on many mobile devices and laptops, making them one of the most broadly deployed biometric technologies. Facial recognition is also broadly deployed, but it is not mentioned in this question or offered as an option.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "Adam want to increase his organization’s passwords resistance to attacks in the event that the password hash database is stolen by attackers. Which of the following password security settings has the largest impact on password cracking if his organization’s current passwords are 8 characters long?",
+      "options": {
+        "A": "Password complexity",
+        "B": "Password length",
+        "C": "Password reuse limitations",
+        "D": "Preventing the use of common words in passwords"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Password length"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Password length has the largest impact on preventing password cracking. When paired with a strong password hash algorithm and proper use of technology like salting, long passwords are much harder to crack. Complexity is the next most important option, as preventing simple repeated characters and similar problematic passwords helps reduce the probability of easily cracked passwords being used. Reuse limitations and preventing common words are less useful.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "A PIN is an example of what type of factor?",
+      "options": {
+        "A": "Something you know",
+        "B": "Something you are",
+        "C": "Something you have",
+        "D": "Something you set"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Something you know"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "PINs and passwords are both examples of something you know. Something you set is not a type of factor. Biometric factors are an example of something you are, and a physical USB token would be a common example of something you have.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "Marie is implementing a PAM solution and wants to ensure that root passwords are available in the event of an outage. Which PAM‐related tool is most likely to be useful in this situation?",
+      "options": {
+        "A": "Ephemeral accounts",
+        "B": "Just‐in‐time permissions",
+        "C": "Password vaulting",
+        "D": "Token‐based authentication"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Password vaulting"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Password vaulting, which stores passwords for use with proper authentication and rights, is the most appropriate solution for Marie’s needs. Ephemeral accounts and just‐in‐time permissions are typically used under normal circumstances to provide least privilege access as needed. Token‐based authentication is not specifically a PAM solution.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "Jill sets her files on a Windows file share to allow Fred to access the files. What type of access control system is she using?",
+      "options": {
+        "A": "Mandatory access control",
+        "B": "Rule‐based access control",
+        "C": "Attribute‐based access control",
+        "D": "Discretionary access control"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Discretionary access control"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Jill is able to make decisions about the rights she grants on her files, meaning this is a discretionary access control system. A mandatory access control system relies on labels to set access control rules. Rule‐based access control systems rely on rules to define access, and attribute‐based access control systems grant access based on attributes like job roles or locations.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "Lisa sets up an account on a website that allows her to log in with Google. When she logs in, Google provides an access token to the website that confirms that she is who she says she is but doesn’t provide the site with her password. Which of the following technologies has she used?",
+      "options": {
+        "A": "LDAP",
+        "B": "OAuth",
+        "C": "MITRE",
+        "D": "RADIUS"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "OAuth"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "OAuth is an authentication protocol that allows services to receive authentication tokens from an identity provider without needing the user’s password. LDAP is a directory service and is often used as part of SSO processes. MITRE is a nonprofit organization, and RADIUS is an authentication technology.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Kyle has been asked to provide his government‐issued ID as part of the creation of his user account. What process should he assume it is being used for?",
+      "options": {
+        "A": "Biometric enrollment",
+        "B": "Just‐in‐time permission creation",
+        "C": "Identity proofing",
+        "D": "Federation"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Identity proofing"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Kyle can assume that his government‐issued ID is being used as part of an identity proofing process to validate that he is who he claims to be. Biometric enrollment typically requires interaction with an enrollment process to scan or capture biometric information. Just‐in‐time permission creation is done when access is requested and does not require government ID, and federation connects identity providers with service providers, which is not described here.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "What key concept below best describes only providing the permissions necessary to perform a role?",
+      "options": {
+        "A": "Least privilege",
+        "B": "Best practice",
+        "C": "Ephemeral accounts",
+        "D": "Mandatory access control"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Least privilege"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The principle of least privilege means that users should only be given the permissions necessary to perform their role. Best practice is a general term describing commonly recommended and accepted industry practices. Temporal accounts are ephemeral, or short‐lived accounts. Mandatory access control is an access control scheme.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Nina has recently left her organization. What should the organization do with her account?",
+      "options": {
+        "A": "Transfer it to her replacement.",
+        "B": "Reprovision it for another user.",
+        "C": "Deprovision her account.",
+        "D": "Change the password and preserve the account."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Deprovision her account."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Without other factors that would require the account to be retained, deprovisioning accounts that belonged to users who have left the organization is a best practice. Transferring accounts or reprovisioning them may expose data to new users or provide them with rights that they should not have.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "A person’s name, age, location, or job title are all examples of what?",
+      "options": {
+        "A": "Biometric factors",
+        "B": "Identity factors",
+        "C": "Attributes",
+        "D": "Account permissions"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Attributes"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "A person’s name, age, location, job title, and even things like their height or their hair color are all attributes that may be associated with a person’s identity. None of these describe biometric factors used for authentication, and identity factors are something you are, something you have, or somewhere you are. Account permissions determine what you can do, not attributes like these.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "What type of access control scheme best describes the Linux filesystem?",
+      "options": {
+        "A": "MAC",
+        "B": "RBAC",
+        "C": "DAC",
+        "D": "ABAC"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "DAC"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Linux users can change who can read, write, or execute files and directories they own, which is discretionary access control (DAC). Mandatory access control (MAC) would enforce settings set by the systems administrator without users having the rights to make their own decisions. While role‐based access control is involved, DAC best describes the access control scheme. ABAC is not a default method for setting rights for the Linux filesystem.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

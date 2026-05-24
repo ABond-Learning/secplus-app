@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 15: Digital Forensics",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 60,
+    "average_per_question_seconds": 3
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Felix wants to make an exact copy of a drive using a Linux command‐line tool as part of a forensic acquisition process. What command should he use?",
+      "options": {
+        "A": "df",
+        "B": "cp",
+        "C": "dd",
+        "D": "ln"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "dd"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "dd is a copying and conversion command for Linux and can be used to create a forensic image that can be validated using an MD5sum or SHA1 hash. The other commands are df for disk usage, cp for copying files, and ln to link files.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "Greg is preparing a forensic report and needs to describe the tools that were used. What should he report about the tools in addition to their names?",
+      "options": {
+        "A": "The type of system the tools were installed or run on",
+        "B": "The training level or certifications of the team that uses the tools",
+        "C": "Any known limitations or issues with the tools",
+        "D": "The patch level or installed version of the tools"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Any known limitations or issues with the tools"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "If there are known limitations or issues with the tools used, this should be included in the report. The type of system the tool was installed on may influence performance but should not influence the report or output. Training and certification may be listed as part of a team description but are not required as part of tool description. Finally, patch levels or installed versions are not critical unless there are known issues that would have been described as such.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "Gabby is preparing chain‐of‐custody documentation and identifies a gap in hand‐off documentation for an original source forensic drive. What issue should she expect to encounter due to this gap?",
+      "options": {
+        "A": "The evidence may not be admissible in court.",
+        "B": "The forensic activities may need to be repeated.",
+        "C": "The staff involved may have to re‐create the missed log.",
+        "D": "The chain of custody may need to be edited to note the problem."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "The evidence may not be admissible in court."
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "If forensic evidence was not properly handled, it may not be admissible in court. Repeating forensic activities won’t reverse mishandling, staff can’t go back and re‐create logs, and noting the issue will not resolve it.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Mike’s organization has recently moved to a SaaS cloud service and needs to collect forensic data from the cloud service. What process can Mike use to gather the information he needs?",
+      "options": {
+        "A": "Install forensic imaging software on the cloud service’s servers.",
+        "B": "Identify the log information available and request any other desired information from the cloud service provider.",
+        "C": "Engage law enforcement to acquire the forensic data.",
+        "D": "Request the forensic information from third‐party auditors."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Identify the log information available and request any other desired information from the cloud service provider."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Mike’s best option is to identify the log information available from the provider and to request any additional information knowing that he may not receive more detail unless there is contractual language that specifies it. SaaS vendors typically won’t allow installation of forensic tools, law enforcement does not perform forensic acquisition for third parties upon request, and auditors don’t provide forensic data acquisition either.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "Charles wants to obtain a forensic copy of a running virtual machine. What technique should he use to capture the image?",
+      "options": {
+        "A": "Run dd from within the running machine.",
+        "B": "Use FTK Imager from the virtual machine host.",
+        "C": "Use the VM host to create a snapshot.",
+        "D": "Use WinHex to create a copy from within the running machine."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Use the VM host to create a snapshot."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Creating a snapshot will provide a complete copy of the system, including memory state that can then be analyzed for forensic purposes. Copying a running system from a program running within that system can be problematic, since the system itself will change while it is trying to copy itself. FTK Imager can copy drives and files, but it would not handle a running virtual machine.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Melissa wants to capture network traffic for forensic purposes. What tool should she use to capture it?",
+      "options": {
+        "A": "A forensic suite",
+        "B": "Wireshark",
+        "C": "dd",
+        "D": "WinHex"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Wireshark"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Even though Wireshark is not a dedicated network forensic tool, since network traffic is ephemeral, capturing it with a packet sniffer like Wireshark is Melissa’s best option. Forensic suites are useful for analyzing captured images, not capturing network traffic, and dd and WinHex are both useful for packet capture, but not for network traffic analysis.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Frank is concerned about the admissibility of his forensic data. Which of the following is not an element he should be concerned about?",
+      "options": {
+        "A": "Whether the forensic source data has remained unaltered",
+        "B": "Whether the practices and procedures would survive review by experts",
+        "C": "Whether the evidence is relevant to the case",
+        "D": "Whether the forensic information includes a time stamp"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Whether the forensic information includes a time stamp"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Forensic information does not have to include a time stamp to be admissible, but time stamps can help build a case that shows when events occurred. Files without a time stamp may still show other information that is useful to the case or may have other artifacts associated with them that can provide context about the time and date.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "What is the document that tracks the custody or control of a piece of evidence called?",
+      "options": {
+        "A": "Evidence log",
+        "B": "Audit log",
+        "C": "Event report",
+        "D": "Chain of custody"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Chain of custody"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Chain‐of‐custody documentation tracks evidence throughout its life cycle, with information about who has custody or control and when transfers happened, and continues until the evidence is removed from the legal process and disposed of. The other terms are not used for this practice.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "Isaac is performing a forensic analysis on two systems that were compromised in the same event in the same facility. As he performs his analysis, he notices that the event appears to have happened almost exactly one hour earlier on one system than the other. What is the most likely issue he has encountered?",
+      "options": {
+        "A": "The attacker took an hour to get to the second system.",
+        "B": "One system is set to an incorrect time zone.",
+        "C": "The attacker changed the system clock to throw off forensic practitioners.",
+        "D": "The forensic tool is reading the time stamps incorrectly."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "One system is set to an incorrect time zone."
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "The most common cause of an hour of difference between two systems in an environment is an incorrectly set time zone. Isaac should check the time zone settings, and then correct his findings based on the time zones set on the systems if necessary.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "What legal concept determines the law enforcement agency or agencies that will be involved in a case based on location?",
+      "options": {
+        "A": "Nexus",
+        "B": "Nonrepudiation",
+        "C": "Jurisdiction",
+        "D": "Admissibility"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Jurisdiction"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Jurisdiction is the legal authority over an area or individuals based on laws that create the jurisdiction. Nexus defines whether a relationship or connection exists, such as a local branch or business location. Non‐repudiation ensures that evidence or materials can be connected to their originator. Admissibility determines whether evidence can be used in court.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "Michael wants to acquire the firmware from a running device for analysis. What method is most likely to succeed?",
+      "options": {
+        "A": "Use forensic memory acquisition techniques.",
+        "B": "Use disk forensic acquisition techniques.",
+        "C": "Remove the firmware chip from the system.",
+        "D": "Shut down the system and boot to the firmware to copy it to a removable device."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Use forensic memory acquisition techniques."
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Firmware can be challenging to access, but both memory forensic techniques and direct hardware interface access are viable means in some cases. Firmware is not typically stored on the disk and instead is stored in a BIOS or UEFI chip. Removing the chip from the system will leave it unable to run and thus this is not a preferred method. Also, many chips are not removable. Shutting down the device and booting it to the firmware does not provide a means of copying the firmware for most devices. Although the firmware is likely to allow updates, most do not allow downloads or copying.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "Charles needs to know about actions an individual performed on a PC. What is the best starting point to help him identify those actions?",
+      "options": {
+        "A": "Review the system log.",
+        "B": "Review the event log.",
+        "C": "Interview the individual.",
+        "D": "Analyze the system’s keystroke log."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Interview the individual."
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Although it may be tempting to use a technical answer, interviewing the individual involved is the best starting point when a person performed actions that need to be reviewed. Charles can interview the staff member, and then move on to technical means to validate their responses. System and event logs may have some clues to what occurred, but normal systems do not maintain a keystroke log. In fact, the closest normal element is the command log used by both Windows and Linux to allow command‐line input to be recalled as needed.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "Maria has acquired a disk image from a hard drive using dd, and she wants to ensure that her process is forensically sound. What should her next step be after completing the copy?",
+      "options": {
+        "A": "Securely wipe the source drive.",
+        "B": "Compare the hashes of the source and target drive.",
+        "C": "Securely wipe the target drive.",
+        "D": "Update her chain‐of‐custody document."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Compare the hashes of the source and target drive."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Once a copy is made, hashes for the original and target drive should be compared to ensure that the copy was successful. After that, the chain‐of‐custody document can be updated to note that a copy was made and will be tracked as it is analyzed while the original is preserved. Wiping either drive after a copy is not part of the process, although a target drive may be wiped after a case is complete.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "Alex has been handed a flash media device that was quick‐formatted and has been asked to recover the data. What data will remain on the drive?",
+      "options": {
+        "A": "No data will remain on the drive.",
+        "B": "Files will remain but file indexes will not.",
+        "C": "File indexes will remain, but the files will be gone.",
+        "D": "Files and file indexes will remain on the drive."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Files will remain but file indexes will not."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Quick‐formatting a drive removes the file indexes but leaves the file content on the drive. Recovery tools look for those files on the drive and piece them back together using metadata, headers, and other clues that help to recover the files.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "Naomi is preparing to migrate her organization to a cloud service and wants to ensure that she has the appropriate contractual language in place. Which of the following is not a common item she should include?",
+      "options": {
+        "A": "Right‐to‐audit clauses",
+        "B": "Right to forensic examination",
+        "C": "Choice of jurisdiction",
+        "D": "Data breach notification timeframe"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Right to forensic examination"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Contracts commonly include right to audit, choice of jurisdiction, and data breach notification time frame clauses, but a right to forensically examine a vendor’s systems or devices is rarely included. Naomi may want to ask about their incident response process and for examples of previous breach notification and incident documentation shared with customers instead.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Alaina wants to maintain chain‐of‐custody documentation and has created a form. Which of the following is not a common element on a chain‐of‐custody form?",
+      "options": {
+        "A": "Item identifier number",
+        "B": "Signature of the person transferring the item",
+        "C": "Signature of the person receiving the item",
+        "D": "Method of transport"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Method of transport"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Chain of custody tracks who has an item, how it is collected, where it is stored and how, how it is secured or protected, who collected it, and transfers, but it does not typically include how the items were transported because that is not relevant if the other data is provided.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "Henry is following the EDRM model and is preparing to review data. What two key tasks occur during this stage?",
+      "options": {
+        "A": "Validating that time stamps match between systems and that data is properly hashed to confirm that original data is sent",
+        "B": "Validating that the legal hold request is valid and that all documented items are included",
+        "C": "Validating that the desired data is included and that information that should not be shared is not included",
+        "D": "Validating that chain of custody is ensured and that malicious files are not included"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Validating that the desired data is included and that information that should not be shared is not included"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "It is important to ensure that data prepared for e‐discovery only contains what it is supposed to, and that information that should not be shared is not included. Time stamps, hashing, chain of custody, and ensuring malicious files are not included are not part of the EDRM model. Validating that a legal hold is valid should happen before preservation, but validating that documented items from the hold are included if they exist should occur.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Theresa’s organization has received a legal hold notice for their files and documents. Which of the following is not an action she needs to take?",
+      "options": {
+        "A": "Ensure that changes to existing documents related to the case are tracked and that originals can be provided.",
+        "B": "Preserve all existing documents relevant to the case.",
+        "C": "Delete all sensitive documents related to the case.",
+        "D": "Prevent backups that contain files related to the case from being overwritten on their normal schedule."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Delete all sensitive documents related to the case."
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Removing information relevant to a legal hold is exactly what the hold is intended to prevent. Theresa’s organization could be in serious legal trouble if they were to intentionally purge or change related information.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "Gurvinder wants to follow the order of volatility to guide his forensic data acquisition. Which of the following is the least volatile?",
+      "options": {
+        "A": "RAM",
+        "B": "Data on the hard drive",
+        "C": "Backups",
+        "D": "Remote logs"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Backups"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Backups are the least volatile of these options according to the order of volatility. Backups will be kept until they are aged out, which may be days, weeks, or even months in some cases. From most to least volatile, these are RAM, data on the hard drive, remote logs, and then backups.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "What is the key difference between hashing and checksums?",
+      "options": {
+        "A": "Both can validate integrity, but a hash also provides a unique digital fingerprint.",
+        "B": "A hash can be reversed, and a checksum cannot be.",
+        "C": "Checksums provide greater security than hashing.",
+        "D": "Checksums have fewer message collisions than a hash."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Both can validate integrity, but a hash also provides a unique digital fingerprint."
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Although both a checksum and a hash can be used to validate message integrity, a hash has fewer collisions than a checksum and will also provide a unique fingerprint for a file. Checksums are primarily used as a quick means of checking that that integrity is maintained, whereas hashes are used for many other purposes such as secure password validation without retaining the original password. A checksum would not be useful for proving a forensic image was identical, but it could be used to ensure that your work had not changed the contents of the drive.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

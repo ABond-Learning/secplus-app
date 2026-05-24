@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 12: Network Security",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "1/20 Correct (displayed as 1/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 46,
+    "average_per_question_seconds": 2.3
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "A system that Tony manages sends an SNMP trap. What type of information should Tony expect to receive?",
+      "options": {
+        "A": "Notification of a vulnerability",
+        "B": "Notification of a patch being installed",
+        "C": "Notification of an issue",
+        "D": "Notification of user being created"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Notification of an issue"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "SNMP traps can be configured to provide additional information, but typical SNMP traps provide information about issues such as links going down, authentication failures, and reboots.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "Ben wants to observe malicious behavior targeted at multiple systems on a network. He sets up a variety of systems and instruments to allow him to capture copies of attack tools and to document all the attacks that are conducted. What has he set up?",
+      "options": {
+        "A": "A honeypot",
+        "B": "A beartrap",
+        "C": "A honeynet",
+        "D": "A tarpit"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "A honeynet"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "A honeynet is a group of systems that intentionally exposes vulnerabilities so that defenders can observe attacker behaviors, techniques, and tools to help them design better defenses.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "Valerie wants to replace the telnet access that she found still in use in her organization. Which protocol should she use to replace it, and what port will it run on?",
+      "options": {
+        "A": "SFTP, port 21",
+        "B": "SSH, port 22",
+        "C": "HTTPS, port 443",
+        "D": "RDP, port 3389"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "SSH, port 22"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Telnet provides remote command‐line access but is not secure. SSH is the most common alternative to telnet, and it operates on port 22.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Jill wants to use DNS filtering to prevent users in her organization from visiting potentially malicious sites. What type of service should she use to obtain this information?",
+      "options": {
+        "A": "An OSINT service",
+        "B": "A STP feed",
+        "C": "An ACL monitoring service",
+        "D": "A reputation service"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "A reputation service"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "DNS reputation services can provide Jill with an automated feed of malicious sites that she can include in her DNS filter. OSINT (open source intelligence) is gathered without scans but typically won’t provide DNS block lists. STP (Spanning Tree Protocol) prevents loops in networks and is not relevant to DNS filtering, and an access control monitoring service will not be either.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "Chuck wants to provide access to a protected network from a less trusted network. What type of solution is commonly implemented to provide a secure, monitored access method?",
+      "options": {
+        "A": "A proxy server",
+        "B": "A jump server",
+        "C": "A VLAN",
+        "D": "An air gap"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "A jump server"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Jump servers are used to provide secure, monitored access to a protected network. Users log in to the jump server, which then has access to the network. Proxies are used to filter or manage traffic and might be used in this scenario, but jump servers are the preferred answer for most organizations and uses. A VLAN (virtual LAN) is used to logically separate network segments. An air gap is a physical disconnection between networks or devices.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Kathleen wants to deploy a firewall that can handle large amounts of network traffic while performing advanced firewalling tasks. What type of device should she select?",
+      "options": {
+        "A": "A NGFW",
+        "B": "A WAF",
+        "C": "A UTM",
+        "D": "A SD‐FW"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "A NGFW"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "A next‐generation firewall (NGFW) device is typically designed and built to be more capable at high speeds and throughput than a universal threat management device. Since UTM devices provide such a wide array of services that consume CPU and memory resources, this performance gap can also sometimes be due to the broad set of services that a UTM device provides. A WAF (web application firewall) is specialized in web traffic, and SD‐FW was made up for this question.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Mark wants to prevent DNS poisoning attacks. What technology should he implement to counter them most effectively?",
+      "options": {
+        "A": "DNSSEC",
+        "B": "SDNS",
+        "C": "SASE",
+        "D": "SD‐WAN"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "DNSSEC"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "DNSSEC validates both the origin of DNS information and ensures that DNS responses have not been modified, making it the best option to help prevent DNS poisoning attacks. SDNS was made up for this question. SASE is used to secure networks in complex multilocation environments, and SD‐WAN allows for dynamic wide area networks defined by software, but neither provides this type of DNS security.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "Casey wants to replace her organization’s MPLS‐based external connectivity using commodity technologies. What technology should she select to help her manage this?",
+      "options": {
+        "A": "IPSec VPN",
+        "B": "SASE",
+        "C": "SD‐WAN",
+        "D": "TLS VPN"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "SD‐WAN"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "SD‐WAN (software‐defined wide area network) is commonly used to replace MPLS (Multiprotocol Label Switching) networks, which are typically higher cost than other connectivity options. IPSec and TLS‐based VPNs are used to connect through untrusted networks, but they do not provide the functionality required. SASE uses SD‐WAN and other technologies to ensure secure connectivity in complex network infrastructures with endpoints in many locations.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "What protocol is used to securely wrap many otherwise insecure protocols?",
+      "options": {
+        "A": "ISAKMP",
+        "B": "SSL",
+        "C": "IKE",
+        "D": "TLS"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "TLS"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Transport Layer Security (TLS) is commonly used to wrap (protect) otherwise insecure protocols. In fact, many of the secure protocols simply add TLS to protect them. ISAKMP and IKE are both used for IPSec and can be used to wrap insecure protocols, but they aren’t used alone. SSL is no longer used; TLS has almost entirely replaced it, although SSL is still often casually referred to as TLS.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Valentine wants to deploy a secure version of DHCP for her organization. What should she implement?",
+      "options": {
+        "A": "S‐DHCP",
+        "B": "DHCP over TLS",
+        "C": "DHCPS",
+        "D": "There is no secured version of DHCP."
+      },
+      "correct": {
+        "letter": "D",
+        "text": "There is no secured version of DHCP."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "While many protocols have a secure version, DHCP does not have a secure option, and protection must be handled by using detection and response mechanisms, rather than an encrypted protocol.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "What component of a zero‐trust architecture forwards requests from subjects and acts on whether subjects are allowed to access resources?",
+      "options": {
+        "A": "Policy administrators",
+        "B": "Policy enforcement points",
+        "C": "Policy engines",
+        "D": "Policy gateways"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Policy enforcement points"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Policy enforcement points communicate with policy administrators to forward requests from subjects and to receive instructions from them about connections to allow or end. Policy administrators are components that establish or remove the communication path between subjects and resources, including creating session‐specific authentication tokens or credentials as needed. Policy engines make policy decisions based on both rules and external systems. Policy gateways are not reference components for zero‐trust designs.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "Gary wants to use secure protocols for email access for his end users. Which of the following groups of protocols should he implement to accomplish this task?",
+      "options": {
+        "A": "DKIM, DMARC, HTTPS",
+        "B": "SPF, POPS, IMAPS",
+        "C": "POPS, IMAPS, HTTPS",
+        "D": "DMARC, DKIM, SPF"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "POPS, IMAPS, HTTPS"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "End users may use secure POP (POPS), secure IMAP (IMAPS), and secure HTTP (HTTPS) to retrieve email. SPF, DKIM, and DMARC are used to identify and validate email servers, not to access email by end users.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "Gary wants to prevent his organization’s most sensitive data from being accessed by network‐based attackers at any cost. What solution should he implement to ensure this?",
+      "options": {
+        "A": "An air gap",
+        "B": "Firewall rules",
+        "C": "An IPS",
+        "D": "IPSec"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "An air gap"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Physical isolation like an air gap is used when the additional work to manually transfer files is an acceptable trade‐off against the potential for a security event caused by potential network‐based attackers. Firewall rules, an IPS, or the use of IPSec to protect traffic will not sufficiently address this issue if any services remain accessible on the system.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "Madhuri is designing a load‐balancing configuration for her company and wants to keep a single node from being overloaded. What type of design will meet this need?",
+      "options": {
+        "A": "A daisy chain",
+        "B": "Active/active",
+        "C": "Duck‐duck‐goose",
+        "D": "Active/passive"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Active/active"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Active/active designs spread traffic among active nodes, helping ensure that a single node will not be overwhelmed. Active/passive designs are useful for disaster recovery and business continuity, but they do not directly address heavy load on a single node. There are many load‐balancing schemes, but daisy chains and duck‐duck‐goose are not among them.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "What type of NAC will provide Isaac with the greatest amount of information about the systems that are connecting while also giving him the most amount of control of systems and their potential impact on other systems that are connected to the network?",
+      "options": {
+        "A": "Agent‐based, preadmission NAC",
+        "B": "Agentless, postadmission NAC",
+        "C": "Agent‐based NAC, postadmission NAC",
+        "D": "Agentless, postadmission NAC"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Agent‐based, preadmission NAC"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Agent‐based, preadmission NAC will provide Isaac with the greatest amount of information about a machine and the most control about what connects to the network and what can impact other systems. Since systems will not be connected to the network, even to a quarantine or preadmission zone, until they have been verified, Isaac will have greater control.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Danielle’s organization has implemented a tool that combines SD‐WAN, a CASB, and Zero Trust, among other security functions, to provide security regardless of where her organization’s devices are. What type of solution has her organization implemented?",
+      "options": {
+        "A": "A UTM",
+        "B": "An NGFW",
+        "C": "IPSec",
+        "D": "SASE"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "SASE"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "SASE (Secure Access Service Edge) combines network security and device security by leveraging SD‐WAN with security tools like Zero Trust, firewalls, and cloud access security brokers (CASBs). Both UTM and NGFW are advanced firewalls but do not provide this full functionality, and IPSec is a protocol used to provide encryption and authentication for network traffic.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "Wayne is concerned that an on‐path attack has been used against computers he is responsible for. What artifact is he most likely to find associated with this attack?",
+      "options": {
+        "A": "A compromised router",
+        "B": "A browser plug‐in",
+        "C": "A compromised server",
+        "D": "A modified hosts file"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "A browser plug‐in"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": true,
+      "explanation": "Browser on‐path attacks take advantage of malicious browser plug‐ins or proxies to modify traffic at the browser level. They do not involve compromised routers or servers, and a modified hosts file is more likely to be involved in an on‐path attack.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Elle has scanned her organization from an external IP address and has identified all of the services that are visible from the public Internet. What does this enable her to describe?",
+      "options": {
+        "A": "If the organization is a fail‐open organization",
+        "B": "Her organization’s OSINT report",
+        "C": "Her organization’s attack surface",
+        "D": "If the organization is a fail‐closed organization"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Her organization’s attack surface"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Understanding what services your organization offers to the outside world is an important step in describing the organization’s attack surface. Fail open and fail closed describe what happens when devices or systems fail, not vulnerability and service availability information. OSINT is a passive process and scanning is not a passive activity.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "What technique is used to ensure that DNSSEC‐protected DNS information is trustworthy?",
+      "options": {
+        "A": "It is digitally signed.",
+        "B": "It is sent via TLS.",
+        "C": "It is encrypted using AES256.",
+        "D": "It is sent via an IPSec VPN."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "It is digitally signed."
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "DNSSEC does not encrypt data but does rely on digital signatures to ensure that DNS information has not been modified and that it is coming from a server that the domain owner trusts. DNSSEC does not protect confidentiality, which is a key thing to remember when discussing it as a security option. TLS, an IPSec VPN, or encryption via AES are all potential solutions to protect the confidentiality of network data.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "Fred wants to ensure that the administrative interfaces for the switches and routers are protected so that they cannot be accessed by attackers. Which of the following solutions should he recommend as part of his organization’s network design?",
+      "options": {
+        "A": "NAC",
+        "B": "Trunking",
+        "C": "Out‐of‐band management",
+        "D": "Port security"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Out‐of‐band management"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Out‐of‐band management places the administrative interface of a switch, router, or other device on a separate network or requires direct connectivity to the device to access and manage it. This ensures that an attacker who has access to the network cannot make changes to the network devices. NAC and port security help protect the network itself, whereas trunking is used to combine multiple interfaces, VLANs, or ports together.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 14: Monitoring and Incident Response",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "1/20 Correct (displayed as 1/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 264,
+    "average_per_question_seconds": 13.2
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "The following figure shows the Security+ incident response cycle. What item is missing?",
+      "options": {
+        "A": "Planning",
+        "B": "Reporting",
+        "C": "Monitoring",
+        "D": "Preparation"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Preparation"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The first item in the incident response cycle used by the Security+ exam is preparation.",
+      "image_referenced": true,
+      "notes": "Question references image. URLs: https://epdc.wiley.com/pub/images/e44e305e-9f0a-4c93-b26a-c0e54938bc3f"
+    },
+    {
+      "n": 2,
+      "stem": "Michael analyzes network traffic, including packet content, as part of his incident response process. What tool should he use?",
+      "options": {
+        "A": "Syslog",
+        "B": "NetFlow",
+        "C": "Packet capture",
+        "D": "A SIEM"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Packet capture"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Packet capture will allow Michael to see all the content of packets that are captured to analyze them. NetFlow simply shows source, destination, protocol, and traffic volume. Syslog and a SIEM don’t capture packet content, and instead focus on logs and events.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "Susan wants to create a dashboard that shows her aggregated log events related to logins from different geographic regions. Her goal is to identify impossible travel scenarios. Which of the following solutions should she select to accomplish that goal?",
+      "options": {
+        "A": "IPS",
+        "B": "OS logs",
+        "C": "SIEM",
+        "D": "Vulnerability scan data"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "SIEM"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "A SIEM with correlation rules for geographic IP information as well as user IDs and authentication events will accomplish Susan’s goals. An IPS may detect attacks, but it isn’t well suited to detecting impossible travel. OS logs would need to be aggregated, and vulnerability scan data won’t show this at all.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Selah wants to ensure that users in her organization can only install applications that are evaluated and approved by the organization’s security team. What should she use?",
+      "options": {
+        "A": "A SIEM",
+        "B": "An application deny list",
+        "C": "An application allow list",
+        "D": "sFlow"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "An application allow list"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Application allow lists are used to ensure that only allowed applications are installable on systems. A deny list specifically identifies programs that aren’t allowed. A SIEM doesn’t provide application management capabilities, and sFlow is a flow tool like NetFlow.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "What is the primary concern with sFlow in a large, busy network?",
+      "options": {
+        "A": "It may allow buffer overflow attacks against the collector host.",
+        "B": "sFlow is not designed for large or complex networks.",
+        "C": "sFlow puts extreme load on the flow collector host.",
+        "D": "sFlow samples only network traffic, meaning that some detail will be lost."
+      },
+      "correct": {
+        "letter": "D",
+        "text": "sFlow samples only network traffic, meaning that some detail will be lost."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The primary concern for analysts who deploy sFlow is often that it samples only data, meaning some accuracy and nuance can be lost in the collection of flow data. Sampling, as well as the implementation methods for sFlow, means that it scales well to handle complex and busy networks. Although vulnerabilities may exist in sFlow collectors, a buffer overflow is not a primary concern for them.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Mark unplugs the network connection from a system that is part of an incident and places tape over its Ethernet jack with a sign that says, “Do not reconnect without approval from IR team.” How is this method best described?",
+      "options": {
+        "A": "Containment",
+        "B": "Isolation",
+        "C": "Segmentation",
+        "D": "Zoning"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Isolation"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Mark has isolated the system by removing it from the network and ensuring that it cannot communicate with other systems. Containment would limit the impact of the incident and might leave the system connected but with restricted or protected access. Segmentation moves systems or groups of systems into zones that have similar purposes, data classification, or other restrictions on them.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "The company that Ben works for wants to test its incident response plan. Ben gathers the incident response team in a room and walks through a scenario to validate the organization’s processes and procedures. What type of event has Ben hosted?",
+      "options": {
+        "A": "A checklist exercise",
+        "B": "A simulation",
+        "C": "A tabletop exercise",
+        "D": "A fail‐over exercise"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "A tabletop exercise"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Ben’s organization is conducting a tabletop exercise. Tabletop exercises are conducted with more flexibility—team members are given a scenario and asked how they would respond and what they would do to accomplish tasks they believe would be relevant. Checklist exercises are not a specific type of exercise. A simulation exercise attempts to more fully re‐create an actual incident to test responses. Fail‐over exercises are conducted by actually failing a datacenter over to a hot location.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "Madhuri wants to check a PNG‐formatted photo for GPS coordinates. Where can she find that information if it exists in the photo?",
+      "options": {
+        "A": "In the location.txt file appended to the PNG",
+        "B": "On the original camera",
+        "C": "In the photo’s metadata",
+        "D": "In the photo as a steganographically embedded data field"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "In the photo’s metadata"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "If the photo includes GPS data, it will be included in the photo’s metadata. Madhuri can use a tool like ExifTool to review the metadata for useful information. None of the other options are places where data is stored for a PNG image as a normal practice.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "Alyssa has identified malware on a system. She removes the system from the network to ensure that it cannot impact other systems. What technique has she used to deal with this system?",
+      "options": {
+        "A": "Quarantine",
+        "B": "Segmentation",
+        "C": "Converted it to agentless",
+        "D": "Deny listing"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Quarantine"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Alyssa’s has quarantined the machine, ensuring it cannot reach other systems or impact the rest of her organization. Segmentation would involve putting the system in protected network zone. Agentless tools are used to send data without a separate program or agent deployed to allow that. Deny lists are used to prevent specific programs or files from being used or deployed to systems.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Kristen discovers missing logs as part of her threat hunting activities. What has most likely happened?",
+      "options": {
+        "A": "The logs hit the end of their life cycle and were rotated.",
+        "B": "The system is a newly deployed system.",
+        "C": "An attacker wiped the logs to hide evidence.",
+        "D": "An attacker encrypted the logs as part of their process."
+      },
+      "correct": {
+        "letter": "C",
+        "text": "An attacker wiped the logs to hide evidence."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Missing logs are often associated with an attacker attempting to hide evidence of their actions. Log rotation will typically remove the oldest log items and replace them with new log items rather than wiping a log, or will archive the old log file and create a new one. A newly deployed system typically has at least some logs from booting and running. Encrypting logs would leave a file in place even if it couldn’t be read.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "Ian has been receiving hundreds of false positive alerts from his SIEM every night when scheduled jobs run across his datacenter. What should he adjust on his SIEM to reduce the false positive rate?",
+      "options": {
+        "A": "Trend analysis",
+        "B": "Sensitivity",
+        "C": "Correlation rules",
+        "D": "Dashboard configuration"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Sensitivity"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Ian’s first step should be changing the sensitivity for his alerts. Adjusting the alerts to ignore safe or expected events can help reduce false positives. Correlation rules may then need to be adjusted if they are matching unrelated items. Dashboards are used to visualize data, not for alerting, and trend analysis is used to feed dashboards and reports.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "Which team member acts as a primary conduit to senior management on an IR team?",
+      "options": {
+        "A": "Communications and public relations",
+        "B": "Information security",
+        "C": "Management",
+        "D": "Technical expert"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Management"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Members of management or organizational leadership act as a primary conduit to senior leadership for most incident response teams. They also ensure that difficult or urgent decisions can be made without needing escalated authority. Communications and PR staff focus on internal and external communications but are typically not the direct conduit to leadership. Technical and information security experts do most of the incident response work itself.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "Dana is reviewing her system’s application logs and notices that a full backup of the application was done at 10 a.m. She knows that the job that runs the backup process is set to run overnight. What indicator should she flag this as?",
+      "options": {
+        "A": "Unexpected logs",
+        "B": "Resource consumption",
+        "C": "Resource inaccessibility",
+        "D": "Out‐of‐cycle logging"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Out‐of‐cycle logging"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "This is an example of out‐of‐cycle logging, or logging that occurs at a different time than expected. This may be because an attacker is using the backup tool to acquire data. Unexpected logs are not an indicator found on the Security+ exam outline. There is no indication of resource consumption or inaccessibility in the question.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "Jim wants to view log entries that describe actions taken by applications on a Red Hat Linux system. Which of the following tools can he use on the system to view those logs?",
+      "options": {
+        "A": "logger",
+        "B": "syslog‐ng",
+        "C": "journalctl",
+        "D": "tail"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "journalctl"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Red Hat Enterprise uses journalctl to view journal logs that contain application information. Jim should use journalctl to review the logs for the information he needs. The tool also provides functionality that replicates what head and tail can do for logs. Syslog‐ng is a logging infrastructure, and though logs may be sent via syslog‐ng, it is not mentioned here. logger is a logging utility used to make entries in the system log.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "Megan wants to ensure that logging is properly configured for her organization’s Windows workstations. What could she use to ensure that logging best practices are configured?",
+      "options": {
+        "A": "SIEM",
+        "B": "Benchmarks",
+        "C": "Syslog",
+        "D": "Agents"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Benchmarks"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Benchmarks often include logging settings and configurations. SIEM is used to gather and analyze logs. Syslog is a standard for logging and sending logs. Agents are used to send logs for systems that don’t have a logging capability.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Chris has turned on logon auditing for a Windows system. Which log will show them?",
+      "options": {
+        "A": "The Windows Application log",
+        "B": "The Windows Security log",
+        "C": "The Windows System log",
+        "D": "All of the above"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "The Windows Security log"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "The Windows Security log records logon events when logon auditing is enabled. The Application and System logs do not contain these events.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "Jayne wants to determine why a ransomware attack was successful against her organization. She plans to conduct a root cause analysis. Which of the following is not a typical root cause analysis method?",
+      "options": {
+        "A": "Root/branch review",
+        "B": "Five whys",
+        "C": "Event analysis",
+        "D": "Diagramming"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Root/branch review"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Five whys, event analysis, and diagramming are all common methods of performing root cause analysis. Root/branch review is not a typical process for this.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Hitesh wants to keep a system online but limit the impact of the malware that was found on it while an investigation occurs. What method from the following list should he use?",
+      "options": {
+        "A": "Containment",
+        "B": "Isolation",
+        "C": "Segmentation",
+        "D": "Black holing"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Containment"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Containment activities focus on preventing further malicious actions or attacks. In this case, Hitesh might opt to prevent the malware from spreading but leave the system online due to a critical need or a desire to preserve memory and other artifacts for investigation. Isolation walls a system or systems off from the rest of the world, whereas segmentation is frequently used before incidents occur to create zones or segments of a network or system with different security levels and purposes.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "What phase in the incident response process leverages indicators of compromise and log analysis as part of a review of events?",
+      "options": {
+        "A": "Preparation",
+        "B": "Containment",
+        "C": "Eradication",
+        "D": "Identification"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Identification"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The Analysis phase focuses on using various techniques to analyze events to identify potential incidents. Preparation focuses on building tools, processes, and procedures to respond to incidents. Eradication involves the removal of artifacts related to the incident, and containment limits the scope and impact of the incident.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "Henry wants to check to see if services were installed by an attacker. What commonly gathered organizational data can he use to see if a new service appeared on systems?",
+      "options": {
+        "A": "Registry dumps from systems throughout his organization",
+        "B": "Firewall logs",
+        "C": "Vulnerability scans",
+        "D": "Flow logs"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Vulnerability scans"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": true,
+      "explanation": "Vulnerability scans are the best way to find new services that are offered by systems. In fact, many vulnerability scanners will flag new services when they appear, allowing administrators to quickly notice unexpected new services. Registry information is not regularly dumped or collected in most organizations. Firewall logs and flow logs could show information about the services being used by systems whose traffic passes through them, but this is a less useful and accurate way of identifying new services and would work only if those services were also being used.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

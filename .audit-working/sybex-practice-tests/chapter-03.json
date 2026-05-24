@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 3: Malicious Code",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 259,
+    "average_per_question_seconds": 12.95
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Ryan wants to prevent logic bombs created by insider threats from impacting his organization. What technique will most effectively limit the likelihood of logic bombs being put in place?",
+      "options": {
+        "A": "Deploying antivirus software",
+        "B": "Using a code review process",
+        "C": "Deploying endpoint detection and response (EDR) software",
+        "D": "Disabling autorun for USB drives"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Using a code review process"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Logic bombs are embedded in code, so Ryan’s organization would get the most benefit from a code review process for any code that goes into production. Antivirus and EDR are unlikely to detect logic bombs created by staff in Ryan’s organization.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "Yasmine believes that her organization may be dealing with an advanced rootkit and wants to write IoC definitions for it. Which of the following is not likely to be a useful IoC for a rootkit?",
+      "options": {
+        "A": "File hashes",
+        "B": "Command and control domains",
+        "C": "Pop‐ups demanding a ransom",
+        "D": "Behavior‐based identifiers"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Pop‐ups demanding a ransom"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Rootkits are intended to be stealthy, and a pop‐up demanding ransom works against that purpose. File hashes, command and control details, and behavior‐based identifiers are all useful IoCs likely to be relevant to a rootkit.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "Nathan works at a school and notices that one of his staff appears to have logged in and changed grades for a single student to higher grades, even in classes that staff member is not responsible for. When asked, the staff member says that they did not perform the action. Which of the following is the most likely way that a student could have gotten access to the staff member’s password?",
+      "options": {
+        "A": "A keylogger",
+        "B": "A rootkit",
+        "C": "Spyware",
+        "D": "A logic bomb"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "A keylogger"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Nathan should check the staff member’s computer for a keylogger, which would have captured their username and password. A student could have then used the staff member’s credentials to make the changes described. A rootkit would be used to retain access, spyware gathers a variety of data but is not specifically aimed at capturing keystrokes like this, and logic bombs have specific events or triggers that cause them to take action.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Amanda notices traffic between her systems and a known malicious host on TCP port 6667. What type of traffic is she most likely detecting?",
+      "options": {
+        "A": "Command and control",
+        "B": "Spyware",
+        "C": "A worm",
+        "D": "A hijacked web browser"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Command and control"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Amanda has most likely discovered a botnet’s command and control channel, and the system or systems she is monitoring are probably using IRC as the command and control channel. Spyware is likely to simply send data to a central server via HTTP/HTTPS, worms spread by attacking vulnerable services, and a hijacked web browser would probably operate on common HTTP or HTTPS ports (80/443).",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "Mike discovers that attackers have left software that allows them to have remote access to systems on a computer in his company’s network. How should he describe or classify this malware?",
+      "options": {
+        "A": "A worm",
+        "B": "Crypto malware",
+        "C": "A trojan",
+        "D": "A backdoor"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "A backdoor"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Remote access to a system is typically provided by a backdoor. Backdoors may also appear in firmware or even in hardware. None of the other items listed provide remote access by default, although they may have a backdoor as part of a more capable malware package.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "What is the primary impact of bloatware?",
+      "options": {
+        "A": "Consuming resources",
+        "B": "Logging keystrokes",
+        "C": "Providing information about users and devices to third parties",
+        "D": "Allowing unauthorized remote access"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Consuming resources"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Bloatware is typically not a significant security threat, but it consumes resources like disk space, CPU, and memory. Unfortunately, some bloatware can be vulnerable and may not get regularly patched, meaning it’s both useless and a potential risk!",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "What type of malware is used to gather information about a user’s browsing habits and system?",
+      "options": {
+        "A": "A Trojan",
+        "B": "Bloatware",
+        "C": "Spyware",
+        "D": "A rootkit"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Spyware"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Spyware is specifically designed to gather information about users and systems and to send that data back to a central collector. Trojans pretend to be useful software and include malicious components, bloatware is preinstalled software that isn’t needed, and rootkits are used to conceal malicious software and retain a foothold on compromised systems.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "Matt uploads a malware sample to a third‐party malware scanning site that uses multiple antimalware and antivirus engines to scan the sample. He receives multiple different answers for what the malware package is. What has occurred?",
+      "options": {
+        "A": "The package contains more than one piece of malware.",
+        "B": "The service is misconfigured.",
+        "C": "The malware is polymorphic and changed while being tested.",
+        "D": "Different vendors use different names for malware packages."
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Different vendors use different names for malware packages."
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "One of the challenges security practitioners can face when attempting to identify malware is that different antivirus and antimalware vendors will name malware packages and families differently. This means that Matt may need to look at different names to figure out what he is dealing with.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "Nancy is concerned that there is a software keylogger on the system she’s investigating. What best describes data that may have been stolen?",
+      "options": {
+        "A": "All files on the system",
+        "B": "All keyboard input",
+        "C": "All files the user accessed while the keylogger was active",
+        "D": "Keyboard and other input from the user"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Keyboard and other input from the user"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "While keyloggers often focus on keyboard input, other types of input may also be captured, meaning Nancy should worry about any user input that occurred while the keylogger was installed. Keyloggers typically do not target files on systems, although if Nancy finds a keylogger, she may want to check for other malware packages with additional capabilities.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "A system in Elaine’s company has suddenly displayed a message demanding payment in Bitcoin and claiming that the data from the system has been encrypted. What type of malware has Elaine likely encountered?",
+      "options": {
+        "A": "Worms",
+        "B": "A virus",
+        "C": "Ransomware",
+        "D": "Rootkit"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Ransomware"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Ransomware demands payment to be made while typically using encryption to make data inaccessible. Worms, viruses, and rootkits are not defined by behavior like this.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "Rick believes that a system he is responsible for has been compromised with malware that uses a rootkit to obtain and retain access to the system. When he runs an antimalware tool’s scanner, the system doesn’t show any malware. If he has other data that indicates the system is infected, what should his next step be if he wants to determine what malware may be on the system?",
+      "options": {
+        "A": "Rerun the antimalware scan.",
+        "B": "Mount the drive on another system and scan it that way.",
+        "C": "Disable the systems antivirus because it may be causing a false negative.",
+        "D": "The system is not infected and he should move on."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Mount the drive on another system and scan it that way."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Rootkits are designed to hide from antimalware scanners and can often defeat locally run scans. Mounting the drive in another system in read‐only mode or booting from a USB drive and scanning using a trusted, known good operating system can be an effective way to determine what malware is on a potentially infected system.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "A recently terminated developer from Jaya’s organization has contacted the organization claiming that they left code in an application that they wrote that will delete files and bring the application down if they are not employed by the company. What type of malware is this?",
+      "options": {
+        "A": "Ransomware",
+        "B": "Extortionware",
+        "C": "A logic bomb",
+        "D": "A Trojan"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "A logic bomb"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Jaya’s former employee is describing a logic bomb, malicious code that will cause harm when a trigger or specific action occurs. In this case, the former employee is claiming that the trigger is them not being employed at the company. Jaya will need to assess all of the code that the employee wrote to determine if a logic bomb exists. Ransomware is a type of malicious software that typically uses encryption to extort a ransom. Extortionware is not a commonly used term. Trojans appear to be useful or desirable software but contain malicious code.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "Selah wants to ensure that malware is completely removed from a system. What should she do to ensure this?",
+      "options": {
+        "A": "Run multiple antimalware tools and use them to remove all detections.",
+        "B": "Wipe the drive and reinstall from known good media.",
+        "C": "Use the delete setting in her antimalware software rather than the quarantine setting.",
+        "D": "There is no way to ensure the system is safe and it should be destroyed."
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Wipe the drive and reinstall from known good media."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "In most malware infection scenarios, wiping the drive and reinstalling from known good media is the best option available. If the malware has tools that can infect the system BIOS/UEFI, even this may not be sufficient, but BIOS/UEFI resident malware is relatively uncommon. Multiple antivirus and antimalware tools, even if they are set to delete malware, may still fail against unknown or advanced malware packages. Destroying systems is uncommon, expensive, and unlikely to be acceptable to most organizations as a means of dealing with a malware infection.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "What is the key difference between a worm and a virus?",
+      "options": {
+        "A": "What operating system they run on",
+        "B": "How they spread",
+        "C": "What their potential impact is",
+        "D": "The number of infections"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "How they spread"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The key difference between worms and viruses is how they spread. Worms spread themselves, whereas viruses rely on human interaction.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "Ben wants to analyze Python code that he believes may be malicious code written by an employee of his organization. What can he do to determine if the code is malicious?",
+      "options": {
+        "A": "Run a decompiler against it to allow him to read the code",
+        "B": "Open the file using a text editor to review the code",
+        "C": "Test the code using an antivirus tool",
+        "D": "Submit the Python code to a malware testing website"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Open the file using a text editor to review the code"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Python is an interpreted rather than a compiled language, so Ben doesn’t need to use a decompiler. Instead, his best bet is to open the file and review the code to see what it does. Since it was written by an employee, it is unlikely that it will match an existing known malicious package, which means antivirus and antimalware tools and sites will be useless.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Which of the following defenses is most likely to prevent Trojan installation?",
+      "options": {
+        "A": "Installing patches for known vulnerabilities",
+        "B": "Preventing downloads from application stores",
+        "C": "Preventing the use of USB drives",
+        "D": "Disabling autorun from USB drives"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Preventing downloads from application stores"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Trojans are often found in application stores where they appear to be innocuous but desirable applications or are listed in confusingly similar ways to legitimate applications. Many organizations choose to lock down the ability to acquire applications from app stores to prevent this type of issue. Since Trojans do not self‐spread and rely on user action, patching typically won’t prevent them. While users may try to transfer files via USB, this isn’t the most common means for modern Trojans to spread.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "Jason’s security team reports that a recent WordPress vulnerability seems to have been exploited by malware and that their organization’s entire WordPress service cluster has been infected. What type of malware is most likely involved if a vulnerability in the software was exploited over the network?",
+      "options": {
+        "A": "A logic bomb",
+        "B": "A Trojan",
+        "C": "A worm",
+        "D": "A rootkit"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "A worm"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Worms often spread via networks, taking advantage of vulnerabilities to install themselves on targeted systems and then to propagate further. Trojans require human interaction to install software that appears desirable. Logic bombs are embedded in code and perform actions when triggers like a date or event occur. Rootkits are used to hide malware and to conceal attacker’s actions.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Hui’s organization recently purchased new Windows computers from an office supply store. The systems have a number of unwanted programs on them that load at startup that were installed by the manufacturer. What type of software is this?",
+      "options": {
+        "A": "Viruses",
+        "B": "Trojans",
+        "C": "Spyware",
+        "D": "Bloatware"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Bloatware"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Unwanted, typically preinstalled programs are known as bloatware. They take up space and resources without providing value, and many organizations either uninstall them or install clean operating system images to avoid them. There is no indication of malicious activity in the question, so these are most likely not viruses, Trojans, or spyware.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "What type of malware connects to a command and control system, allowing attackers to manage, control, and update it remotely?",
+      "options": {
+        "A": "A bot",
+        "B": "A drone",
+        "C": "A vampire",
+        "D": "A worm"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "A bot"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Bots connect to command and control (C&C) systems, allowing them to be updated, controlled, and managed remotely. Worms spread via vulnerabilities, and drones and vampires aren’t common terms for malware.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "Randy believes that a system that he is responsible for was infected after a user picked up a USB drive and plugged it in. The user claims that they only opened one file on the drive to see who might own it. What type of malware is most likely involved?",
+      "options": {
+        "A": "A virus",
+        "B": "A worm",
+        "C": "A trojan",
+        "D": "A spyware tool"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "A virus"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Randy knows that viruses spread through user interaction with files on thumb drives. A worm would spread itself, a Trojan would look like a useful or desirable file, and there is no indication of spyware in the question.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 7: Cryptography and the PKI",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 261,
+    "average_per_question_seconds": 13.05
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Mike is sending David an encrypted message using a symmetric encryption algorithm. What key should he use to encrypt the message?",
+      "options": {
+        "A": "Mike’s public key",
+        "B": "Mike’s private key",
+        "C": "David’s public key",
+        "D": "Shared secret key"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Shared secret key"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "In symmetric encryption algorithms, both the sender and the receiver use a shared secret key to encrypt and decrypt the message, respectively.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "Shahla recently discovered an attack where the attacker managed to force a network user to use weak encryption and was then able to decrypt that content. What term best describes this attack?",
+      "options": {
+        "A": "Downgrade",
+        "B": "Collision",
+        "C": "Homomorphic encryption",
+        "D": "Birthday attack"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Downgrade"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Downgrade attacks try to remove or lower the strength of encryption to allow the decryption of sensitive information. Birthday attacks find collisions where two different inputs produce the same hash value output, but there is no discussion of that in this scenario. Homomorphic encryption is not an attack but a technology that protects privacy by encrypting data in a way that preserves the ability to perform computation on that data.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "Norm is using full‐disk encryption technology to protect the contents of laptops against theft. What goal of cryptography is he attempting to achieve?",
+      "options": {
+        "A": "Integrity",
+        "B": "Non‐repudiation",
+        "C": "Authentication",
+        "D": "Confidentiality"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Confidentiality"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Norm’s actions are designed to protect against the unauthorized disclosure of sensitive information. This is a clear example of protecting confidentiality.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Brian discovers that a user suspected of stealing sensitive information is posting many image files to a message board. What technique might the individual be using to hide sensitive information in those images?",
+      "options": {
+        "A": "Steganography",
+        "B": "Homomorphic encryption",
+        "C": "Replay attack",
+        "D": "Birthday attack"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Steganography"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Steganography is the art of using cryptographic techniques to embed secret messages within another file.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "Which one of the following statements about cryptographic keys is incorrect?",
+      "options": {
+        "A": "All cryptographic keys should be kept secret.",
+        "B": "Longer keys are better than shorter keys when the same algorithm is used.",
+        "C": "Asymmetric algorithms generally use longer keys than symmetric algorithms.",
+        "D": "Digital certificates are designed to share public keys."
+      },
+      "correct": {
+        "letter": "A",
+        "text": "All cryptographic keys should be kept secret."
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "All of these statements are correct except for the statement that all cryptographic keys should be kept secret. The exception to this rule are public keys used in asymmetric cryptography. These keys should be freely shared.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "What type of cipher operates on one character of text at a time?",
+      "options": {
+        "A": "Block cipher",
+        "B": "Bit cipher",
+        "C": "Stream cipher",
+        "D": "Balanced cipher"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Stream cipher"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Stream ciphers operate on one character or bit of a message (or data stream) at a time. Block ciphers operate on “chunks,” or blocks, of a message and apply the encryption algorithm to an entire message block at the same time.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Vince is choosing a symmetric encryption algorithm for use in his organization. He would like to choose the strongest algorithm from these choices. What algorithm should he choose?",
+      "options": {
+        "A": "DES",
+        "B": "3DES",
+        "C": "RSA",
+        "D": "AES"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "AES"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "AES is the successor to 3DES and DES and is the best choice for a symmetric encryption algorithm. RSA is a secure algorithm, but it is asymmetric rather than symmetric.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "Kevin is configuring a web server to use digital certificates. What technology can he use to allow clients to quickly verify the status of those certificates without contacting a remote server?",
+      "options": {
+        "A": "CRL",
+        "B": "OCSP",
+        "C": "Certificate stapling",
+        "D": "Certificate pinning"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Certificate stapling"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The Online Certificate Status Protocol (OCSP) provides real‐time checking of a digital certificate’s status using a remote server. Certificate stapling attaches a current OCSP response to the certificate to allow the client to validate the certificate without contacting the OCSP server. Certificate revocation lists (CRLs) are a slower, outdated approach to managing certificate status. Certificate pinning is used to provide an expected key, not to manage certificate status.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "Acme Widgets has 10 employees and they all need the ability to communicate with one another using a symmetric encryption system. The system should allow any two employees to securely communicate without other employees eavesdropping. If an 11th employee is added to the organization, how many new keys must be added to the system?",
+      "options": {
+        "A": "1",
+        "B": "2",
+        "C": "10",
+        "D": "11"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "10"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "When the 11th employee joins Acme Widgets, they will need a shared secret key with every existing employee. There are 10 existing employees, so 10 new keys are required.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Acme Widgets has 10 employees and they all need the ability to communicate with one another using a symmetric encryption system. The system should allow any two employees to securely communicate without other employees eavesdropping. If Acme Widgets switched to an asymmetric encryption algorithm, how many keys would be required to add the 11th employee?",
+      "options": {
+        "A": "1",
+        "B": "2",
+        "C": "10",
+        "D": "11"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "2"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "In an asymmetric encryption algorithm, each employee needs only two keys: a public key and a private key. Adding a new user to the system requires the addition of these two keys for that user, regardless of how many other users exist.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "What type of digital certificate provides the greatest level of assurance that the certificate owner is who they claim to be?",
+      "options": {
+        "A": "DV",
+        "B": "OV",
+        "C": "UV",
+        "D": "EV"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "EV"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Extended validation (EV) certificates provide the highest available level of assurance. The CA issuing an EV certificate certifies that they have verified the identity and authenticity of the certificate subject.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "Glenn recently obtained a wildcard certificate for *.mydomain.com. Which one of the following domains would not be covered by this certificate?",
+      "options": {
+        "A": "mydomain.com",
+        "B": "core.mydomain.com",
+        "C": "dev.www.mydomain.com",
+        "D": "mail.mydomain.com"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "dev.www.mydomain.com"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Wildcard certificates protect the listed domain as well as all first‐level subdomains. dev.www.mydomain.com is a second‐level subdomain of mydomain.com and would not be covered by this certificate.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "Which one of the following servers is almost always an offline CA in a large PKI deployment?",
+      "options": {
+        "A": "Root CA",
+        "B": "Intermediate CA",
+        "C": "RA",
+        "D": "Internal CA"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Root CA"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Root CAs are highly protected and not normally used for certificate issuance. A root CA is usually run as an offline CA that delegates authority to intermediate CAs that run as online CAs.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "Which one of the following certificate formats is closely associated with Windows binary certificate files?",
+      "options": {
+        "A": "DER",
+        "B": "PEM",
+        "C": "PFX",
+        "D": "P7B"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "PFX"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The PFX format is most closely associated with Windows systems that store certificates in binary format, whereas the P7B format is used for Windows systems storing files in text format.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "What type of security solution provides a hardware platform for the storage and management of encryption keys?",
+      "options": {
+        "A": "HSM",
+        "B": "IPS",
+        "C": "SIEM",
+        "D": "SOAR"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "HSM"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Hardware security modules (HSMs) provide an effective way to manage encryption keys. These hardware devices store and manage encryption keys in a secure manner that prevents humans from ever needing to work directly with the keys.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "What type of cryptographic attack attempts to force a user to reduce the level of encryption that they use to communicate with a remote server?",
+      "options": {
+        "A": "Birthday",
+        "B": "Frequency",
+        "C": "Downgrade",
+        "D": "Collision"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Downgrade"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "A downgrade attack is sometimes used against secure communications such as TLS in an attempt to get the user or system to inadvertently shift to less secure cryptographic modes. The idea is to trick the user into shifting to a less secure version of the protocol, one that might be easier to break.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "David would like to send Mike a message using an asymmetric encryption algorithm. What key should he use to encrypt the message?",
+      "options": {
+        "A": "David’s public key",
+        "B": "David’s private key",
+        "C": "Mike’s public key",
+        "D": "Mike’s private key"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Mike’s public key"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "When encrypting a message using an asymmetric encryption algorithm, the person performing the encryption does so using the recipient’s public key.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "When Mike receives the message that David encrypted for him, what key should he use to decrypt the message?",
+      "options": {
+        "A": "David’s public key",
+        "B": "David’s private key",
+        "C": "Mike’s public key",
+        "D": "Mike’s private key"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Mike’s private key"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "In an asymmetric encryption algorithm, the recipient of a message uses their own private key to decrypt messages that they receive.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "If David wishes to digitally sign the message that he is sending Mike, what key would he use to create the digital signature?",
+      "options": {
+        "A": "David’s public key",
+        "B": "David’s private key",
+        "C": "Mike’s public key",
+        "D": "Mike’s private key"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "David’s private key"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The sender of a message may digitally sign the message by encrypting a message digest with the sender’s own private key.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "When Mike receives the digitally signed message from David, what key should he use to verify the digital signature?",
+      "options": {
+        "A": "David’s public key",
+        "B": "David’s private key",
+        "C": "Mike’s public key",
+        "D": "Mike’s private key"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "David’s public key"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The recipient of a digitally signed message may verify the digital signature by decrypting it with the public key of the individual who signed the message.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

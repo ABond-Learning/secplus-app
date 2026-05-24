@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 9: Resilience and Physical Security",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 170,
+    "average_per_question_seconds": 8.5
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Naomi wants to handle increasing load by scaling cloud‐hosted resources as needed while having the change remain transparent to users. She also wants to allow for upgrades and system replacements transparently. What solution should she select?",
+      "options": {
+        "A": "Load balancing",
+        "B": "Clustering",
+        "C": "Geographic diversity",
+        "D": "A hot site"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Load balancing"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Naomi should select a load balancing solution. Load balancers allow multiple systems or services to appear like a single resource and can take systems out of the load‐balanced pool to allow for upgrades or changes in resources required. Clustering is used to allow groups of computers to perform the same task, but without a load balancer cannot provide the same transparent service appearing as the same system. Geographic diversity and hot sites are concepts used to provide resilience but don’t provide this capability.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "Rick performs a backup that captures the changes since the last full backup. What type of backup has he performed?",
+      "options": {
+        "A": "A new full backup",
+        "B": "A snapshot",
+        "C": "An incremental backup",
+        "D": "A differential backup"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "A differential backup"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Differential backups back up the changes since the last full backup. Incremental backups back up changes since the last backup, and snapshots are a live copy of a system. This is not a full backup, because it is capturing changes since a full backup.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "What type of recovery site has some or most systems in place but does not have the data needed to take over operations?",
+      "options": {
+        "A": "A hot site",
+        "B": "A warm site",
+        "C": "A cloud site",
+        "D": "A cold site"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "A warm site"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Warm sites have systems, connectivity, and power but do not have the live or current data to immediately take over operations. A hot site can immediately take over operations, whereas a cold site has space and power, and likely connectivity, but will require that systems and data be put in place to be used. Cloud sites are not one of the three common types of recovery sites.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "Ben wants to test his warm site to verify that it will take over operations successfully. What type of testing is this?",
+      "options": {
+        "A": "Parallel processing",
+        "B": "Simulation",
+        "C": "Failover",
+        "D": "A tabletop exercise"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Failover"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Testing that involves an actual failover to another site or service is failover testing. Parallel processing runs both sites or services at the same time; simulation and tabletops both review what would happen without making the actual change.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "Felix wants to clone a virtual machine. What should he do to capture a live machine, including the machine state?",
+      "options": {
+        "A": "A full backup",
+        "B": "A snapshot",
+        "C": "A differential backup",
+        "D": "Live boot media"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "A snapshot"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Virtual machine snapshots capture the machine state at a point in time and will allow Felix to clone the system. A full backup and a differential backup can be used to capture the disk for the machine but typically will not capture the memory state and other details of the system state. Live boot media allows you to boot and run a nonpersistent system from trusted media.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Sally is working to restore her organization’s operations after a disaster took her datacenter offline. What critical document should she refer to as she restarts systems?",
+      "options": {
+        "A": "The restoration order documentation",
+        "B": "The TOTP documentation",
+        "C": "The HOTP documentation",
+        "D": "The last‐known good configuration documentation"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "The restoration order documentation"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "A documented restoration order helps ensure that systems and services that have dependencies start in the right order and that high‐priority or mission‐critical services are restored first. TOTP and HOTP are types of one‐time password technology, and last‐known good configurations are often preserved with a snapshot or other technology that can allow a system to return to a known good status after an issue such as a bad patch or configuration change.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Mike wants to stop vehicles from traveling toward the entrance of his building. What physical security control should he implement?",
+      "options": {
+        "A": "An air gap",
+        "B": "A hot aisle",
+        "C": "A robotic sentry",
+        "D": "A bollard"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "A bollard"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Bollards are physical security controls that prevent vehicles from accessing or ramming doors or other areas. They may look like pillars, planters, or other innocuous objects. An air gap is a physical separation of technology environments; a hot aisle is the aisle where systems in a datacenter exhaust warm air; and unlike in movies, robotic sentries are not commonly deployed and aren’t ready to stop vehicles in most current circumstances.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "Alecia wants to ensure that her backups cannot be accessed by third parties while stored in an offsite storage location. What should she do to secure her backups?",
+      "options": {
+        "A": "Hash the backup data.",
+        "B": "Avoid the use of offsite storage locations.",
+        "C": "Employ security guards.",
+        "D": "Encrypt the backup data."
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Encrypt the backup data."
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Encryption is commonly used to ensure that backup media or data that is exposed is not accessible to third parties. This does mean that Alecia must carefully secure the encryption keys for the backup. Hashing that data would not keep it secure, and if only hashes were stored the data would be unrecoverable. Security guards are expensive and not a complete solution if data is inadvertently exposed, and offsite, secure storage locations are a useful and common solution for organizations that want to have remote backups.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "Fred wants to be able to recover his database transactions at any point in time if a physical disaster occurs involving his datacenter. His organization uses daily backups. What additional solution should he select to support this need?",
+      "options": {
+        "A": "Onsite journaling",
+        "B": "Onsite snapshots",
+        "C": "Offsite journaling",
+        "D": "Offsite snapshots"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Offsite journaling"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Offsite journaling will allow transactions to be recorded and to remain available if a significant event occurred that involved his datacenter. Snapshots are useful at a point in time but do not retain a transaction log between snapshots.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Ellen is concerned about her company’s resilience and wants to ensure it can handle either changing loads or support disaster recovery and business continuity efforts if a primary location or datacenter were taken offline. Which of the following should she primarily focus on during her capacity planning?",
+      "options": {
+        "A": "People, technology, and infrastructure",
+        "B": "A generator and a UPS",
+        "C": "RAID 0, 1, 5, and 10",
+        "D": "Incremental, differential, and full backups"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "People, technology, and infrastructure"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Resilience requires capacity planning to ensure that capacity—including staff, technology, and infrastructure—is available when is needed. Although a generator, UPS, various RAID levels, and backups have their place in disaster recovery and contingency planning, they are not the primary focus of resiliency and capacity planning.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "Madhuri has deployed a replication tool that copies data over to a secondary hot site in real time. What type of replication has she deployed?",
+      "options": {
+        "A": "Synchronous replication",
+        "B": "Journaled replication",
+        "C": "Asynchronous replication",
+        "D": "Snapshot‐based replication"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Synchronous replication"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "Synchronous replication occurs in real time, whereas asynchronous replication occurs after the fact but more regularly than a backup. Journaled and snapshot‐based replication are not specific types of replication.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "What factor is a major reason organizations do not use security guards?",
+      "options": {
+        "A": "Reliability",
+        "B": "Training",
+        "C": "Cost",
+        "D": "Social engineering"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Cost"
+      },
+      "my_guess": "D",
+      "guess_matched_correct": false,
+      "explanation": "Security guards can be one of the costliest physical security controls over time, making the cost of guards one of the most important deciding factors guiding when and where they will be employed. Reliability, training, and the potential for social engineering are all possible issues with security guards, but none of these is the major driver in the decision process.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "Megan wants to deploy a sensor that is inexpensive, yet will allow her to detect humans entering and moving in a secured room. Which of the following should she select?",
+      "options": {
+        "A": "An infrared sensor",
+        "B": "A microwave sensor",
+        "C": "An ultrasonic sensor",
+        "D": "A pressure sensor"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "An infrared sensor"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Infrared sensors balance lower cost with the ability to detect humans entering and moving in a space. Microwave sensors are more expensive but can provide better coverage, including traveling through some barriers. Ultrasonic sensors are rarely used for this purpose, and pressure sensors are limited to the pad where they are deployed, making them expensive and challenging to use for rooms or larger spaces.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "Kathleen wants to discourage potential attackers from entering the facility she is responsible for. Which of the following is not a common control used for this type of preventive defense?",
+      "options": {
+        "A": "Fences",
+        "B": "Lighting",
+        "C": "Platform diversity",
+        "D": "Video surveillance"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Platform diversity"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Fences, lighting, and video surveillance can all help discourage potential malicious actors from entering an area, although a determined adversary will ignore or bypass all three. Platform diversity can help make it harder for attackers to succeed, but this is primarily a resilience tactic, and remains more costly to maintain and implement.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "How does technology diversity help ensure cybersecurity resilience?",
+      "options": {
+        "A": "It ensures that a vulnerability in a single company’s product will not impact the entire infrastructure.",
+        "B": "If a single vendor goes out of business, the company does not need to replace its entire infrastructure.",
+        "C": "It means that a misconfiguration will not impact the company’s entire infrastructure.",
+        "D": "All of the above."
+      },
+      "correct": {
+        "letter": "D",
+        "text": "All of the above."
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Technology diversity helps ensure that a single failure—due to a vendor, vulnerability, or misconfiguration—will not impact an entire organization. Technology diversity does have additional costs, including training, patch management, and configuration management.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Scott sends his backups to a company that keeps them in a secure vault. What type of backup solution has he implemented?",
+      "options": {
+        "A": "Nearline",
+        "B": "Safe",
+        "C": "Onsite",
+        "D": "Offsite"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Offsite"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Scott has implemented an offsite backup scheme. His backups will take longer to retrieve because they are at a remote facility and will have to be sent back to him, but they are likely to survive any disaster that occurs in his facility or datacenter. Onsite backups are kept immediately accessible, whereas nearline backups can be retrieved somewhat more slowly than online backups but faster than offline backups. “Safe backups” is not an industry term.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "Gabby wants to detect physical brute‐force attempts against her organization. What solution is best suited to this?",
+      "options": {
+        "A": "Security guards",
+        "B": "Locks",
+        "C": "Access badges",
+        "D": "An intrusion detection system (IDS)"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Security guards"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Security guards who can monitor for and understand the signs of a physical brute‐force attempt are the most useful control listed. Locks may show signs of attempts but require careful inspection, access badges would require log review and additional information to detect brute‐force attacks, and an IDS is useful for network attacks.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Florian wants to test his high‐availability designs but does not want to interrupt his organization’s normal work. Which of the following is the least disruptive testing scenario?",
+      "options": {
+        "A": "A failover exercise",
+        "B": "A tabletop exercise",
+        "C": "A partial failover exercise",
+        "D": "A simulation"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "A tabletop exercise"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "A tabletop exercise is the least disruptive form of exercise. Even simulations have some risk if an employee does not fully realize that the scenario is simulated and takes action. Failover, even partial, involves the potential for disruption.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "What type of physical security control is shown here?",
+      "options": {
+        "A": "A Faraday cage",
+        "B": "An access control vestibule",
+        "C": "A bollard",
+        "D": "An air gap"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "An access control vestibule"
+      },
+      "my_guess": "C",
+      "guess_matched_correct": false,
+      "explanation": "An access control vestibule uses a pair of doors. When an individual enters, the first door must be closed and secured before the second door can be opened. This helps prevent tailgating, since the person entering will notice anybody following them through the secured area. A Faraday cage is used to stop electromagnetic interference (EMI), a bollard prevents vehicular traffic, and an air gap is a physical separation of networks or devices.",
+      "image_referenced": true,
+      "notes": "Question references image. URLs: https://epdc.wiley.com/pub/images/f81fb4a5-ba0a-40f3-8089-2c21db0bbca9"
+    },
+    {
+      "n": 20,
+      "stem": "Gurvinder identifies a third‐party datacenter provider over 90 miles away to run his redundant datacenter operations. Why has he placed the datacenter that far away?",
+      "options": {
+        "A": "Because it is required by law",
+        "B": "Network traffic latency concerns",
+        "C": "Geographic dispersion",
+        "D": "Geographic tax reasons"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Geographic dispersion"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Geographic dispersion helps ensure that a single natural or human‐made disaster does not disable multiple facilities. This distance is not required by law; latency increases with distance; and though there may be tax reasons in some cases, this is not a typical concern for a security professional.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}

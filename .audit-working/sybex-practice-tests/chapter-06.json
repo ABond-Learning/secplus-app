@@ -1,0 +1,397 @@
+{
+  "source": {
+    "test_bank": "CompTIA Security+ Study Guide with over 500 Practice Test Questions: Exam SY0-701, 9th Edition",
+    "publisher": "Sybex / Wiley",
+    "practice_set": "Chapter 6: Application Security",
+    "total_questions": 20,
+    "completion_state": {
+      "status": "Completed",
+      "score": "0/20 Correct (displayed as -/20)",
+      "strategy": "Deliberately wrong answers; my Security+ knowledge picked the wrong option each time"
+    },
+    "wall_clock_duration_seconds": 281,
+    "average_per_question_seconds": 14.05
+  },
+  "questions": [
+    {
+      "n": 1,
+      "stem": "Adam is conducting software testing by reviewing the source code of the application. What type of code testing is Adam conducting?",
+      "options": {
+        "A": "Mutation testing",
+        "B": "Static code analysis",
+        "C": "Dynamic code analysis",
+        "D": "Fuzzing"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Static code analysis"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Adam is conducting static code analysis by reviewing the source code. Dynamic code analysis requires running the program, and both mutation testing and fuzzing are types of dynamic analysis.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 2,
+      "stem": "Charles is worried about users conducting SQL injection attacks. Which of the following solutions will best address his concerns?",
+      "options": {
+        "A": "Using secure session management",
+        "B": "Enabling logging on the database",
+        "C": "Performing user input validation",
+        "D": "Implementing TLS"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Performing user input validation"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Charles should perform user input validation to strip out any SQL code or other unwanted input. Secure session management can help prevent session hijacking, logging may provide useful information for incident investigation, and implementing TLS can help protect network traffic, but only input validation helps with the issue described.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 3,
+      "stem": "Precompiled SQL statements that only require variables to be input are an example of what type of application security control?",
+      "options": {
+        "A": "Parameterized queries",
+        "B": "Encoding data",
+        "C": "Input validation",
+        "D": "Appropriate access controls"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Parameterized queries"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "A parameterized query (sometimes called a prepared statement) uses a prebuilt SQL statement to prevent SQL‐based attacks. Variables from the application are fed to the query, rather than building a custom query when the application needs data. Encoding data helps to prevent cross‐site scripting attacks, as does input validation. Appropriate access controls can prevent access to data that the account or application should not have access to, but they don’t use precompiled SQL statements. Stored procedures are an example of a parameterized query implementation.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 4,
+      "stem": "During a web application test, Ben discovers that the application shows SQL code as part of an error provided to application users. What should he note in his report?",
+      "options": {
+        "A": "Improper error handling",
+        "B": "Code exposure",
+        "C": "SQL injection",
+        "D": "A default configuration issue"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Improper error handling"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Improper error handling often exposes data to users and possibly attackers that should not be exposed. In this case, knowing what SQL code is used inside the application can provide an attacker with details they can use to conduct further attacks. Code exposure is not one of the vulnerabilities we discuss in this book, and SQL code being exposed does not necessarily mean that SQL injection is possible. While this could be caused by a default configuration issue, there is nothing in the question to point to that problem.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 5,
+      "stem": "The application that Scott is writing has a flaw that occurs when two operations are attempted at the same time, resulting in unexpected results when the two actions do not occur in the expected order. What type of flaw does the application have?",
+      "options": {
+        "A": "Dereferencing",
+        "B": "A race condition",
+        "C": "An insecure function",
+        "D": "Improper error handling"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "A race condition"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The application has a race condition, which occurs when multiple operations cause undesirable results due to their order of completion. De‐referencing accesses or uses a memory pointer, an insecure function would have security issues in the function itself, and improper error handling would involve an error and how it was displayed or what data it provided.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 6,
+      "stem": "Every time Susan checks code into her organization’s code repository, it is tested and validated, and then if accepted, it is immediately put into production. What is the term for this?",
+      "options": {
+        "A": "Continuous integration",
+        "B": "Continuous delivery",
+        "C": "A security nightmare",
+        "D": "Agile development"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Continuous delivery"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Although this example includes continuous integration, the key thing to notice is that the code is then deployed into production. This means that Susan is operating in a continuous deployment environment, where code is both continually integrated and deployed. Agile is a development methodology and often uses CI/CD, but we cannot determine if Susan is using Agile.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 7,
+      "stem": "Tim is working on a change to a web application used by his organization to fix a known bug. What environment should he be working in?",
+      "options": {
+        "A": "Test",
+        "B": "Development",
+        "C": "Staging",
+        "D": "Production"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Development"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Developers working on active changes to code should always work in the development environment. The test environment is where the software or systems can be tested without impacting the production environment. The staging environment is a transition environment for code that has successfully cleared testing and is waiting to be deployed into production. The production environment is the live system. Software, patches, and other changes that have been tested and approved move to production.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 8,
+      "stem": "Ricky is concerned that developers in his organization make use of third‐party code in their applications, which may introduce unknown vulnerabilities. He is concerned about the risk of the organization running code that it is not aware it is using. Which one of the following activities would best address this risk?",
+      "options": {
+        "A": "Web application firewalls",
+        "B": "Package monitoring",
+        "C": "Static analysis",
+        "D": "Dynamic analysis"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Package monitoring"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "All of the activities listed here may reduce the risk of the vulnerabilities created by the code. However, Ricky is specifically concerned about the fact that the organization may not be aware of all of the code that it is running. Package monitoring would inventory and monitor these third‐party libraries, so that is the best answer here.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 9,
+      "stem": "Which one of the following is not an advantage of automation in cybersecurity operations?",
+      "options": {
+        "A": "Enforcing baselines",
+        "B": "Technical debt",
+        "C": "Employee retention",
+        "D": "Standardizing infrastructure configurations"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Technical debt"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "The main benefits of automation are efficiency and time savings, enforcing baselines, standardizing infrastructure configurations, scaling in a secure manner, retaining employees, reducing reaction time, and serving as a workforce multiplier. Technical debt is one of the potential drawbacks of automation.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 10,
+      "stem": "Chris is creating a script that will automatically screen any user requests and flag those that exceed normal thresholds for manual review. What term best describes this automation use case?",
+      "options": {
+        "A": "User provisioning",
+        "B": "Guard rails",
+        "C": "Ticket creation",
+        "D": "Escalation"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Guard rails"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "This is an example of the guard rails use case for automation. Cybersecurity professionals can use scripting to automatically review user actions and block any that are outside of normal parameters.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 11,
+      "stem": "Which one of the following is not a common drawback of automating cybersecurity operations?",
+      "options": {
+        "A": "Reducing employee satisfaction",
+        "B": "Creating single points of failure",
+        "C": "Costs",
+        "D": "Complexity"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Reducing employee satisfaction"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Automation normally increases employee retention. The common drawbacks to automation include complexity, cost, creating single points of failure, incurring technical debt, and creating challenges to ongoing supportability.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 12,
+      "stem": "Frank is investigating a security incident where the attacker entered a very long string into an input field, which was followed by a system command. What type of attack likely took place?",
+      "options": {
+        "A": "Cross‐site request forgery",
+        "B": "Server‐side request forgery",
+        "C": "Command injection",
+        "D": "Buffer overflow"
+      },
+      "correct": {
+        "letter": "D",
+        "text": "Buffer overflow"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Buffer overflow attacks occur when an attacker manipulates a program into placing more data into an area of memory than is allocated for that program’s use. The goal is to overwrite other information in memory with instructions that may be executed by a different process running on the system.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 13,
+      "stem": "What type of attack places an attacker in the position to eavesdrop on communications between a user and a web server?",
+      "options": {
+        "A": "On‐path attack",
+        "B": "Session hijacking",
+        "C": "Buffer overflow",
+        "D": "Meet‐in‐the‐middle"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "On‐path attack"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "In an on‐path attack, the attacker fools the user into thinking that the attacker is actually the target website and presenting a fake authentication form. They may then authenticate to the website on the user’s behalf and obtain the cookie. This is slightly different from a session hijacking attack, where the attacker steals the cookie associated with an active session.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 14,
+      "stem": "Tom is a software developer who creates code for sale to the public. He would like to assure his users that the code they receive actually came from him. What technique can he use to best provide this assurance?",
+      "options": {
+        "A": "Code signing",
+        "B": "Code endorsement",
+        "C": "Code encryption",
+        "D": "Code obfuscation"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Code signing"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "Code signing provides developers with a way to confirm the authenticity of their code to end users. Developers use a cryptographic function to digitally sign their code with their own private key, and then browsers can use the developer’s public key to verify that signature and ensure that the code is legitimate and was not modified by unauthorized individuals.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 15,
+      "stem": "Chris is reviewing evidence of a cross‐site scripting attack where the attacker embedded JavaScript in a URL that a user clicked. The web page then sent the JavaScript to the user in the displayed page. What term best describes this attack?",
+      "options": {
+        "A": "Reflected XSS",
+        "B": "Stored XSS",
+        "C": "Persistent XSS",
+        "D": "DOM‐based XSS"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Reflected XSS"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "This is an example of a reflected attack because the script code is contained within the URL. A persistent or stored attack places the content on a web page or other location where a victim may later access it. DOM‐based XSS attacks hide the attack code within the Document Object Model.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 16,
+      "stem": "Joe checks his web server logs and sees that someone sent the following query string to an application running on the server:\n\nhttp://www.mycompany.com/servicestatus.php?serviceID=892&serviceID=892'%20;DROP%20TABLE%20Services;--\n\nWhat type of attack was most likely attempted?",
+      "options": {
+        "A": "Cross‐site scripting",
+        "B": "Session hijacking",
+        "C": "Parameter pollution",
+        "D": "On‐path"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Parameter pollution"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "This query string is indicative of a parameter pollution attack. In this case, it appears that the attacker was waging a SQL injection attack and tried to use parameter pollution to slip the attack past content filtering technology. The two instances of the serviceID parameter in the query string indicate a parameter pollution attempt.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 17,
+      "stem": "Upon further inspection, Joe finds a series of thousands of requests to the same URL coming from a single IP address. Here are a few examples:\n\nhttp://www.mycompany.com/servicestatus.php?serviceID=1\nhttp://www.mycompany.com/servicestatus.php?serviceID=2\nhttp://www.mycompany.com/servicestatus.php?serviceID=3\nhttp://www.mycompany.com/servicestatus.php?serviceID=4\nhttp://www.mycompany.com/servicestatus.php?serviceID=5\nhttp://www.mycompany.com/servicestatus.php?serviceID=6\n\nWhat type of vulnerability was the attacker likely trying to exploit?",
+      "options": {
+        "A": "Insecure direct object reference",
+        "B": "File upload",
+        "C": "Unvalidated redirect",
+        "D": "Session hijacking"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Insecure direct object reference"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The series of thousands of requests incrementing a variable indicate that the attacker was most likely attempting to exploit an insecure direct object reference vulnerability.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 18,
+      "stem": "Joe’s adventures in web server log analysis are not yet complete. As he continues to review the logs, he finds the request:\n\nhttp://www.mycompany.com/../../../etc/passwd\n\nWhat type of attack was most likely attempted?",
+      "options": {
+        "A": "SQL injection",
+        "B": "Session hijacking",
+        "C": "Directory traversal",
+        "D": "File upload"
+      },
+      "correct": {
+        "letter": "C",
+        "text": "Directory traversal"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "In this case, the .. operators are the telltale giveaway that the attacker was attempting to conduct a directory traversal attack. This particular attack sought to break out of the web server’s root directory and access the /etc/passwd file on the server.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 19,
+      "stem": "Wendy is a penetration tester who wishes to engage in a session hijacking attack. What information is crucial for Wendy to obtain if her attack will be successful?",
+      "options": {
+        "A": "Session ticket",
+        "B": "Session cookie",
+        "C": "Username",
+        "D": "User password"
+      },
+      "correct": {
+        "letter": "B",
+        "text": "Session cookie"
+      },
+      "my_guess": "A",
+      "guess_matched_correct": false,
+      "explanation": "Websites use HTTP cookies to maintain sessions over time. If Wendy is able to obtain a copy of the user’s session cookie, she can use that cookie to impersonate the user’s browser and hijack the authenticated session.",
+      "image_referenced": false,
+      "notes": null
+    },
+    {
+      "n": 20,
+      "stem": "Joe is examining the logs for his web server and discovers that a user sent input to a web application that contained the string WAITFOR. What type of attack was the user likely attempting?",
+      "options": {
+        "A": "Timing‐based SQL injection",
+        "B": "HTML injection",
+        "C": "Cross‐site scripting",
+        "D": "Content‐based SQL injection"
+      },
+      "correct": {
+        "letter": "A",
+        "text": "Timing‐based SQL injection"
+      },
+      "my_guess": "B",
+      "guess_matched_correct": false,
+      "explanation": "The use of the SQL WAITFOR command is a signature characteristic of a timing‐based SQL injection attack.",
+      "image_referenced": false,
+      "notes": null
+    }
+  ]
+}
