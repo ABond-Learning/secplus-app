@@ -153,7 +153,7 @@ When Aiden returns:
 
 ## Current state
 
-**Last commit:** `eec412e` (Sat 2026-05-23, Report-#0011 — GitHub Pages deploy fix) — plus this documentation-refresh commit. Today spans TWO arcs on `main`: (1) the autonomous chain α from mammoth-pick, and (2) a post-chain adjudication + infra arc (G-packet partial close, Pages deploy fix, Tier framework, Sybex sourcing). See "Sessions arc — 2026-05-23 (post-chain)" below.
+**Last commit:** `a082b11` (Sun 2026-05-24, Report-#0015 — arc summary). The 2026-05-24 supervisor arc added 5 commits on `main` (`d655a46` Tier 2 corpus → `bb4cc83` Rule #9 rescope → `9eb4311` G-packet Item 3 / CLOSED → `d1fc821` event-log spec + docs → `a082b11` Report-#0015) — see the top banner for that arc. The detail below this line describes the **2026-05-23** state, which still holds for everything the banner doesn't supersede: that day spanned TWO arcs on `main` — (1) the autonomous chain α from mammoth-pick, and (2) a post-chain adjudication + infra arc (G-packet partial close, Pages deploy fix, Tier framework, Sybex sourcing). See "Sessions arc — 2026-05-23 (post-chain)" below.
 
 Chain α (2026-05-23, all on `main`): pre-Task-0 setup (event-log helper + CLAUDE.md Rule #8/9; `a2ec1eb` + `bb208f4`) → pre-flight halt + adjudication (`6e7cb15`) → Task 1 classifier improvements (`51ac1ff` + `8fc51e7` + `4a3008c`) → Task 1 close + scope surface (`89e900a`) → supervisor redirect: chain α not β → Task 2 retroactive smoke (`63fc015`) → Task 3 P1/P2/P3 prebuild (gitignored output) → Task 4 Spectre typo + spelling-map exception (`8f1163b`) → Task 5 methodology synthesis (`c5b3deb`) → close-out item 1 event-log bug fix (`4d82944`) → docs-sync (`16b6933`) + recalibration (`2253c38`) + Report-#0010 (`2376c2c`).
 
