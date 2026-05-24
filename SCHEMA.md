@@ -219,7 +219,8 @@ Field | Type | Required when | Notes
 `sybex_reference.chapter` | integer ≥ 1 | when `sybex_reference` present |
 `sybex_reference.section` | string non-empty | when `sybex_reference` present |
 `sybex_reference.page` | integer ≥ 1 | optional | Section-anchored citations are robust to reprints; page is best-effort
-`sybex_reference.quote_excerpt` | string ≤ 500 chars | when `sybex_reference` present | Audit-trail evidence
+`sybex_reference.chapter_level_only` | boolean | optional | `true` = chapter-level Tier 3 citation (see below); waives the `quote_excerpt` requirement
+`sybex_reference.quote_excerpt` | string ≤ 500 chars | when `sybex_reference` present **unless `chapter_level_only` is `true`** | Audit-trail evidence; optional (and typically absent) for chapter-level citations
 `comptia_objective_reference` | string | required on `re-cite-to-sybex` + `keep-with-sybex-note`; optional elsewhere | SY0-701 objective code, e.g. `"2.4"` or `"2.4.6"`
 `applied_at` | ISO 8601 timestamp | always |
 `applied_by` | string | always | E.g. `"sb-fix-2-packet-3"`
@@ -234,6 +235,21 @@ Canonical citation string format (rendered by
 helper): `"Chapple 9th, Chapter N, §Section, p.NN"`. Gracefully
 degrades to `"Chapple 9th, Chapter N, §Section"` when `page` is
 absent.
+
+`chapter_level_only` (chapter-level Tier 3 citation) added 2026-05-24
+(P1-packet Group B). It marks a citation where the Sybex **chapter is the
+TOC-mapped natural home** for the tested concept, but the **specific term
+is absent from Tier 1+2** (the supervisor-reachable glossary, book index,
+and practice-test corpus) and may live only in the chapter **prose**
+(Tier 3 — unreachable without the physical book). For these,
+`quote_excerpt` is waived (no verbatim term quote exists to cite), and the
+flag makes "chapter-level" a first-class, queryable property rather than a
+sentinel buried in the quote field. `sb16_subcategory` is **unaffected**
+(it stays `partial-depth` — the Messer-curriculum relationship is a
+separate axis from Sybex citation depth). Distinct from
+`cross-source-curriculum-gap` (added at `9eb4311`), where the concept has
+NO home in any source incl. the Sybex TOC; chapter-level Tier 3 items DO
+have a TOC chapter home, just not a term-level quote.
 
 ## localStorage compatibility
 

@@ -120,10 +120,23 @@ function validateSybexReference(ref, contextLabel) {
   if (ref.page != null && (!Number.isInteger(ref.page) || ref.page < 1)) {
     return `${contextLabel}: sybex_reference.page if present must be integer ≥ 1 (got ${JSON.stringify(ref.page)})`;
   }
-  if (typeof ref.quote_excerpt !== "string" || ref.quote_excerpt.trim() === "") {
-    return `${contextLabel}: sybex_reference.quote_excerpt must be non-empty string`;
+  if (ref.chapter_level_only != null && typeof ref.chapter_level_only !== "boolean") {
+    return `${contextLabel}: sybex_reference.chapter_level_only if present must be boolean (got ${JSON.stringify(ref.chapter_level_only)})`;
   }
-  if (ref.quote_excerpt.length > 500) {
+  // chapter_level_only:true — the Sybex chapter is the TOC-mapped home but the
+  // specific term is absent from Tier 1+2 (glossary, index, practice tests) and
+  // may live only in chapter prose (Tier 3, unreachable without the book). Such
+  // citations waive the verbatim quote_excerpt requirement. quote_excerpt is
+  // then optional; if supplied it must still be a string within the length cap.
+  const chapterLevel = ref.chapter_level_only === true;
+  if (!chapterLevel) {
+    if (typeof ref.quote_excerpt !== "string" || ref.quote_excerpt.trim() === "") {
+      return `${contextLabel}: sybex_reference.quote_excerpt must be non-empty string (unless chapter_level_only is true)`;
+    }
+  } else if (ref.quote_excerpt != null && typeof ref.quote_excerpt !== "string") {
+    return `${contextLabel}: sybex_reference.quote_excerpt if present must be a string`;
+  }
+  if (ref.quote_excerpt != null && ref.quote_excerpt.length > 500) {
     return `${contextLabel}: sybex_reference.quote_excerpt must be ≤ 500 chars (got ${ref.quote_excerpt.length})`;
   }
   return null;
@@ -474,6 +487,46 @@ function selftest() {
   catch (e) { threw = true; }
   if (!threw) throw new Error("Validation: malformed decision_type should throw");
 
+  // chapter_level_only: apply path (separate stub so the 5-fixture counts above are untouched)
+  {
+    const clQuestions = [{
+      id: "2.3", title: "Stub", videos: [{
+        id: "2.3.8", title: "Hardware Vulnerabilities",
+        questions: [], scenarios: [], matching: [],
+        cram: [{
+          term: "Spectre/Meltdown",
+          def: "CPU speculative-execution vulnerabilities; long enough to pass validator length checks.",
+          audit_d_review: { sb16_candidate: true, sb16_subcategory: "partial-depth", packet_id: "stub" },
+        }],
+      }],
+    }];
+    const clDecisions = {
+      packet: "cl", applied_by: "sb-fix-2-cl",
+      decisions: [{
+        packet_index: 1,
+        location: { section: "2.3", video: "2.3.8", type: "cram", index: 0 },
+        decision_type: DECISION_KEEP_WITH_NOTE,
+        sybex_reference: { edition: SYBEX_EDITION_REQUIRED, chapter: 11, section: "Hardware Vulnerabilities", page: 340, chapter_level_only: true },
+        comptia_objective_reference: "2.3",
+        note: "chapter-level Tier 3; term in prose only",
+      }],
+    };
+    const clResult = applyDecisionsToQuestions(clQuestions, clDecisions);
+    if (clResult.actions.length !== 1) throw new Error(`chapter_level_only: expected 1 action, got ${clResult.actions.length}`);
+    const clItem = clQuestions[0].videos[0].cram[0];
+    if (clItem.audit_d_review.sb_fix_2.sybex_reference.chapter_level_only !== true) throw new Error("chapter_level_only: flag not persisted into sb_fix_2");
+    if (clItem.audit_d_review.sb_fix_2.sybex_reference.quote_excerpt != null) throw new Error("chapter_level_only: quote_excerpt should be absent");
+    if (clItem.audit_d_review.sb16_subcategory !== "partial-depth") throw new Error("chapter_level_only: sb16_subcategory must stay partial-depth (apply script never touches it)");
+  }
+  // chapter_level_only: validator still rejects empty quote when the flag is NOT set
+  if (validateSybexReference({ edition: SYBEX_EDITION_REQUIRED, chapter: 11, section: "Hardware Vulnerabilities" }, "t") === null) {
+    throw new Error("missing quote_excerpt must still reject when chapter_level_only is not set");
+  }
+  // chapter_level_only: non-boolean flag rejected
+  if (validateSybexReference({ edition: SYBEX_EDITION_REQUIRED, chapter: 11, section: "X", chapter_level_only: "yes", quote_excerpt: "q" }, "t") === null) {
+    throw new Error("non-boolean chapter_level_only must reject");
+  }
+
   // formatSybexCitation rendering
   const cite = formatSybexCitation({ edition: "Chapple 9th", chapter: 8, section: "Bluetooth Attacks", page: 342 });
   if (cite !== "Chapple 9th, Chapter 8, §Bluetooth Attacks, p.342") throw new Error(`formatSybexCitation full: got "${cite}"`);
@@ -488,8 +541,9 @@ function selftest() {
   console.log("  ✓ promote-to-sybex-citation: decision recorded");
   console.log("  ✓ idempotency: 0 actions / 5 skipped on re-run");
   console.log("  ✓ malformed decision throws");
+  console.log("  ✓ chapter_level_only: applies without quote_excerpt, flag persisted, sb16_subcategory untouched; empty-quote + non-boolean still reject");
   console.log("  ✓ formatSybexCitation renders canonical format with + without page");
-  console.log("SB-fix-2 apply self-test PASS (5/5 fixtures + idempotency + validation + citation format)");
+  console.log("SB-fix-2 apply self-test PASS (5/5 fixtures + chapter_level_only + idempotency + validation + citation format)");
   return true;
 }
 
