@@ -627,7 +627,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "HMAC; same as item 1 (1.2 Non-repudiation umbrella)."
+              "note": "HMAC; same as item 1 (1.2 Non-repudiation umbrella).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 7,
+                  "section": "Digital Signatures (HMAC)",
+                  "page": 217,
+                  "quote_excerpt": "HMAC (Hash-Based Message Authentication Code)"
+                },
+                "comptia_objective_reference": "1.2",
+                "note": "Index-confirmed at p.217-218. Glossary references HMAC under HOTP entry. Non-repudiation requires single-party proof; shared-key HMAC cannot provide it - exactly the testable point. Strong Tier 1.",
+                "applied_at": "2026-05-24T20:34:50.586Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -710,7 +724,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "HMAC + non-repudiation; 1.2 Non-repudiation IS umbrella; HMAC is the foil concept used to teach what does/doesn't provide non-repudiation."
+              "note": "HMAC + non-repudiation; 1.2 Non-repudiation IS umbrella; HMAC is the foil concept used to teach what does/doesn't provide non-repudiation.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 7,
+                  "section": "Digital Signatures (HMAC)",
+                  "page": 217,
+                  "quote_excerpt": "HMAC (Hash-Based Message Authentication Code)"
+                },
+                "comptia_objective_reference": "1.2",
+                "note": "Same Sybex home as Item 1 (p.217-218). Strong Tier 1.",
+                "applied_at": "2026-05-24T20:34:50.586Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -4997,7 +5025,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "strcpy/gets/sprintf; 2.3 Buffer Overflows IS umbrella; specific C functions are mechanism implementations."
+              "note": "strcpy/gets/sprintf; 2.3 Buffer Overflows IS umbrella; specific C functions are mechanism implementations.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 6,
+                  "section": "Memory Management",
+                  "page": 176,
+                  "quote_excerpt": "more data is put into a buffer than it can hold"
+                },
+                "comptia_objective_reference": "2.3",
+                "note": "Buffer overflow term in glossary (p.176). The specific C functions (strcpy/gets/sprintf) are programmer-level and were NOT found by name in the Tier 2 corpus; item stands on the strong Tier 1 buffer-overflow backing.",
+                "applied_at": "2026-05-24T20:34:50.586Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -7857,7 +7899,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Cross-packet precedent: SB-fix-1a #43 was kept-as-is-sb16-candidate. Same pattern (SYN flood)."
+              "note": "Cross-packet precedent: SB-fix-1a #43 was kept-as-is-sb16-candidate. Same pattern (SYN flood).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Distributed Denial-of-Service Attacks",
+                  "page": 415,
+                  "quote_excerpt": "Tier 2 practice-exam-02 Q26: 'a DoS attack involving a SYN flood ... only one system sending the SYN packets'"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Ch 12 DDoS at p.415-418 (index-confirmed). T2 CONFIRMED: practice-exam-02 Q26 explanation explicitly names a SYN flood as the traffic pattern.",
+                "applied_at": "2026-05-24T20:34:50.586Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -7889,7 +7945,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #87 (SYN flood match counterpart)."
+              "note": "Same as #87 (SYN flood match counterpart).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Distributed Denial-of-Service Attacks",
+                  "page": 415,
+                  "quote_excerpt": "Tier 2 practice-exam-02 Q26: 'a DoS attack involving a SYN flood ... only one system sending the SYN packets'"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Same home as Item 13 (Ch 12, p.415-418). T2 CONFIRMED at practice-exam-02 Q26.",
+                "applied_at": "2026-05-24T20:34:50.586Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -7936,7 +8006,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Cluster verification: SYN flood not in cited DoS transcript. Additionally: candidate Messer-curriculum-gap (SYN flood may not appear anywhere in Messer SY0-701) — flag for SB-fix-2 Sybex-arbitration sub-path.",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Distributed Denial-of-Service Attacks",
+                  "page": 415,
+                  "quote_excerpt": "Tier 2 practice-exam-02 Q26: 'a DoS attack involving a SYN flood ... only one system sending the SYN packets'"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Same home as Item 13 (Ch 12, p.415-418). T2 CONFIRMED at practice-exam-02 Q26.",
+                "applied_at": "2026-05-24T20:34:50.586Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -8194,7 +8278,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Cross-packet precedent: SB-fix-1a #46 was kept-as-is-sb16-candidate. Same pattern (Evil twin)."
+              "note": "Cross-packet precedent: SB-fix-1a #46 was kept-as-is-sb16-candidate. Same pattern (Evil twin).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 13,
+                  "section": "Attacks Against Wireless Networks and Devices",
+                  "page": 432,
+                  "quote_excerpt": "evil twin"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Index-confirmed at p.432-433. Strong Tier 1.",
+                "applied_at": "2026-05-24T20:34:50.586Z",
+                "applied_by": "sb-fix-2-packet-P1",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
