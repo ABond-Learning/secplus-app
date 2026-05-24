@@ -7533,8 +7533,11 @@
               "inherited_from_parent": "2.4 - Other Malware Types",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "sb16_subcategory": "partial-depth",
-              "note": "Classifier corpus-absent. But 2.4 Other Malware Types IS the natural umbrella for cryptominers (they ARE other malware types). Same pattern as Spectre/Meltdown: cited video is conceptual home, specific technique not in transcript."
+              "sb16_subcategory": "cross-source-curriculum-gap",
+              "note": "keep-with-sybex-note. Cryptominer/cryptojacking is absent from Messer transcripts AND all three Sybex tiers - glossary, index/TOC malware-subtype list, and Ch12 practice tests (Tier 2 grep verified in run 2026-05-24-sb-fix-2-packet-P1-apply). Tested under CompTIA objective 2.4. Closest Sybex home is the malware family chapter (Chapple 9th, Ch 3, Malware, p.50), though cryptominer is not named as a subtype in the TOC. Cross-source curriculum gap; kept as exam-relevant enrichment. sb16_subcategory upgraded from partial-depth to cross-source-curriculum-gap (same pattern as G-packet Item 3 HSTS, 9eb4311).",
+              "applied_at": "2026-05-24T21:06:07.399Z",
+              "applied_by": "sb-fix-2-packet-P1",
+              "decision": "keep-with-sybex-note"
             }
           }
         ],
@@ -7585,8 +7588,11 @@
               "inherited_from_parent": "2.4 - Other Malware Types",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "sb16_subcategory": "partial-depth",
-              "note": "Same as #78 (cryptominer match counterpart)."
+              "sb16_subcategory": "cross-source-curriculum-gap",
+              "note": "keep-with-sybex-note. Cryptominer/cryptojacking is absent from Messer transcripts AND all three Sybex tiers - glossary, index/TOC malware-subtype list, and Ch12 practice tests (Tier 2 grep verified in run 2026-05-24-sb-fix-2-packet-P1-apply). Tested under CompTIA objective 2.4. Closest Sybex home is the malware family chapter (Chapple 9th, Ch 3, Malware, p.50), though cryptominer is not named as a subtype in the TOC. Cross-source curriculum gap; kept as exam-relevant enrichment. sb16_subcategory upgraded from partial-depth to cross-source-curriculum-gap (same pattern as G-packet Item 3 HSTS, 9eb4311).",
+              "applied_at": "2026-05-24T21:06:07.399Z",
+              "applied_by": "sb-fix-2-packet-P1",
+              "decision": "keep-with-sybex-note"
             }
           }
         ],
@@ -7709,8 +7715,11 @@
               "inherited_from_parent": "2.4 - Physical Attacks",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "sb16_subcategory": "partial-depth",
-              "note": "Classifier corpus-absent. 2.4 Physical Attacks IS the natural umbrella — skimming IS physical attachment to card readers."
+              "sb16_subcategory": "cross-source-curriculum-gap",
+              "note": "keep-with-sybex-note. Skimming/card cloning is absent from Messer transcripts AND all three Sybex tiers - glossary, index/TOC, and practice tests (Tier 2 grep verified in run 2026-05-24-sb-fix-2-packet-P1-apply). Tested under CompTIA objective 2.4 (physical attacks). Closest Sybex home is Chapple 9th, Ch 9, Physical Security Controls, p.285, though skimming is not named there. Cross-source curriculum gap; kept as exam-relevant enrichment. sb16_subcategory upgraded from partial-depth to cross-source-curriculum-gap (same pattern as G-packet Item 3 HSTS, 9eb4311).",
+              "applied_at": "2026-05-24T21:06:07.399Z",
+              "applied_by": "sb-fix-2-packet-P1",
+              "decision": "keep-with-sybex-note"
             }
           },
           {
@@ -7757,8 +7766,11 @@
               "inherited_from_parent": "2.4 - Physical Attacks",
               "kept_as_is": true,
               "sb16_candidate": true,
-              "sb16_subcategory": "partial-depth",
-              "note": "Same as #82 (skimming match counterpart)."
+              "sb16_subcategory": "cross-source-curriculum-gap",
+              "note": "keep-with-sybex-note. Skimming/card cloning is absent from Messer transcripts AND all three Sybex tiers - glossary, index/TOC, and practice tests (Tier 2 grep verified in run 2026-05-24-sb-fix-2-packet-P1-apply). Tested under CompTIA objective 2.4 (physical attacks). Closest Sybex home is Chapple 9th, Ch 9, Physical Security Controls, p.285, though skimming is not named there. Cross-source curriculum gap; kept as exam-relevant enrichment. sb16_subcategory upgraded from partial-depth to cross-source-curriculum-gap (same pattern as G-packet Item 3 HSTS, 9eb4311).",
+              "applied_at": "2026-05-24T21:06:07.399Z",
+              "applied_by": "sb-fix-2-packet-P1",
+              "decision": "keep-with-sybex-note"
             }
           },
           {
