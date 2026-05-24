@@ -1,7 +1,8 @@
 # Spec — Persistent run-state file for `actual_minutes` capture in `scripts/lib/event-log.mjs`
 
-**Status:** SPEC ONLY — pending supervisor review. No code changes in this commit.
-Implementation is a separate ship after sign-off.
+**Status:** SPEC — revised 2026-05-24 with supervisor tweaks (a)+(b) (see §2.4 and
+§5 fixture #2; §3 statePath export dropped). Implementation is a separate ship after
+sign-off.
 **Author run:** `2026-05-24-event-log-state-spec`
 **Date:** 2026-05-24
 **Touches:** `scripts/lib/event-log.mjs` (only)
@@ -117,11 +118,14 @@ truncated/corrupt state file:
 
 This mirrors the crash-safety intent of the NDJSON log's `appendFileSync` (atomic
 append). Note the NDJSON log and the state file are written in the same `logEvent`
-call; order them **state-write first, then NDJSON append** so that if the process dies
-between the two, the durable NDJSON record is never ahead of the state (a missing
-NDJSON line is more recoverable than a state file claiming a task is open/closed when
-the log disagrees). At sign-off we can flip this if the reviewer prefers log-first;
-the failure windows are tiny either way.
+call; order them **NDJSON append first, then state write**. Rationale: the NDJSON log
+is the durable record (§2.2, §4); the state file is ephemeral scratch. A crash between
+the two should leave **orphan state** (cosmetic, and detectable from the log) rather
+than a **missing durable event** (an unrecoverable hole in the timeline). Orphan
+`open_tasks` entries that have no matching `task_end` event in the NDJSON are trivially
+identifiable in post-hoc inspection, whereas a dropped NDJSON line cannot be
+reconstructed. The failure windows are tiny either way, but when one side must lose,
+lose the recoverable one.
 
 ### 2.5 Backwards compatibility
 
@@ -147,7 +151,9 @@ the failure windows are tiny either way.
 
 **Public signature is unchanged:** `logEvent(runId, event, fields)`,
 `logPath(runId)`, `_resetForTests()` all keep their current signatures. No new public
-exports are required (a `statePath(runId)` export is optional, listed below).
+exports are added — the public surface stays minimal. The state path is an internal
+`_statePath(runId)` only; selftests hardcode the path or reach it via the selftest
+harness.
 
 | Function | Change |
 | --- | --- |
@@ -163,10 +169,6 @@ New internal (non-exported) helpers:
 | `_readState(runId)` | Return parsed state, or `{ run_id: runId, open_tasks: {} }` if the file is missing or unparseable (corrupt file → treat as empty + stderr warn; do not throw). |
 | `_writeState(runId, state)` | `mkdirSync(RUNS_DIR,{recursive:true})` then temp-file + atomic rename (§2.4). |
 | `_deleteState(runId)` | `rmSync(path,{force:true})` — no error if absent. |
-
-Optional export: `statePath(runId)` (public mirror of `_statePath`) if selftests or
-downstream tooling want to assert the path. Low cost; include only if the reviewer
-wants it.
 
 New import needed: `renameSync`, `readFileSync`, `rmSync` from `node:fs` (currently
 only `appendFileSync`, `mkdirSync` are imported at `:19`).
@@ -201,13 +203,18 @@ minimum:
 1. **Single-process round-trip (no regression).** `task_start` then `task_end` in the
    same process. Assert `actual_minutes` present and ≈ elapsed (use a small injected or
    tolerant delta). Confirms the in-process fast-path is unbroken.
-2. **Multi-process round-trip (the fix).** Simulate process boundary by calling
-   `_resetForTests()` (clears the Map) **between** `task_start` and `task_end`, leaving
-   only disk state. Assert `task_end` reads `task_start_ts` from disk and writes a
-   non-null `actual_minutes`. This is the core regression guard for the reported bug.
-   - To make the duration deterministic, allow the test to seed `task_start_ts` in the
-     state file to a known past value (e.g. write state with `now - 120000`) and assert
-     `actual_minutes === 2.0`.
+2. **Multi-process round-trip (the fix).** Exercise a **real** process boundary, not an
+   in-process simulation. Process A writes `task_start` via a real node invocation
+   (`child_process.execSync` running `node --input-type=module -e "..."`); process B
+   then writes `task_end` via a separate `execSync` call. This mirrors exactly how CC
+   drives the helper in production — one node invocation per `logEvent`, with the
+   in-process Map dead between them. Assert `task_end` reads `task_start_ts` from disk
+   and writes a non-null `actual_minutes`. This is the core regression guard for the
+   reported bug.
+   - To make the duration deterministic, process A seeds `task_start_ts` to a known past
+     value (e.g. `now - 120000`) in the state file before — or as part of — its
+     `task_start` write, so process B's `task_end` produces `actual_minutes === 2.0`,
+     directly assertable.
 3. **Missing-state-file fallback.** `task_end` for a `task_id` with no Map entry and no
    state file (or no matching `open_tasks` key). Assert: `actual_minutes` omitted from
    the NDJSON entry, one stderr line emitted, **no throw**, entry still written.
