@@ -35,6 +35,18 @@
 > Everything below the prior headers still describes current state for anything not listed
 > above.
 
+## Memory architecture (2026-05-25)
+
+Supervisor-Claude's flat 30-entry `memory_user_edits` is migrating to a topic-file
+architecture — pattern-level discipline moves into project-knowledge files
+(`supervisor-cc-pattern.md`, `engineering-lessons.md`, `audit-methodology.md`,
+`tool-quirks.md`) with a slimmer memory set pointing at them. Design rationale and the
+full migration plan: **`docs/memory-architecture.md`**. A verbatim pre-migration snapshot
+of the 30 entries (rollback safety) is at `docs/memory-snapshots/2026-05-25-pre-architecture.md`.
+CC did the repo-side batch (OneDrive structure, snapshot, pattern-file copy, CC's own memory
+entry); Aiden does the Claude.ai UI work and the supervisor does the `memory_user_edits`
+edits separately.
+
 ## (prior header) Where Things Stand — 2026-05-24 (G packet CLOSED + Sybex Tier 2 corpus committed + Rule #9 rescope)
 
 > **2026-05-24 state (post-G-packet).** Three ship prompts landed today on `main`:
