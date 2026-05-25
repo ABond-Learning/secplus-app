@@ -1,4 +1,41 @@
-# Where Things Stand — 2026-05-24 (G packet CLOSED + Sybex Tier 2 corpus committed + Rule #9 rescope)
+# Where Things Stand — 2026-05-24 (session close: event-log persistent-state SHIPPED + SB-fix-2 P1 CLOSED + chapter_level_only infra)
+
+> **2026-05-24 session close.** Same day, continuing; this batch landed after the
+> G-packet / Tier-2 / Rule-#9 work in the header below.
+>
+> - **Event-log persistent-state implementation SHIPPED** — impl at `058acdb` (spec
+>   revision `8f684f3`; Report-#0016 `3f42edd`). Disk-backed run-state file
+>   (`.audit-working/runs/{runId}.state.json`) gives cross-process `actual_minutes`
+>   capture even though CC drives the helper as one `node` per `logEvent`; 13 selftest
+>   assertions PASS incl. a real cross-process fixture; smoke-verified non-null
+>   `actual_minutes` across a real process boundary. NDJSON-first write ordering (durable
+>   record before ephemeral state). **Supersedes the "known limitation" bullet in the
+>   prior header** — multi-process runs now capture durations.
+> - **SB-fix-2 P1 packet CLOSED — 20/20 items** across 4 commits: `f2c2c2a` (initial 7,
+>   Tier 1 / Tier 2-confirmed `keep-with-sybex-note`), `b5b0f34` (Group A: cryptominer ×2,
+>   skimming ×2 → `cross-source-curriculum-gap`), `979e994` (Group B: 9 chapter-level
+>   Tier 3 items), `66783df` (Report-#0017). See `Reports/Report-#0017.md`.
+> - **`chapter_level_only` flag on `sybex_reference` SHIPPED** at `aef0eab` as forward
+>   infrastructure. Marks chapter-level Tier 3 citations — Sybex chapter is the TOC-mapped
+>   home but the specific term is absent from Tier 1+2 (glossary/index/practice tests) and
+>   may live only in chapter prose. Waives the verbatim `quote_excerpt` requirement;
+>   `sb16_subcategory` stays orthogonal (`partial-depth`). **Applies forward to P2/P3 +
+>   D1/D3/D4/D5 partial-adjacent cleanup (~250+ items)** where chapter prose is unreachable
+>   without the book. See `SCHEMA.md §audit_d_review.sb_fix_2`.
+> - **Memory architecture conversation surfaced.** A context doc was drafted by the
+>   supervisor (not yet committed); a separate Aiden-driven chat now handles that design
+>   work. Supervisor does not pick this up here unless Aiden brings it back.
+> - **Recurrence-vs-awareness distinction** surfaced as a relevant frame for
+>   supervisor-Claude persistence mechanisms (recurring scheduled execution vs. passive
+>   awareness/recall of state).
+> - **Next up:** P2 packet adjudication (20 items) → P3 (16 items) → PLAN.md restructure to
+>   add the Sybex fold-in as a numbered task (with Aiden's review). Memory-architecture work
+>   continues in the dedicated chat.
+>
+> Everything below the prior headers still describes current state for anything not listed
+> above.
+
+## (prior header) Where Things Stand — 2026-05-24 (G packet CLOSED + Sybex Tier 2 corpus committed + Rule #9 rescope)
 
 > **2026-05-24 state (post-G-packet).** Three ship prompts landed today on `main`:
 >

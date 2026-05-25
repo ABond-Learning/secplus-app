@@ -503,6 +503,24 @@ chapters + both practice exams.
 - **D1/D3/D4/D5 partial-adjacent cleanup** — 227+ items (+ SD-WAN routing-out) gain a
   Tier 2 evidence base for forward adjudication.
 
+**2026-05-24 session close — SB-fix-2 P1 CLOSED + `chapter_level_only` convention adopted:**
+- **SB-fix-2 status: R + G + P1 CLOSED.** P1 = 20/20 items across 4 commits (`f2c2c2a`
+  initial 7; `b5b0f34` Group A → `cross-source-curriculum-gap`; `979e994` Group B
+  chapter-level Tier 3; `66783df` Report-#0017). **P2 (20 items) + P3 (16 items) = 36
+  partial-depth items remain.** P2 is the next packet.
+- **`chapter_level_only` flag on `sybex_reference` (`aef0eab`) = adopted forward
+  convention** for chapter-level Tier 3 citations: Sybex chapter is the TOC-mapped home
+  but the specific term is absent from Tier 1+2 and may live only in chapter prose. It
+  waives the verbatim `quote_excerpt` requirement and keeps `sb16_subcategory` orthogonal
+  (stays `partial-depth`). Applies forward to P2/P3 + D1/D3/D4/D5 cleanup (~250+ items).
+  See `SCHEMA.md §audit_d_review.sb_fix_2` and `Reports/Report-#0017.md`.
+- **Sybex fold-in is NOT yet a numbered task in this PLAN.** The Tier 1/2/3 framework,
+  the Tier 2 corpus, and the apply infrastructure all exist, but the overall fold-in arc
+  (P2/P3 closure → D1/D3/D4/D5 partial-adjacent cleanup) is tracked only in prose here
+  and in the handoff — not as a first-class numbered task. **Flagged for the next
+  supervisor session to restructure PLAN.md with Aiden's review**, adding Sybex fold-in
+  as a numbered task with explicit sub-items.
+
 **Workflow lessons (for future Claude-in-Chrome runs):** CCh sidepanel has no manual
 `/compact`, so auto-compaction breaks runs past ~5–6 chapters — multi-session with a
 ~500-word written handoff brief per session (helper code + schema spec + state +
