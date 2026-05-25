@@ -8462,7 +8462,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "2.4 Wireless Attacks IS the natural umbrella. Override parser primary 4.1 Securing Wireless and Mobile — that's defensive-side; this tests the attack mechanic. Same pattern as evil twin/WPA2."
+              "note": "2.4 Wireless Attacks IS the natural umbrella. Override parser primary 4.1 Securing Wireless and Mobile — that's defensive-side; this tests the attack mechanic. Same pattern as evil twin/WPA2.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 13,
+                  "section": "Attacks Against Wireless Networks and Devices",
+                  "page": 432,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Ch 13 §Attacks Against Wireless Networks is the TOC home (same section as evil twin p.432-433). T2 grep matched WPS-as-feature (\"Wi-Fi Protected Setup, a quick setup capability\"; \"WPS is being removed\") in ch-13/pe-01 but the PIN-attack vector itself is not described — attack concept is a Tier 1+2 miss. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.624Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -8482,7 +8496,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #95 (Evil twin match counterpart)."
+              "note": "Same as #95 (Evil twin match counterpart).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 13,
+                  "section": "Attacks Against Wireless Networks and Devices",
+                  "page": 432,
+                  "quote_excerpt": "evil twin"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (index 432-433). Evil twin named in index.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -8500,7 +8528,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #97 (WPS PIN attack match counterpart)."
+              "note": "Same as #97 (WPS PIN attack match counterpart).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 13,
+                  "section": "Attacks Against Wireless Networks and Devices",
+                  "page": 432,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Same WPS PIN attack as item 21: WPS-as-feature present in T2, PIN-attack vector not described. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -8526,7 +8568,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Cluster verification: evil twin not in cited Wireless Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 13,
+                  "section": "Attacks Against Wireless Networks and Devices",
+                  "page": 432,
+                  "quote_excerpt": "evil twin"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (index 432-433). Evil twin named in index.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -8563,7 +8619,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Cluster verification: WPA2 4-way handshake capture not in cited Wireless Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 13,
+                  "section": "Wi-Fi Security Standards / Wireless Authentication",
+                  "page": 438,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3 (P1 #20 precedent at 979e994). Ch 13 Wi-Fi Security is the TOC home for WPA2; the 4-way-handshake-capture-for-offline-cracking technique not named in glossary/index/practice tests. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -8619,7 +8689,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "2.4 On-path Attacks IS the natural umbrella — SSL stripping IS an on-path/MITM downgrade attack. Override parser primary 4.5 Secure Protocols. Same pattern as evil twin family."
+              "note": "2.4 On-path Attacks IS the natural umbrella — SSL stripping IS an on-path/MITM downgrade attack. Override parser primary 4.5 Secure Protocols. Same pattern as evil twin family.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks",
+                  "page": 410,
+                  "quote_excerpt": "SSL stripping (or TLS stripping) relies on making the end user believe"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "T2 HIT. SSL stripping attack directly described in practice-exam-01 (\"Which of the following components is required for an SSL/TLS stripping attack?\" + explanation). Ch 12 §Network Attacks p.410-414 is the natural home.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -8647,7 +8731,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "2.4 On-path Attacks IS umbrella for network interception attacks; BGP hijacking IS routing-layer interception. Same pattern as SYN flood / evil twin."
+              "note": "2.4 On-path Attacks IS umbrella for network interception attacks; BGP hijacking IS routing-layer interception. Same pattern as SYN flood / evil twin.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks",
+                  "page": 410,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. T2 grep (BGP|Border Gateway|route hijack) returned zero matches. Ch 12 §Network Attacks is the TOC home. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -8699,7 +8797,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #102 (BGP hijacking match counterpart)."
+              "note": "Same as #102 (BGP hijacking match counterpart).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks",
+                  "page": 410,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Same BGP hijacking as item 27: T2 grep zero matches. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -8876,7 +8988,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "Nonce-as-replay-prevention; 2.4 Replay Attacks IS umbrella for replay prevention. Distinct framing from packet 4 #106 (Nonce-as-crypto-primitive → 1.4 Encryption Technologies)."
+              "note": "Nonce-as-replay-prevention; 2.4 Replay Attacks IS umbrella for replay prevention. Distinct framing from packet 4 #106 (Nonce-as-crypto-primitive → 1.4 Encryption Technologies).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks / Replay Attacks",
+                  "page": 414,
+                  "quote_excerpt": "Credential replay attacks are a form of network attack"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (glossary entry + index credential replay 414-415).",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -9128,7 +9254,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Cross-packet precedent: SB-fix-1a #51 was kept-as-is-sb16-candidate. 2.4 Application Attacks IS umbrella (IDOR)."
+              "note": "Cross-packet precedent: SB-fix-1a #51 was kept-as-is-sb16-candidate. 2.4 Application Attacks IS umbrella (IDOR).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 6,
+                  "section": "Application Security",
+                  "page": 161,
+                  "quote_excerpt": "insecure direct object reference"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (index 161).",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9142,7 +9282,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "No precedent but same pattern as IDOR: 2.4 Application Attacks IS umbrella (SSRF)."
+              "note": "No precedent but same pattern as IDOR: 2.4 Application Attacks IS umbrella (SSRF).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 6,
+                  "section": "Application Security",
+                  "page": 168,
+                  "quote_excerpt": "Server-side request forgery"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (glossary entry + index 168).",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9170,7 +9324,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #113 (IDOR match counterpart)."
+              "note": "Same as #113 (IDOR match counterpart).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 6,
+                  "section": "Application Security",
+                  "page": 161,
+                  "quote_excerpt": "insecure direct object reference"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (index 161). Same IDOR as item 30.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9184,7 +9352,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #114 (SSRF match counterpart)."
+              "note": "Same as #114 (SSRF match counterpart).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 6,
+                  "section": "Application Security",
+                  "page": 168,
+                  "quote_excerpt": "Server-side request forgery"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (glossary entry + index 168). Same SSRF as item 31.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9240,7 +9422,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Cluster verification: IDOR not in cited Application Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 6,
+                  "section": "Application Security",
+                  "page": 161,
+                  "quote_excerpt": "insecure direct object reference"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (index 161). Same IDOR as item 30.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9331,7 +9527,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "2.4 Cryptographic Attacks IS umbrella; POODLE IS a cryptographic attack. Same pattern as SSL stripping / SYN flood / evil twin."
+              "note": "2.4 Cryptographic Attacks IS umbrella; POODLE IS a cryptographic attack. Same pattern as SSL stripping / SYN flood / evil twin.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 7,
+                  "section": "Cryptographic Attacks",
+                  "page": 200,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. T2 grep (POODLE|padding oracle) returned zero matches. Ch 7 §Cryptographic Attacks is the canonical home for the SSLv3 downgrade attack; page approximate. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9383,7 +9593,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #117 (POODLE match counterpart)."
+              "note": "Same as #117 (POODLE match counterpart).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 7,
+                  "section": "Cryptographic Attacks",
+                  "page": 200,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Same POODLE as item 35: T2 grep zero matches. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9513,7 +9737,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Cross-packet precedent: SB-fix-1a #54/#55/#57 all kept-as-is-sb16-candidate (Credential stuffing)."
+              "note": "Cross-packet precedent: SB-fix-1a #54/#55/#57 all kept-as-is-sb16-candidate (Credential stuffing).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks",
+                  "page": 414,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. T2 grep (credential stuffing) returned zero matches. Index has credential replay 414-415; credential stuffing is closely related (both exploit captured credentials) and shares the Ch 12 §Network Attacks region. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9527,7 +9765,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Cross-packet precedent: SB-fix-1a #56 was kept-as-is-sb16-candidate (Pass-the-hash)."
+              "note": "Cross-packet precedent: SB-fix-1a #56 was kept-as-is-sb16-candidate (Pass-the-hash).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks / Replay Attacks",
+                  "page": 414,
+                  "quote_excerpt": "A form of replay attack that takes place against the operating system"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (glossary entry; Sybex classifies pass-the-hash as a replay attack).",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9541,7 +9793,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "No precedent but same pattern as credential stuffing / pass-the-hash. 2.4 Password Attacks IS umbrella (Hybrid attack)."
+              "note": "No precedent but same pattern as credential stuffing / pass-the-hash. 2.4 Password Attacks IS umbrella (Hybrid attack).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 4,
+                  "section": "Password Attacks",
+                  "page": 76,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. T2 grep (hybrid attack) returned zero matches. Ch 4 §Password Attacks p.76 is the TOC home for dictionary/hybrid/brute-force techniques. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9565,7 +9831,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #123 (Credential stuffing match counterpart)."
+              "note": "Same as #123 (Credential stuffing match counterpart).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks",
+                  "page": 414,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Same credential stuffing as item 37: T2 grep zero matches. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:05:51.625Z",
+                "applied_by": "sb-fix-2-packet-P2",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
