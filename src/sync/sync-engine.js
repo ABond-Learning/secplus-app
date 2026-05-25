@@ -10,7 +10,7 @@
 // devices in one process.
 
 // ─── Constants ─────────────────────────────────────────────────
-export const TRACKED_PREFIXES = ["mc-", "scen-", "match-", "cram-", "weakness-", "secplus-"];
+export const TRACKED_PREFIXES = ["mc-", "scen-", "match-", "cram-", "weakness-", "sybex-", "secplus-"];
 
 // LOCAL_ONLY entries override TRACKED_PREFIXES — keys that match here are
 // never synced even if their prefix would normally include them.

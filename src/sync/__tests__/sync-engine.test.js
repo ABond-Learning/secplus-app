@@ -50,6 +50,31 @@ test("isLocalOnly: weakness- prefix is NOT local-only (syncs cross-device)", () 
   assert.equal(isLocalOnly("weakness-mc-2.4.1-7-1716372345678"), false);
 });
 
+test("isTracked covers sybex- prefix (added 2026-05-25, Task 1g.0)", () => {
+  // Readiness ahead of the Sybex fold-in (Task 1g.4). Final SM-2 key scheme
+  // is settled in 1g.4; this guarantees any sybex- prefixed SM-2 key syncs.
+  assert.equal(isTracked("sybex-mc-ch04-q1"), true);
+  assert.equal(isTracked("sybex-mc-pe01-q26"), true);
+  assert.equal(isTracked("sybex-scen-ch12-q17"), true);
+});
+
+test("isLocalOnly: sybex- prefix is NOT local-only (syncs cross-device)", () => {
+  assert.equal(isLocalOnly("sybex-mc-ch04-q1"), false);
+});
+
+test("joining-device guard: sybex- keys count as tracked (scanTrackedKeys picks them up)", () => {
+  // The joining-device guard derives localKeyCount from scanTrackedKeys, so
+  // adding sybex- to TRACKED_PREFIXES is what makes sybex- keys participate.
+  const storage = {
+    _d: { "sybex-mc-ch04-q1": "v1", "anki-deck-1": "ignore", "sybex-scen-ch12-q17": "v2" },
+    get length() { return Object.keys(this._d).length; },
+    key(i) { return Object.keys(this._d)[i]; },
+    getItem(k) { return this._d[k] ?? null; },
+  };
+  const tracked = scanTrackedKeys(storage);
+  assert.deepEqual(Object.keys(tracked).sort(), ["sybex-mc-ch04-q1", "sybex-scen-ch12-q17"]);
+});
+
 test("isTracked rejects non-app keys", () => {
   assert.equal(isTracked("randomKey"), false);
   assert.equal(isTracked(""), false);
