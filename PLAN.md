@@ -3,7 +3,7 @@
 Single source of truth for in-flight work. Update as state changes.
 See CLAUDE.md for the underlying 3-task plan and quality rules.
 
-Last updated: 2026-05-24
+Last updated: 2026-05-25
 
 ## Status snapshot
 
@@ -23,7 +23,7 @@ Task | State | Notes
 **1e — New-content prioritization** | **NEW (2026-04-27)** | App reports "N new things to try" with no way to see/prioritize them. Either separate New mode or have existing modes prioritize unseen-from-watched-videos. Smaller scope than Task 2; ~1-2 hours.
 1c-structural (continuation) — extractor tuning | **superseded by Audit D (2026-05-13)** | Keyword-extractor approach abandoned in favor of LLM-as-judge. See Task 1f.
 1c-experiential — anchor-gap fixes | not started; **scope may overlap with Audit D** | Generate anchor questions for concepts not yet tested. Distinct from Audit D's "is tested content in source?" question, but the underlying transcript-driven analysis pipeline could be shared. Re-evaluate after Audit D closure.
-**1f — Audit D: citation grounding** *(last updated 2026-05-23 autonomous chain α SHIPPED; Tasks 1-5 + close-out items 1-3 complete; SB-fix-1b CLOSED, SB-fix-2 P packets pre-built, weakness-tracker IN PROGRESS)* | **SB0 SHIPPED 2026-05-13 `111be1f`; SB1 pre-flight SHIPPED 2026-05-14 `aa32fad`; SB1.5 post-process SHIPPED 2026-05-18 `a26d42c`; SB1 full-corpus SHIPPED 2026-05-19; SB1.6 post-process refinement SHIPPED 2026-05-20; SB-fix-1a SHIPPED 2026-05-20 (`53786b0` + `4b9d838` + `61b6992`); Report-#0007 SHIPPED 2026-05-21 `4e6fb9e`; SB-fix-1b-prep SHIPPED 2026-05-21 `c1464c0`; SCHEMA sb16_subcategory + backfill + apply threading SHIPPED 2026-05-21 (`12deabc` + `6f796f7` + `ae5495f`); SB-fix-1b packet 1 SHIPPED 2026-05-21 `c252fa1`; SB-fix-1b packet 2 SHIPPED 2026-05-21 `87b566e`; relay v1→v2 infrastructure + docs/cadence-rules.md + weakness-tracker scoping SHIPPED 2026-05-22 (`24cdc7f` → `7c65c6c` → `28f4054`); relay v2.1 (URL in CC terminal) SHIPPED 2026-05-22 `77ae671`; SB-fix-1b packet 3 SHIPPED 2026-05-22 `a77ef4e`; SB-fix-1b packet 4 SHIPPED 2026-05-22 `f89b48e` — SB-fix-1b CLOSED at 134/134 D2 PA match/cram items shipped (100%). Cumulative SB-fix-1b: 102 edits + 32 sb16-candidates (30 partial-depth + 2 messer-curriculum-gap).** | Hybrid keyword pre-screen + LLM-as-judge + Aiden arbitration. SB0: 5 scripts + 30-item calibration, $0.32; smoke PASSED; strict 76.7% / collapsed 86.7%. SB1 pre-flight: tuned prompt + cache + verbatim-retry; Rec 2 partial-depth examples landed (3/3 targeted shifts); Rec 4 verbatim-retry landed (paraphrase 27%→8.3%); Rec 1 partial-adjacent attempted in iter1 but broke smoke + 10/23 regressions → rolled back. Pass-criteria 5/7 PASS. Spend $0.97. SB1.5 post-process script flips category to partial-adjacent whenever fix_direction=move-to-correct-video; validated on iter0 micro-recal + regression sample. **SB1 full-corpus 2026-05-19: 2,128 verdicts produced (zero data loss), $25.92 spent (under $30 mid), 100% cache hit rate after first call. Postprocess flipped 412 verdicts (19.4%). Spot-check on stratified 40-item packet: supervisor PASS at 75% strict agreement.** **SB1.6 2026-05-20: 8-item uncertainty verification (8/8 LLM verdicts held — transcript-grep, $0 spend) lifted post-verification agreement to 38/40 = 95%. Second flip predicate `category=out-of-source AND fix_direction=mark-for-Sybex-arbitration AND >=2 of 10 prose markers → partial-depth`. Real-apply: 3 strict flips + 18 loose flags. Final counts post-SB1.6: OOS 296→293, partial-depth 399→402.** **SB-fix-1a SHIPPED 2026-05-20 (three commits): Domain 2 partial-adjacent mc + scen re-citation, 3 packets of 25/25/13 items with per-packet commits, cadence Option B for packets 2+3. Cumulative: 63 items reviewed (100% of D2 PA mc+scen scope), 52 re-cited (23 + 21 + 8), 1 kept-as-is via self-alternate (#17 packet-1), 10 sb16-candidates (#25 + 4 + 5). Major findings: (a) catch-all pattern is systemic across §2.2/§2.3/§2.4/§2.5 — not §2.2-specific (§2.3 buckets DNS/infrastructure/mitigation items; §2.4 dominates within-cluster sibling reorganization; §2.5 buckets cross-domain hardening). (b) Partial-depth was systematically under-applied at the LLM-as-judge layer — SB-fix-1a review surfaced 10 sb16-candidates beyond SB1.6's 21 (3 strict + 18 loose) for a 31-item SB-fix-2 candidate-augment pool. The 10 SB-fix-1a-surfaced items required sibling-aware "concept-here-but-not-this-exact-term" review with no clean automated proxy. (c) Messer-curriculum-gap candidate list initialised: #43 SYN flood (DoS transcript covers volumetric/amplification only; possibly absent from entire Messer SY0-701 curriculum). SB-fix-2 will need a Sybex-arbitration sub-path for such items.** Schema-constraint finding during SB-fix-1a scoping deferred match + cram (134 items) to SB-fix-1b — requires Path B schema extension (per-item messerVideo/subObjective on MatchItem + CramTerm). Cumulative Audit D spend $34.63 ($1.29 prior + $7.42 SB1 halt + $25.92 SB1 completion + $0 SB1.6 + $0 SB-fix-1a); credit remaining $19.08. Closure docs `docs/audit-d-calibration-summary.md` (SB0), `Reports/Report-#0002.md` (SB0), `Reports/Report-#0003.md` (SB1 pre-flight), `Reports/Report-#0004.md` (SB1.5 + matching-bug fix), `Reports/Report-#0005.md` (SB1 full-corpus + spot-check sign-off), `Reports/Report-#0006.md` (uncertainty verification + SB1.6 + SB-fix-1 scoping), `Reports/Report-#0007.md` (SB-fix-1a + cross-cutting Audit D findings — load-bearing methodology document covering Q6 + parser v2 + 3-packet ship + catch-all generalisation + partial-depth under-application + Messer-curriculum-gap candidates + cumulative methodology math 47/50 = 94%), `Reports/Report-#0008.md` (SB-fix-1b-prep — schema extension + validator generalisation; per-item citation override on MatchItem + CramTerm; Q-A through Q-E supervisor adjudication with two Q-B refinements; 6-fixture validator self-test pattern established). Subsumes Audit B; defers Audit C indefinitely; supersedes Task 1c-structural. **SB-fix-1b closure complete 2026-05-22.** Cumulative across 4 packets: 102 edits + 32 sb16-candidates (30 partial-depth + 2 messer-curriculum-gap). Packets 3-4 ran under new cadence Rules 1-6 + relay v2.1 protocol. New build tooling (scripts/sb-fix-1b-cluster-verify.mjs, sb-fix-1b-cross-packet-annotate.mjs, sb-fix-1b-augment-packet.mjs) implements Rule 2 (inline cluster verification) + Rule 5 (cross-packet hints) at build time — reusable for D1/D3/D4/D5 future audits. Cross-packet inconsistencies file now has 2 confirmed entries (BEC from packet 1; SSL stripping from packets 3/4). **SB-fix-2 IN PROGRESS 2026-05-22:** scoping signed off (`3e0480f`); scripts skeleton + SCHEMA extension `audit_d_review.sb_fix_2` (`0bc18e6`, 4 scripts: apply/build/route/backfill with --selftest fixtures, all PASS); R sub-path closed (routing build `32b29fc` + backfill `0789b95` — 17 items routed to P/G + 1 SD-WAN exit to D1/D3/D4/D5 partial-adjacent cleanup); G packet built (`8c475eb`, 3 items: 2 integer overflow + 1 HSTS) awaiting Sybex book access for chapter/section/page lookups. Pool A partial-depth 40 + Pool B partial-depth 16 = 56 items pending P packets (3 packets at 20/20/16). **Weakness-tracker IN PROGRESS 2026-05-22:** scoping (`84d575e`, all six Q-letters adjudicated at CC's leans + Aiden's glosses); implementation plan signed off (`9c5df20`); commit 1 sync-engine TRACKED_PREFIXES + 4 tests (`829898f`); commit 2 recordWeakness helper + 5 call-site writes + Fix A stale-closure resolution (`0b831ba`, 15 unit tests PASS). Commits 3-8 pending (ConfidenceRater UI / pause-on-blur Q-C-3 / import-export Q-F-1 / SCHEMA / docs sync / Report-#0010). **Findings backlog files (all gitignored under `.audit-working/`):** `sb-fix-1b/cross-packet-inconsistencies.md` (BEC + SSL stripping); `findings/sb-fix-2-classifier-improvements.md` (needle-extractor + umbrella-heuristic tuning); `findings/d1-d3-d4-d5-partial-adjacent-from-pool-b.md` (SD-WAN routing-out captured for future cleanup). **Autonomous chain α SHIPPED 2026-05-23 — Tasks 1-5 + close-out.** Classifier improvements: needle augmentation for mc/scen + umbrella heuristic invert + selftest infra retrofitted to cluster-verify (`51ac1ff` + `8fc51e7` + `4a3008c`). Retroactive smoke confirms tuning effective — R-packet divergence 77.8% → 11.1%, 12 diverge→agree flips, 0 regressions (`63fc015`). P1/P2/P3 packets pre-built against the 56-item partial-depth pool (P1=20 / P2=20 / P3=16; gitignored .audit-working/sb-fix-2/packet-P{1,2,3}.{md,json}). Spectre typo fixed in §2.3.8 (4 user-facing strings) + spelling-map exception added (`8f1163b`). Methodology synthesis doc shipped at `docs/audit-d-methodology-synthesis.md` covering arc timeline + cross-cutting insights + cadence-rule lineage + D1/D3/D4/D5 carry-forward (`c5b3deb`). Event-log helper bug surfaced + fixed: actual_minutes auto-computed from task_start→task_end timestamps; task_id required as join key; CLAUDE.md Rule #9 + 12-fixture test coverage (`4d82944`). All work $0 LLM spend (script + manual review + transcript grep only). **Next-session opener: Aiden's choice between (a) SB-fix-2 G review at home with Sybex book (G packet `8c475eb` ready), (b) SB-fix-2 P1/P2/P3 review at home with Sybex book (P packets pre-built this chain), (c) weakness-tracker commit 3 ConfidenceRater UI (verify q/w/e/r keyboard collision first), (d) something else. After SB-fix-2 closes: D1/D3/D4/D5 partial-adjacent cleanup (227 items + SD-WAN routing-out) follows.** **SB-fix-2 G packet session 2026-05-23:** Items 1+2 SHIPPED (`2516639`) — the §2.3.2 integer-overflow pair (cram[2] + match[2]) → `keep-with-sybex-note`, Chapple 9th Ch 6 §Buffer Overflows p.177, CompTIA objective 2.3.2 (audit-only; content unchanged). Item 3 (§2.4.9 HSTS mc[2]) HELD pending Chapter 12 Sybex practice-test data — grep confirmed SSL-stripping lives in Messer's Cryptographic Attacks video (not the cited On-path Attacks) and HSTS is absent corpus-wide, so the verdict turns on whether the citation-correction stays a note or shifts to re-cite. **Tier 1/2/3 source-grounding framework adopted** (Tier 1 = Sybex glossary first-pass screen at supervisor-side `/mnt/project/Sybex_Glossary.pdf`; Tier 2 = Sybex practice-test bank; Tier 3 = full Sybex chapter prose): applies FORWARD from the G packet; D2 and all earlier sub-batches ship under the prior LLM-as-judge + transcript-grep methodology as the documented frozen baseline (not retro-fitted). **Sybex practice-test extraction COMPLETE 2026-05-24** via Claude in Chrome — Tier 2 corpus committed at `.audit-working/sybex-practice-tests/` (18 files: ch02-17 + 2 practice exams = 500 questions; ch01 is a legacy non-deliberate run, intentionally excluded; 5 accidental matches at ch04 Q1 / ch08 Q3 / ch11 Q15 / ch12 Q17 / ch14 Q20). Unblocks: Item 3 HSTS verdict (Ch12 data now in hand), P1/P2/P3 adjudication (56 items), and the D1/D3/D4/D5 partial-adjacent cleanup (227+ items). See the 2026-05-24 session block at the end of this section and `Reports/Report-#0012.md`. **P1/P2/P3 packets (56 partial-depth items, web-fetchable at `.audit-working/relays/from-cc/sb-fix-2-packets/`) ready for supervisor adjudication under the Tier 1/2/3 framework.** GitHub Pages deploy fix shipped same day — see `Reports/Report-#0011.md` (401 Bad credentials root-caused to read-only Workflow permissions).** **2026-05-24: G PACKET CLOSED (`9eb4311`).** Item 3 (§2.4.9 HSTS mc[2]) shipped → `keep-with-sybex-note` + new `cross-source-curriculum-gap` classification (HSTS absent from Messer AND all three Sybex tiers — glossary/practice-tests/index). `sb16_subcategory` enum extended 2→3 values (`partial-depth`, `messer-curriculum-gap`, `cross-source-curriculum-gap`); `VALID_SB16_SUBCATEGORIES` in `sb-fix-1b-apply-packet.mjs` extended to match; `validate-questions.mjs` structural-only (no enum check, 6/6 selftest). See `Reports/Report-#0014.md`. Same day: Rule #9 rescoped to all supervisor-directed CC tasks (`bb4cc83`, `Reports/Report-#0013.md`); Sybex Tier 2 corpus committed (`d655a46`, `Reports/Report-#0012.md`). **Next: P1/P2/P3 packets (56 partial-depth items) against Tier 1+2, then D1/D3/D4/D5 cleanup (227+ items).**
+**1f — Audit D: citation grounding** *(last updated 2026-05-25; SB-fix-1b CLOSED; SB-fix-2 P-path FULLY CLOSED at 56/56; weakness-tracker IN PROGRESS → promoted to Task 1h; Sybex fold-in scoped → Task 1g)* | **SB0 SHIPPED 2026-05-13 `111be1f`; SB1 pre-flight SHIPPED 2026-05-14 `aa32fad`; SB1.5 post-process SHIPPED 2026-05-18 `a26d42c`; SB1 full-corpus SHIPPED 2026-05-19; SB1.6 post-process refinement SHIPPED 2026-05-20; SB-fix-1a SHIPPED 2026-05-20 (`53786b0` + `4b9d838` + `61b6992`); Report-#0007 SHIPPED 2026-05-21 `4e6fb9e`; SB-fix-1b-prep SHIPPED 2026-05-21 `c1464c0`; SCHEMA sb16_subcategory + backfill + apply threading SHIPPED 2026-05-21 (`12deabc` + `6f796f7` + `ae5495f`); SB-fix-1b packet 1 SHIPPED 2026-05-21 `c252fa1`; SB-fix-1b packet 2 SHIPPED 2026-05-21 `87b566e`; relay v1→v2 infrastructure + docs/cadence-rules.md + weakness-tracker scoping SHIPPED 2026-05-22 (`24cdc7f` → `7c65c6c` → `28f4054`); relay v2.1 (URL in CC terminal) SHIPPED 2026-05-22 `77ae671`; SB-fix-1b packet 3 SHIPPED 2026-05-22 `a77ef4e`; SB-fix-1b packet 4 SHIPPED 2026-05-22 `f89b48e` — SB-fix-1b CLOSED at 134/134 D2 PA match/cram items shipped (100%). Cumulative SB-fix-1b: 102 edits + 32 sb16-candidates (30 partial-depth + 2 messer-curriculum-gap).** | Hybrid keyword pre-screen + LLM-as-judge + Aiden arbitration. SB0: 5 scripts + 30-item calibration, $0.32; smoke PASSED; strict 76.7% / collapsed 86.7%. SB1 pre-flight: tuned prompt + cache + verbatim-retry; Rec 2 partial-depth examples landed (3/3 targeted shifts); Rec 4 verbatim-retry landed (paraphrase 27%→8.3%); Rec 1 partial-adjacent attempted in iter1 but broke smoke + 10/23 regressions → rolled back. Pass-criteria 5/7 PASS. Spend $0.97. SB1.5 post-process script flips category to partial-adjacent whenever fix_direction=move-to-correct-video; validated on iter0 micro-recal + regression sample. **SB1 full-corpus 2026-05-19: 2,128 verdicts produced (zero data loss), $25.92 spent (under $30 mid), 100% cache hit rate after first call. Postprocess flipped 412 verdicts (19.4%). Spot-check on stratified 40-item packet: supervisor PASS at 75% strict agreement.** **SB1.6 2026-05-20: 8-item uncertainty verification (8/8 LLM verdicts held — transcript-grep, $0 spend) lifted post-verification agreement to 38/40 = 95%. Second flip predicate `category=out-of-source AND fix_direction=mark-for-Sybex-arbitration AND >=2 of 10 prose markers → partial-depth`. Real-apply: 3 strict flips + 18 loose flags. Final counts post-SB1.6: OOS 296→293, partial-depth 399→402.** **SB-fix-1a SHIPPED 2026-05-20 (three commits): Domain 2 partial-adjacent mc + scen re-citation, 3 packets of 25/25/13 items with per-packet commits, cadence Option B for packets 2+3. Cumulative: 63 items reviewed (100% of D2 PA mc+scen scope), 52 re-cited (23 + 21 + 8), 1 kept-as-is via self-alternate (#17 packet-1), 10 sb16-candidates (#25 + 4 + 5). Major findings: (a) catch-all pattern is systemic across §2.2/§2.3/§2.4/§2.5 — not §2.2-specific (§2.3 buckets DNS/infrastructure/mitigation items; §2.4 dominates within-cluster sibling reorganization; §2.5 buckets cross-domain hardening). (b) Partial-depth was systematically under-applied at the LLM-as-judge layer — SB-fix-1a review surfaced 10 sb16-candidates beyond SB1.6's 21 (3 strict + 18 loose) for a 31-item SB-fix-2 candidate-augment pool. The 10 SB-fix-1a-surfaced items required sibling-aware "concept-here-but-not-this-exact-term" review with no clean automated proxy. (c) Messer-curriculum-gap candidate list initialised: #43 SYN flood (DoS transcript covers volumetric/amplification only; possibly absent from entire Messer SY0-701 curriculum). SB-fix-2 will need a Sybex-arbitration sub-path for such items.** Schema-constraint finding during SB-fix-1a scoping deferred match + cram (134 items) to SB-fix-1b — requires Path B schema extension (per-item messerVideo/subObjective on MatchItem + CramTerm). Cumulative Audit D spend $34.63 ($1.29 prior + $7.42 SB1 halt + $25.92 SB1 completion + $0 SB1.6 + $0 SB-fix-1a); credit remaining $19.08. Closure docs `docs/audit-d-calibration-summary.md` (SB0), `Reports/Report-#0002.md` (SB0), `Reports/Report-#0003.md` (SB1 pre-flight), `Reports/Report-#0004.md` (SB1.5 + matching-bug fix), `Reports/Report-#0005.md` (SB1 full-corpus + spot-check sign-off), `Reports/Report-#0006.md` (uncertainty verification + SB1.6 + SB-fix-1 scoping), `Reports/Report-#0007.md` (SB-fix-1a + cross-cutting Audit D findings — load-bearing methodology document covering Q6 + parser v2 + 3-packet ship + catch-all generalisation + partial-depth under-application + Messer-curriculum-gap candidates + cumulative methodology math 47/50 = 94%), `Reports/Report-#0008.md` (SB-fix-1b-prep — schema extension + validator generalisation; per-item citation override on MatchItem + CramTerm; Q-A through Q-E supervisor adjudication with two Q-B refinements; 6-fixture validator self-test pattern established). Subsumes Audit B; defers Audit C indefinitely; supersedes Task 1c-structural. **SB-fix-1b closure complete 2026-05-22.** Cumulative across 4 packets: 102 edits + 32 sb16-candidates (30 partial-depth + 2 messer-curriculum-gap). Packets 3-4 ran under new cadence Rules 1-6 + relay v2.1 protocol. New build tooling (scripts/sb-fix-1b-cluster-verify.mjs, sb-fix-1b-cross-packet-annotate.mjs, sb-fix-1b-augment-packet.mjs) implements Rule 2 (inline cluster verification) + Rule 5 (cross-packet hints) at build time — reusable for D1/D3/D4/D5 future audits. Cross-packet inconsistencies file now has 2 confirmed entries (BEC from packet 1; SSL stripping from packets 3/4). **SB-fix-2 IN PROGRESS 2026-05-22:** scoping signed off (`3e0480f`); scripts skeleton + SCHEMA extension `audit_d_review.sb_fix_2` (`0bc18e6`, 4 scripts: apply/build/route/backfill with --selftest fixtures, all PASS); R sub-path closed (routing build `32b29fc` + backfill `0789b95` — 17 items routed to P/G + 1 SD-WAN exit to D1/D3/D4/D5 partial-adjacent cleanup); G packet built (`8c475eb`, 3 items: 2 integer overflow + 1 HSTS) awaiting Sybex book access for chapter/section/page lookups. ~~Pool A partial-depth 40 + Pool B partial-depth 16 = 56 items pending P packets (3 packets at 20/20/16).~~ **APPLIED 2026-05-25 — P-path CLOSED at 56/56** (P1 `66783df` + P2 `e430368` + P3 `04d3eba`; Report-#0018 `5f6d672`). **Weakness-tracker IN PROGRESS 2026-05-22 (promoted to Task 1h 2026-05-25):** scoping (`84d575e`, all six Q-letters adjudicated at CC's leans + Aiden's glosses); implementation plan signed off (`9c5df20`); commit 1 sync-engine TRACKED_PREFIXES + 4 tests (`829898f`); commit 2 recordWeakness helper + 5 call-site writes + Fix A stale-closure resolution (`0b831ba`, 15 unit tests PASS). Commits 3-8 pending (ConfidenceRater UI / pause-on-blur Q-C-3 / import-export Q-F-1 / SCHEMA / docs sync / Report-#0010). **Findings backlog files (all gitignored under `.audit-working/`):** `sb-fix-1b/cross-packet-inconsistencies.md` (BEC + SSL stripping); `findings/sb-fix-2-classifier-improvements.md` (needle-extractor + umbrella-heuristic tuning); `findings/d1-d3-d4-d5-partial-adjacent-from-pool-b.md` (SD-WAN routing-out captured for future cleanup). **Autonomous chain α SHIPPED 2026-05-23 — Tasks 1-5 + close-out.** Classifier improvements: needle augmentation for mc/scen + umbrella heuristic invert + selftest infra retrofitted to cluster-verify (`51ac1ff` + `8fc51e7` + `4a3008c`). Retroactive smoke confirms tuning effective — R-packet divergence 77.8% → 11.1%, 12 diverge→agree flips, 0 regressions (`63fc015`). P1/P2/P3 packets pre-built against the 56-item partial-depth pool (P1=20 / P2=20 / P3=16; gitignored .audit-working/sb-fix-2/packet-P{1,2,3}.{md,json}). Spectre typo fixed in §2.3.8 (4 user-facing strings) + spelling-map exception added (`8f1163b`). Methodology synthesis doc shipped at `docs/audit-d-methodology-synthesis.md` covering arc timeline + cross-cutting insights + cadence-rule lineage + D1/D3/D4/D5 carry-forward (`c5b3deb`). Event-log helper bug surfaced + fixed: actual_minutes auto-computed from task_start→task_end timestamps; task_id required as join key; CLAUDE.md Rule #9 + 12-fixture test coverage (`4d82944`). All work $0 LLM spend (script + manual review + transcript grep only). **Next-session opener: Aiden's choice between (a) SB-fix-2 G review at home with Sybex book (G packet `8c475eb` ready), (b) SB-fix-2 P1/P2/P3 review at home with Sybex book (P packets pre-built this chain), (c) weakness-tracker commit 3 ConfidenceRater UI (verify q/w/e/r keyboard collision first), (d) something else. After SB-fix-2 closes: D1/D3/D4/D5 partial-adjacent cleanup (227 items + SD-WAN routing-out) follows.** **SB-fix-2 G packet session 2026-05-23:** Items 1+2 SHIPPED (`2516639`) — the §2.3.2 integer-overflow pair (cram[2] + match[2]) → `keep-with-sybex-note`, Chapple 9th Ch 6 §Buffer Overflows p.177, CompTIA objective 2.3.2 (audit-only; content unchanged). Item 3 (§2.4.9 HSTS mc[2]) HELD pending Chapter 12 Sybex practice-test data — grep confirmed SSL-stripping lives in Messer's Cryptographic Attacks video (not the cited On-path Attacks) and HSTS is absent corpus-wide, so the verdict turns on whether the citation-correction stays a note or shifts to re-cite. **Tier 1/2/3 source-grounding framework adopted** (Tier 1 = Sybex glossary first-pass screen at supervisor-side `/mnt/project/Sybex_Glossary.pdf`; Tier 2 = Sybex practice-test bank; Tier 3 = full Sybex chapter prose): applies FORWARD from the G packet; D2 and all earlier sub-batches ship under the prior LLM-as-judge + transcript-grep methodology as the documented frozen baseline (not retro-fitted). **Sybex practice-test extraction COMPLETE 2026-05-24** via Claude in Chrome — Tier 2 corpus committed at `.audit-working/sybex-practice-tests/` (18 files: ch02-17 + 2 practice exams = 500 questions; ch01 is a legacy non-deliberate run, intentionally excluded; 5 accidental matches at ch04 Q1 / ch08 Q3 / ch11 Q15 / ch12 Q17 / ch14 Q20). Unblocks: Item 3 HSTS verdict (Ch12 data now in hand), P1/P2/P3 adjudication (56 items), and the D1/D3/D4/D5 partial-adjacent cleanup (227+ items). See the 2026-05-24 session block at the end of this section and `Reports/Report-#0012.md`. **P1/P2/P3 packets (56 partial-depth items, web-fetchable at `.audit-working/relays/from-cc/sb-fix-2-packets/`) ready for supervisor adjudication under the Tier 1/2/3 framework.** GitHub Pages deploy fix shipped same day — see `Reports/Report-#0011.md` (401 Bad credentials root-caused to read-only Workflow permissions).** **2026-05-24: G PACKET CLOSED (`9eb4311`).** Item 3 (§2.4.9 HSTS mc[2]) shipped → `keep-with-sybex-note` + new `cross-source-curriculum-gap` classification (HSTS absent from Messer AND all three Sybex tiers — glossary/practice-tests/index). `sb16_subcategory` enum extended 2→3 values (`partial-depth`, `messer-curriculum-gap`, `cross-source-curriculum-gap`); `VALID_SB16_SUBCATEGORIES` in `sb-fix-1b-apply-packet.mjs` extended to match; `validate-questions.mjs` structural-only (no enum check, 6/6 selftest). See `Reports/Report-#0014.md`. Same day: Rule #9 rescoped to all supervisor-directed CC tasks (`bb4cc83`, `Reports/Report-#0013.md`); Sybex Tier 2 corpus committed (`d655a46`, `Reports/Report-#0012.md`). **2026-05-25: SB-fix-2 P-path FULLY CLOSED at 56/56** (P1 `66783df` + P2 `e430368` + P3 `04d3eba`; Report-#0018 `5f6d672`). Cumulative `chapter_level_only` 29 (P1 9 / P2 10 / P3 10; 0 from R/G); cumulative `cross-source-curriculum-gap` 5 (HSTS from G + cryptominer ×2 + skimming ×2 from P1 Group A). P2/P3 were $0 LLM (supervisor adjudication + scripted apply); cumulative Audit D spend $34.63 unchanged, credit remaining $19.08. SB-fix-2 remaining = closure documentation only. **Next Audit D work: D1/D3/D4/D5 partial-adjacent cleanup (227+ items + SD-WAN routing-out).** Sybex fold-in now tracked as **Task 1g**; weakness-tracker promoted to **Task 1h** (both added 2026-05-25 — see sections below).
 2 — Mode consolidation | **sub-batches 0 + 1 + 2A + 2B + 2C shipped; 3, 4, 5 deferred behind Audit D (2026-05-13)** | 5 modes (Quiz / Flashcards / Review / Drill Wrong / Matching) per design v2 Q-E; 3 top-level tabs (Progress / Study / Exam) per Q-A. Authoritative spec at `docs/task2-design-v2.txt`. Sub-batches 0–2C complete (latest: 5ed2cbe). Sub-batches 3 (saved presets), 4 (Flashcards SM-2), 5 (cleanup) deferred until Audit D match + cram fixes ship. SchemaVersion bump NOT required (Q-I).
 3 — PBQ system + exam sim | not started | Schema extension + new components.
 
@@ -496,6 +496,8 @@ mirroring the `relays/` precedent; `.audit-working/*` stays gitignored otherwise
 framework adopted with the G packet now has its Tier 2 layer populated for all 16
 chapters + both practice exams.
 
+**Dual role (clarified 2026-05-25 PLAN restructure):** The Tier 2 corpus serves DUAL roles after the 2026-05-25 PLAN restructure: (1) audit evidence base for SB-fix-2 + future D1/D3/D4/D5 work (established 2026-05-24), and (2) source for the Sybex fold-in catalogue content (established 2026-05-25 — Task 1g). Same files, different uses; no duplication.
+
 **Unblocks (carry-forward):**
 - **Item 3 (§2.4.9 HSTS mc[2])** — was HELD pending Chapter 12 data; Ch12 corpus now
   in hand, verdict can be adjudicated.
@@ -504,22 +506,24 @@ chapters + both practice exams.
   Tier 2 evidence base for forward adjudication.
 
 **2026-05-24 session close — SB-fix-2 P1 CLOSED + `chapter_level_only` convention adopted:**
-- **SB-fix-2 status: R + G + P1 CLOSED.** P1 = 20/20 items across 4 commits (`f2c2c2a`
+- **SB-fix-2 status (as of 2026-05-24): R + G + P1 CLOSED.** P1 = 20/20 items across 4 commits (`f2c2c2a`
   initial 7; `b5b0f34` Group A → `cross-source-curriculum-gap`; `979e994` Group B
-  chapter-level Tier 3; `66783df` Report-#0017). **P2 (20 items) + P3 (16 items) = 36
-  partial-depth items remain.** P2 is the next packet.
+  chapter-level Tier 3; `66783df` Report-#0017). P2 (20 items) + P3 (16 items) = 36
+  partial-depth items then remained. **(Superseded 2026-05-25: P2 + P3 now CLOSED —
+  P-path FULLY CLOSED at 56/56. See the 2026-05-25 session block below.)**
 - **`chapter_level_only` flag on `sybex_reference` (`aef0eab`) = adopted forward
   convention** for chapter-level Tier 3 citations: Sybex chapter is the TOC-mapped home
   but the specific term is absent from Tier 1+2 and may live only in chapter prose. It
   waives the verbatim `quote_excerpt` requirement and keeps `sb16_subcategory` orthogonal
   (stays `partial-depth`). Applies forward to P2/P3 + D1/D3/D4/D5 cleanup (~250+ items).
   See `SCHEMA.md §audit_d_review.sb_fix_2` and `Reports/Report-#0017.md`.
-- **Sybex fold-in is NOT yet a numbered task in this PLAN.** The Tier 1/2/3 framework,
+- **Sybex fold-in is NOT yet a numbered task in this PLAN.** ~~The Tier 1/2/3 framework,
   the Tier 2 corpus, and the apply infrastructure all exist, but the overall fold-in arc
   (P2/P3 closure → D1/D3/D4/D5 partial-adjacent cleanup) is tracked only in prose here
-  and in the handoff — not as a first-class numbered task. **Flagged for the next
-  supervisor session to restructure PLAN.md with Aiden's review**, adding Sybex fold-in
-  as a numbered task with explicit sub-items.
+  and in the handoff — not as a first-class numbered task.~~ **RESOLVED 2026-05-25:** Sybex
+  fold-in is now **Task 1g** (six scoping decisions Q-A through Q-F adjudicated this
+  session), and weakness-tracker is promoted from a 1f sub-bullet to **Task 1h**. See the
+  numbered sections below.
 
 **Workflow lessons (for future Claude-in-Chrome runs):** CCh sidepanel has no manual
 `/compact`, so auto-compaction breaks runs past ~5–6 chapters — multi-session with a
@@ -529,6 +533,169 @@ stepwise — send instructions as separate messages to force real pause-and-conf
 Long-running async JS loops time out at 45s → batch in ~25-item chunks. Post-END state
 wipe is standard Wiley UI behavior (not a Ch12-specific bug) → always plan for a
 `captureLocked` walk.
+
+### Session 2026-05-25 — SB-fix-2 P-path CLOSED at 56/56 + PLAN restructure (`Report-#0018`)
+
+**P-path fully adjudicated.** P2 (20 items, all §2.4) applied `e430368`; P3 (16 items,
+§2.4/2.5/3.4/4.1/4.3/5.2/5.5/5.6) applied `04d3eba` — final P-path packet, closes the
+partial-depth pool at 56/56. Both packets all `keep-with-sybex-note`, zero Group A
+cross-source gaps, audit-only (zero content mutation, content-equivalence verified;
+validator + build green pre/post-write). Report-#0018 (`5f6d672`) covers the P2+P3 pair.
+
+- **P-path accounting (56/56):** P1 = 20 (16 keep-with-sybex-note: 7 T1/T2 + 9
+  chapter-level; + 4 cross-source-curriculum-gap inline) · P2 = 20 (10 quote-cited + 10
+  chapter-level) · P3 = 16 (6 quote-cited + 10 chapter-level).
+- **Cumulative `chapter_level_only` = 29** across the P-path (P1 9 / P2 10 / P3 10; 0 from
+  R/G). ~56% of P-path keep-with-note citations are chapter-level Tier 3 — reflects how
+  much §2.4 attack-vocabulary and §3.4/§5.x program-vocabulary lives in Sybex prose, not
+  glossary/index/practice-tests.
+- **Cumulative `cross-source-curriculum-gap` = 5:** HSTS (G packet) + cryptominer ×2 +
+  skimming ×2 (P1 Group A).
+- **T2-grep methodology note (Report-#0018):** a grep match only counts as a Tier 2 hit
+  if the matched text supports what the item TESTS, not merely that the token appears.
+  WPS PIN attack (P2), parallel test + remediation validation (P3) matched the token in a
+  non-supporting sense → chapter-level. Counter-case: SSL stripping (P2) was a Tier 1 miss
+  but a real Tier 2 hit (practice-exam-01 describes the attack) → quote-cited; proves the
+  per-item grep pays off even when Tier 1 misses.
+- **Spend:** P2 + P3 were $0 LLM (supervisor adjudication + scripted apply). Cumulative
+  Audit D spend **$34.63 unchanged**, credit remaining **$19.08**.
+- **SB-fix-2 remaining = closure documentation only.** No further P-path items. Next
+  Audit D work item: **D1/D3/D4/D5 partial-adjacent cleanup (227+ items + SD-WAN
+  routing-out)** — `chapter_level_only` carries forward as the proven mechanism.
+
+**PLAN restructure (this session, `2026-05-25-plan-restructure`):** Sybex fold-in promoted
+to **Task 1g** (six scoping decisions encoded); weakness-tracker promoted from a 1f
+sub-bullet to **Task 1h**. Documentation-only — no code / schema / questions.json changes.
+
+## Task 1g — Sybex question fold-in (NEW, 2026-05-25, **next major Audit D adjacent work item**)
+
+**Status: SCOPED. Implementation not started.** This entry tracks the task and encodes the
+six adjudicated scoping decisions; the fold-in IMPLEMENTATION is the next major work item
+after the D1/D3/D4/D5 cleanup is sequenced (parallel-eligible — see below).
+
+**Trigger.** Tier 2 corpus of 500 Sybex-authored questions committed at
+`.audit-working/sybex-practice-tests/` on 2026-05-24 (Report-#0012) as audit evidence base.
+Aiden's directive to fold these in as study content settled 2026-05-24 — accepts worst-case
+"remove if asked" copyright risk per supervisor-Claude conversation. 500 questions roughly
+triples the existing MC pool and dramatically expands study volume, particularly for non-D2
+domains where Audit D status is "functional but partial-adjacent items not yet
+supervisor-validated."
+
+**Position relative to other tasks.** Parallel-eligible with D1/D3/D4/D5 partial-adjacent
+cleanup. Source-quality work (folding in Sybex-native content is in-source by definition),
+not UX polish — does not violate the "source quality > UX polish" ordering. Practice-exam
+questions (180 items) span all 5 domains and may surface broken non-D2 items faster than
+Audit D cleanup would, per the recalibration's "studying IS the test of audit quality"
+framing.
+
+**Six scoping decisions adjudicated 2026-05-25:**
+
+- **Q-A — Citation field shape: REUSE existing `sybex_reference` shape at top level of
+  Sybex-native items.** Same structure as `audit_d_review.sb_fix_2.sybex_reference`
+  (edition / chapter / section / page / quote_excerpt / chapter_level_only / note), but
+  placed at top level rather than inside `audit_d_review`. Semantically: top-level
+  `sybex_reference` = primary citation; inside-`audit_d_review` = audit-trail reference.
+  Validator change is small (mirrors `checkCitation()` helper from SB-fix-1b-prep `c1464c0`).
+- **Q-B — Tree placement: B1-aggregated. One synthetic Sybex video per section, holding
+  ALL Sybex items objective-tagged to it regardless of source chapter.** E.g. "Sybex
+  (§2.4)" holds Ch 4 + Ch 12 + practice-exam questions tagged 2.4. Source chapter remains
+  traceable via `sybex_reference`. Tree stays uncluttered; domain dashboard works without
+  UI changes. Depends on Q-C per-question objective tags; calibration must pass before
+  B1-aggregated tree-integration ships.
+- **Q-C — Objective tagging: C2-API. LLM-as-judge per question for SY0-701 objective
+  tagging, ~$5 + verbatim-retry margin.** Repurpose Audit D pipeline (`audit-d-llm-judge.mjs`,
+  ~460 lines) — new prompt + output schema, but caching/retry/resume/flush carries over.
+  30-item stratified calibration before full-corpus run (same shape as SB0). Pass threshold
+  ~85% (matches Audit D historical baseline). If calibration fails, fall back to B2
+  (parallel tree) or C1 (manual tagging).
+- **Q-D — Accidental match handling: D3 with `framing_note` output. Review each of the 5
+  accidental matches (ch04 Q1, ch08 Q3, ch11 Q15, ch12 Q17, ch14 Q20) individually,
+  produce a `framing_note` field on each item** documenting the Sybex-vs-common-Security+
+  divergence. Framing notes surface in the explanation UI during study. ~30-45 min
+  supervisor work. Captures the methodology finding (Sybex framing patterns) as side output.
+- **Q-E — Validator extension: E1-refined. Validator accepts either
+  `messerVideo`+`subObjective` OR top-level `sybex_reference` per item. At least one
+  citation required.** Mirrors `checkCitation()` helper shape from SB-fix-1b-prep. Add
+  selftest fixtures for Sybex-cited mc items. ~20 lines.
+- **Q-F — Audit framework carve-out: F3. Top-level `sourceProvenance` enum on items.**
+  Values: implicit `"messer"` default (existing items untagged), `"sybex-chapter"` (320
+  items from Sybex chapters 02-17), `"sybex-practice-exam"` (180 items from practice exams
+  1+2). Audit scripts add one-line filter on `sourceProvenance !== "messer"` to skip
+  Sybex-native items (in-source by definition; no `audit_d_review` needed).
+
+**SM-2 keying.** New prefix scheme: `mc-sybex-ch04-q1` for chapter questions,
+`mc-sybex-pe01-q26` for practice-exam questions. Globally unique by construction. Sync
+engine `TRACKED_PREFIXES` gets `"sybex-"` added — same shape as the `"cram-"` addition in
+Task 2 SB-0, requiring a 24-hour gate before items actually start writing per the SB-0
+precedent (see `feedback_sync_engine_hygiene_first`).
+
+**No `schemaVersion` bump needed.** Additive changes only (new fields, new key prefix).
+Existing parsers see new keys and ignore them. Sync-engine joining-device guard still
+triggers correctly.
+
+**Implementation sub-batches** (sequence pending implementation-time adjudication; not
+gating this PLAN restructure):
+
+- **1g.0 — Sync engine hygiene:** add `"sybex-"` to `TRACKED_PREFIXES`. Mirrors Task 2
+  SB-0 pattern. Ship + 24-hour gate before 1g.4.
+- **1g.1 — Validator extension:** E1-refined per Q-E. `checkCitation()` generalisation +
+  selftest fixtures.
+- **1g.2 — Schema documentation:** SCHEMA.md updates for top-level `sybex_reference`,
+  `sourceProvenance` enum, SM-2 key-scheme extension.
+- **1g.3 — Objective tagging:** C2-API per Q-C. New script `audit-sybex-objective-tag.mjs`
+  repurposing Audit D infra. Calibration (30 items stratified) before full run. ~$5 spend.
+- **1g.4 — Conversion script:** build `questions-sybex.json` from
+  `.audit-working/sybex-practice-tests/` shape into `questions.json` shape, with
+  `sybex_reference` + `sourceProvenance` + SM-2 keys. Per-item objective code from 1g.3.
+- **1g.5 — Accidental-match adjudication:** D3 per Q-D. 5 items reviewed, `framing_note`
+  populated on each.
+- **1g.6 — Apply + smoke:** merge into questions.json via dry-run + atomic write. Validator
+  clean. Build clean. App loads. Spot-check that Sybex items render in correct sections and
+  study modes pick them up.
+- **1g.7 — Report-#NNNN:** document the fold-in, the methodology, the 5 accidental-match
+  framing notes, any calibration findings.
+
+**Risks:**
+- C2-API calibration may fall below threshold for ambiguous items (phishing tested as
+  recognition vs as organizational defense). Mitigation: stratified spot-check before full
+  run; if calibration fails, Q-C fallback paths lean to B2 / C1.
+- Sybex framing divergence may extend beyond the 5 known accidental matches. Mitigation:
+  1g.5 captures known cases; additional cases surface via real study post-ship; treat as
+  iterative.
+- Copyright stance is Aiden-accepted ("remove if asked"). Mitigation: conversion script
+  preserves source-attribution metadata; teardown (filter by `sourceProvenance`) is trivial
+  if ever needed.
+
+**Audit framework carve-out specifics:**
+- `audit-d-llm-judge.mjs`: filter on `sourceProvenance` at item-load time.
+- `validate-questions.mjs`: `checkCitation()` accepts either source.
+- sb-fix-2 apply scripts: not affected (Sybex items have no `audit_d_review` block).
+- D1/D3/D4/D5 partial-adjacent cleanup (future work): operates on Messer-cited items only.
+
+## Task 1h — Weakness-tracker (promoted from 1f sub-bullet, 2026-05-25)
+
+**Status: IN PROGRESS.** Commits 1+2 shipped (`829898f` sync-engine TRACKED_PREFIXES + 4
+tests; `0b831ba` recordWeakness helper + 5 call-site writes + Fix A stale-closure
+resolution, 15 unit tests PASS). Commits 3-8 pending.
+
+**Purpose.** Per-attempt diagnostic data capture for study sessions. Records: question ID,
+objective code, answer, correctness, time on question, confidence rating (planned),
+prior_sm2 state at write time, timestamp.
+
+**Why a separate task.** Parallel to Audit D, not blocking it. Touches the app data model.
+Gates the metacognitive features deferred behind the Task 2 ship. Was buried as a 1f
+sub-bullet but deserves its own slot given scope.
+
+**Pre-work for commit 3.** Verify no `q`/`w`/`e`/`r` keyboard collision with existing
+handlers before the ConfidenceRater UI ships (carried forward from supervisor sign-off note
+`9c5df20`; see `project_weakness_tracker_commit_3_keyboard_check`).
+
+**Commits 3-8:** ConfidenceRater UI (commit 3), pause-on-blur Q-C-3 (commit 4),
+import-export Q-F-1 (commit 5), SCHEMA + docs (commit 6), Report-#NNNN (commit 7), final
+integration (commit 8).
+
+**Sync.** TRACKED_PREFIXES already includes `"weakness-"` (commit 1 shipped this).
+Interleaves with audit work; not gated by Audit D closure.
 
 ## Task 2 — Mode consolidation (in flight)
 
