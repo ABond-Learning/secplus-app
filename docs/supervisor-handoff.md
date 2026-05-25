@@ -21,10 +21,10 @@
 >   22:09 BST.** Task 1g.4 (conversion script that writes `sybex-` keys) must NOT ship
 >   before the gate clears + all devices are verified (V_old-wipes-V_new risk per the
 >   sync-engine hygiene-first protocol).
-> - **Memory architecture:** the repo-side batch is committed (`docs/memory-architecture.md`
->   + the pre-migration snapshot — see the Memory architecture section below). The
->   supervisor-side `memory_user_edits` migration + Claude.ai UI work continues in a separate
->   Aiden-driven chat; supervisor does not pick it up here unless Aiden brings it back.
+> - **Memory architecture: migration COMPLETE (2026-05-25).** Repo-side batch (`5091f7c`) +
+>   Report-#0019 (`918b68f`) landed; supervisor-side `memory_user_edits` migration + Claude.ai
+>   UI work finished the same day (30 → 8 entries); smoke test passed both probes. See the
+>   Memory architecture section below for the full ledger.
 > - **Next supervisor session opener:** Task 1g.1 (validator extension, E1-refined) OR
 >   D1/D3/D4/D5 cleanup. **1g.1 CAN ship before the gate clears** — it only makes the
 >   validator *accept* a top-level `sybex_reference`; it does not write `sybex-` keys.
