@@ -1,4 +1,39 @@
-# Where Things Stand — 2026-05-24 (session close: event-log persistent-state SHIPPED + SB-fix-2 P1 CLOSED + chapter_level_only infra)
+# Where Things Stand — 2026-05-25 (session close: SB-fix-2 P-path CLOSED 56/56 + PLAN restructure + Task 1g.0 shipped, 24h gate running)
+
+> **2026-05-25 session close.** Today's session landed SB-fix-2 P2 + P3 closure, the
+> PLAN.md restructure, and Task 1g.0 on `main`. PLAN.md is current and canonical as of
+> `31beeba`.
+>
+> - **SB-fix-2 P-path FULLY CLOSED at 56/56** — P2 (20 items, `e430368`), P3 (16 items,
+>   `04d3eba`, final packet), Report-#0018 (`5f6d672`). All `keep-with-sybex-note`, zero
+>   Group A cross-source gaps, audit-only (zero content mutation; validator + build green).
+>   Cumulative `chapter_level_only` **29** (P1 9 / P2 10 / P3 10); cumulative
+>   `cross-source-curriculum-gap` **5** (HSTS + cryptominer ×2 + skimming ×2).
+>   **SB-fix-2 remaining = closure documentation only.** Next Audit D work item:
+>   D1/D3/D4/D5 partial-adjacent cleanup (227+ items + SD-WAN routing-out) — `chapter_level_only`
+>   carries forward as the proven mechanism.
+> - **PLAN.md restructured at `31beeba`** — Sybex fold-in promoted to **Task 1g** (six
+>   scoping decisions Q-A through Q-F encoded; sub-batches 1g.0–1g.7), weakness-tracker
+>   promoted from a 1f sub-bullet to **Task 1h**. PLAN.md is canonical for task state.
+> - **Task 1g.0 shipped at `106baf8`** — `"sybex-"` added to sync engine `TRACKED_PREFIXES`
+>   + 3 unit tests (sync suite 30/30, integration 11/11, validator errors 0, build clean).
+>   No items use `sybex-` keys yet — pure readiness. **24-hour gate clears Tue 26 May
+>   22:09 BST.** Task 1g.4 (conversion script that writes `sybex-` keys) must NOT ship
+>   before the gate clears + all devices are verified (V_old-wipes-V_new risk per the
+>   sync-engine hygiene-first protocol).
+> - **Memory architecture:** the repo-side batch is committed (`docs/memory-architecture.md`
+>   + the pre-migration snapshot — see the Memory architecture section below). The
+>   supervisor-side `memory_user_edits` migration + Claude.ai UI work continues in a separate
+>   Aiden-driven chat; supervisor does not pick it up here unless Aiden brings it back.
+> - **Next supervisor session opener:** Task 1g.1 (validator extension, E1-refined) OR
+>   D1/D3/D4/D5 cleanup. **1g.1 CAN ship before the gate clears** — it only makes the
+>   validator *accept* a top-level `sybex_reference`; it does not write `sybex-` keys.
+>   **1g.4 onward must wait for the gate.**
+>
+> Everything below the prior headers still describes current state for anything not listed
+> above.
+
+## (prior header) Where Things Stand — 2026-05-24 (session close: event-log persistent-state SHIPPED + SB-fix-2 P1 CLOSED + chapter_level_only infra)
 
 > **2026-05-24 session close.** Same day, continuing; this batch landed after the
 > G-packet / Tier-2 / Rule-#9 work in the header below.
