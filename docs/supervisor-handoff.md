@@ -70,17 +70,21 @@
 > Everything below the prior headers still describes current state for anything not listed
 > above.
 
-## Memory architecture (2026-05-25)
+## Memory architecture (2026-05-25) — migration COMPLETE
 
-Supervisor-Claude's flat 30-entry `memory_user_edits` is migrating to a topic-file
-architecture — pattern-level discipline moves into project-knowledge files
+Supervisor-Claude's flat 30-entry `memory_user_edits` **migrated** to a topic-file
+architecture — pattern-level discipline **moved into** project-knowledge files
 (`supervisor-cc-pattern.md`, `engineering-lessons.md`, `audit-methodology.md`,
-`tool-quirks.md`) with a slimmer memory set pointing at them. Design rationale and the
-full migration plan: **`docs/memory-architecture.md`**. A verbatim pre-migration snapshot
-of the 30 entries (rollback safety) is at `docs/memory-snapshots/2026-05-25-pre-architecture.md`.
-CC did the repo-side batch (OneDrive structure, snapshot, pattern-file copy, CC's own memory
-entry); Aiden does the Claude.ai UI work and the supervisor does the `memory_user_edits`
-edits separately.
+`tool-quirks.md`) with a slimmer 8-entry memory set pointing at them. Design rationale and
+the full migration plan: **`docs/memory-architecture.md`** (its History section carries the
+landed-commit ledger). A verbatim pre-migration snapshot of the 30 entries (rollback safety)
+is at `docs/memory-snapshots/2026-05-25-pre-architecture.md`.
+
+**What landed:** CC did the repo-side batch (OneDrive structure, snapshot, pattern-file copy,
+CC's own memory entry) at `5091f7c`, plus Report-#0019 at `918b68f`. Aiden did the Claude.ai
+UI work. The supervisor completed the `memory_user_edits` edits the same day (30 → 8 entries,
+22 slots free). **Smoke test in a fresh chat passed both probes** (resume-on-restart from
+`engineering-lessons.md`; Audit D tier frameworks from `docs/audit-d-scoping.md`).
 
 ## (prior header) Where Things Stand — 2026-05-24 (G packet CLOSED + Sybex Tier 2 corpus committed + Rule #9 rescope)
 

@@ -123,4 +123,4 @@ This is optional. The base architecture works without it. Cowork accelerates top
 
 - 2026-05-24: 30-entry memory cap first bound. Initial consolidation attempt rejected; deeper architecture question raised by Aiden
 - 2026-05-25: design produced via dedicated supervisor chat; review pass completed (file-level via Cowork, repo-verification via CC)
-- **(pending)** Migration commit and pre-migration memory snapshot stored dual-source for rollback safety: `OneDrive - Seaford College/Claude/_meta/memory-snapshot-2026-05-25.md` and `docs/memory-snapshots/2026-05-25-pre-architecture.md` in the Sec+ repo. Either source can restore the original 30 entries. This entry will be updated to reflect the actual migration date once it lands on main.
+- **2026-05-25**: Migration completed. CC batch landed at commit `5091f7c` (architecture doc + pre-migration snapshot + handoff update); Report-#0019 landed at `918b68f`. Supervisor-side memory migration completed same day (30 entries → 8 entries, 22 slots free). Smoke test in a fresh chat passed both probes (resume-on-restart pattern from engineering-lessons.md; Audit D tier frameworks from docs/audit-d-scoping.md).
