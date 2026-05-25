@@ -9892,7 +9892,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Cluster verification: credential stuffing not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks",
+                  "page": 414,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Credential stuffing — P2 precedent (e430368 items 37/40): T2 grep miss confirmed, Ch 12 §Network Attacks p.414 home. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9916,7 +9930,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Cluster verification: credential stuffing + MFA-mitigation not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks",
+                  "page": 414,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Credential stuffing — P2 precedent. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -9940,7 +9968,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Cluster verification: pass-the-hash not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks / Replay Attacks",
+                  "page": 414,
+                  "quote_excerpt": "A form of replay attack that takes place against the operating system"
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "STRONG T1 (glossary entry; Sybex classifies pass-the-hash as a replay attack). P2 #38 precedent.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -9966,7 +10008,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "note": "Cluster verification: credential stuffing scenario not in cited Password Attacks transcript; cited video IS the correct conceptual home (partial-depth pattern).",
-              "sb16_subcategory": "partial-depth"
+              "sb16_subcategory": "partial-depth",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 12,
+                  "section": "Network Attacks",
+                  "page": 414,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "2.4",
+                "note": "Chapter-level Tier 3. Credential stuffing — P2 precedent. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -10494,7 +10550,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "2.5 Hardening Techniques IS umbrella for hardening; Secure Boot IS a hardening technique (boot-time integrity). Specific technique not in transcript but conceptual home is correct."
+              "note": "2.5 Hardening Techniques IS umbrella for hardening; Secure Boot IS a hardening technique (boot-time integrity). Specific technique not in transcript but conceptual home is correct.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 11,
+                  "section": "Hardening Techniques",
+                  "page": 350,
+                  "quote_excerpt": "A feature of Unified Extensible Firmware Interface (UEFI)"
+                },
+                "comptia_objective_reference": "2.5",
+                "note": "STRONG T1 (glossary entry). Secure boot.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -10526,7 +10596,21 @@
               "kept_as_is": true,
               "sb16_candidate": true,
               "sb16_subcategory": "partial-depth",
-              "note": "Same as #133 (Secure Boot match counterpart). CC verified '3.1 - Infrastructure Considerations' exists in MESSER_VIDEOS.md per supervisor's question — but that's the rejected parser primary, not the kept destination. Keep-as-is leaves citation inheriting from parent 2.5 Hardening Techniques."
+              "note": "Same as #133 (Secure Boot match counterpart). CC verified '3.1 - Infrastructure Considerations' exists in MESSER_VIDEOS.md per supervisor's question — but that's the rejected parser primary, not the kept destination. Keep-as-is leaves citation inheriting from parent 2.5 Hardening Techniques.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 11,
+                  "section": "Hardening Techniques",
+                  "page": 350,
+                  "quote_excerpt": "A feature of Unified Extensible Firmware Interface (UEFI)"
+                },
+                "comptia_objective_reference": "2.5",
+                "note": "STRONG T1 (glossary entry). Same secure boot as item 45.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -12807,7 +12891,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "Parallel test; 3.4 Recovery Testing IS umbrella; parallel test is a recovery test type."
+              "note": "Parallel test; 3.4 Recovery Testing IS umbrella; parallel test is a recovery test type.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 9,
+                  "section": "Testing Resilience and Recovery Controls and Designs",
+                  "page": 284,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "3.4",
+                "note": "Chapter-level Tier 3. T2 grep (parallel test|simultaneous) returned only WPA3-SAE and browser-session noise, nothing about DR/BCP test types. Tabletop exercises are index-confirmed at p.284 (Ch 9 §Testing Resilience); parallel test is a sibling test type in the same section. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -12819,7 +12917,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "Full interruption test; same as item 9 (3.4 Recovery Testing umbrella)."
+              "note": "Full interruption test; same as item 9 (3.4 Recovery Testing umbrella).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 9,
+                  "section": "Testing Resilience and Recovery Controls and Designs",
+                  "page": 284,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "3.4",
+                "note": "Chapter-level Tier 3. T2 grep (full interruption|interruption test) returned zero matches. Sibling test type under Ch 9 §Testing Resilience (same section as tabletop p.284). Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -12971,7 +13083,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "Differential backup; 3.4 Backups IS umbrella; differential backup is a backup type."
+              "note": "Differential backup; 3.4 Backups IS umbrella; differential backup is a backup type.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 9,
+                  "section": "Storage Resiliency",
+                  "page": 274,
+                  "quote_excerpt": "A type of backup that stores all files that have been modified since the"
+                },
+                "comptia_objective_reference": "3.4",
+                "note": "STRONG T1 (glossary entry). Differential backup.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -13531,7 +13657,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "MAM; 4.1 Securing Wireless and Mobile IS umbrella; MAM is a mobile management specific."
+              "note": "MAM; 4.1 Securing Wireless and Mobile IS umbrella; MAM is a mobile management specific.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 13,
+                  "section": "Mobile Security",
+                  "page": 445,
+                  "quote_excerpt": "Application management allows enterprise control of applications"
+                },
+                "comptia_objective_reference": "4.1",
+                "note": "STRONG T1 (glossary entry + index 445-448). MAM (Mobile Application Management).",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -14306,7 +14446,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "STIX/TAXII; 4.3 Threat Intelligence IS umbrella; STIX/TAXII is a threat intel sharing format."
+              "note": "STIX/TAXII; 4.3 Threat Intelligence IS umbrella; STIX/TAXII is a threat intel sharing format.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 2,
+                  "section": "Threat Intelligence",
+                  "page": 41,
+                  "quote_excerpt": "Trusted Automated eXchange of Intelligence Information"
+                },
+                "comptia_objective_reference": "4.3",
+                "note": "STRONG T1 (TAXII glossary entry + index 41 for both STIX and TAXII).",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -14602,7 +14756,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "EPSS; 4.3 Analyzing Vulnerabilities IS umbrella; EPSS is a vulnerability scoring system."
+              "note": "EPSS; 4.3 Analyzing Vulnerabilities IS umbrella; EPSS is a vulnerability scoring system.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 5,
+                  "section": "Vulnerability Management",
+                  "page": 87,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "4.3",
+                "note": "Chapter-level Tier 3. T2 grep (EPSS|exploit prediction) returned zero matches. Ch 5 §Vulnerability Management p.87 is the natural home (CVSS adjacency); EPSS not in glossary/index, page approximate. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -18926,7 +19094,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "MTD; same as item 15 (5.2 BIA umbrella)."
+              "note": "MTD; same as item 15 (5.2 BIA umbrella).",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 9,
+                  "section": "Resilience and Recovery in Security Architectures",
+                  "page": 271,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "5.2",
+                "note": "Chapter-level Tier 3. T2 grep (MTD|maximum tolerable downtime) returned zero matches. Ch 9 §Resilience and Recovery covers RPO at 276-277 (index-confirmed); MTD is a sibling recovery-metric concept in the same section. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -18956,7 +19138,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "MTD; 5.2 Business Impact Analysis IS umbrella; MTD is a BIA metric."
+              "note": "MTD; 5.2 Business Impact Analysis IS umbrella; MTD is a BIA metric.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 9,
+                  "section": "Resilience and Recovery in Security Architectures",
+                  "page": 271,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "5.2",
+                "note": "Chapter-level Tier 3. Same MTD as item 53: T2 grep zero matches. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           }
         ],
@@ -20070,7 +20266,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "Remediation validation; 5.5 Penetration Tests IS umbrella for pen testing phases; remediation validation is a post-test phase."
+              "note": "Remediation validation; 5.5 Penetration Tests IS umbrella for pen testing phases; remediation validation is a post-test phase.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 5,
+                  "section": "Vulnerability Life Cycle",
+                  "page": 131,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "5.5",
+                "note": "Chapter-level Tier 3. T2 grep (remediation validation|validation scan|remediation) matched only 'remediation plan' in a risk-mitigation/risk-acceptance context (pe-01), NOT the validation-rescan concept this item tests (retesting after fixes) — evidence-must-support-what-the-item-tests methodology (cf. P2 WPS). Ch 5 §Vulnerability Life Cycle is the natural home. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
@@ -20257,7 +20467,21 @@
               "packet_id": "sb-fix-2-r",
               "applied_at": "2026-05-22T12:51:07.369Z",
               "applied_by": "sb-fix-2-r",
-              "note": "Security champions; 5.6 Security Awareness IS umbrella; security champions is an SA program element."
+              "note": "Security champions; 5.6 Security Awareness IS umbrella; security champions is an SA program element.",
+              "sb_fix_2": {
+                "sybex_reference": {
+                  "edition": "Chapple 9th",
+                  "chapter": 16,
+                  "section": "Security Awareness and Training",
+                  "page": 550,
+                  "chapter_level_only": true
+                },
+                "comptia_objective_reference": "5.6",
+                "note": "Chapter-level Tier 3. T2 grep (security champion) returned zero matches. Ch 16 §Security Awareness and Training is the natural home. Term may be in chapter prose. partial-depth retained.",
+                "applied_at": "2026-05-25T20:16:40.015Z",
+                "applied_by": "sb-fix-2-packet-P3",
+                "decision": "keep-with-sybex-note"
+              }
             }
           },
           {
