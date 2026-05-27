@@ -1,5 +1,43 @@
 # Where Things Stand — 2026-05-25 (session close: SB-fix-2 P-path CLOSED 56/56 + PLAN restructure + Task 1g.0 shipped, 24h gate running)
 
+> **2026-05-27 — Task 1g.1 + 1g.2 SHIPPED; 1g.3 next.**
+>
+> - **1g.1 SHIPPED at `822e04a`** (validator extension, E1-refined). The validator now
+>   accepts an item cited by EITHER `messerVideo`+`subObjective` OR a top-level
+>   `sybex_reference`, with `checkSybexReference()` shape validation (four `sybex-*` codes).
+>   Selftest **14/14**; baseline **preserved at 0 errors / 4 warns**. Existing Messer error
+>   codes verbatim; legacy grandfathering stays `info`. See `Reports/Report-#0022.md`.
+> - **1g.2 SHIPPED at `f7fef66`** (SCHEMA docs, docs-only). Documented the top-level
+>   `sybex_reference` shape, the `sourceProvenance` enum (OMITTED from existing items;
+>   absence ≡ `"messer"`; filter is a future contract, not current behaviour), and the
+>   content-derived Sybex SM-2 key scheme. Also corrected the **stale `TRACKED_PREFIXES`
+>   doc** (added `cram-` / `weakness-` / `sybex-` to match `sync-engine.js`). See
+>   `Reports/Report-#0023.md`.
+> - **Architectural finding for 1g.4 scoping:** the content-derived Sybex keys
+>   (`mc-sybex-ch{NN}-q{N}` / `mc-sybex-pe{NN}-q{N}`) do **NOT** fall out of the existing
+>   index-based `mcKey(videoId, qi)` (`src/secplus-quiz.jsx:44`) — a synthetic per-section
+>   video would yield `mc-sybex-2.4-0`, not `mc-sybex-ch04-q1`. **A `sybexKey()` helper (or a
+>   per-item key override that reads `sybex_reference`) must be added in 1g.4/1g.6.** Side
+>   benefit: content-derived keys are immune to the array-reorder fragility of the index
+>   scheme.
+> - **1g.0 24-hour gate: CLEARED.** Resolved from the commit timestamp — `106baf8` was
+>   authored **2026-05-25 22:09:05 BST**, so the gate cleared **2026-05-26 22:09 BST**. The
+>   prior handoff text ("26 May 22:09 BST") was correct; today's opening "tonight (27 May)"
+>   was the error. As of 2026-05-27 the 24h window has elapsed. **1g.4 (writes `sybex-` keys)
+>   is still gated on all-device verification** per the sync-engine hygiene-first protocol —
+>   the 24h is necessary but not sufficient.
+> - **1g.3 next:** LLM-as-judge objective tagging (Q-C, **C2-API**). Repurpose
+>   `audit-d-llm-judge.mjs`; **30-item stratified calibration (~85% threshold) before the
+>   ~$5 full-corpus run**. Falls back to B2/C1 if calibration fails.
+> - **Two supervisor-side lessons added to memory this session:**
+>   1. **Cited numeric baselines need live verification at HEAD** before becoming acceptance
+>      targets in ship prompts (the 1g.1 ship prompt said "5 warns"; live HEAD was 4 — CC
+>      flagged it rather than asserting the stale figure).
+>   2. **"Mirrored to each cert project's knowledge"** in architecture notes means **Claude.ai
+>      Project knowledge-base re-uploads**, not OneDrive folder duplicates.
+>
+> Everything below still describes current state for anything not listed above.
+
 > **2026-05-26 orientation-manifest restructure.** The orientation manifest (Claude.ai Project custom instructions) was restructured to remove branch-pinned `raw.githubusercontent.com/main/...` URL paths — the procedural opener is now "ask Aiden to cat-paste" current state, branch-pinned URLs are an explicit DO NOT, commit-pinned URLs stay acceptable when Aiden supplies them. Fixes the recurring stale-Fastly-cache orientation failure (4+ incidents 2026-05-23 → 2026-05-26). See `Reports/Report-#0021.md`. The "web_fetch on this repo is unreliable" section below is unchanged — it remains the in-chat fetch guard.
 
 > **2026-05-25 session close.** Today's session landed SB-fix-2 P2 + P3 closure, the
