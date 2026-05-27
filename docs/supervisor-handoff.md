@@ -1,5 +1,7 @@
 # Where Things Stand — 2026-05-25 (session close: SB-fix-2 P-path CLOSED 56/56 + PLAN restructure + Task 1g.0 shipped, 24h gate running)
 
+> **2026-05-26 orientation-manifest restructure.** The orientation manifest (Claude.ai Project custom instructions) was restructured to remove branch-pinned `raw.githubusercontent.com/main/...` URL paths — the procedural opener is now "ask Aiden to cat-paste" current state, branch-pinned URLs are an explicit DO NOT, commit-pinned URLs stay acceptable when Aiden supplies them. Fixes the recurring stale-Fastly-cache orientation failure (4+ incidents 2026-05-23 → 2026-05-26). See `Reports/Report-#0021.md`. The "web_fetch on this repo is unreliable" section below is unchanged — it remains the in-chat fetch guard.
+
 > **2026-05-25 session close.** Today's session landed SB-fix-2 P2 + P3 closure, the
 > PLAN.md restructure, and Task 1g.0 on `main`. PLAN.md is current and canonical as of
 > `31beeba`.
