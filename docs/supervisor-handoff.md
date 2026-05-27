@@ -1,5 +1,36 @@
 # Where Things Stand — 2026-05-25 (session close: SB-fix-2 P-path CLOSED 56/56 + PLAN restructure + Task 1g.0 shipped, 24h gate running)
 
+> **2026-05-27 (session close) — Task 1g.3 steps 1+2 SHIPPED; step 3 (calibration) next.** *(Supersedes the "1g.3 next" note in the 1g.1/1g.2 banner below.)*
+>
+> - **1g.3 step 1 SHIPPED** — `scoping-step-1.md` confirmed the canonical CompTIA
+>   objectives text was **not in the repo** in any usable form (only Messer transcripts +
+>   `MESSER_VIDEOS.md`, neither of which is the CompTIA objective list). Recommendation **(c):
+>   the source had to be obtained** before tagging could proceed.
+> - **1g.3 step 2 SHIPPED at `ee793b3`** — official **CompTIA SY0-701 Exam Objectives PDF
+>   v5.0** (Copyright 2023) downloaded from CompTIA's Contentful CDN and committed at
+>   `.audit-working/comptia-sy0-701/objectives.pdf` (SHA256 `64e5a75d…3690eba`, 191,074 bytes,
+>   21 pages). Extracted to `.audit-working/comptia-sy0-701/objectives.md` (1,256 lines,
+>   **28/28 subsection `###` headers 1.1→5.6 verified in order**). `.gitignore` exception
+>   `!.audit-working/comptia-sy0-701/` added, mirroring the `sybex-practice-tests` precedent.
+>   PDF is a 2–3 column table layout that `pdftotext` cannot linearise, so the markdown is a
+>   manual reconstruction; supervisor spot-checked §2.3 (three-column reorder), §2.4 DDoS
+>   (Amplified/Reflected regroup), and §5.3 (Agreement-types NDA/BPA merge) against a
+>   web_fetch of the same PDF — **all confirmed correct**. Process notes:
+>   `scoping-step-1.md`, `scoping-step-2.md`, `scoping-step-2-closeout.md`.
+> - **X.Y tagging granularity LOCKED by supervisor** — the tag is CompTIA's published
+>   **`X.Y`** subsection (e.g. `2.3`); there is **no `.Z`**. The sub-bullets beneath each
+>   objective are *sample lists, not numbered objectives*, so they are not the tagging unit.
+>   This resolves the open mapping question carried from scoping-step-1.
+> - **1g.3 step 3 next — calibration sample build.** Sample **S-1 LOCKED: 30 items**
+>   (19 chapter + 11 practice-exam), with the **5 accidental matches as ground-truth anchors**
+>   (ch04 Q1 / ch08 Q3 / ch11 Q15 / ch12 Q17 / ch14 Q20). Repurpose `audit-d-llm-judge.mjs`
+>   with `objectives.md` embedded in the cached system prompt; ~85% calibration threshold
+>   before the ~$5 full-corpus run.
+> - **Next supervisor session opener:** orient from this handoff + `docs/audit-d-scoping.md`
+>   + `scoping-step-1.md` + `scoping-step-2.md`, then **draft the step-3 ship prompt**
+>   (calibration sample build script + an accidental-match ground-truth template for Aiden's
+>   manual pass).
+
 > **2026-05-27 — Task 1g.1 + 1g.2 SHIPPED; 1g.3 next.**
 >
 > - **1g.1 SHIPPED at `822e04a`** (validator extension, E1-refined). The validator now
