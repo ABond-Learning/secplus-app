@@ -53,8 +53,12 @@ function record(severity, code, location, detail, snippet) {
 // Truncate a string for snippet display.
 const trunc = (s, n = 120) => (s.length <= n ? s : s.slice(0, n - 1) + "…");
 
-// Classify an item as new (has citation fields) or legacy (no citations).
-const isNew = (item) => Boolean(item?.messerVideo || item?.subObjective);
+// Classify an item as new (has any citation) or legacy (no citations).
+// A top-level `sybex_reference` is a first-class citation alongside the Messer
+// pair (Task 1g.1 / Q-E): a Sybex-native item carries `sybex_reference` and no
+// Messer fields, and must NOT be mis-flagged as legacy.
+const isNew = (item) =>
+  Boolean(item?.messerVideo || item?.subObjective || item?.sybex_reference);
 
 // Walk every string field in an item, calling cb(fieldName, value).
 // Intentionally does NOT walk `messerVideo` or `subObjective` on any item kind:
@@ -90,20 +94,32 @@ function forEachStringField(item, kind, cb) {
 
 // Citation rules — applied uniformly across mc / scen / match / cram.
 //
-// Co-required rule: presence of either `messerVideo` or `subObjective` on an
-// item flips it into NEW classification and requires BOTH fields with valid
-// values. Partial citation (one present, the other absent) is malformed and
-// emits `missing-messer` or `missing-subobj` per existing error codes.
+// An item is validly cited by EITHER the Messer pair (messerVideo +
+// subObjective) OR a top-level `sybex_reference`, OR both (Task 1g.1 / Q-E).
+//
+// Messer co-required rule (UNCHANGED): presence of either `messerVideo` or
+// `subObjective` requires BOTH with valid values. Partial citation (one
+// present, the other absent) is malformed and emits `missing-messer` or
+// `missing-subobj` per the existing error codes (preserved verbatim).
+//
+// Sybex rule (additive): a present `sybex_reference` is shape-validated by
+// `checkSybexReference()` (new `sybex-*` codes). It is independent of the
+// Messer pair — an item may carry one, the other, or both.
 //
 // `requireCitation` distinguishes the type-level enforcement asymmetry:
-//   - mc / scen call with requireCitation=true: legacy items (neither field
-//     present) emit `legacy-no-citation` info.
+//   - mc / scen call with requireCitation=true: legacy items (NO citation of
+//     any kind) emit `legacy-no-citation` info. Grandfathering is preserved —
+//     a citation-less item stays info, never error (1g.1 does not enforce
+//     sourceProvenance, so it cannot tell a lost-Sybex-citation item from an
+//     intentional legacy item; that check belongs to 1g.4/1g.6).
 //   - match / cram call with requireCitation=false: citation is structurally
 //     optional on these types, so legacy state is silent.
 function checkCitation(item, location, { requireCitation }) {
-  if (isNew(item)) {
-    // Both-or-neither: isNew() returned true because at least one field is
-    // present; require BOTH and reject partial state.
+  const hasMesser = Boolean(item.messerVideo || item.subObjective);
+  const hasSybex = item.sybex_reference != null;
+
+  // Messer block — both-or-neither; error codes preserved verbatim.
+  if (hasMesser) {
     if (!item.messerVideo) {
       record("error", "missing-messer", location, "new item lacks 'messerVideo'");
     }
@@ -112,8 +128,49 @@ function checkCitation(item, location, { requireCitation }) {
     } else if (!SUBOBJ_PATTERN.test(item.subObjective)) {
       record("error", "subobj-format", location, `'subObjective' "${item.subObjective}" must match \\d+\\.\\d+(\\.\\d+)?`);
     }
-  } else if (requireCitation) {
+  }
+
+  // Sybex block — additive; only fires when a top-level sybex_reference exists.
+  if (hasSybex) {
+    checkSybexReference(item.sybex_reference, location);
+  }
+
+  // At-least-one / legacy rule — info, never error (grandfathering preserved).
+  if (!isNew(item) && requireCitation) {
     record("info", "legacy-no-citation", location, "legacy item lacks messerVideo + subObjective (grandfathered)");
+  }
+}
+
+// Validate a top-level `sybex_reference` — a Sybex-native question citation.
+// (Audit-trail references live nested in `audit_d_review.sb_fix_2` and are NOT
+// checked here.) Minimum valid citation (Q-A / 1g.1, §2c of the signed-off plan):
+//   edition         : non-empty string (canonical-string match is a 1g.4 content
+//                     rule, NOT a validator rule — non-empty is sufficient here)
+//   question_number : integer ≥ 1
+//   exactly one of  : chapter (int ≥ 1)  XOR  practice_exam (int ≥ 1)
+// `section` / `page` / `quote_excerpt` / `chapter_level_only` / `note` are
+// accepted (shape-mirrored from sb_fix_2) but NEVER required at top level: the
+// item IS the Sybex content, so there is no evidentiary burden and
+// `chapter_level_only` is semantically inert here (nothing to waive).
+function checkSybexReference(ref, location) {
+  if (typeof ref !== "object" || ref === null || Array.isArray(ref)) {
+    record("error", "sybex-shape", location, "'sybex_reference' must be an object");
+    return;
+  }
+  if (typeof ref.edition !== "string" || !ref.edition.trim()) {
+    record("error", "sybex-edition", location, "'sybex_reference.edition' must be a non-empty string");
+  }
+  if (!Number.isInteger(ref.question_number) || ref.question_number < 1) {
+    record("error", "sybex-question-number", location, "'sybex_reference.question_number' must be an integer ≥ 1");
+  }
+  const hasChapter = ref.chapter !== undefined;
+  const hasExam = ref.practice_exam !== undefined;
+  if (hasChapter === hasExam) {
+    record("error", "sybex-locator", location, "'sybex_reference' must have exactly one of 'chapter' or 'practice_exam'");
+  } else if (hasChapter && (!Number.isInteger(ref.chapter) || ref.chapter < 1)) {
+    record("error", "sybex-locator", location, "'sybex_reference.chapter' must be an integer ≥ 1");
+  } else if (hasExam && (!Number.isInteger(ref.practice_exam) || ref.practice_exam < 1)) {
+    record("error", "sybex-locator", location, "'sybex_reference.practice_exam' must be an integer ≥ 1");
   }
 }
 
@@ -160,30 +217,42 @@ function checkChoice(item, location) {
 
 // ─── Self-test fixtures (--selftest) ──────────────────────────────────────
 //
-// Runs 6 fixtures (3 match + 3 cram) against checkCitation() to verify the
-// both-or-neither rule + subobj format rule + optional-by-default behaviour
-// extend cleanly to match + cram. Exits 0 on full PASS, 1 on any FAIL.
+// Runs 14 fixtures (3 match + 3 cram + 8 mc/sybex) against checkCitation() to
+// verify: the Messer both-or-neither rule + subobj format rule + optional-by-
+// default behaviour on match/cram (original 6), AND the Task 1g.1 top-level
+// `sybex_reference` acceptance + shape validation + preserved legacy
+// grandfathering (new 8). Exits 0 on full PASS, 1 on any FAIL.
 //
 // Added in SB-fix-1b-prep (2026-05-21) to establish the test pattern for
-// schema additions; future schema changes can extend FIXTURES below.
+// schema additions; extended in Task 1g.1 (2026-05-27) for sybex_reference.
+// Tuple: [kind, location, item, requireCitation, expectedIssues, description].
 if (selftest) {
   const expected = [
-    // [kind, location, item, expectedIssues, description]
-    ["match", "selftest match[0]", { prompt: "P", answer: "A", messerVideo: "1.1 - Security Controls", subObjective: "1.1" }, [], "valid: both fields present"],
-    ["match", "selftest match[1]", { prompt: "P", answer: "A", messerVideo: "1.1 - Security Controls" }, ["missing-subobj"], "missing subObjective"],
-    ["match", "selftest match[2]", { prompt: "P", answer: "A", messerVideo: "1.1 - Security Controls", subObjective: "bad-format" }, ["subobj-format"], "bad subObjective format"],
-    ["cram",  "selftest cram[0]",  { term: "T", def: "D", messerVideo: "1.1 - Security Controls", subObjective: "1.1" }, [], "valid: both fields present"],
-    ["cram",  "selftest cram[1]",  { term: "T", def: "D", subObjective: "1.1" }, ["missing-messer"], "missing messerVideo"],
-    ["cram",  "selftest cram[2]",  { term: "T", def: "D" }, [], "neither field present (optional, no info on match/cram)"],
+    // Original 6 — match/cram, requireCitation:false (citation optional).
+    ["match", "selftest match[0]", { prompt: "P", answer: "A", messerVideo: "1.1 - Security Controls", subObjective: "1.1" }, false, [], "valid: both fields present"],
+    ["match", "selftest match[1]", { prompt: "P", answer: "A", messerVideo: "1.1 - Security Controls" }, false, ["missing-subobj"], "missing subObjective"],
+    ["match", "selftest match[2]", { prompt: "P", answer: "A", messerVideo: "1.1 - Security Controls", subObjective: "bad-format" }, false, ["subobj-format"], "bad subObjective format"],
+    ["cram",  "selftest cram[0]",  { term: "T", def: "D", messerVideo: "1.1 - Security Controls", subObjective: "1.1" }, false, [], "valid: both fields present"],
+    ["cram",  "selftest cram[1]",  { term: "T", def: "D", subObjective: "1.1" }, false, ["missing-messer"], "missing messerVideo"],
+    ["cram",  "selftest cram[2]",  { term: "T", def: "D" }, false, [], "neither field present (optional, no info on match/cram)"],
+    // Task 1g.1 — mc, requireCitation:true (mc/scen require a citation on NEW items).
+    ["mc", "selftest sybex[0]", { messerVideo: "1.1 - Security Controls", subObjective: "1.1" }, true, [], "valid Messer citation, no sybex_reference"],
+    ["mc", "selftest sybex[1]", { sybex_reference: { edition: "Chapple 9th", chapter: 4, question_number: 1 } }, true, [], "valid top-level sybex_reference (chapter), no Messer"],
+    ["mc", "selftest sybex[2]", { messerVideo: "1.1 - Security Controls", subObjective: "1.1", sybex_reference: { edition: "Chapple 9th", chapter: 4, question_number: 1 } }, true, [], "both Messer and sybex_reference"],
+    ["mc", "selftest sybex[3]", {}, true, ["legacy-no-citation"], "no citation of any kind -> legacy (info, NOT error)"],
+    ["mc", "selftest sybex[4]", { sybex_reference: { edition: "Chapple 9th", chapter: 4 } }, true, ["sybex-question-number"], "sybex_reference missing question_number"],
+    ["mc", "selftest sybex[5]", { sybex_reference: { edition: "Chapple 9th", chapter: 4, question_number: 1, chapter_level_only: true } }, true, [], "chapter_level_only=true, no quote_excerpt -> PASS (never required at top level)"],
+    ["mc", "selftest sybex[6]", { sybex_reference: { edition: "Chapple 9th", practice_exam: 1, question_number: 26 } }, true, [], "practice-exam reference (practice_exam + question_number, no chapter)"],
+    ["mc", "selftest sybex[7]", { sybex_reference: { edition: "Chapple 9th", chapter: 4, practice_exam: 1, question_number: 1 } }, true, ["sybex-locator"], "both chapter and practice_exam -> locator error"],
   ];
 
   let passed = 0;
   let failed = 0;
   const failures = [];
-  for (const [, loc, item, want, desc] of expected) {
+  for (const [, loc, item, reqCit, want, desc] of expected) {
     // Snapshot issues so far, then run checkCitation, then diff.
     const before = issues.length;
-    checkCitation(item, loc, { requireCitation: false });
+    checkCitation(item, loc, { requireCitation: reqCit });
     const newIssues = issues.slice(before);
     const got = newIssues.map((i) => i.code).sort();
     const wantSorted = [...want].sort();
