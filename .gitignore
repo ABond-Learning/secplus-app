@@ -11,3 +11,5 @@ dist/
 # non-deliberate run, intentionally excluded from the corpus.
 !.audit-working/sybex-practice-tests/
 .audit-working/sybex-practice-tests/chapter-01.json
+# CompTIA SY0-701 objectives source (Tier 1 authority for Task 1g.3 objective tagging)
+!.audit-working/comptia-sy0-701/
