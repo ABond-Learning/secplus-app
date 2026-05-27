@@ -145,6 +145,77 @@ The validator (`scripts/validate-questions.mjs`) enforces these rules
 uniformly via a single `checkCitation()` helper called from all four type
 walkers since SB-fix-1b-prep.
 
+## Sybex citation (`sybex_reference`, top-level)
+
+A **Sybex-native** item (folded in from the Sybex Study Guide test banks, Task 1g) cites
+its source with a top-level `sybex_reference` object instead of `messerVideo` +
+`subObjective`. The validator (since Task 1g.1, `822e04a`) accepts an item cited by EITHER
+the Messer pair OR a top-level `sybex_reference`, or both.
+
+```jsonc
+{
+  "q": "...", "opts": ["..."], "a": 2, "exp": "...",
+  "sybex_reference": {
+    "edition": "Chapple 9th",     // required, non-empty string
+    "question_number": 1,          // required, integer >= 1
+    "chapter": 4                   // chapter OR practice_exam (exactly one), integer >= 1
+  }
+}
+```
+
+Field | Required | Type | Rule
+--- | --- | --- | ---
+`edition` | yes | string | Non-empty. Canonical value `"Chapple 9th"` is a **content** rule enforced by 1g.4 conversion, NOT the validator (validator checks non-empty only).
+`question_number` | yes | integer ≥ 1 | The source question number (`n`).
+`chapter` | one of | integer ≥ 1 | For chapter test-bank items (`chapter-NN.json`). **Exactly one** of `chapter` / `practice_exam`.
+`practice_exam` | one of | integer ≥ 1 | For practice-exam items (`practice-exam-NN.json`). **Exactly one** of `chapter` / `practice_exam`.
+`section` | optional | string | Accepted, unenforced at top level.
+`page` | optional | integer ≥ 1 | Accepted, unenforced at top level.
+`quote_excerpt` | optional | string | Accepted, unenforced — see semantics note.
+`chapter_level_only` | optional | boolean | Accepted, **semantically inert** at top level — see semantics note.
+`note` | optional | string | Free-text.
+
+**Semantic difference vs `audit_d_review.sb_fix_2.sybex_reference`.** The nested audit-trail
+`sybex_reference` is an **evidence pointer** — it records *where in the book* a Messer-cited
+term also appears, with `quote_excerpt` as verbatim proof (waived by `chapter_level_only=true`
+when the term lives only in unreachable chapter prose). The top-level `sybex_reference` is a
+**primary content citation** — the item *is* the Sybex question, so there is no evidentiary
+burden: `quote_excerpt` is never required and `chapter_level_only` has nothing to waive
+(accepted only for shape compatibility with the nested form). See
+`### audit_d_review.sb_fix_2 semantics` for the audit-trail shape — this section does not
+duplicate it.
+
+**Validator error codes** (`scripts/validate-questions.mjs`, `checkSybexReference()`):
+
+Code | Fires when
+--- | ---
+`sybex-shape` | `sybex_reference` present but not an object
+`sybex-edition` | `edition` missing or empty
+`sybex-question-number` | `question_number` missing or not an integer ≥ 1
+`sybex-locator` | not exactly one of `chapter` / `practice_exam` (zero or both), or a present locator not an integer ≥ 1
+
+## `sourceProvenance` (item source provenance)
+
+Optional top-level string enum on any item, recording which corpus the item came from.
+
+Value | Meaning
+--- | ---
+*(field absent)* | Implicit `"messer"` — all existing Professor Messer-derived content.
+`"messer"` | Explicit Messer provenance (rarely written; absence is the normal signal).
+`"sybex-chapter"` | Folded in from Sybex chapters 02-17 (Task 1g.4).
+`"sybex-practice-exam"` | Folded in from Sybex practice exams 1+2 (Task 1g.4).
+
+**Existing items: the field is OMITTED (not backfilled).** Absence ≡ `"messer"`. Filter code
+**should normalize** the absent case via `(item.sourceProvenance ?? "messer")`.
+
+**Audit-script filter convention (future contract, not current behaviour).** This documents
+the *intended* landing point for future audit-script work, not an existing implementation —
+no audit script reads `sourceProvenance` today, and the Task 1g.1 validator does not reach
+for it. When that filter ships, Audit D scripts are expected to skip Sybex-native items via
+`(item.sourceProvenance ?? "messer") !== "messer"` (Sybex content is in-source by definition;
+no `audit_d_review` needed). Enforcement landing points: 1g.4 conversion *writes* the field on
+the 500 Sybex items; a future audit-script ship *adds* the skip filter.
+
 ## Audit-trail fields (`audit_*` prefix convention)
 
 Any field on an item or video prefixed with `audit_` is **tooling-only
@@ -251,6 +322,9 @@ separate axis from Sybex citation depth). Distinct from
 NO home in any source incl. the Sybex TOC; chapter-level Tier 3 items DO
 have a TOC chapter home, just not a term-level quote.
 
+For the top-level Sybex-native citation (primary content, not audit-trail), see
+`## Sybex citation (sybex_reference, top-level)`.
+
 ## localStorage compatibility
 
 The React app stores per-question SM-2 data using keys derived from
@@ -276,6 +350,47 @@ Implications for any future schema change:
    the parent `videoId`. Adding or changing per-item citation is safe at the
    localStorage layer; no migration is required.
 
+### Sybex SM-2 key scheme (Task 1g)
+
+Sybex-native items (Task 1g fold-in) use a **content-derived** key, not the array-index
+scheme above:
+
+Source | Key pattern | Example
+--- | --- | ---
+Sybex chapter | `mc-sybex-ch{NN}-q{N}` | `mc-sybex-ch04-q1` (chapter 4, question 1)
+Sybex practice exam | `mc-sybex-pe{NN}-q{N}` | `mc-sybex-pe01-q26` (practice exam 1, question 26)
+
+`{NN}` = zero-padded chapter (`02`-`17`) or practice-exam (`01`-`02`) number; `{N}` =
+`sybex_reference.question_number`. Globally unique by construction.
+
+**Collision-safety.** The existing scheme is `mc-{videoId}-{qi}` where `videoId` is a
+dotted-decimal section id (e.g. `mc-2.4.9-2`). The literal `sybex-` infix can never appear in
+a dotted-decimal videoId, so the two key namespaces are disjoint by construction — no
+collision is possible.
+
+**Zero-padding (deliberate inconsistency with dotted-decimal ids).** Section ids elsewhere
+are unpadded dotted decimals (`2.4.9`); these Sybex keys zero-pad their segments (`ch04`,
+`pe01`). This is intentional: the Sybex source filenames are already zero-padded
+(`chapter-04.json`, `practice-exam-01.json`), so the key scheme inherits padding from the
+source and each key visibly traces to its file; fixed-width segments also sort in
+chapter/exam order. The two namespaces never mix in any comparison or sort (see
+collision-safety), so the inconsistency cannot cause a bug. Aligning them would force either a
+forbidden whole-corpus key migration (padding the dotted decimals) or losing the
+source-filename trace (un-padding the Sybex keys) — both cost more than they save.
+
+**App-wiring required (deferred to 1g.4/1g.6).** The app currently derives SM-2 keys by
+**array index**: `mcKey(videoId, qi)` returns `mc-{videoId}-{qi}` (`src/secplus-quiz.jsx:44`).
+This does NOT produce the content-derived Sybex keys above — a synthetic per-section video
+would yield `mc-sybex-2.4-0`, not `mc-sybex-ch04-q1`. A `sybexKey()` helper (or a per-item key
+override that reads `sybex_reference`) must be added when the fold-in lands. Documenting the
+scheme here is the spec; the app derivation change is 1g.4/1g.6 scope. Side benefit: because
+the key is content-derived (chapter/exam + `question_number`), Sybex item progress is **immune
+to the array-reorder fragility** that constrains the index scheme (implications 2-3 above).
+
+**scen-/match-/cram- variants (forward-looking).** The initial 500-item fold-in is all MC, so
+only `mc-sybex-*` is active. The pattern generalizes to `{type}-sybex-{ch|pe}{NN}-q{N}` if a
+future fold-in adds scenario/matching/cram Sybex items; not pre-specified now (YAGNI).
+
 ## Cross-device sync (Task 1.5)
 
 The sync engine in `src/sync/sync-engine.js` reconciles a subset of
@@ -285,11 +400,18 @@ which overrides the allow-list).
 
 ### TRACKED_PREFIXES
 
-Any localStorage key starting with one of these is a sync candidate:
+Any localStorage key starting with one of these is a sync candidate (current code list in
+`src/sync/sync-engine.js`):
 
-- `mc-` — multiple-choice SM-2 records
+- `mc-` — multiple-choice SM-2 records (also covers `mc-sybex-*` Sybex keys)
 - `scen-` — scenario SM-2 records
 - `match-` — matching-question SM-2 records
+- `cram-` — cram-term SM-2 records (added Task 2 SB-0)
+- `weakness-` — per-attempt weakness-tracker records (added for the weakness-tracker, Task 1h)
+- `sybex-` — defensive future-proofing (added Task 1g.0) for any key whose FIRST segment is
+  `sybex-` (e.g. `cram-sybex-*` / `match-sybex-*` in a future fold-in). NOTE: the active
+  `mc-sybex-*` keys are already covered by the `mc-` prefix; this standalone entry matters
+  only for keys that lead with `sybex-`.
 - `secplus-` — the umbrella store and any other app-prefixed key
 
 ### LOCAL_ONLY (deny-list)
