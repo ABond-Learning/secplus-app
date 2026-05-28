@@ -1,4 +1,4 @@
-# Where Things Stand — 2026-05-25 (session close: SB-fix-2 P-path CLOSED 56/56 + PLAN restructure + Task 1g.0 shipped, 24h gate running)
+# Where Things Stand — 2026-05-28 (session close: Task 1g.3 Sybex fold-in — 1g.4-1g.6 SHIPPED at f39c358, 1g.7 Report deferred)
 
 > **2026-05-28 session close — Task 1g.3 Sybex fold-in: corpus tagged (500, $3.04), full blind second-reader check passed (84.2% strict / 91.0% domain-collapse, disagreements on defensible boundary seams), 1g.4-1g.6 SHIPPED at f39c358 — 499 items merged across 28 synthetic X.Y.sybex videos, Option A SM-2 keys (sybex-mc-chNN-qN) wired app-side, 5 framing_notes attached, regression test confirms zero existing-key drift. OUTSTANDING: (a) visual UI smoke in browser — synthetic Sybex videos render, study modes include them, framing_note surfaces; (b) 1g.7 Report-#NNNN with known limitations (ambiguity_flag under-fires, confidence non-discriminating, 4.4-over-4.9 judge lean, 1/500 skipped sybex-ch02-q19, boundary seams 3.2↔4.5/2.x↔4.x/2.5↔4.1). 1g.3 closes when 1g.7 lands. Three Rule #12 catches this arc, all on doc/spec-vs-HEAD drift.** *(Supersedes the 2026-05-27 "1g.3 step 3 next" banner below.)*
 
