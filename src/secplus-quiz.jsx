@@ -5,6 +5,7 @@ import { getStatus as getSyncStatus, subscribe as subscribeSync } from "./sync/s
 import { buildPool } from "./study/buildPool.js";
 import CustomiseDrawer from "./study/CustomiseDrawer.jsx";
 import { recordWeakness as recordWeaknessRaw } from "./study/weakness.js";
+import { mcKey, scenKey, matchKey } from "./sm2-keys.js";
 
 // ─── DATA LIVES IN questions.json ──────────────────────────────
 
@@ -34,19 +35,21 @@ const CONFIG = {
 };
 
 // ─── SM-2 STORE KEY HELPERS ─────────────────────────────────────
-// Keys are prefixed by question type to prevent collisions:
+// Legacy keys (Messer-cited / non-Sybex items):
 //   mc-{videoId}-{qi}          → multiple-choice question
 //   scen-{videoId}-{qi}        → scenario (long-form) question
-//   match-{videoId}-{pairIdx}  → individual matching pair (partial-credit era)
+//   match-{videoId}-{pairIdx}  → individual matching pair
 //   match-{videoId}            → legacy single matching record (pre-partial-credit)
-// The prefix replaces the old `qi + 1000` hack, which assumed no video
-// would ever carry 1000+ MC questions — safe today, but fragile.
-function mcKey(videoId, qi)       { return `mc-${videoId}-${qi}`; }
-function scenKey(videoId, qi)     { return `scen-${videoId}-${qi}`; }
-function matchKey(videoId, idx)   { return `match-${videoId}-${idx}`; }
+// Sybex-native keys (items with top-level sybex_reference, since 1g.6):
+//   sybex-mc-{ch|pe}NN-q{n}    → Sybex multiple-choice
+//   sybex-scen-...             → Sybex scenario
+//   sybex-match-...            → Sybex matching pair
+// mcKey/scenKey/matchKey live in ./sm2-keys.js so they can be unit-tested.
+// Both paths are byte-identical to pre-1g.6 for non-Sybex items (see
+// src/__tests__/sm2-keys.test.js regression assertion).
 function keyOf(q) {
   // Unified key for any MC-style question (regular or scenario).
-  return q.isScenario ? scenKey(q.videoId, q.qi) : mcKey(q.videoId, q.qi);
+  return q.isScenario ? scenKey(q.videoId, q.qi, q) : mcKey(q.videoId, q.qi, q);
 }
 // Extract the videoId portion from a new-format SM-2 key. Returns null for
 // unrecognised keys. Used by the domain-accuracy dashboard to bucket records.
@@ -883,17 +886,17 @@ function ProgressTab({ sections, store, watchedSet, toggleWatched, onExport, onI
   sections.forEach(sec => {
     sec.videos.forEach(v => {
       if (!watchedSet.has(v.id)) return;
-      v.questions.forEach((_q, qi) => {
-        if (!store.sm2[mcKey(v.id, qi)]) newToPractice++;
+      v.questions.forEach((q, qi) => {
+        if (!store.sm2[mcKey(v.id, qi, q)]) newToPractice++;
       });
-      (v.scenarios || []).forEach((_q, qi) => {
-        if (!store.sm2[scenKey(v.id, qi)]) newToPractice++;
+      (v.scenarios || []).forEach((q, qi) => {
+        if (!store.sm2[scenKey(v.id, qi, q)]) newToPractice++;
       });
       if (v.matching && v.matching.length > 0) {
         // "Unseen" = no pair has been practiced yet. Matching writes per-pair
         // keys `match-{videoId}-{pi}` since the partial-credit era; the legacy
         // single-record key `match-{videoId}` is no longer written.
-        const anyPracticed = v.matching.some((_p, pi) => store.sm2[matchKey(v.id, pi)]);
+        const anyPracticed = v.matching.some((pair, pi) => store.sm2[matchKey(v.id, pi, pair)]);
         if (!anyPracticed) newToPractice++;
       }
     });
@@ -999,7 +1002,7 @@ function ProgressTab({ sections, store, watchedSet, toggleWatched, onExport, onI
               </button>
               {expanded[sec.id] && secVideos.map(v => {
                 const isWatched = watchedSet.has(v.id);
-                const rec = v.questions.map((_, qi) => store.sm2[mcKey(v.id, qi)]).filter(Boolean);
+                const rec = v.questions.map((q, qi) => store.sm2[mcKey(v.id, qi, q)]).filter(Boolean);
                 const avgAcc = rec.length > 0
                   ? Math.round(rec.reduce((n, r) => n + r.correct / r.total, 0) / rec.length * 100)
                   : null;
@@ -1080,12 +1083,23 @@ function DomainAccuracyCard({ sections, store, watchedSet }) {
     });
   });
 
+  // Build a key→videoId index from current sections so Sybex-keyed records
+  // (sybex-mc-chNN-qN, sybex-scen-..., sybex-match-...) can be bucketed by
+  // the synthetic video that holds them. Falls through to videoIdFromKey
+  // for legacy keys whose item is no longer in the corpus.
+  const keyToVideo = new Map();
+  sections.forEach(sec => sec.videos.forEach(v => {
+    (v.questions || []).forEach((item, qi) => keyToVideo.set(mcKey(v.id, qi, item), v.id));
+    (v.scenarios || []).forEach((item, qi) => keyToVideo.set(scenKey(v.id, qi, item), v.id));
+    (v.matching || []).forEach((item, pi) => keyToVideo.set(matchKey(v.id, pi, item), v.id));
+  }));
+
   // Second pass: walk sm2 records, bucket by domain, track per-video accuracy
   // to surface the weakest topic per domain.
   const perVideo = {}; // videoId -> { correct, total }
   Object.entries(store.sm2 || {}).forEach(([key, rec]) => {
     if (!rec || typeof rec.total !== "number" || rec.total === 0) return;
-    const videoId = videoIdFromKey(key);
+    const videoId = keyToVideo.get(key) ?? videoIdFromKey(key);
     if (!videoId) return;
     const d = videoId.split(".")[0];
     if (!stats[d]) return;
@@ -1500,7 +1514,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
             const matchObjectiveCode = q.subObjective || (q.videoId ? q.videoId.split(".").slice(0, 2).join(".") : null);
             let correct = 0;
             q.pairs.forEach((p, pairIdx) => {
-              const pairKey = matchKey(q.videoId, pairIdx);
+              const pairKey = matchKey(q.videoId, pairIdx, q);
               const chosen = matchAnswers[p.prompt];
               const wasCorrect = chosen === p.answer;
               if (wasCorrect) correct++;
