@@ -357,8 +357,8 @@ scheme above:
 
 Source | Key pattern | Example
 --- | --- | ---
-Sybex chapter | `mc-sybex-ch{NN}-q{N}` | `mc-sybex-ch04-q1` (chapter 4, question 1)
-Sybex practice exam | `mc-sybex-pe{NN}-q{N}` | `mc-sybex-pe01-q26` (practice exam 1, question 26)
+Sybex chapter | `sybex-mc-ch{NN}-q{N}` | `sybex-mc-ch04-q1` (chapter 4, question 1)
+Sybex practice exam | `sybex-mc-pe{NN}-q{N}` | `sybex-mc-pe01-q26` (practice exam 1, question 26)
 
 `{NN}` = zero-padded chapter (`02`-`17`) or practice-exam (`01`-`02`) number; `{N}` =
 `sybex_reference.question_number`. Globally unique by construction.
@@ -381,14 +381,14 @@ source-filename trace (un-padding the Sybex keys) — both cost more than they s
 **App-wiring required (deferred to 1g.4/1g.6).** The app currently derives SM-2 keys by
 **array index**: `mcKey(videoId, qi)` returns `mc-{videoId}-{qi}` (`src/secplus-quiz.jsx:44`).
 This does NOT produce the content-derived Sybex keys above — a synthetic per-section video
-would yield `mc-sybex-2.4-0`, not `mc-sybex-ch04-q1`. A `sybexKey()` helper (or a per-item key
+would yield `mc-sybex-2.4-0`, not `sybex-mc-ch04-q1`. A `sybexKey()` helper (or a per-item key
 override that reads `sybex_reference`) must be added when the fold-in lands. Documenting the
 scheme here is the spec; the app derivation change is 1g.4/1g.6 scope. Side benefit: because
 the key is content-derived (chapter/exam + `question_number`), Sybex item progress is **immune
 to the array-reorder fragility** that constrains the index scheme (implications 2-3 above).
 
 **scen-/match-/cram- variants (forward-looking).** The initial 500-item fold-in is all MC, so
-only `mc-sybex-*` is active. The pattern generalizes to `{type}-sybex-{ch|pe}{NN}-q{N}` if a
+only `sybex-mc-*` is active. The pattern generalizes to `sybex-{type}-{ch|pe}{NN}-q{N}` if a
 future fold-in adds scenario/matching/cram Sybex items; not pre-specified now (YAGNI).
 
 ## Cross-device sync (Task 1.5)
@@ -403,15 +403,16 @@ which overrides the allow-list).
 Any localStorage key starting with one of these is a sync candidate (current code list in
 `src/sync/sync-engine.js`):
 
-- `mc-` — multiple-choice SM-2 records (also covers `mc-sybex-*` Sybex keys)
+- `mc-` — multiple-choice SM-2 records (legacy / Messer-cited items only; Sybex MC keys lead
+  with `sybex-` and are matched by the `sybex-` entry below)
 - `scen-` — scenario SM-2 records
 - `match-` — matching-question SM-2 records
 - `cram-` — cram-term SM-2 records (added Task 2 SB-0)
 - `weakness-` — per-attempt weakness-tracker records (added for the weakness-tracker, Task 1h)
-- `sybex-` — defensive future-proofing (added Task 1g.0) for any key whose FIRST segment is
-  `sybex-` (e.g. `cram-sybex-*` / `match-sybex-*` in a future fold-in). NOTE: the active
-  `mc-sybex-*` keys are already covered by the `mc-` prefix; this standalone entry matters
-  only for keys that lead with `sybex-`.
+- `sybex-` — load-bearing (added Task 1g.0, activated by 1g.6) for any key whose FIRST segment
+  is `sybex-`. Covers the active `sybex-mc-*` corpus (499 items as of 1g.6) and any future
+  `sybex-scen-*` / `sybex-match-*` / `sybex-cram-*` additions. `src/sm2-keys.js` emits this
+  prefix on every item with a top-level `sybex_reference`.
 - `secplus-` — the umbrella store and any other app-prefixed key
 
 ### LOCAL_ONLY (deny-list)

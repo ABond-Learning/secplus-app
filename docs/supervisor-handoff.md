@@ -47,9 +47,9 @@
 >   doc** (added `cram-` / `weakness-` / `sybex-` to match `sync-engine.js`). See
 >   `Reports/Report-#0023.md`.
 > - **Architectural finding for 1g.4 scoping:** the content-derived Sybex keys
->   (`mc-sybex-ch{NN}-q{N}` / `mc-sybex-pe{NN}-q{N}`) do **NOT** fall out of the existing
+>   (`sybex-mc-ch{NN}-q{N}` / `sybex-mc-pe{NN}-q{N}`) do **NOT** fall out of the existing
 >   index-based `mcKey(videoId, qi)` (`src/secplus-quiz.jsx:44`) — a synthetic per-section
->   video would yield `mc-sybex-2.4-0`, not `mc-sybex-ch04-q1`. **A `sybexKey()` helper (or a
+>   video would yield `mc-sybex-2.4-0`, not `sybex-mc-ch04-q1`. **A `sybexKey()` helper (or a
 >   per-item key override that reads `sybex_reference`) must be added in 1g.4/1g.6.** Side
 >   benefit: content-derived keys are immune to the array-reorder fragility of the index
 >   scheme.

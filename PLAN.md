@@ -623,8 +623,8 @@ framing.
   1+2). Audit scripts add one-line filter on `sourceProvenance !== "messer"` to skip
   Sybex-native items (in-source by definition; no `audit_d_review` needed).
 
-**SM-2 keying.** New prefix scheme: `mc-sybex-ch04-q1` for chapter questions,
-`mc-sybex-pe01-q26` for practice-exam questions. Globally unique by construction. Sync
+**SM-2 keying.** New prefix scheme: `sybex-mc-ch04-q1` for chapter questions,
+`sybex-mc-pe01-q26` for practice-exam questions. Globally unique by construction. Sync
 engine `TRACKED_PREFIXES` gets `"sybex-"` added — same shape as the `"cram-"` addition in
 Task 2 SB-0, requiring a 24-hour gate before items actually start writing per the SB-0
 precedent (see `feedback_sync_engine_hygiene_first`).
@@ -654,6 +654,16 @@ gating this PLAN restructure):
   study modes pick them up.
 - **1g.7 — Report-#NNNN:** document the fold-in, the methodology, the 5 accidental-match
   framing notes, any calibration findings.
+- **1g.8 — `framing_note` display wire-up:** read `item.framing_note` in the quiz
+  explanation render block and surface it after `exp` when present. Single render hook
+  in `src/secplus-quiz.jsx`. Smoke-pass at the `2.2.sybex` (ch04-q1) and `3.1.sybex`
+  (ch08-q3, ch11-q15) anchors. Surfaced as L6 in Report-#0024 — data populated and
+  verified in 1g.6, but the display surface was never wired. Plan-first; relay then
+  ship.
+
+**Status (2026-05-29):** 1g.0-1g.6 SHIPPED (data half at `f39c358`); 1g.7 SHIPPED
+this commit (doc/closeout half); 1g.8 OPEN (display wire-up — Report-#0024 L6).
+The 1g arc closes when 1g.8 ships.
 
 **Risks:**
 - C2-API calibration may fall below threshold for ambiguous items (phishing tested as

@@ -117,3 +117,9 @@ By code:
   the SM-2 key-scheme extension.
 - **1g.3** — objective tagging (C2-API), **1g.4** — conversion script (writes `sybex-` keys;
   gated behind the 24-hour sync hygiene gate), **1g.5–1g.7** per PLAN.
+
+---
+
+> **Erratum (2026-05-29, 1g.7):** SM-2 key examples in this report use the
+> pre-correction `mc-sybex-` order; canonical shipped order is `sybex-mc-`
+> (src/secplus-quiz.jsx:43-46). Text left as-authored; see Report-#0024.

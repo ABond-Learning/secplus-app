@@ -91,3 +91,9 @@ standalone `sybex-` entry is defensive future-proofing for keys whose first segm
   (`audit-d-llm-judge.mjs`) to tag each of the 500 Sybex questions with a SY0-701 objective
   code; 30-item stratified calibration (~85% threshold) before the full ~$5 run, per PLAN
   Task 1g.3.
+
+---
+
+> **Erratum (2026-05-29, 1g.7):** SM-2 key examples in this report use the
+> pre-correction `mc-sybex-` order; canonical shipped order is `sybex-mc-`
+> (src/secplus-quiz.jsx:43-46). Text left as-authored; see Report-#0024.
