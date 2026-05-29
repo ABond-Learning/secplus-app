@@ -661,9 +661,10 @@ gating this PLAN restructure):
   verified in 1g.6, but the display surface was never wired. Plan-first; relay then
   ship.
 
-**Status (2026-05-29):** 1g.0-1g.6 SHIPPED (data half at `f39c358`); 1g.7 SHIPPED
-this commit (doc/closeout half); 1g.8 OPEN (display wire-up — Report-#0024 L6).
-The 1g arc closes when 1g.8 ships.
+**Status (2026-05-29, 1g arc CLOSED):** 1g.0-1g.6 SHIPPED (data half at `f39c358`);
+1g.7 SHIPPED at `75d866d` (doc/closeout half + Report-#0024 L1-L6); 1g.8 SHIPPED
+this commit (display wire-up + 3-gate smoke PASS + Report-#0025). The 1g arc closes
+here; 1g.3 closure note in Report-#0025 documents the final ship.
 
 **Risks:**
 - C2-API calibration may fall below threshold for ambiguous items (phishing tested as

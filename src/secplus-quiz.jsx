@@ -1609,9 +1609,16 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
           );
         })()}
         {showExp && (
-          <div style={styles.explanation}>
-            <strong>{selected === q.a ? "✓ Correct!" : "✗ Incorrect."}</strong> {q.exp}
-          </div>
+          <>
+            <div style={styles.explanation}>
+              <strong>{selected === q.a ? "✓ Correct!" : "✗ Incorrect."}</strong> {q.exp}
+            </div>
+            {q.framing_note && (
+              <div style={styles.framingNote}>
+                <strong>Exam framing:</strong> {q.framing_note}
+              </div>
+            )}
+          </>
         )}
         <div style={{ display: "flex", gap: 8, marginTop: 16, flexWrap: "wrap" }}>
           {!checked && selected !== undefined && (
@@ -2550,6 +2557,7 @@ const styles = {
   optionCorrect: { border: "2px solid #10b981", background: "#064e3b", color: "#6ee7b7" },
   optionWrong: { border: "2px solid #ef4444", background: "#450a0a", color: "#fca5a5" },
   explanation: { background: "#0f172a", border: "1px solid #334155", borderRadius: 8, padding: "12px", fontSize: 14, color: "#94a3b8", lineHeight: 1.6, marginTop: 12 },
+  framingNote: { background: "#0f172a", border: "1px solid #334155", borderLeft: "3px solid #a78bfa", borderRadius: 8, padding: "12px", fontSize: 14, color: "#cbd5e1", lineHeight: 1.6, marginTop: 8 },
   checkBtn: { flex: 1, padding: "12px", background: "#334155", border: "none", borderRadius: 8, color: "#f1f5f9", fontWeight: 600, cursor: "pointer", fontSize: 14 },
   nextBtn: { flex: 1, padding: "12px", background: "#3b82f6", border: "none", borderRadius: 8, color: "#fff", fontWeight: 600, cursor: "pointer", fontSize: 14 },
   flashcard: { background: "#0f172a", border: "2px solid #334155", borderRadius: 12, padding: "20px 16px", cursor: "pointer", textAlign: "left", minHeight: 100, position: "relative", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" },
