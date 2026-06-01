@@ -301,10 +301,31 @@ export function createEngine({ storage: injectedStorage, fetchFn: injectedFetch 
     state.etag = res.headers.get("ETag") || state.etag;
     const data = await res.json();
     const file = data.files && data.files[GIST_FILENAME];
+    // An ABSENT file is legitimately empty (first run / fresh gist).
     if (!file) return { schemaVersion: PAYLOAD_SCHEMA_VERSION, entries: {} };
+
+    // Truncation safety. GitHub truncates a gist file's inline `content` once
+    // it exceeds ~1 MB (response sets `truncated:true` + a `raw_url`; raw
+    // serves up to a ~10 MB hard ceiling). The previous code JSON.parse'd the
+    // partial content, threw, and silently returned an EMPTY payload — which
+    // makes doSync keep local and re-push, so cross-device reconciliation
+    // silently stops for ALL data (SM-2 progress included) with no error
+    // surfaced. Recover the full body from raw_url; if it can't be recovered,
+    // throw LOUD so doSync records lastError + degraded rather than masking a
+    // present-but-unreadable payload as empty.
+    let text = file.content;
+    if (file.truncated) {
+      if (!file.raw_url) throw new Error("sync payload truncated and no raw_url to recover from");
+      const rawRes = await f(file.raw_url);
+      if (!rawRes.ok) throw new Error(`sync payload truncated; raw_url fetch failed (${rawRes.status})`);
+      text = await rawRes.text();
+    }
+
     let payload;
-    try { payload = JSON.parse(file.content); }
-    catch { return { schemaVersion: PAYLOAD_SCHEMA_VERSION, entries: {} }; }
+    try { payload = JSON.parse(text); }
+    // A PRESENT file that won't parse is corruption/truncation, not emptiness —
+    // only an absent file (handled above) is legitimately empty.
+    catch { throw new Error("sync payload present but unparseable (possible truncation/corruption)"); }
     return parsePayload(payload) || { schemaVersion: PAYLOAD_SCHEMA_VERSION, entries: {} };
   }
 

@@ -488,3 +488,76 @@ test("integration: PAT and meta keys never leak to the Gist", async () => {
 
   engine.clearConfig();
 });
+
+// ─── Piece 2: fetchGist truncation safety (Option B) ───────────
+//
+// GitHub truncates a gist file's inline `content` past ~1 MB (sets
+// truncated:true + raw_url). The old fetchGist JSON.parse'd the partial
+// content, threw, and silently returned an EMPTY payload — which makes
+// doSync keep local + re-push, stopping cross-device reconciliation for
+// ALL data with no error. These cover the recover-via-raw_url path and the
+// loud-failure paths.
+
+function mkRes(status, bodyObj, rawText, etag) {
+  const h = new Map();
+  if (etag) h.set("etag", etag);
+  return {
+    status,
+    ok: status >= 200 && status < 300,
+    headers: { get: (k) => h.get(k.toLowerCase()) || null },
+    async json() { return bodyObj; },
+    async text() { return rawText != null ? rawText : JSON.stringify(bodyObj); },
+  };
+}
+
+const RAW_URL = "https://gist.githubusercontent.com/raw/abc";
+
+test("Piece 2: truncated gist file recovers full payload via raw_url", async () => {
+  const full = { schemaVersion: 1, entries: { "mc-9.9.9-0": { value: "{\"x\":1}", ts: "2026-06-01T00:00:00.000Z" } } };
+  let patch = 0;
+  const fetchFn = async (url, opts = {}) => {
+    const method = (opts.method || "GET").toUpperCase();
+    if (url === RAW_URL) return mkRes(200, null, JSON.stringify(full));
+    if (method === "PATCH") { patch++; return mkRes(200, { id: "g", files: {} }, null, 'W/"2"'); }
+    return mkRes(200, { id: "g", files: { "secplus-sync.json": { truncated: true, raw_url: RAW_URL, content: '{"schemaVersion":1,"entr' } } }, null, 'W/"1"');
+  };
+  const storage = makeStorage();
+  const engine = createEngine({ storage, fetchFn });
+  const status = await engine.setConfig({ pat: "t", gistId: "g" });
+  assert.equal(status.lastError, null, "recovery path must not record an error");
+  assert.equal(storage.getItem("mc-9.9.9-0"), "{\"x\":1}", "recovered remote entry applied locally");
+  engine.clearConfig();
+});
+
+test("Piece 2: truncated + raw_url fetch fails -> loud lastError, gist not clobbered", async () => {
+  let patch = 0;
+  const fetchFn = async (url, opts = {}) => {
+    const method = (opts.method || "GET").toUpperCase();
+    if (url === RAW_URL) return mkRes(500, null, "upstream error");
+    if (method === "PATCH") { patch++; return mkRes(200, { id: "g", files: {} }, null, 'W/"2"'); }
+    return mkRes(200, { id: "g", files: { "secplus-sync.json": { truncated: true, raw_url: RAW_URL, content: "partial" } } }, null, 'W/"1"');
+  };
+  const storage = makeStorage();
+  const engine = createEngine({ storage, fetchFn });
+  await engine.setConfig({ pat: "t", gistId: "g" });
+  const status = engine.getStatus();
+  assert.match(status.lastError || "", /truncated/i, "must surface a loud truncation error");
+  assert.equal(patch, 0, "must NOT push a local-only payload over an unreadable remote");
+  engine.clearConfig();
+});
+
+test("Piece 2: present-but-unparseable content -> loud lastError, not silent-empty", async () => {
+  let patch = 0;
+  const fetchFn = async (url, opts = {}) => {
+    const method = (opts.method || "GET").toUpperCase();
+    if (method === "PATCH") { patch++; return mkRes(200, { id: "g", files: {} }, null, 'W/"2"'); }
+    return mkRes(200, { id: "g", files: { "secplus-sync.json": { truncated: false, content: "{not valid json" } } }, null, 'W/"1"');
+  };
+  const storage = makeStorage();
+  const engine = createEngine({ storage, fetchFn });
+  await engine.setConfig({ pat: "t", gistId: "g" });
+  const status = engine.getStatus();
+  assert.match(status.lastError || "", /unparseable/i, "present-but-broken content is corruption, not emptiness");
+  assert.equal(patch, 0, "must NOT clobber the gist when remote is unreadable");
+  engine.clearConfig();
+});

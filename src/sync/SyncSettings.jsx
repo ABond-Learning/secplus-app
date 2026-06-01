@@ -47,7 +47,7 @@ function formatTime(iso) {
 
 export function deriveHealth(status) {
   if (!status || !status.enabled) return { color: "#64748b", label: "Disabled" };
-  if (status.lastError && /auth failed|gist not found/i.test(status.lastError)) {
+  if (status.lastError && /auth failed|gist not found|truncated|unparseable|payload too large/i.test(status.lastError)) {
     return { color: "#ef4444", label: `Error — ${status.lastError}` };
   }
   if (!status.lastSuccessAt) {
