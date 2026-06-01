@@ -40,14 +40,18 @@ test("isTracked covers all SY0-701 SM-2 prefixes", () => {
   assert.equal(isTracked("secplus-v4"), true);
 });
 
-test("isTracked covers weakness- prefix (added 2026-05-22)", () => {
-  assert.equal(isTracked("weakness-mc-2.4.1-7-1716372345678"), true);
-  assert.equal(isTracked("weakness-match-3.2.5-2-1716372389001"), true);
-  assert.equal(isTracked("weakness-cram-1.1.3-12-1716372401234"), true);
+// Deliberate inversion (Option B Piece 1, 2026-06-01): weakness- was tracked +
+// synced cross-device (added 2026-05-22). It is now LOCAL_ONLY — per-attempt
+// records are unbounded and threatened the synced Gist payload's truncation
+// threshold. These two tests previously asserted the opposite; flipped on purpose.
+test("isTracked EXCLUDES weakness- prefix (reclassified LOCAL_ONLY 2026-06-01)", () => {
+  assert.equal(isTracked("weakness-mc-2.4.1-7-1716372345678"), false);
+  assert.equal(isTracked("weakness-match-3.2.5-2-1716372389001"), false);
+  assert.equal(isTracked("weakness-cram-1.1.3-12-1716372401234"), false);
 });
 
-test("isLocalOnly: weakness- prefix is NOT local-only (syncs cross-device)", () => {
-  assert.equal(isLocalOnly("weakness-mc-2.4.1-7-1716372345678"), false);
+test("isLocalOnly: weakness- prefix IS local-only (does not sync; export/import only)", () => {
+  assert.equal(isLocalOnly("weakness-mc-2.4.1-7-1716372345678"), true);
 });
 
 test("isTracked covers sybex- prefix (added 2026-05-25, Task 1g.0)", () => {
@@ -182,19 +186,29 @@ test("mergeEntries: drops LOCAL_ONLY keys injected via remote (defence)", () => 
   assert.deepEqual(Object.keys(merged), ["mc-1.1.1-0"]);
 });
 
-test("mergeEntries: weakness- records merge per-key last-write-wins (append-only key uniqueness)", () => {
-  // Keys are unique per attempt (timestamped) so genuine cross-device
-  // collision on the same key is rare. When it happens (e.g. clock skew
-  // producing identical ms), the standard per-key max-ts merge applies.
-  const local  = { "weakness-mc-2.4.1-7-1716372345678": { value: '{"correct":true,"ts":1716372345678}', ts: T1 } };
-  const remote = { "weakness-mc-2.4.1-7-1716372345678": { value: '{"correct":false,"ts":1716372345678}', ts: T2 } };
+// Deliberate inversion (Option B Piece 1, 2026-06-01): this test previously
+// asserted weakness- records merge + survive (they were tracked). Now that
+// weakness- is LOCAL_ONLY, mergeEntries DROPS them via its isTracked guard — and
+// THAT is the automatic prune mechanism: a new-bundle device's push carries the
+// merged set (no weakness-), wholesale-replacing the Gist content sans weakness-.
+test("mergeEntries: drops weakness- from BOTH local and remote (auto-prune mechanism)", () => {
+  const local  = { "weakness-mc-2.4.1-7-1000": { value: "A", ts: T1 }, "mc-1.1.1-0": { value: "keep", ts: T1 } };
+  const remote = { "weakness-mc-2.4.1-7-2000": { value: "B", ts: T2 }, "scen-1.2.3-0": { value: "keep2", ts: T2 } };
   const merged = mergeEntries(local, remote);
-  assert.equal(merged["weakness-mc-2.4.1-7-1716372345678"].value, '{"correct":false,"ts":1716372345678}');
-  // Distinct timestamps in the key produce distinct entries; both kept.
-  const localTwo  = { "weakness-mc-2.4.1-7-1000": { value: "A", ts: T1 } };
-  const remoteTwo = { "weakness-mc-2.4.1-7-2000": { value: "B", ts: T1 } };
-  const mergedTwo = mergeEntries(localTwo, remoteTwo);
-  assert.deepEqual(Object.keys(mergedTwo).sort(), ["weakness-mc-2.4.1-7-1000", "weakness-mc-2.4.1-7-2000"]);
+  // Both the local and the remote-leaked weakness- entries are dropped; only the
+  // genuinely-tracked SM-2 keys survive. This is what cleans the Gist on next push.
+  assert.deepEqual(Object.keys(merged).sort(), ["mc-1.1.1-0", "scen-1.2.3-0"]);
+});
+
+test("scanTrackedKeys: excludes weakness- so it never enters buildPayload (new-bundle payload is weakness-clean)", () => {
+  const storage = {
+    _d: { "weakness-mc-2.4.1-7-1000": "x", "mc-1.1.1-0": "v1", "scen-1.2.3-0": "v2", "anki-deck-1": "ignore" },
+    get length() { return Object.keys(this._d).length; },
+    key(i) { return Object.keys(this._d)[i]; },
+    getItem(k) { return this._d[k] ?? null; },
+  };
+  const tracked = scanTrackedKeys(storage);
+  assert.deepEqual(Object.keys(tracked).sort(), ["mc-1.1.1-0", "scen-1.2.3-0"]);
 });
 
 test("mergeEntries: handles many keys, mixed ownership", () => {

@@ -19,6 +19,13 @@ export const LOCAL_ONLY = [
   { kind: "exact", value: "secplus-last-backup-at" },
   { kind: "exact", value: "secplus-backup-banner-snooze-until" },
   { kind: "exact", value: "secplus-v4-exam-session" },
+  // weakness- reclassified LOCAL_ONLY 2026-06-01 (Option B Piece 1). Per-attempt
+  // weakness records are unbounded and were growing the synced Gist payload without
+  // limit, risking the ~1 MB content-truncation threshold (→ silent sync breakage for
+  // ALL data). They stay local; cross-device movement is via export/import (Q-F-1).
+  // Reclassifying stops future pushes; already-pushed records are pruned automatically
+  // by mergeEntries' isTracked-drop on the next push from a new-bundle device.
+  { kind: "prefix", value: "weakness-" },
 ];
 
 export const PAYLOAD_SCHEMA_VERSION = 1;
