@@ -685,9 +685,33 @@ here; 1g.3 closure note in Report-#0025 documents the final ship.
 
 ## Task 1h — Weakness-tracker (promoted from 1f sub-bullet, 2026-05-25)
 
-**Status: IN PROGRESS.** Commits 1+2 shipped (`829898f` sync-engine TRACKED_PREFIXES + 4
-tests; `0b831ba` recordWeakness helper + 5 call-site writes + Fix A stale-closure
-resolution, 15 unit tests PASS). Commits 3-8 pending.
+**Status: IN PROGRESS.** Commits 1-3 shipped + Option B sync-hardening shipped (gate
+CLEARED). Commits 4, 6, 7 pending; commit 5 now UNBLOCKED.
+- Commit 1 (`829898f`) — sync-engine TRACKED_PREFIXES + 4 tests.
+- Commit 2 (`0b831ba`) — recordWeakness helper + 5 call-site writes + Fix A stale-closure
+  resolution, 15 unit tests.
+- Commit 3 (`f7de013`, 2026-06-01) — **ConfidenceRater UI**: 4-button pre-check confidence
+  (q/w/e/r → 0..3 = no idea/guessed/fairly sure/certain, per signed-off Q-B-3 `9c5df20`,
+  NOT the stale 3-button PLAN text), optional/skippable, captured before Check, written to
+  the `weakness-` record (matching + exam stay null by design). Also closed an inherited CI
+  gap: `package.json` test glob now includes `src/study/__tests__/` — commit-2's 15 tests
+  weren't being enforced between `0b831ba` and `f7de013`. Report-#0026.
+- **Option B sync-hardening (2026-06-01)** — surfaced while scoping commit 5: `weakness-`
+  was live-syncing unbounded per-attempt records into the Gist with no cap, risking the
+  ~1 MB content-truncation threshold (→ silent sync breakage for ALL data). Two pieces:
+  - Piece 2 (`5c0ed41`, ungated) — `fetchGist` truncation safety: on `truncated`, recover
+    via `raw_url`; on unrecoverable, throw a loud `lastError` instead of the old
+    silent-empty; `deriveHealth` red-regex extended. Report-#0027.
+  - Piece 1 (`4a64a51`, GATED, shipped alone) — `weakness-` reclassified `LOCAL_ONLY`:
+    stops live-syncing it; already-pushed records pruned automatically by `mergeEntries`'
+    isTracked-drop on next push (local copies kept). Four old-behaviour tests inverted.
+    Report-#0028.
+  - **Three-part gate CLEARED 2026-06-01:** all devices hard-reloaded onto the new bundle +
+    confirmed green; Gist `a580a7dbcda2957a28de0f89881b5586` verified weakness-clean (0
+    weakness- keys; payload holds only `secplus-v4` + `secplus-v4-customise-last`).
+- **Behavioural consequence:** weakness records are now **local-only per device** until
+  commit 5 (import/export) ships — that IS the designed Q-F cross-device path for weakness
+  data now that live-sync is off.
 
 **Purpose.** Per-attempt diagnostic data capture for study sessions. Records: question ID,
 objective code, answer, correctness, time on question, confidence rating (planned),
@@ -697,16 +721,25 @@ prior_sm2 state at write time, timestamp.
 Gates the metacognitive features deferred behind the Task 2 ship. Was buried as a 1f
 sub-bullet but deserves its own slot given scope.
 
-**Pre-work for commit 3.** Verify no `q`/`w`/`e`/`r` keyboard collision with existing
-handlers before the ConfidenceRater UI ships (carried forward from supervisor sign-off note
-`9c5df20`; see `project_weakness_tracker_commit_3_keyboard_check`).
+**Commit ledger:** commit 3 ConfidenceRater UI ✅ (`f7de013`); commit 4 pause-on-blur
+Q-C-3 (pending); **commit 5 import-export Q-F-1 (NEXT, now unblocked)** — extends
+export/import to include `weakness-` records; this is weakness data's cross-device
+mechanism now that live-sync is off (Piece 1); commit 6 SCHEMA + docs (pending); commit 7
+Report-#NNNN (pending). (The q/w/e/r keyboard pre-work for commit 3 is done — pre-flight
+confirmed no collision, shipped in `f7de013`.)
 
-**Commits 3-8:** ConfidenceRater UI (commit 3), pause-on-blur Q-C-3 (commit 4),
-import-export Q-F-1 (commit 5), SCHEMA + docs (commit 6), Report-#NNNN (commit 7), final
-integration (commit 8).
+**Next-session carry-forwards:**
+- **`deriveHealth` → `sync-health.js` extraction** — move `deriveHealth` + `formatTime`
+  out of `SyncSettings.jsx` into a plain `.js` so `node --test` can unit-test the health
+  logic (Piece 2's red-regex is currently covered only transitively). Queued for commit
+  6's slot; not built.
+- **Confidence-rating-rate review** — after ~3-5 real study sessions, query the fraction
+  of `weakness-` records carrying a `confidence` value to decide whether the optional
+  rating needs a soft nudge. Study-surfaced decision; nothing built speculatively.
 
-**Sync.** TRACKED_PREFIXES already includes `"weakness-"` (commit 1 shipped this).
-Interleaves with audit work; not gated by Audit D closure.
+**Sync.** `"weakness-"` is in TRACKED_PREFIXES (commit 1) BUT reclassified `LOCAL_ONLY`
+(Option B Piece 1, `4a64a51`) — so it does NOT sync cross-device; export/import (commit 5)
+is its cross-device path. Interleaves with audit work; not gated by Audit D closure.
 
 ## Task 2 — Mode consolidation (in flight)
 
