@@ -4,7 +4,7 @@ import SyncSettings, { deriveHealth } from "./sync/SyncSettings.jsx";
 import { getStatus as getSyncStatus, subscribe as subscribeSync } from "./sync/sync-engine.js";
 import { buildPool } from "./study/buildPool.js";
 import CustomiseDrawer from "./study/CustomiseDrawer.jsx";
-import { recordWeakness as recordWeaknessRaw } from "./study/weakness.js";
+import { recordWeakness as recordWeaknessRaw, CONFIDENCE_LABELS, CONFIDENCE_KEYS, confidenceFromKey } from "./study/weakness.js";
 import { mcKey, scenKey, matchKey } from "./sm2-keys.js";
 
 // ─── DATA LIVES IN questions.json ──────────────────────────────
@@ -1327,6 +1327,10 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   const [showResults, setShowResults] = useState(false);
   const [resultData, setResultData] = useState(null);
   const [optionsRevealed, setOptionsRevealed] = useState(false);
+  // Pre-check confidence rating for the current question (Q-B-3): integer
+  // 0..3 or null when not yet rated / skipped. Captured before Check, written
+  // onto the weakness- record at rating time, reset per-question below.
+  const [confidenceForCurrent, setConfidenceForCurrent] = useState(null);
   // Per-item snapshot of matching-pair scores captured at onNext, keyed by
   // quizQ index: { [idx]: { correct, total } }. A ref (not state) because
   // finishQuiz needs to read the latest score synchronously after onNext
@@ -1348,6 +1352,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   // Reset weakness timing refs in the same effect.
   useEffect(() => {
     setOptionsRevealed(false);
+    setConfidenceForCurrent(null);
     questionDisplayedAtRef.current = Date.now();
     wasInterruptedRef.current = false;
   }, [idx]);
@@ -1358,7 +1363,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   //   N / →= next question (after rating, but rating auto-advances, so N is a fallback)
   // Refs keep the listener callback reading current state without re-subscribing.
   const kbdRef = useRef({});
-  kbdRef.current = { mode, quizQ, idx, answers, showExp, sessionMode, activeRecall: sessionActiveRecall, optionsRevealed, onCancel };
+  kbdRef.current = { mode, quizQ, idx, answers, showExp, sessionMode, activeRecall: sessionActiveRecall, optionsRevealed, confidenceForCurrent, onCancel };
   useEffect(() => {
     function handler(e) {
       const ctx = kbdRef.current;
@@ -1413,13 +1418,21 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
             timeToAnswerMs: computeTimeToAnswerMs(),
             objectiveCode: q.subObjective || (q.videoId ? q.videoId.split(".").slice(0, 2).join(".") : null),
             mode: ctx.sessionMode || "quiz",
-            confidence: null, // UI ships in commit 3
+            confidence: ctx.confidenceForCurrent,
             interrupted: wasInterruptedRef.current,
           });
           setShowExp(false);
           if (ctx.idx + 1 >= ctx.quizQ.length) finishQuiz();
           else setIdx(ctx.idx + 1);
         }
+      } else if (!ctx.showExp && ctx.answers[ctx.idx] !== undefined && confidenceFromKey(key) !== null) {
+        // Pre-check confidence rating (q/w/e/r -> 0/1/2/3). Only active once an
+        // option is selected and before Check, matching the visible rater row.
+        // setState identity is stable, so calling it from this mount-time
+        // listener is safe — the value is read back off ctx (the live kbdRef)
+        // at write time, never from a stale closure (Fix A).
+        e.preventDefault();
+        setConfidenceForCurrent(confidenceFromKey(key));
       } else if (key === "Enter") {
         if (!ctx.showExp && ctx.answers[ctx.idx] !== undefined) {
           e.preventDefault();
@@ -1438,7 +1451,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
           timeToAnswerMs: computeTimeToAnswerMs(),
           objectiveCode: q.subObjective || (q.videoId ? q.videoId.split(".").slice(0, 2).join(".") : null),
           mode: ctx.sessionMode || "quiz",
-          confidence: null,
+          confidence: ctx.confidenceForCurrent,
           interrupted: wasInterruptedRef.current,
         });
         setShowExp(false);
@@ -1571,7 +1584,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
                   <>Shortcuts: <kbd style={kbdStyle}>Space</kbd>/<kbd style={kbdStyle}>Enter</kbd> reveal options</>
                 ) : (
                   <>Shortcuts: <kbd style={kbdStyle}>1</kbd>–<kbd style={kbdStyle}>4</kbd> select ·{" "}
-                  <kbd style={kbdStyle}>Enter</kbd> check{checked ? <> · <kbd style={kbdStyle}>1</kbd>–<kbd style={kbdStyle}>4</kbd> rate</> : null}</>
+                  <kbd style={kbdStyle}>Enter</kbd> check{checked ? <> · <kbd style={kbdStyle}>1</kbd>–<kbd style={kbdStyle}>4</kbd> rate</> : <> · <kbd style={kbdStyle}>q</kbd>/<kbd style={kbdStyle}>w</kbd>/<kbd style={kbdStyle}>e</kbd>/<kbd style={kbdStyle}>r</kbd> confidence</>}</>
                 )}
               </div>
               {hideOptions ? (
@@ -1608,6 +1621,9 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
             </>
           );
         })()}
+        {!checked && selected !== undefined && (
+          <ConfidenceRater value={confidenceForCurrent} onChange={setConfidenceForCurrent} />
+        )}
         {showExp && (
           <>
             <div style={styles.explanation}>
@@ -1645,7 +1661,7 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
                     timeToAnswerMs: computeTimeToAnswerMs(),
                     objectiveCode: q.subObjective || (q.videoId ? q.videoId.split(".").slice(0, 2).join(".") : null),
                     mode: sessionMode || "quiz",
-                    confidence: null,
+                    confidence: confidenceForCurrent,
                     interrupted: wasInterruptedRef.current,
                   });
                   setShowExp(false);
@@ -1707,6 +1723,47 @@ function QuizTab({ sections, watchedVideos, store, recordResult, recordRating, r
   }
 
   return null;
+}
+
+// Pre-check confidence rater (Q-B-3). Four buttons rendered left-to-right in
+// CONFIDENCE_KEYS order (q/w/e/r -> 0/1/2/3); skippable. Styled lighter than
+// the answer options so it doesn't read as a fifth choice. Clicking the
+// active button clears the rating (skip-after-misclick).
+function ConfidenceRater({ value, onChange }) {
+  const keyChars = Object.keys(CONFIDENCE_KEYS);
+  return (
+    <div style={{ marginTop: 14 }}>
+      <div style={{ fontSize: 12, color: "#94a3b8", marginBottom: 6 }}>
+        How confident are you? <span style={{ color: "#64748b" }}>(optional)</span>
+      </div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        {CONFIDENCE_LABELS.map((label, ci) => {
+          const active = value === ci;
+          return (
+            <button
+              key={ci}
+              onClick={() => onChange(active ? null : ci)}
+              style={{
+                flex: "1 1 90px",
+                padding: "8px 10px",
+                background: active ? "#1e3a5f" : "#0f172a",
+                color: active ? "#bfdbfe" : "#94a3b8",
+                border: active ? "2px solid #3b82f6" : "1px solid #334155",
+                borderRadius: 8,
+                cursor: "pointer",
+                fontSize: 13,
+                fontWeight: active ? 700 : 500,
+                textAlign: "center",
+              }}
+            >
+              <span style={{ color: "#64748b", fontWeight: 700, marginRight: 6, fontSize: 11 }}>{keyChars[ci]}</span>
+              {label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 function MatchingQuestion({ q, matchAnswers, setMatchAnswers, showExp, onCheck, onNext, onCancel }) {

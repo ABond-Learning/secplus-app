@@ -13,6 +13,27 @@
 
 const WEAKNESS_PREFIX = "weakness-";
 
+// Confidence scale (Q-B-3, signed off in 9c5df20): a 4-button metacognitive
+// self-assessment captured BEFORE the answer is checked, stored as integer
+// 0..3 (higher = more confident). Keys + labels render left-to-right so key
+// position matches value: q=no idea(0), w=guessed(1), e=fairly sure(2),
+// r=certain(3). Pure data + a pure mapper so the keyboard wiring is testable
+// without a DOM.
+export const CONFIDENCE_LABELS = ["no idea", "guessed", "fairly sure", "certain"];
+export const CONFIDENCE_KEYS = { q: 0, w: 1, e: 2, r: 3 };
+
+// Map a single keystroke to a confidence integer, or null when the key isn't
+// a confidence key. Case-insensitive on the four single-char keys; anything
+// else (numbers, "Enter", "ArrowRight", …) returns null so callers can use
+// it as a guard inside a shared keydown handler.
+export function confidenceFromKey(key) {
+  if (typeof key !== "string" || key.length !== 1) return null;
+  const lower = key.toLowerCase();
+  return Object.prototype.hasOwnProperty.call(CONFIDENCE_KEYS, lower)
+    ? CONFIDENCE_KEYS[lower]
+    : null;
+}
+
 export function weaknessKey(questionId, ts) {
   return `${WEAKNESS_PREFIX}${questionId}-${ts}`;
 }

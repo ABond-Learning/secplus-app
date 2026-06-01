@@ -4,7 +4,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { weaknessKey, hasAnyWeaknessRecordFor, buildWeaknessRecord, recordWeakness } from "../weakness.js";
+import { weaknessKey, hasAnyWeaknessRecordFor, buildWeaknessRecord, recordWeakness, confidenceFromKey, CONFIDENCE_KEYS, CONFIDENCE_LABELS } from "../weakness.js";
 
 // Web-Storage-like fake (mirrors the sync-engine test pattern).
 function makeStorage(initial = {}) {
@@ -201,4 +201,59 @@ test("recordWeakness: returns null when storage is null (defensive)", () => {
     objectiveCode: "1.1", mode: "quiz",
   }, { storage: null, store: { sm2: {} }, now: () => 1000 });
   assert.equal(r, null);
+});
+
+// ─── confidence scale (Q-B-3) ──────────────────────────────────
+
+test("confidenceFromKey: q/w/e/r map to 0/1/2/3", () => {
+  assert.equal(confidenceFromKey("q"), 0);
+  assert.equal(confidenceFromKey("w"), 1);
+  assert.equal(confidenceFromKey("e"), 2);
+  assert.equal(confidenceFromKey("r"), 3);
+});
+
+test("confidenceFromKey: case-insensitive on the four keys", () => {
+  assert.equal(confidenceFromKey("Q"), 0);
+  assert.equal(confidenceFromKey("R"), 3);
+});
+
+test("confidenceFromKey: non-confidence keys return null (handler guard)", () => {
+  for (const k of ["1", "2", "4", "Enter", "ArrowRight", "n", "p", "f", " ", "Escape", "t", ""]) {
+    assert.equal(confidenceFromKey(k), null, `expected null for ${JSON.stringify(k)}`);
+  }
+});
+
+test("confidenceFromKey: non-string / multi-char input returns null", () => {
+  assert.equal(confidenceFromKey(undefined), null);
+  assert.equal(confidenceFromKey(null), null);
+  assert.equal(confidenceFromKey("qq"), null);
+});
+
+test("confidence scale: keys, labels, and mapping are mutually consistent", () => {
+  // Render order (CONFIDENCE_LABELS index) must equal the stored value, and
+  // each key must map to its own position — guards against a future edit that
+  // reorders labels without reordering keys (key position != value bug).
+  assert.equal(CONFIDENCE_LABELS.length, 4);
+  Object.entries(CONFIDENCE_KEYS).forEach(([key, value]) => {
+    assert.equal(confidenceFromKey(key), value);
+    assert.ok(CONFIDENCE_LABELS[value] !== undefined, `label exists for value ${value}`);
+  });
+  assert.deepEqual([...Object.values(CONFIDENCE_KEYS)].sort(), [0, 1, 2, 3]);
+});
+
+test("buildWeaknessRecord: confidence 0 (no idea) is written, not omitted as falsy", () => {
+  // 0 is the lowest-confidence value, NOT "skipped" — the helper must keep it.
+  const r = buildWeaknessRecord({
+    questionId: "mc-1.1.1-0", ts: 1000, correct: false, answerChosen: 1,
+    timeToAnswerMs: 500, objectiveCode: "1.1", mode: "quiz", confidence: 0,
+  });
+  assert.equal(r.confidence, 0);
+});
+
+test("buildWeaknessRecord: confidence null (skipped) is omitted", () => {
+  const r = buildWeaknessRecord({
+    questionId: "mc-1.1.1-0", ts: 1000, correct: true, answerChosen: 2,
+    timeToAnswerMs: 500, objectiveCode: "1.1", mode: "quiz", confidence: null,
+  });
+  assert.ok(!("confidence" in r));
 });

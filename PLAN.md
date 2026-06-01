@@ -836,11 +836,20 @@ priorities then; do NOT pull any of these into Task 2 mid-flight.
 
 #### 1. Confidence rating before checking answer (highest leverage)
 
-- Three-button row between option-select and Check Answer:
-  certain / probably / guessing.
-- Stored on the SM-2 record alongside correctness (additive
-  field; no schemaVersion bump per Q-I; spread-merge invariant
-  preserved).
+- **SHIPPED as Task 1h commit 3 (4-button scale).** This bullet
+  originally proposed a *three*-button row (certain / probably /
+  guessing); the weakness-tracker scoping superseded that during
+  Q-B adjudication. The **live decision is the 4-button scale**
+  signed off in `9c5df20` (scoping Q-B-3): a row between
+  option-select and Check Answer with
+  **no idea / guessed / fairly sure / certain**, stored as integer
+  0..3 (higher = more confident), keys `q`/`w`/`e`/`r` → 0/1/2/3,
+  skippable. Do not re-cite the stale three-button text.
+- Stored on the append-only `weakness-` record alongside
+  correctness (NOT the SM-2 record — see
+  `src/study/weakness.js` + SCHEMA.md §weakness records). Additive
+  field; no schemaVersion bump; `weakness-` already a TRACKED_PREFIX,
+  so no sync change.
 - Cross-reference produces calibration data:
   - confident-and-wrong → misconception (knowing something
     incorrectly; no other tool surfaces this).
