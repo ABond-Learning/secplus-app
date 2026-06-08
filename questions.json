@@ -1741,7 +1741,9 @@
               "chapter_level_only": true,
               "chapter": 9
             },
-            "sourceProvenance": "sybex-chapter"
+            "sourceProvenance": "sybex-chapter",
+            "suppressed": true,
+            "suppressionReason": "figure-dependent: unanswerable as text without the book figure (Tier A, 2026-06-08 scan)"
           },
           {
             "q": "Mike wants to stop vehicles from traveling toward the entrance of his building. What physical security control should he implement?",
@@ -13249,7 +13251,9 @@
               "chapter_level_only": true,
               "practice_exam": 2
             },
-            "sourceProvenance": "sybex-practice-exam"
+            "sourceProvenance": "sybex-practice-exam",
+            "suppressed": true,
+            "suppressionReason": "figure-dependent: unanswerable as text without the book figure (Tier A, 2026-06-08 scan)"
           },
           {
             "q": "Ron receives a notification that computers throughout his organization have begun to display a message demanding that money be paid in Bitcoin to allow restoration of access to important business documents and other files. What type of malware often uses this type of behavior?",
@@ -17123,7 +17127,9 @@
               "chapter_level_only": true,
               "practice_exam": 1
             },
-            "sourceProvenance": "sybex-practice-exam"
+            "sourceProvenance": "sybex-practice-exam",
+            "suppressed": true,
+            "suppressionReason": "figure-dependent: unanswerable as text without the book figure (Tier A, 2026-06-08 scan)"
           },
           {
             "q": "What term best describes data that is in the memory of a computer system?",
@@ -17231,7 +17237,9 @@
               "chapter_level_only": true,
               "practice_exam": 2
             },
-            "sourceProvenance": "sybex-practice-exam"
+            "sourceProvenance": "sybex-practice-exam",
+            "suppressed": true,
+            "suppressionReason": "figure-dependent: unanswerable as text without the book figure (Tier A, 2026-06-08 scan)"
           }
         ],
         "scenarios": []
@@ -20875,7 +20883,9 @@
               "chapter_level_only": true,
               "chapter": 5
             },
-            "sourceProvenance": "sybex-chapter"
+            "sourceProvenance": "sybex-chapter",
+            "suppressed": true,
+            "suppressionReason": "figure-dependent: unanswerable as text without the book figure (Tier A, 2026-06-08 scan)"
           },
           {
             "q": "Which one of the following tools is most likely to detect an XSS vulnerability?",
@@ -24682,7 +24692,9 @@
               "chapter_level_only": true,
               "chapter": 14
             },
-            "sourceProvenance": "sybex-chapter"
+            "sourceProvenance": "sybex-chapter",
+            "suppressed": true,
+            "suppressionReason": "figure-dependent: unanswerable as text without the book figure (Tier A, 2026-06-08 scan)"
           },
           {
             "q": "Which team member acts as a primary conduit to senior management on an IR team?",

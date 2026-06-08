@@ -866,7 +866,7 @@ function ProgressTab({ sections, store, watchedSet, toggleWatched, onExport, onI
 
   const allVids = getAllVideos(sections);
   const watched = [...watchedSet];
-  const totalQ = allVids.reduce((n, v) => n + v.questions.length, 0);
+  const totalQ = allVids.reduce((n, v) => n + v.questions.filter(q => !q.suppressed).length, 0);
 
   // "Due for Review" = questions you've attempted at least once whose next
   // review date has arrived or passed. New questions (never attempted) are
@@ -887,9 +887,11 @@ function ProgressTab({ sections, store, watchedSet, toggleWatched, onExport, onI
     sec.videos.forEach(v => {
       if (!watchedSet.has(v.id)) return;
       v.questions.forEach((q, qi) => {
+        if (q.suppressed) return;
         if (!store.sm2[mcKey(v.id, qi, q)]) newToPractice++;
       });
       (v.scenarios || []).forEach((q, qi) => {
+        if (q.suppressed) return;
         if (!store.sm2[scenKey(v.id, qi, q)]) newToPractice++;
       });
       if (v.matching && v.matching.length > 0) {
@@ -1078,7 +1080,7 @@ function DomainAccuracyCard({ sections, store, watchedSet }) {
       videoMeta[v.id] = { title: v.title, section: sec.label };
       if (!stats[d]) return;
       if (watchedSet.has(v.id)) {
-        stats[d].available += v.questions.length + ((v.scenarios || []).length);
+        stats[d].available += v.questions.filter(q => !q.suppressed).length + ((v.scenarios || []).filter(q => !q.suppressed).length);
       }
     });
   });
@@ -2116,8 +2118,8 @@ function ExamTab({ watchedVideos, store, recordResult, recordWeakness, recordSes
     watchedVideos.forEach(v => {
       const d = v.id.split(".")[0];
       if (!byDomain[d]) return;
-      v.questions.forEach((q, qi) => byDomain[d].push({ ...q, videoId: v.id, videoTitle: v.title, qi }));
-      (v.scenarios || []).forEach((q, qi) => byDomain[d].push({ ...q, videoId: v.id, videoTitle: v.title, qi, isScenario: true }));
+      v.questions.forEach((q, qi) => { if (q.suppressed) return; byDomain[d].push({ ...q, videoId: v.id, videoTitle: v.title, qi }); });
+      (v.scenarios || []).forEach((q, qi) => { if (q.suppressed) return; byDomain[d].push({ ...q, videoId: v.id, videoTitle: v.title, qi, isScenario: true }); });
     });
 
     const totalAvail = Object.values(byDomain).reduce((n, arr) => n + arr.length, 0);

@@ -77,9 +77,13 @@ export function buildPool({
   const types = new Set(f.questionTypes);
   let pool = [];
 
+  // Suppressed items (e.g. figure-dependent Sybex MCs unanswerable as text) are
+  // skipped here. The `return` preserves `qi` for surviving items so their
+  // content/position-derived SM-2 keys are unchanged — do NOT filter-then-index.
   if (types.has("mc")) {
     scope.forEach(v => {
       v.questions.forEach((q, qi) => {
+        if (q.suppressed) return;
         pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc" });
       });
     });
@@ -87,6 +91,7 @@ export function buildPool({
   if (types.has("scen")) {
     scope.forEach(v => {
       (v.scenarios || []).forEach((q, qi) => {
+        if (q.suppressed) return;
         pool.push({ ...q, videoId: v.id, videoTitle: v.title, qi, type: "mc", isScenario: true });
       });
     });

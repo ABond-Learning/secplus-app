@@ -63,6 +63,8 @@ Field | Required | Type | Rule
 `opts` | yes | string[] | Exactly 4 options.
 `a` | yes | integer | 0-based index of the correct option, in range `[0, opts.length)`.
 `exp` | yes | string | Explanation. Quality Rule 3: ≥40 chars, includes reasoning.
+`suppressed` | optional | boolean | When `true`, the item is excluded from every served pool (Quiz/Flashcards/Review/Drill via `buildPool()`, the exam simulator, and availability counts) while remaining in the file. A reversible soft-retire — remove the field to restore. The record (`q`/`opts`/`a`/`exp`/`sybex_reference`) is left intact and its SM-2 key is unchanged. First used 2026-06-08 to retire 6 figure-dependent Sybex MCs that are unanswerable as text. Applies to scenarios too (same `video.scenarios[]` shape).
+`suppressionReason` | optional | string | Free-text provenance for a `suppressed` item. Tooling/audit metadata only; not shown in the UI. Co-present with `suppressed` by convention.
 
 ## Scenario
 
