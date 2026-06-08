@@ -1,3 +1,13 @@
+# Where Things Stand — 2026-06-08 (two docs/content commits shipped; Task 1h commit 5 still next)
+
+> **2026-06-08 — Tier A Sybex suppression + SSH/push environment recorded. Two commits, both on `main` (live):**
+> - **`8d38ddb` — Tier A figure-dependent Sybex suppression.** 6 Sybex MC items that reference a book figure not carried into the fold-in (unanswerable as text) flagged `suppressed: true` + `suppressionReason` — **flag-not-delete, reversible** (record + SM-2 key intact). New `suppressed` field documented in SCHEMA.md; `buildPool()` + `startExam()` + the 3 availability counters skip it. **Proven excluded** by a durable test (positive control: pool 1376→1370, delta exactly 6, content-keyed). Validator 0err/4warn, 82 tests pass, build green; deployed green. Keys: `sybex-mc-ch09-q19 / -pe02-q26 / -pe01-q85 / -pe02-q70 / -ch05-q8 / -ch14-q1`. **Figure-dependent items remain a known defect class; the flag mechanism is now in place to retire new instances the same way.** Report-#0029.
+> - **`82d95c0` — SSH/push environment recorded in CLAUDE.md** (new "Git / Push Environment" section). Push 403 resolved: this repo now pushes over **SSH** as personal account **ABond-Learning** (`git@github.com:ABond-Learning/secplus-app.git`, `~/.ssh/id_ed25519`), per-repo author Aiden Bond / ABond-Learning noreply; the work repos stay ABond-SeafordITD over HTTPS. Root cause was gh's credential helper serving the work account globally over HTTPS; SSH sidesteps the helper. Report-#0030.
+>
+> **Task 1h position UNCHANGED:** commit 5 (import/export, Q-F-1) is the live next priority — still unblocked, still pending (commits 4, 6, 7 also pending). Tonight's two commits were a content-defect cleanup + an environment note, orthogonal to the weakness-tracker arc. `npm test` 82 pass, validator 0 errors, build clean at HEAD.
+>
+> *(Supersedes the 2026-06-01 banner below.)*
+
 # Where Things Stand — 2026-06-01 (Task 1h: commit 3 + Option B sync-hardening shipped; gate CLEARED)
 
 > **2026-06-01 — Task 1h (weakness-tracker): commit 3 + Option B (Pieces 1+2) shipped; Piece 1 gate CLEARED.** Three commits today, all on `main`:
