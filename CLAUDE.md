@@ -105,6 +105,24 @@ These rules apply to EVERY new or modified question. A question that fails any o
 - `CLAUDE.md` — this file.
 - `Reports/` — per-task session reports, named `Report-#NNNN.md`. See Workflow Rule #7.
 
+## Git / Push Environment
+
+Factual environment note (recorded 2026-06-08 after a push 403 was resolved):
+
+- **This repo pushes over SSH as the personal account ABond-Learning.** Remote is
+  `git@github.com:ABond-Learning/secplus-app.git`, authenticated by the
+  `~/.ssh/id_ed25519` key — NOT gh's credential helper.
+- **Commit author is set per-repo (local config)** to `Aiden Bond` /
+  `214842127+ABond-Learning@users.noreply.github.com`. The global git identity is
+  the work account ABond-SeafordITD; the local override keeps this repo's authorship
+  on the personal account.
+- **The two work repos (`l298-freshdesk`, `papercut-ricoh-runbooks`) are a separate
+  account (ABond-SeafordITD) on HTTPS, left as-is.**
+- **Historical 403 cause:** gh's credential helper served the work account
+  (ABond-SeafordITD) globally for github.com over HTTPS, overriding the personal
+  token, so pushes to ABond-Learning/secplus-app were denied. SSH sidesteps the
+  credential helper entirely, which is why switching the remote to SSH is the fix.
+
 ## The 3-Task Plan
 
 ### Task 1 — Foundations + Content Rebalance
